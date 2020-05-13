@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title></title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, maximum-scale=1, initial-scale=1, user-scalable=no" />
+    <link href="../src/assets/sdk/third/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+
+    <!-- THEME CSS -->
+    <link href="../src/assets/sdk/third/css/essentials.css" rel="stylesheet" />
+    <link href="../src/assets/sdk/third/css/layout-dark.css" rel="stylesheet" />
+    <link href="../src/assets/sdk/third/jstree/themes/proton/style.min.css" rel="stylesheet" />
+    <link href="../src/assets/sdk/viz/ui/default.css" rel="stylesheet" type="text/css" />
+    <link href="../src/assets/sdk/third/css/jquery-ui-1.10.4.custom.css" rel="stylesheet" />
+    <link href="../src/assets/sdk/third/toolbar/jquery.toolbar.css" rel="stylesheet" />
+
+    <script src="../src/assets/sdk/third/jquery-1.10.2.min.js"></script>
+    <script src="../src/assets/sdk/third/jquery-ui.min.js"></script>
+    <script src="../src/assets/sdk/third/jquery-dialog.js"></script>
+    <script src="../src/assets/sdk/third/bootstrap.min.js"></script>
+    <script src="../src/assets/sdk/third/jstree/jstree.js"></script>
+    <script src="../src/assets/sdk/third/jquery-slider/jquery-ui-slider-pips.min.js"></script>
+    <script src="../src/assets/sdk/third/toolbar/jquery.toolbar.js"></script>
+
+    <script src="../src/assets/sdk/viz/bimviz.js"></script>
+
+    <script src="../src/assets/sdk/viz/ui/DefaultMessageControl.js"></script>
+    <script src="../src/assets/sdk/viz/ui/DefaultToolBar.js"></script>
+    <script src="../src/assets/sdk/viz/ui/DefaultPropertyControl.js"></script>
+    <style>
+      .btn{
+        position: absolute;
+        left: 10px;
+        height: 30px;
+        line-height: 30px;
+        background: blueviolet;
+        padding: 0 10px;
+        margin: 0;
+        cursor: pointer;
+      }
+      .btn_property{
+        top: 80px;
+      }
+      .btn_flyto{
+        top: 180px;
+      }
+      .btn_flyToPosition{
+        top: 220px;
+      }
+    </style>
+</head>
+<body >
+    
+        <div id="viewport"> </div>
+        <div id="messages"></div>
+
+
+        <div id="propertyBtn" class="btn btn_property">查询属性</div>
+        <div id="flytoBtn" class="btn btn_flyto">定位</div>
+        <div id="flyToPosition" class="btn btn_flyToPosition">定位2(flyToPosition)</div>
+    <script>
+
+		    var projId = "ca8d8084-ef2e-4c89-b1e3-147c85815e78";
+
+        var bimEngine = new BIMVIZ.RenderEngine({
+            projectId: projId,
+            renderDomId: 'viewport',
+            ip: "52.130.67.75",
+            port: 7005, 
+            key: '408456c2-a2b8-4f8c-93bc-33cbdc0e92a6',
+            resizeMode: 'fullpage',
+            resourcePath:'../sdk/viz/data/'
+        });
+
+        var msgControl = new BIMVIZ.UI.DefaultMessageControl(bimEngine, 'messages');
+
+        // 工具栏
+        var toolbar = new BIMVIZ.UI.DefaultToolBar(bimEngine);
+
+        // 添加属性控件
+        var propertyControl = new BIMVIZ.UI.DefaultPropertyControl("属性", "fa-info-circle");
+        toolbar.addControl(propertyControl);
+
+        bimEngine.start();
+
+        let highlightManager = bimEngine.getHighlightManager();
+
+        // bimEngine.addListener(BIMVIZ.EVENT.OnPickElement,function(evt){
+        //   evt.args.cancel = true;
+        //   console.log(evt)
+        //   console.log(evt.args.point)
+        //   console.log(bimEngine.getElementAxisAlignedBox(evt.args.elementId).getCenter())
+        //   highlightManager.clearHighlightElementList();
+        //   highlightManager.highlightElement(evt.args.elementId);
+        //   var point=evt.args.point;
+        //   // bimEngine.flyToPosition(point,function(){
+        //   // bimEngine.flyToElementByDistance(evt.args.elementId,1000,function(){
+        //   bimEngine.flyToElementByBox(evt.args.elementId,2,function(){
+        //         //动画完成后的回调方法
+        //   });
+        // });
+
+
+
+        let gid = '5cfa5b41-edb4-4802-9d93-d5790d09a51b-0025093f';
+
+        $("#propertyBtn").click(()=>{
+          bimEngine.getElementById(gid,(success,result)=>{
+            console.log(result)
+          })
+        })
+
+        $("#flytoBtn").click(()=>{
+          let gid = "9dfcd48b-a1b2-4ffc-ae65-884373dd6a3e-0019e082";
+          bimEngine.flyToElement(gid)
+        })
+
+        $("#flyToPosition").click(()=>{
+          let gid = "9dfcd48b-a1b2-4ffc-ae65-884373dd6a3e-0019e082";
+          let pos = bimEngine.getElementAxisAlignedBox(gid).getCenter();
+          bimEngine.flyToPosition(pos,()=>{
+
+          })
+        })
+       
+    </script>
+</body>
+</html>

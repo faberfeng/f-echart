@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>华建数创智慧建筑大脑（Arctron BOS）</title>
+    <link href="../src/assets/sdk/third/css/essentials.css" rel="stylesheet" />
+    <link href="../src/assets/sdk/third/css/layout-dark.css" rel="stylesheet" />
+    <link href="../src/assets/sdk/third/jstree/themes/proton/style.min.css" rel="stylesheet" />
+    <link href="../src/assets/sdk/viz/ui/default.css" rel="stylesheet" type="text/css" />
+    <link href="../src/assets/sdk/third/css/jquery-ui-1.10.4.custom.css" rel="stylesheet" />
+    <link href="../src/assets/sdk/third/toolbar/jquery.toolbar.css" rel="stylesheet" />
+
+    <!--  基础js文件 -->
+    <!-- <script src="../src/assets/sdk/third/jquery-1.10.2.min.js"></script>
+    <script src="../src/assets/sdk/third/toolbar/jquery.toolbar.js"></script>
+    <script src="../src/assets/sdk/viz/bimviz.js"></script>
+    <script src="../src/assets/sdk/viz/ui/DefaultMessageControl.js"></script> -->
+
+
+    <script src="../src/assets/sdk/viz/bimviz.js"></script>
+    <script type="text/javascript" src="../min/BOSEngine.min.js"></script>
+
+    
+    <style>
+      .btn{
+        position: absolute;
+        left: 10px;
+        height: 30px;
+        line-height: 30px;
+        background: blueviolet;
+        padding: 0 10px;
+        margin: 0;
+        cursor: pointer;
+      }
+      .btn_property{
+        top: 80px;
+      }
+      .btn_flyto{
+        top: 120px;
+      }
+      .btn_changecolor{
+        top: 160px;
+      }
+      .btn_changealpha{
+        top: 200px;
+      }
+      .btn_highlight{
+        top: 240px;
+      }
+      .btn_highlightlist{
+        top: 280px;
+      }
+      .btn_getElement{
+        top: 320px;
+      }
+      .btn_getElementsql{
+        top: 360px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="viewport"></div>
+    <div id="messages"></div>
+
+    <div id="propertyBtn" class="btn btn_property">查询属性</div>
+    <div id="flytoBtn" class="btn btn_flyto">定位</div>
+    <div id="changeColor" class="btn btn_changecolor">更改构件颜色</div>
+    <div id="changeAlpha" class="btn btn_changealpha">更改构件透明度</div>
+    <div id="highlightElement" class="btn btn_highlight">高亮构件</div>
+    <div id="highlightElementlist" class="btn btn_highlightlist">高亮构件列表</div>
+    <div id="getElement" class="btn btn_getElement">根据属性获取构件</div>
+    <div id="getElementSQL" class="btn btn_getElementsql">根据属性和属性值获取构件</div>
+    <div id="createHtmlMarker" class="btn btn_getElementsql">创建标签</div>
+
+    <script>
+      $(function(){
+        // console.log(BOSEngine.sayHello("赵丽颖"));
+
+        var projId = "ca8d8084-ef2e-4c89-b1e3-147c85815e78";
+        let engine = new BOSEngine.initObj({
+          projectId: projId,
+          renderDomId: 'viewport',
+          ip: "52.130.67.75",
+          port: 7005, 
+          key: '408456c2-a2b8-4f8c-93bc-33cbdc0e92a6',
+          resizeMode: 'fullpage',
+          resourcePath:'../src/lib/sdk/viz/data/'
+        })
+        console.log(engine)
+
+        engine.load();
+
+        let gid = '5cfa5b41-edb4-4802-9d93-d5790d09a51b-0025093f';
+
+        $("#propertyBtn").click(()=>{
+          engine.getElementProperty(gid,(success,result)=>{
+            console.log(success)
+            console.log(result)
+          })
+        })
+
+        $("#flytoBtn").click(()=>{
+          let gid = "c43075d5-dd3a-4c83-887d-660f204ebe8f-001b28ed";
+          engine.flyToElement(gid);
+          engine.highlightElement(gid)
+        })
+
+        $("#changeColor").click(()=>{
+          engine.changeElementColor(gid,[1,0,0,1.0])
+        })
+
+        $("#changeAlpha").click(()=>{
+          engine.changeElementAlpha(gid,0.3)
+        })
+
+        $("#highlightElement").click(()=>{
+          engine.highlightElement(gid)
+        })
+
+        $("#highlightElementlist").click(()=>{
+          engine.highlightElementList([
+            'cbc91038-3db9-4fed-a0df-77799a6ec9bd-00126ac2',
+            '5cfa5b41-edb4-4802-9d93-d5790d09a51b-002504e1',
+            'ca7ccf8f-fd34-489e-b40f-8d848f3b7708-00140248',
+            'cbc91038-3db9-4fed-a0df-77799a6ec9bd-001278a3',
+            '3605e3df-5804-41d1-865a-09eed4fc1e35-001f3bab'])
+        })
+
+        $("#getElement").click(()=>{
+          engine.getElementByProperty("墙:混凝土-500:1317979",(success,result)=>{
+            console.log(success)
+            console.log(result)
+          });
+          engine.getElementByProperty("混凝土-500",(success,result)=>{
+            console.log(success)
+            console.log(result)
+          });
+          engine.getElementByProperty("38",(success,result)=>{
+            console.log(success)
+            console.log(result)
+          });
+        })
+
+        $("#getElementSQL").click(()=>{
+          engine.getElementBySql("name='标记' and txtvalue like '125'",(success,result)=>{
+            console.log(success)
+            console.log(result)
+          });
+        })
+
+
+
+        // var projId = "ca8d8084-ef2e-4c89-b1e3-147c85815e78";
+
+        // var bimEngine = new BIMVIZ.RenderEngine({
+        //     projectId: projId,
+        //     renderDomId: 'viewport',
+        //     ip: "52.130.67.75",
+        //     port: 7005, 
+        //     key: '408456c2-a2b8-4f8c-93bc-33cbdc0e92a6',
+        //     resizeMode: 'fullpage',
+        //     resourcePath:'../src/lib/sdk/viz/data/'
+        // });
+
+        // var msgControl = new BIMVIZ.UI.DefaultMessageControl(bimEngine, 'messages');
+
+        // bimEngine.start();
+
+        
+      })
+    </script>
+  </body>
+</html>
