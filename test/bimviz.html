@@ -28,8 +28,9 @@
     <script src="../src/assets/sdk/viz/ui/DefaultMessageControl.js"></script>
     <script src="../src/assets/sdk/viz/ui/DefaultToolBar.js"></script>
     <script src="../src/assets/sdk/viz/ui/DefaultPropertyControl.js"></script>
+    <script src="../src/assets/sdk/viz/ui/DefaultHtmlMarkerControl.js"></script>
     <style>
-      .btn{
+      .de_btn{
         position: absolute;
         left: 10px;
         height: 30px;
@@ -51,14 +52,22 @@
     </style>
 </head>
 <body >
+    <!-- <div id="div_test_html_marker_1590024494831" style="position:absolute;">
+      <div class="panel panel-info" style="width:200px;">
+        <div class="panel-heading">
+          <h2 class="panel-title">111</h2>
+        </div>
+        <div class="panel-body list-item-font">构件简单介绍说明</div>
+      </div>
+    </div> -->
     
         <div id="viewport"> </div>
         <div id="messages"></div>
 
 
-        <div id="propertyBtn" class="btn btn_property">查询属性</div>
-        <div id="flytoBtn" class="btn btn_flyto">定位</div>
-        <div id="flyToPosition" class="btn btn_flyToPosition">定位2(flyToPosition)</div>
+        <div id="propertyBtn" class="de_btn btn_property">查询属性</div>
+        <div id="flytoBtn" class="de_btn btn_flyto">定位</div>
+        <div id="flyToPosition" class="de_btn btn_flyToPosition">定位2(flyToPosition)</div>
     <script>
 
 		    var projId = "ca8d8084-ef2e-4c89-b1e3-147c85815e78";
@@ -70,7 +79,7 @@
             port: 7005, 
             key: '408456c2-a2b8-4f8c-93bc-33cbdc0e92a6',
             resizeMode: 'fullpage',
-            resourcePath:'../sdk/viz/data/'
+            resourcePath:'../src/assets/sdk/viz/data/'
         });
 
         var msgControl = new BIMVIZ.UI.DefaultMessageControl(bimEngine, 'messages');
@@ -81,6 +90,10 @@
         // 添加属性控件
         var propertyControl = new BIMVIZ.UI.DefaultPropertyControl("属性", "fa-info-circle");
         toolbar.addControl(propertyControl);
+
+        // HTML标记控件
+        var htmlMarkerControl = new BIMVIZ.UI.DefaultHtmlMarkerControl("HTML标记","fa fa-flag");
+        toolbar.addControl(htmlMarkerControl);
 
         bimEngine.start();
 

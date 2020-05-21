@@ -442,6 +442,7 @@ BIMVIZ.UI.DefaultHtmlMarkerControl.prototype.onProjectLoaded = function(project)
         var id = new Date().getTime();
         var domId = "div_test_html_marker_" + id;
         var htmlText = markerTypes[parameters.type].html.format(domId, parameters.name, parameters.userdata);
+        console.log(htmlText)
         var usertype = parameters.type;
         var align = parameters.align;
         var visibleDistance = parameters.visibleDistance;

@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <title></title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, maximum-scale=1, initial-scale=1, user-scalable=no" />
+  <link rel="stylesheet" href="../src/assets/forge/style.min.css">
+  <script src="../src/assets//forge/jquery-3.3.1.min.js"></script>
+  <script src="https://developer.api.autodesk.com/modelderivative/v2/viewers/7.*/viewer3D.min.js"></script>
+  <script type="text/javascript" src="../min/BOSEngine.min.js"></script>
+  <style>
+    html,body,#forgeViewerContent{
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+    }
+    .btn{
+      position: absolute;
+      left: 10px;
+      z-index: 100;
+      height: 30px;
+      line-height: 30px;
+      background: blueviolet;
+      padding: 0 10px;
+      margin: 0;
+      cursor: pointer;
+    }
+    .btn_highlight{
+      top: 20px;
+    }
+    .btn_flyto{
+      top: 60px;
+    }
+    .btn_property{
+      top: 100px;
+    }
+    
+    .btn_getEleGid{
+      top: 140px;
+    }
+    
+    .btn_changecolor{
+      top: 180px;
+    }
+  </style>
+</head>
+<body >
+  <div id="forgeViewerContent"></div>
+
+  <div id="highlightEle" class="btn btn_highlight">高亮构件</div>
+  <div id="flytoBtn" class="btn btn_flyto">定位</div>
+  <div id="propertyBtn" class="btn btn_property">查询属性</div>
+  <div id="getEleGid" class="btn btn_getEleGid">根据属性值查询构件</div>
+  <div id="changeColorBtn" class="btn btn_changecolor">更改构件颜色和透明度</div>
+
+  <script>
+    $(function(){
+      let engine = new BOSEngine.initObj({
+        renderDomId: "forgeViewerContent",
+        initOption: {
+          path: '../src/assets/forge/Content/longyunnn/0.svf',
+          placementTransform: new THREE.Matrix4(),
+          env: 'Local'
+        }
+      });
+      console.log(engine);
+
+      engine.load();
+
+      $("#highlightEle").click(()=>{
+        engine.highlightElementList([2875]);
+      });
+
+      $("#flytoBtn").click(()=>{
+        engine.flyToElement([2875]);
+      });
+
+      $("#propertyBtn").click(()=>{
+        engine.getElementProperty(2875,(success,result)=>{
+          console.log(success);
+          console.log(result);
+        })
+      })
+
+      $("#getEleGid").click(()=>{
+        engine.getElementByProperty("基本墙 [1317979]",(success,result)=>{
+          console.log("哈哈哈，根据属性获取到了构件哦");
+          console.log(result)
+        });
+      });
+
+      $("#changeColorBtn").click(()=>{
+        engine.changeElementColor(2875,[221/255,79/255,66/255,0.5]); // red
+        // engine.changeElementColor(2875,[1,1, 0, 0.5]); // yellow
+      })
+
+
+      // var viewer;
+      // var initOption = {
+      //   path: '../src/assets/forge/Content/longyunnn/0.svf',
+      //   placementTransform: new THREE.Matrix4(),
+      //   env: 'Local'
+      // }
+      // Autodesk.Viewing.Initializer(
+      //   initOption,
+      //   function() {
+      //     var domContainer = document.getElementById('forgeViewerContent');
+      //     viewer = new Autodesk.Viewing.Private.GuiViewer3D(domContainer);
+      //     viewer.initialize();
+      //     viewer.loadModel(initOption.path, initOption, function () {
+
+      //     });
+      // });
+      
+    })
+       
+  </script>
+</body>
+</html>

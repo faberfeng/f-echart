@@ -17,13 +17,16 @@
     <script src="../src/assets/sdk/viz/bimviz.js"></script>
     <script src="../src/assets/sdk/viz/ui/DefaultMessageControl.js"></script> -->
 
+    <script src="../src/assets/sdk/third/jquery-1.10.2.js"></script>
+    <script src="../src/assets/sdk/third/toolbar/jquery.toolbar.js"></script>
+
 
     <script src="../src/assets/sdk/viz/bimviz.js"></script>
     <script type="text/javascript" src="../min/BOSEngine.min.js"></script>
 
     
     <style>
-      .btn{
+      .de_btn{
         position: absolute;
         left: 10px;
         height: 30px;
@@ -57,21 +60,35 @@
       .btn_getElementsql{
         top: 360px;
       }
+      .btn_createmarker{
+        top: 400px;
+      }
+      .btn_getmarkerlist{
+        top: 440px;
+      }
+      .btn_deletemarker{
+        top: 480px;
+      }
     </style>
   </head>
   <body>
     <div id="viewport"></div>
     <div id="messages"></div>
 
-    <div id="propertyBtn" class="btn btn_property">查询属性</div>
-    <div id="flytoBtn" class="btn btn_flyto">定位</div>
-    <div id="changeColor" class="btn btn_changecolor">更改构件颜色</div>
-    <div id="changeAlpha" class="btn btn_changealpha">更改构件透明度</div>
-    <div id="highlightElement" class="btn btn_highlight">高亮构件</div>
-    <div id="highlightElementlist" class="btn btn_highlightlist">高亮构件列表</div>
-    <div id="getElement" class="btn btn_getElement">根据属性获取构件</div>
-    <div id="getElementSQL" class="btn btn_getElementsql">根据属性和属性值获取构件</div>
-    <div id="createHtmlMarker" class="btn btn_getElementsql">创建标签</div>
+    <!-- <div style="position: absolute;width: 200px;height: 200px;background: palegoldenrod;color: #fff;">sxs</div> -->
+
+    <div id="propertyBtn" class="de_btn btn_property">查询属性</div>
+    <div id="flytoBtn" class="de_btn btn_flyto">定位</div>
+    <div id="changeColor" class="de_btn btn_changecolor">更改构件颜色</div>
+    <div id="changeAlpha" class="de_btn btn_changealpha">更改构件透明度</div>
+    <div id="highlightElement" class="de_btn btn_highlight">高亮构件</div>
+    <div id="highlightElementlist" class="de_btn btn_highlightlist">高亮构件列表</div>
+    <div id="getElement" class="de_btn btn_getElement">根据属性获取构件</div>
+    <div id="getElementSQL" class="de_btn btn_getElementsql">根据属性和属性值获取构件</div>
+    <div id="createHtmlMarker" class="de_btn btn_createmarker">创建标签</div>
+    <div id="getMarkerList" class="de_btn btn_getmarkerlist">获取标签列表</div>
+    <div id="deleteMarker" class="de_btn btn_deletemarker">删除标签</div>
+
 
     <script>
       $(function(){
@@ -147,12 +164,41 @@
             console.log(success)
             console.log(result)
           });
+        });
+
+        $("#createHtmlMarker").click(()=>{
+          let id = new Date().getTime();
+          let name = "marker1";
+          let domId = "marker123";
+          let position = engine.engine.getElementAxisAlignedBox("cbc91038-3db9-4fed-a0df-77799a6ec9bd-00126ac2").getCenter().sub(engine.engine.CenterPosition);
+          let html = '<div id="'+domId+'" style="position:absolute;"><div style="width: 200px;height: 100px;background: palegoldenrod;color: #fff;">哈哈哈</div></div>';
+          let align = BIMVIZ.Align2D.BottomMiddle;
+          // let visibledistance = +Infinity;
+          let visibledistance = 0;
+          let usertype = "marker1";
+          let userdata = "marekr1";
+          engine.createMarker(id, name, domId, position, html, align, visibledistance, usertype, userdata)
+        });
+
+        $("#getMarkerList").click(()=>{
+          console.log("哈哈哈，获取到了htmlmarke列表");
+          engine.getMarkerList((success,result)=>{
+            console.log(success)
+            console.log(result)
+          })
         })
 
+        $("#deleteMarker").click(()=>{
+          console.log("删除marker");
+          engine.deleteMarker('1590039166505',(result)=>{
+            console.log(result)
+          });
+        });
 
 
+
+        
         // var projId = "ca8d8084-ef2e-4c89-b1e3-147c85815e78";
-
         // var bimEngine = new BIMVIZ.RenderEngine({
         //     projectId: projId,
         //     renderDomId: 'viewport',
@@ -162,11 +208,8 @@
         //     resizeMode: 'fullpage',
         //     resourcePath:'../src/lib/sdk/viz/data/'
         // });
-
         // var msgControl = new BIMVIZ.UI.DefaultMessageControl(bimEngine, 'messages');
-
         // bimEngine.start();
-
         
       })
     </script>
