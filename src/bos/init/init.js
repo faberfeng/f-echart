@@ -3,7 +3,7 @@
 // require('../../assets/sdk/viz/ui/DefaultMessageControl.js')
 
 
-function initObj(options){
+function init(options){
   let _this = this;
   _this.options = options;
 
@@ -20,6 +20,7 @@ function initObj(options){
     _this.type = 1;
     _this.highlightManager = null;
     _this.htmlMarkerManager = null;
+    _this.selectManager = null;
 
     // 初始化引擎对象
     _this.engine = new BIMVIZ.RenderEngine(_this.options);
@@ -27,11 +28,14 @@ function initObj(options){
 
   function init(){
     return new Promise((resolve,reject)=>{
+      let  config = {
+        extensions:['Viewing.Extension.Markup3D','Viewing.Extension.Markup3D.Tool']
+      }
       Autodesk.Viewing.Initializer(
         _this.options.initOption,
         () => {
           let domContainer = document.getElementById(_this.options.renderDomId);
-          let viewer= new Autodesk.Viewing.Private.GuiViewer3D(domContainer);
+          let viewer= new Autodesk.Viewing.Private.GuiViewer3D(domContainer,config);
           viewer.initialize();
           resolve(viewer);
       });
@@ -181,6 +185,41 @@ function initObj(options){
     })
   }
 
+  // 选择集操作
+  // ctrl+左键选中构件，一个一个添加；ctrl+左键按住拉选，多个添加
+  // 获取所有选择集
+  _this.getSelectionList = (callback) => {
+    if(_this.selectManager === null){
+      _this.selectManager = _this.engine.getSelectionSetManager();
+    }
+    _this.selectManager.getList((success, result) => {
+      callback(success,result);
+    })
+  }
+  // 创建选择集
+  _this.createSelection = (name,description,callback) => {
+    if(_this.selectManager === null){
+      _this.selectManager = _this.engine.getSelectionSetManager();
+    }
+    if(_this.highlightManager === null){
+      _this.highlightManager = _this.engine.getHighlightManager();
+    }
+    let selection =  new BIMVIZ.Selection(0, name, description, []);
+    selection.list = _this.highlightManager.cloneHighlightElementList();
+    _this.selectManager.create(selection,(result)=>{
+      callback(true,result)
+    })
+  }
+  // 删除选择集
+  _this.deleteSelection = (id,callback) =>{
+    if(_this.selectManager === null){
+      _this.selectManager = _this.engine.getSelectionSetManager();
+    }
+    _this.selectManager.delete(id,(result)=>{
+      callback(true)
+    })
+  }
+
   return _this;
 }
-module.exports = initObj;
+module.exports = init;

@@ -69,6 +69,15 @@
       .btn_deletemarker{
         top: 480px;
       }
+      .btn_getselectionlist{
+        top: 520px;
+      }
+      .btn_createselection{
+        top: 560px;
+      }
+      .btn_deleteselection{
+        top: 600px;
+      }
     </style>
   </head>
   <body>
@@ -88,6 +97,9 @@
     <div id="createHtmlMarker" class="de_btn btn_createmarker">创建标签</div>
     <div id="getMarkerList" class="de_btn btn_getmarkerlist">获取标签列表</div>
     <div id="deleteMarker" class="de_btn btn_deletemarker">删除标签</div>
+    <div id="getSelectionList" class="de_btn btn_getselectionlist">获取选择集列表</div>
+    <div id="createSelection" class="de_btn btn_createselection">创建选择集</div>
+    <div id="deleteSelection" class="de_btn btn_deleteselection">删除选择集</div>
 
 
     <script>
@@ -95,7 +107,7 @@
         // console.log(BOSEngine.sayHello("赵丽颖"));
 
         var projId = "ca8d8084-ef2e-4c89-b1e3-147c85815e78";
-        let engine = new BOSEngine.initObj({
+        let engine = new BOSEngine.init({
           projectId: projId,
           renderDomId: 'viewport',
           ip: "52.130.67.75",
@@ -192,6 +204,26 @@
           console.log("删除marker");
           engine.deleteMarker('1590039166505',(result)=>{
             console.log(result)
+          });
+        });
+
+        $("#getSelectionList").click(()=>{
+          engine.getSelectionList((success,result)=>{
+            console.log(success)
+            console.log(result)
+          });
+        });
+
+        $("#createSelection").click(()=>{
+          engine.createSelection("sss111","sss111",(success,result)=>{
+            console.log(success)
+            console.log(result)
+          });
+        });
+
+        $("#deleteSelection").click(()=>{
+          engine.deleteSelection(2,(success)=>{
+            console.log(success)
           });
         });
 
