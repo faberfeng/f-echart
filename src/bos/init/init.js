@@ -1,6 +1,6 @@
 // require('../../assets/sdk/third/jquery-1.10.2.min.js');
 // require('../../assets/sdk/third/toolbar/jquery.toolbar.js')
-// require('../../assets/sdk/viz/ui/DefaultMessageControl.js')
+// require('../../assets/sdk/viz/ui/DefaultMessageControl.js');
 
 
 function init(options){
@@ -13,7 +13,7 @@ function init(options){
 
     // 初始化引擎对象
     (async function(){
-      _this.engine = await init();
+      _this.engine = await initForge();
     })();
   }else{
     // bimviz
@@ -26,17 +26,20 @@ function init(options){
     _this.engine = new BIMVIZ.RenderEngine(_this.options);
   }
 
-  function init(){
+  function initForge(){
     return new Promise((resolve,reject)=>{
-      let  config = {
-        extensions:['Viewing.Extension.Markup3D','Viewing.Extension.Markup3D.Tool']
-      }
+      // let  config = {
+      //   extensions:['Autodesk.ADN.Viewing.Extension.Markup3D']
+      // }
       Autodesk.Viewing.Initializer(
         _this.options.initOption,
         () => {
           let domContainer = document.getElementById(_this.options.renderDomId);
-          let viewer= new Autodesk.Viewing.Private.GuiViewer3D(domContainer,config);
+          // let viewer= new Autodesk.Viewing.Private.GuiViewer3D(domContainer,config);
+          let viewer= new Autodesk.Viewing.Private.GuiViewer3D(domContainer);
           viewer.initialize();
+          // console.log(viewer.getState())
+         
           resolve(viewer);
       });
     })
@@ -47,7 +50,34 @@ function init(options){
     if(_this.type === 2){
       setTimeout(()=>{
         if(_this.engine !== undefined){
-          _this.engine.loadModel(_this.options.initOption.path, _this.options.initOption,()=>{ })
+          _this.engine.loadModel(_this.options.initOption.path, _this.options.initOption,()=>{ 
+            // _this.engine.forEachExtension((ext)=>{
+            //   console.log("ddd");
+            //   console.log(ext);
+            //   console.log(ext.id);
+            // })
+
+            _this.engine.loadExtension('IconMarkupsxtension', {
+              button: {
+                  icon: 'fa-thermometer-half',
+                  tooltip: 'Show Temperature'
+              },
+              icons: [
+                  { dbId: 3944,   label: '300&#176;C', css: 'fas fa-thermometer-full' },
+                  { dbId: 721,    label: '356&#176;C', css: 'fas fa-thermometer-full' },
+                  { dbId: 10312,  label: '450&#176;C', css: 'fas fa-thermometer-empty' },
+                  { dbId: 563,                         css: 'fas fa-exclamation-triangle' },
+              ],
+              onClick: (id) => {
+                  viewers.select(id);
+                  viewers.utilities.fitToView();
+                  switch (id){
+                      case 563:
+                          alert('Sensor offline');
+                  }
+              }
+            })
+          })
         }
       },300)
     }else if(_this.type === 1){
