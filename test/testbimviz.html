@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <title>华建数创智慧建筑大脑（Arctron BOS）</title>
+    <title>华建数创智慧建筑大脑（Arctron BOSBimviz）</title>
     <link href="../src/assets/sdk/third/css/essentials.css" rel="stylesheet" />
     <link href="../src/assets/sdk/third/css/layout-dark.css" rel="stylesheet" />
     <link href="../src/assets/sdk/third/jstree/themes/proton/style.min.css" rel="stylesheet" />
@@ -22,7 +22,8 @@
 
 
     <script src="../src/assets/sdk/viz/bimviz.js"></script>
-    <script type="text/javascript" src="../min/BOSEngine.min.js"></script>
+    <script type="text/javascript" src="http://10.243.11.11/bosEngineSDK/BOSEngine.min.js"></script>
+    <!-- <script type="text/javascript" src="../min/BOSEngine.min.js"></script> -->
 
     
     <style>
@@ -115,7 +116,7 @@
           key: '408456c2-a2b8-4f8c-93bc-33cbdc0e92a6',
           resizeMode: 'fullpage',
           resourcePath:'../src/lib/sdk/viz/data/'
-        })
+        },1)
         console.log(engine)
 
         engine.load();

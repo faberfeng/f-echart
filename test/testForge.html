@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-  <title></title>
+<title>华建数创智慧建筑大脑（Arctron BOSForge）</title>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, maximum-scale=1, initial-scale=1, user-scalable=no" />
   <link rel="stylesheet" href="../src/assets/forge/style.min.css">
@@ -11,7 +11,8 @@
   <script src="../src/assets/forge/Viewing.Extension.Markup3D.min.js"></script>
   <!-- <script src="../src/assets/forge/Viewing.Extension.StateManager.min.js"></script> -->
   <script src="../src/assets/markup.js"></script>
-  <script type="text/javascript" src="../min/BOSEngine.min.js"></script>
+  <script type="text/javascript" src="http://10.243.11.11/bosEngineSDK/BOSEngine.min.js"></script>
+  <!-- <script type="text/javascript" src="../min/BOSEngine.min.js"></script> -->
   <style>
     html,body,#forgeViewerContent{
       margin: 0;
@@ -71,7 +72,7 @@
           placementTransform: new THREE.Matrix4(),
           env: 'Local'
         }
-      });
+      },2);
       console.log(engine);
 
       engine.load();
