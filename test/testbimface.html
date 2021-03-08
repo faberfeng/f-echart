@@ -114,7 +114,7 @@
 
   <script>
     $(function () {
-      let viewToken = "6f2d814cd2c84149b4b76cae20a3e609";
+      let viewToken = "21f76fa3a732460ea8107277b2c7afa0";
       let engine = new BOSEngine.init({
         viewToken: viewToken,
         domId: 'viewport',
@@ -152,6 +152,7 @@
         }]
         engine.getElementByProperty(JSON.stringify(data), (status, res) => {
           console.log(status, res)
+          window.alert(res.join(','))
         })
       })
 
@@ -161,20 +162,65 @@
         }]
         engine.getElementByProperty(JSON.stringify(data), (status, res) => {
           console.log(status, res)
+          window.alert(res.join(','))
         })
       });
 
-      $("#createHtmlMarker").click(() => {});
+      $("#createHtmlMarker").click(() => {
+        let id = 'marker1';
+        let name = "marker1";
+        let domId = "marker123";
+        let position = {
+          "x": -9619.650855184376,
+          "y": -971.6135962442029,
+          "z": 13324.783340676295
+        };
+        let html = `
+          <div 
+            id="${id}" 
+            style="
+              width: 100px;
+              height: 32px;
+              border: 2px solid #fff;
+              border-radius: 5px;
+              background: #32d3a6;
+              color:#fff;
+              line-height: 32px;
+              text-align: center;
+            ">
+            自定义标签
+          </div>
+        `;
+        engine.createMarker(id, name, domId, position, html);
+      });
 
-      $("#getMarkerList").click(() => {})
+      $("#getMarkerList").click(() => {
+        engine.getMarkerList()
+      })
 
-      $("#deleteMarker").click(() => {});
+      $("#deleteMarker").click(() => {
+        engine.deleteMarker('marker1')
+      });
 
-      $("#getSelectionList").click(() => {});
+      $("#getSelectionList").click(() => {
+        engine.getSelectionList((success, res) => {
+          console.log(success, res)
+        })
+      });
 
-      $("#createSelection").click(() => {});
+      $("#createSelection").click(() => {
+        let name = '集合名称';
+        let desc = '集合描述';
+        engine.createSelection(name, desc, (success, res) => {
+          console.log(success, res)
+        });
+      });
 
-      $("#deleteSelection").click(() => {});
+      $("#deleteSelection").click(() => {
+        engine.deleteSelection(1, (res) => {
+          console.log(res)
+        })
+      });
 
     })
   </script>

@@ -270,6 +270,7 @@ function init(options, type) {
 
   // 标签
   // 获取标签列表
+  let bimFaceMarker = null;
   _this.getMarkerList = (callback) => {
     if (_this.type === 1) {
       if (_this.htmlMarkerManager === null) {
@@ -282,10 +283,42 @@ function init(options, type) {
 
     } else if (_this.type === 3) {
 
+    } else if (_this.type === 4) {
+      if (!bimFaceMarker) {
+        let markerConfig = new Glodon.Bimface.Plugins.Marker3D.Marker3DContainerConfig();
+        markerConfig.viewer = _this.engine;
+        bimFaceMarker = new Glodon.Bimface.Plugins.Marker3D.Marker3DContainer(markerConfig);
+      }
+
+      let marker3dConfig = new Glodon.Bimface.Plugins.Marker3D.Marker3DConfig();
+      marker3dConfig.src = "http://static.bimface.com/resources/3DMarker/warner/warner_red.png";
+      let positions = [{
+        x: -7866.961134109302,
+        y: -5031.530523186056,
+        z: 3975.0483232274346
+      }, {
+        x: -702.6006863754691,
+        y: -5307.174381204412,
+        z: 11779.540299809532
+      }, {
+        x: 5644.6697725891445,
+        y: -1279.6750564488127,
+        z: 13146.829809543678
+      }]
+      positions.forEach(item => {
+        marker3dConfig.worldPosition = item;
+        //三维标签的提示
+        marker3dConfig.tooltip = "this is 3DMarker.";
+        let marker3d = new Glodon.Bimface.Plugins.Marker3D.Marker3D(marker3dConfig);
+        bimFaceMarker.addItem(marker3d);
+      })
+
+      _this.engine.render();
     }
 
   }
   // 创建标签
+  let drawableContainer;
   _this.createMarker = (id, name, domId, position, html, align, visibledistance, usertype, userdata) => {
     if (_this.type === 1) {
       if (_this.htmlMarkerManager === null) {
@@ -299,6 +332,23 @@ function init(options, type) {
 
     } else if (_this.type === 3) {
 
+    } else if (_this.type === 4) {
+      if (!drawableContainer) {
+        // 创建外部容器
+        let drawableConfig = new Glodon.Bimface.Plugins.Drawable.DrawableContainerConfig();
+        drawableConfig.viewer = _this.engine;
+        drawableContainer = new Glodon.Bimface.Plugins.Drawable.DrawableContainer(drawableConfig);
+      }
+
+      let config = new Glodon.Bimface.Plugins.Drawable.CustomItemConfig();
+      config.id = id;
+      config.content = html;
+      config.viewer = _this.engine;
+      config.opacity = 1;
+      config.worldPosition = position;
+
+      let customItem = new Glodon.Bimface.Plugins.Drawable.CustomItem(config);
+      drawableContainer.addItem(customItem)
     }
 
   }
@@ -315,6 +365,9 @@ function init(options, type) {
 
     } else if (_this.type === 3) {
 
+    } else if (_this.type === 4) {
+      if (drawableContainer) drawableContainer.removeItemById(id)
+      if (bimFaceMarker) bimFaceMarker.clear()
     }
 
   }
@@ -427,6 +480,8 @@ function init(options, type) {
   // 选择集操作
   // ctrl+左键选中构件，一个一个添加；ctrl+左键按住拉选，多个添加
   // 获取所有选择集
+  let bimFaceSelectionList = [];
+  let currId = 0;
   _this.getSelectionList = (callback) => {
     if (_this.type === 1) {
       if (_this.selectManager === null) {
@@ -439,6 +494,8 @@ function init(options, type) {
 
     } else if (_this.type === 3) {
 
+    } else if (_this.type === 4) {
+      callback(true, JSON.parse(JSON.stringify(bimFaceSelectionList)))
     }
 
   }
@@ -461,7 +518,15 @@ function init(options, type) {
     } else if (_this.type === 3) {
 
     } else if (_this.type === 4) {
-
+      let ids = _this.engine.getSelectedComponents();
+      let selectionItem = {
+        id: ++currId,
+        name: name,
+        description: description,
+        list: ids
+      }
+      bimFaceSelectionList.push(selectionItem)
+      callback(true, JSON.parse(JSON.stringify(selectionItem)))
     }
 
   }
@@ -478,6 +543,14 @@ function init(options, type) {
 
     } else if (_this.type === 3) {
 
+    } else if (_this.type === 4) {
+      let arr = bimFaceSelectionList.map(item => item.id);
+      if (arr.includes(id)) {
+        bimFaceSelectionList.splice(arr.indexOf(id), 1);
+        callback('删除成功')
+      } else {
+        callback('无此ID')
+      }
     }
   }
 
