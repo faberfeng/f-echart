@@ -3,10 +3,10 @@
     <div class="my-py-10 ff-fz fs-18">图表展示：</div>
     <div class="row align-middle fs-16">
       <span
-        class="my-mr-10 my-px-5 my-py-3 bd-all bdr-2 cursor"
-        :class="{ 'bdc-primary fc-primary': currBtn == index }"
         v-for="(item, index) in btns"
         :key="index"
+        class="my-mr-10 my-px-5 my-py-3 bd-all bdr-2 cursor"
+        :class="{ 'bdc-primary fc-primary': currBtn == index }"
         @click="currBtn = index"
       >
         {{ item }}

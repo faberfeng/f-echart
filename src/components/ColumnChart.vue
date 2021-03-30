@@ -1,10 +1,10 @@
 <template>
   <div class="row justify-around align-middle wrap">
     <div
-      class="chart-item"
-      :id="item"
       v-for="(item, index) in Object.keys(charts)"
       :key="index"
+      :id="item"
+      class="chart-item"
     ></div>
   </div>
 </template>
@@ -21,6 +21,7 @@ import {
   columnChart7,
   columnChart8,
   columnChart9,
+  columnChart10,
 } from "../charts/columnChart";
 export default {
   setup() {
@@ -34,12 +35,14 @@ export default {
       columnChart7Id: columnChart7,
       columnChart8Id: columnChart8,
       columnChart9Id: columnChart9,
+      columnChart10Id: columnChart10,
     });
 
     function initChart() {
       for (let key in charts) {
         let chartId = init(document.getElementById(key));
         chartId.setOption(charts[key]({}), true);
+        chartId.resize();
       }
     }
 

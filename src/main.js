@@ -5,13 +5,11 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 
-// import * as echarts from 'echarts';
-import "echarts-liquidfill";
+import 'default-passive-events';
 
-const app = createApp(App)
-// app.config.globalProperties.$echarts = echarts;
+import "echarts-liquidfill";
 
 import './assets/font/font.css'
 import './css/index.scss'
 
-app.use(store).use(router).mount('#app')
+createApp(App).use(store).use(router).mount('#app')

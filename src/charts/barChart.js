@@ -235,11 +235,9 @@ export const barChart1 = ({
     xAxis: {
       name: '数量',
       type: 'value',
-      boundaryGap: true,
+      boundaryGap: ['10%', '10%'],
       axisLabel: {
-        textStyle: {
-          color: cfff8
-        }
+        color: cfff8
       },
       axisLine: {
         lineStyle: {

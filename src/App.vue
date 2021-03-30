@@ -31,7 +31,7 @@ export default {
 }
 
 .chart-item {
-  width: 500px;
+  width: 400px;
   height: 300px;
 }
 </style>

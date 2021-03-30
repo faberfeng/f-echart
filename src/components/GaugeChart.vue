@@ -1,16 +1,16 @@
 <template>
   <div class="row justify-around align-middle wrap">
     <div
-      class="chart-item"
-      :id="item"
       v-for="(item, index) in Object.keys(charts)"
       :key="index"
+      :id="item"
+      class="chart-item"
     ></div>
   </div>
 </template>
 <script>
-import "echarts-liquidfill";
 import { init } from "echarts";
+import "echarts-liquidfill";
 import { nextTick, onMounted, reactive } from "vue";
 import {
   gaugeChart1,
@@ -43,6 +43,7 @@ export default {
       for (let key in charts) {
         let chartId = init(document.getElementById(key));
         chartId.setOption(charts[key]({}), true);
+        chartId.resize();
       }
     }
 

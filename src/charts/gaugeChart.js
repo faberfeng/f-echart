@@ -7,7 +7,7 @@ import {
   hexToRgba,
   linearColor,
   radialColor,
-  thinColor
+  thinColor,
 } from "./common"
 // 第一个仪表盘
 let gaugeChart1Data = {
@@ -65,11 +65,13 @@ export const gaugeChart1 = ({
           ]
         }
       },
+      splitLine: {
+        width: 2,
+        length: 4,
+        distance: 0,
+      },
       axisLabel: {
         show: false
-      },
-      splitLine: {
-        show: false,
       },
       axisTick: {
         show: false
@@ -135,11 +137,10 @@ export const gaugeChart1 = ({
           ]
         }
       },
-      splitLine: {
-        length: 4,
-        distance: 0,
-      },
       axisTick: {
+        show: false
+      },
+      splitLine: {
         show: false
       }
     },
@@ -205,7 +206,7 @@ export const gaugeChart2 = ({
       splitNumber: 11,
       axisLabel: {
         color: cfff8,
-        distance: -30,
+        distance: -10,
         fontSize: defSize - 4,
       },
       axisLine: {
@@ -215,7 +216,7 @@ export const gaugeChart2 = ({
         show: false
       },
       splitLine: {
-        show: false
+        show: false,
       },
       detail: {
         show: false
@@ -241,9 +242,7 @@ export const gaugeChart2 = ({
       },
       splitLine: {
         length: 4,
-        lineStyle: {
-          color: cfff4
-        }
+        distance: -5,
       },
       detail: {
         show: false
@@ -1117,7 +1116,7 @@ export const gaugeChart7 = ({
       splitNumber: 11,
       axisLabel: {
         color: cfff8,
-        distance: -20,
+        distance: -15,
         fontSize: defSize - 4,
       },
       axisLine: {
@@ -1158,6 +1157,7 @@ export const gaugeChart7 = ({
       },
       splitLine: {
         length: 6,
+        distance: 0,
         lineStyle: {
           color: cfff4
         }
@@ -1177,7 +1177,7 @@ export const gaugeChart7 = ({
       },
       axisLine: {
         lineStyle: {
-          width: 8,
+          width: 10,
           color: [
             [1, linearColor(hexToRgba(color[0], 0.01), color[0], [0, 0, 1, 0])]
           ]
@@ -1218,9 +1218,11 @@ export const gaugeChart7 = ({
         show: false
       },
       splitLine: {
-        length: 10,
+        width: 1,
+        length: 12,
+        distance: -12,
         lineStyle: {
-          color: 'rgba(6,6,6,0.4)',
+          color: 'rgba(0,0,0,0.8)',
         }
       },
       detail: {
@@ -1418,37 +1420,6 @@ export const gaugeChart8 = ({
     type: 'bar',
     xAxisIndex: 0,
     data: [{
-      name: '湿度',
-      type: 'liquidFill',
-      radius: '40%',
-      center: ['67%', '57%'],
-      color: linearColor(hexToRgba(color[1], 0.6), hexToRgba(color[1], 0.01), [0, 1, 0, 0]),
-      itemStyle: {
-        shadowBlur: 0,
-        color: linearColor(hexToRgba(color[1], 0.01), hexToRgba(color[1], 0.6), [0, 1, 0, 0]),
-        opacity: 1,
-      },
-      outline: {
-        show: false
-      },
-      title: {
-        color: cfff8,
-        fontSize: defSize + 2
-      },
-      data: [sData[0].data[1] / 100, sData[0].data[1] / 100],
-      backgroundStyle: {
-        borderWidth: 3,
-        borderColor: color[1],
-        color: 'transparent'
-      },
-      label: {
-        textStyle: {
-          fontSize: defSize + 8,
-          color: cfff8,
-          fontFamily: 'pangmeng'
-        }
-      }
-    }, {
       name: xData[0],
       value: sData[0].data[0],
       label: {
@@ -1496,7 +1467,10 @@ export const gaugeChart8 = ({
     barWidth: 20,
     itemStyle: {
       color: '#1E2131',
-      barBorderRadius: 20,
+      borderRadius: 20,
+    },
+    tooltip: {
+      show: false
     },
     z: 2
   }, {
@@ -1508,15 +1482,20 @@ export const gaugeChart8 = ({
     barWidth: 24,
     itemStyle: {
       color: '#03061A',
-      barBorderRadius: 55,
+      borderRadius: 55,
       borderWidth: 1,
       borderColor: '#5A5C69'
+    },
+    tooltip: {
+      show: false
     },
     z: 1
   }, {
     name: '圆',
     type: 'scatter',
-    hoverAnimation: false,
+    emphasis: {
+      scale: false
+    },
     data: [0],
     xAxisIndex: 0,
     symbolSize: 15,
@@ -1524,11 +1503,16 @@ export const gaugeChart8 = ({
       color: '#03061A',
       opacity: 1,
     },
+    tooltip: {
+      show: false
+    },
     z: 3
   }, {
     name: '白圆',
     type: 'scatter',
-    hoverAnimation: false,
+    emphasis: {
+      scale: false
+    },
     data: [0],
     xAxisIndex: 1,
     symbolSize: 30,
@@ -1536,11 +1520,16 @@ export const gaugeChart8 = ({
       color: '#1E2131',
       opacity: 1,
     },
+    tooltip: {
+      show: false
+    },
     z: 2
   }, {
     name: '外圆',
     type: 'scatter',
-    hoverAnimation: false,
+    emphasis: {
+      scale: false
+    },
     data: [0],
     xAxisIndex: 2,
     symbolSize: 35,
@@ -1550,6 +1539,9 @@ export const gaugeChart8 = ({
       borderWidth: 1,
       borderColor: '#5A5C69'
     },
+    tooltip: {
+      show: false
+    },
     z: 1
   }, {
     name: '湿度外环',
@@ -1557,14 +1549,19 @@ export const gaugeChart8 = ({
     color: color,
     radius: ['55%', '60%'],
     center: ['67%', '57%'],
-    hoverAnimation: false,
+    emphasis: {
+      scale: false
+    },
     data: [{
       value: 1,
       name: ''
     }],
     labelLine: {
       show: false
-    }
+    },
+    tooltip: {
+      show: false
+    },
   }, {
     type: 'gauge',
     radius: '50%',
@@ -1589,6 +1586,41 @@ export const gaugeChart8 = ({
       }
     },
     detail: {
+      show: false
+    },
+    tooltip: {
+      show: false
+    },
+  }, {
+    name: '湿度',
+    type: 'liquidFill',
+    radius: '40%',
+    center: ['67%', '57%'],
+    color: linearColor(hexToRgba(color[1], 0.6), hexToRgba(color[1], 0.01), [0, 1, 0, 0]),
+    itemStyle: {
+      shadowBlur: 0,
+      color: linearColor(hexToRgba(color[1], 0.01), hexToRgba(color[1], 0.6), [0, 1, 0, 0]),
+      opacity: 1,
+    },
+    outline: {
+      show: false
+    },
+    title: {
+      color: cfff8,
+      fontSize: defSize + 2
+    },
+    data: [sData[0].data[1] / 100, sData[0].data[1] / 100],
+    backgroundStyle: {
+      borderWidth: 3,
+      borderColor: color[1],
+      color: 'transparent'
+    },
+    label: {
+      fontSize: defSize + 8,
+      color: cfff8,
+      fontFamily: 'pangmeng'
+    },
+    tooltip: {
       show: false
     },
   }]
@@ -1759,10 +1791,8 @@ export const gaugeChart9 = ({
       },
       title: {
         offsetCenter: [0, 50],
-        textStyle: {
-          color: color[1],
-          fontSize: defSize - 4
-        }
+        color: color[1],
+        fontSize: defSize - 4
       },
       data: [{
         value: sData[0].data[1],
@@ -1957,34 +1987,16 @@ export const gaugeChart10 = ({
 }) => {
   let series = [{
     type: 'pie',
-    clockWise: false,
-    hoverAnimation: false,
+    clockwise: false,
+    emphasis: {
+      scale: false
+    },
     radius: ['79%', '80%'],
     center: ['50%', '55%'],
     labelLine: {
       show: false
     },
     data: [{
-      type: 'liquidFill',
-      radius: '65%',
-      center: ['50%', '55%'],
-      data: [sData[0].data[0] / 100],
-      backgroundStyle: {
-        color: radialColor('#3782FF', hexToRgba('#264F8E', 0.5))
-      },
-      outline: {
-        borderDistance: 0,
-        itemStyle: {
-          borderWidth: 1,
-          borderColor: linearColor('#3782FF', color[0])
-        }
-      },
-      label: {
-        // formatter: '',
-        position: ['50%', '50%']
-      },
-      color: [linearColor(hexToRgba(color[0], 0.75), hexToRgba(color[0], 0.25))]
-    }, {
       value: sData[0].data[0] / 2,
       label: {
         show: false,
@@ -2001,18 +2013,33 @@ export const gaugeChart10 = ({
         color: linearColor(thinColor(color[0]), '#6CDCF3')
       }
     }]
+  }, {
+    type: 'liquidFill',
+    radius: '70%',
+    center: ['50%', '55%'],
+    data: [sData[0].data[0] / 100],
+    backgroundStyle: {
+      color: radialColor('#3782FF', hexToRgba('#264F8E', 0.5))
+    },
+    tooltip: {
+      show: false
+    },
+    outline: {
+      borderDistance: 0,
+      itemStyle: {
+        borderWidth: 1,
+        borderColor: linearColor('#3782FF', color[0])
+      }
+    },
+    label: {
+      color: cfff8,
+      fontSize: defSize + 10,
+      fontFamily: 'pangmeng',
+    },
+    color: [linearColor(hexToRgba(color[0], 0.75), hexToRgba(color[0], 0.25))]
   }]
   return {
     ...cloneDeep(defaultChart),
-    title: {
-      text: `${sData[0].data[0]}%`,
-      textStyle: {
-        fontSize: defSize + 10,
-        color: cfff8,
-      },
-      left: 'center',
-      top: '50%'
-    },
     series: series,
   }
 }

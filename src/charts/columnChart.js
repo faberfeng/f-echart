@@ -54,7 +54,7 @@ export const columnChart1 = ({
         },
         barWidth: '25%',
         itemStyle: {
-          barBorderRadius: [20, 20, 0, 0],
+          borderRadius: [20, 20, 0, 0],
           color: linearColor(hexToRgba(color[index], 0.8), hexToRgba(color[index], 0.01))
         }
       }
@@ -190,7 +190,7 @@ export const columnChart2 = ({
         },
         barWidth: '25%',
         itemStyle: {
-          barBorderRadius: [20, 20, 0, 0],
+          borderRadius: [20, 20, 0, 0],
           color: linearColor(hexToRgba(color[0], 0.8), hexToRgba(color[0], 0.01))
         }
       }
@@ -198,7 +198,9 @@ export const columnChart2 = ({
       return {
         type: 'line',
         data: item.data,
-        hoverAnimation: false,
+        emphasis: {
+          scale: false
+        },
         itemStyle: {
           color: 'none',
           borderWidth: 2,
@@ -303,7 +305,9 @@ export const columnChart3 = ({
       return {
         type: 'line',
         data: item.data,
-        hoverAnimation: false,
+        emphasis: {
+          scale: false
+        },
         itemStyle: {
           color: 'none',
           borderWidth: 2,
@@ -1037,6 +1041,143 @@ export const columnChart9 = ({
       type: 'value',
       show: false
     }],
+    color: color,
+    series: series
+  }
+}
+
+/**
+ * 第十个柱状图
+ */
+let columnChart10Data = {
+  color: ['#D13F3F', '#F98539', '#999999', '#42E4FE', '#9742FE'],
+  xData: ['报警', '故障', '屏蔽', '动作', '隐患'],
+  sData: [{
+    data: [389, 312, 267, 159, 159]
+  }],
+}
+export const columnChart10 = ({
+  color = columnChart10Data.color,
+  xData = columnChart10Data.xData,
+  sData = columnChart10Data.sData,
+}) => {
+  let series = [];
+  sData.map((item) => {
+    let arr = [{
+      name: item.name || '',
+      type: 'bar',
+      barWidth: 15,
+      barGap: "100%",
+      data: item.data.map((item1, index1) => {
+        return {
+          name: xData[index1],
+          value: item1,
+          itemStyle: {
+            color: linearColor(hexToRgba(color[index1], 0.8), hexToRgba(color[index1], 0.1))
+          },
+        }
+      }),
+      z: 8,
+    }, {
+      name: item.name || '',
+      type: 'pictorialBar',
+      symbolSize: [15, 4],
+      symbolOffset: [0, -2],
+      symbolPosition: 'end',
+      z: 12,
+      label: {
+        show: true,
+        position: 'top',
+        formatter: '{c}',
+        fontSize: defSize - 2,
+        color: cfff8
+      },
+      color: cfff8,
+      data: item.data
+    }, {
+      name: item.name || '',
+      type: 'pictorialBar',
+      symbolSize: [15, 4],
+      symbolOffset: [0, 2],
+      z: 12,
+      data: item.data.map((item1, index1) => {
+        return {
+          name: xData[index1],
+          value: item1,
+          itemStyle: {
+            color: color[index1]
+          },
+        }
+      }),
+    }, {
+      name: item.name || '',
+      type: 'pictorialBar',
+      symbolSize: [20, 4],
+      symbolOffset: [0, 4],
+      z: 10,
+      data: item.data.map((item1, index1) => {
+        return {
+          name: xData[index1],
+          value: item1,
+          itemStyle: {
+            color: 'none',
+            borderColor: color[index1],
+            borderType: 'solid',
+            borderWidth: 2
+          },
+        }
+      }),
+    }, {
+      name: item.name || '',
+      type: 'pictorialBar',
+      symbolSize: [25, 4],
+      symbolOffset: [0, 6],
+      z: 10,
+      data: item.data.map((item1, index1) => {
+        return {
+          name: xData[index1],
+          value: item1,
+          itemStyle: {
+            color: 'none',
+            borderColor: color[index1],
+            borderType: 'solid',
+            borderWidth: 1
+          },
+        }
+      }),
+    }];
+    series = [...series, ...arr]
+  })
+  return {
+    ...cloneDeep(defaultChart),
+    grid: {
+      left: '5%',
+      right: '5%',
+      top: 30,
+      bottom: 35,
+    },
+    legend: {
+      show: false
+    },
+    xAxis: {
+      type: 'category',
+      data: xData,
+      boundaryGap: ['10%', '10%'],
+      axisTick: {
+        show: false
+      },
+      axisLabel: {
+        fontSize: defSize - 2,
+        color: cfff8,
+        padding: [5, 0, 0, 0]
+      },
+      axisLine: {
+        show: false
+      },
+    },
+    yAxis: {
+      show: false
+    },
     color: color,
     series: series
   }

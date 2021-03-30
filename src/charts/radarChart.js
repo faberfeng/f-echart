@@ -69,9 +69,7 @@ export const radarChart1 = ({
       center: ['50%', '55%'],
       splitNumber: 4,
       axisName: {
-        textStyle: {
-          color: 'rgba(255,255,255,0)',
-        },
+        color: 'rgba(0,0,0,0)',
       },
       axisNameGap: 5,
       axisLine: {
@@ -157,11 +155,9 @@ export const radarChart2 = ({
       radius: ["0%", "60%"],
       center: ['50%', '55%'],
       splitNumber: 4,
-      nameGap: 5,
-      name: {
-        textStyle: {
-          color: cfff8,
-        },
+      axisNameGap: 5,
+      axisName: {
+        color: cfff8,
       },
       axisLine: {
         lineStyle: {
