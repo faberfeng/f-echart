@@ -1,5 +1,5 @@
 {
-  "name": "vue3-template",
+  "name": "huajian-charts",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -40,7 +40,7 @@
       "node": true
     },
     "extends": [
-      "plugin:vue/vue3-essential",
+      "plugin:vue/-essential",
       "eslint:recommended"
     ],
     "parserOptions": {

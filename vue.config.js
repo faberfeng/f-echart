@@ -1,4 +1,4 @@
-const title = 'VUE_TEMPLATE';
+const title = 'huajian-charts';
 const isPro = process.env.NODE_ENV === 'production';
 
 const CompressionWebpackPlugin = require('compression-webpack-plugin')
