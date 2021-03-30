@@ -1,0 +1,493 @@
+import {
+  cfff8,
+  defSize,
+  cloneDeep,
+  defaultChart,
+  hexToRgba,
+  linearColor,
+} from "./common";
+
+// 第一个环状图
+let paleChart1Data = {
+  color: ['#D5B3FF', '#FF6C38', '#F7D60B', '#11E2FF'],
+  xData: ['学生', '教师', '领导', '职工'],
+  sData: [{
+    name: '',
+    data: [100, 30, 40, 50]
+  }],
+}
+export const paleChart1 = ({
+  color = paleChart1Data.color,
+  xData = paleChart1Data.xData,
+  sData = paleChart1Data.sData,
+}) => {
+  let series = [{
+    type: 'pie',
+    clockwise: false,
+    hoverOffset: 4,
+    radius: [0, '40%'],
+    center: ['50%', '50%'],
+    data: sData[0].data.map((item, index) => {
+      return {
+        name: xData[index],
+        value: item,
+      }
+    }),
+    label: {
+      fontFamily: "pangmeng",
+      color: cfff8,
+      formatter: "{c}",
+    },
+    labelLine: {
+      length: 5,
+      length2: 50,
+      lineStyle: {
+        color: "#00BAE3",
+      },
+    },
+  }]
+  return {
+    ...cloneDeep(defaultChart),
+    legend: {
+      bottom: 10,
+      data: xData,
+      itemWidth: 5,
+      itemHeight: 5,
+      textStyle: {
+        color: cfff8
+      }
+    },
+    graphic: [{
+      type: 'image',
+      top: "middle",
+      left: "center",
+      style: {
+        image: require('../assets/imgs/chart/morepale1-bg.png'),
+        width: 150,
+        height: 150,
+      }
+    }],
+    color: color,
+    series: series,
+  }
+}
+
+// 第二个环状图
+let paleChart2Data = {
+  color: ['#43AA8B', '#2DC4B6', '#E76F51', '#FB8F3A', '#F9C74F', '#90BE6D', '#277DA1'],
+  xData: ['图书馆面积', '体育馆面积', '食堂面积', '教学面积', '办公面积', '宿舍面积', '其他'],
+  sData: [{
+    data: [15, 14, 12, 22, 16, 11, 10]
+  }],
+}
+export const paleChart2 = ({
+  color = paleChart2Data.color,
+  xData = paleChart2Data.xData,
+  sData = paleChart2Data.sData,
+}) => {
+  let series = [{
+    type: 'pie',
+    clockwise: false,
+    hoverOffset: 4,
+    radius: ['30%', '40%'],
+    center: ['50%', '50%'],
+    data: sData[0].data.map((item, index) => {
+      return {
+        name: xData[index],
+        value: item,
+      }
+    }),
+    label: {
+      color: cfff8,
+      formatter: "{d}%",
+    },
+    labelLine: {
+      length: 10,
+      length2: 5,
+    },
+  }]
+  return {
+    ...cloneDeep(defaultChart),
+    legend: {
+      bottom: 5,
+      data: xData,
+      icon: 'circle',
+      itemWidth: 5,
+      itemHeight: 5,
+      textStyle: {
+        fontSize: defSize - 4,
+        color: cfff8
+      }
+    },
+    graphic: [{
+      type: 'image',
+      top: "middle",
+      left: "center",
+      style: {
+        image: require('../assets/imgs/chart/morepale2-bg.png'),
+        width: 150,
+        height: 121,
+      }
+    }],
+    color: color,
+    series: series,
+  }
+}
+
+// 第三个环状图
+let paleChart3Data = {
+  color: ['#E76F51', '#F4A261', '#E9C46A', '#299D8F', '#A8DADC'],
+  xData: ['书籍', '论文', '获奖', '专利', '软件'],
+  sData: [{
+    data: [30, 10, 15, 20, 25]
+  }],
+}
+export const paleChart3 = ({
+  color = paleChart3Data.color,
+  xData = paleChart3Data.xData,
+  sData = paleChart3Data.sData,
+}) => {
+  let series = [{
+    type: 'pie',
+    clockwise: false,
+    radius: ['25%', '40%'],
+    center: ['50%', '50%'],
+    data: sData[0].data.map((item, index) => {
+      return {
+        name: xData[index],
+        value: item,
+      }
+    }),
+    label: {
+      color: cfff8,
+      formatter: "{d}%",
+    },
+    labelLine: {
+      length: 20,
+      length2: 5,
+    },
+  }]
+  return {
+    ...cloneDeep(defaultChart),
+    legend: {
+      bottom: 10,
+      data: xData,
+      icon: 'circle',
+      itemWidth: 5,
+      itemHeight: 5,
+      textStyle: {
+        fontSize: defSize - 4,
+        color: cfff8
+      }
+    },
+    graphic: [{
+      type: 'image',
+      top: "middle",
+      left: "center",
+      style: {
+        image: require('../assets/imgs/chart/morepale3-bg.png'),
+        width: 160,
+        height: 160,
+      }
+    }],
+    color: color,
+    series: series,
+  }
+}
+
+// 第四个环状图
+let paleChart4Data = {
+  color: ['#D5B3FF', '#FF6C38', '#F7D60B', '#11E2FF'],
+  xData: ['本科', '专科', '硕士', '博士'],
+  sData: [{
+    data: [46, 19, 23, 12]
+  }],
+}
+export const paleChart4 = ({
+  color = paleChart4Data.color,
+  xData = paleChart4Data.xData,
+  sData = paleChart4Data.sData,
+}) => {
+  let series = [{
+    type: 'pie',
+    clockwise: false,
+    hoverOffset: 4,
+    radius: ['45%', '50%'],
+    center: ['50%', '50%'],
+    data: sData[0].data.map((item, index) => {
+      return {
+        name: xData[index],
+        value: item,
+      }
+    }),
+    label: {
+      color: cfff8,
+      formatter: "{b}\n{yellow|{d}%}",
+      rich: {
+        yellow: {
+          color: '#F7D60B',
+          fontFamily: "pangmeng",
+          fontSize: defSize,
+        }
+      }
+    },
+    labelLine: {
+      length: 4,
+      length2: 20,
+      lineStyle: {
+        type: 'dotted',
+        color: cfff8,
+      }
+    },
+  }]
+  return {
+    ...cloneDeep(defaultChart),
+    title: {
+      text: '学历分布',
+      top: "middle",
+      left: "center",
+      textStyle: {
+        color: cfff8,
+        fontSize: defSize,
+        fontWeight: '400'
+      }
+    },
+    legend: {
+      bottom: 10,
+      data: xData,
+      icon: 'circle',
+      itemWidth: 5,
+      itemHeight: 5,
+      textStyle: {
+        fontSize: defSize - 4,
+        color: cfff8
+      }
+    },
+    graphic: [{
+      type: 'image',
+      top: "middle",
+      left: "center",
+      style: {
+        image: require('../assets/imgs/chart/morepale4-bg.png'),
+        width: 80,
+        height: 80,
+      }
+    }],
+    color: color,
+    series: series,
+  }
+}
+
+// 第五个环状图
+let paleChart5Data = {
+  color: ['#5B8FF9', '#5AD8A6', '#5D7092', '#F6BD16', '#E8684A', '#FF9D4D', '#6DC8EC', '#9270CA', '#269A99', '#FF99C3', '#5B8FF9', '#BDD2FD', '#5AD8A6'],
+  xData: ['工程类', '金融类', '数学类', '经济类', '管理类', '艺术与设计类', '自然科学类', '计算机类', '心理学', '教育与公共卫生类', '酒店管理', '法律与社会学', '其他'],
+  sData: [{
+    data: [9, 10, 5, 15, 12, 30, 28, 31, 12, 6, 5, 7, 8]
+  }],
+}
+export const paleChart5 = ({
+  color = paleChart5Data.color,
+  xData = paleChart5Data.xData,
+  sData = paleChart5Data.sData,
+}) => {
+  let legend = [{
+    top: 60,
+    data: xData.slice(0, 9),
+    icon: 'circle',
+    itemWidth: 5,
+    itemHeight: 5,
+    textStyle: {
+      fontSize: defSize - 6,
+      color: cfff8
+    }
+  }];
+  if (xData.length > 9) {
+    legend.push({
+      bottom: 10,
+      data: xData.slice(9),
+      icon: 'circle',
+      itemWidth: 5,
+      itemHeight: 5,
+      textStyle: {
+        fontSize: defSize - 6,
+        color: cfff8
+      }
+    })
+  }
+  let series = [{
+    type: 'pie',
+    clockwise: false,
+    hoverOffset: 4,
+    radius: [0, '40%'],
+    center: ['50%', '60%'],
+    data: sData[0].data.map((item, index) => {
+      return {
+        name: xData[index],
+        value: item,
+      }
+    }),
+    label: {
+      color: cfff8,
+      fontSize: defSize - 4,
+      formatter: "{d}%",
+    },
+    labelLine: {
+      length: 8,
+    },
+  }]
+  return {
+    ...cloneDeep(defaultChart),
+    legend: legend,
+    color: color,
+    series: series,
+  }
+}
+
+// 第六个环状图
+let paleChart6Data = {
+  color: ['#2BFB63', '#C6BF18', '#00D9FF', '#F76747'],
+  xData: ['迟到(人)', '请假(人)', '未到(人)', '实到(人)'],
+  sData: [{
+    data: [90, 72, 54, 3384]
+  }],
+}
+export const paleChart6 = ({
+  color = paleChart6Data.color,
+  xData = paleChart6Data.xData,
+  sData = paleChart6Data.sData,
+}) => {
+  let sum = sData[0].data.reduce((item, pre) => {
+    return item += pre
+  })
+  let arr = [50, 33, 25, 20];
+  let title = xData.map((item, index) => {
+    return {
+      text: item,
+      left: `${arr[xData.length - 1]*(index + 1) - 1}%`,
+      top: '75%',
+      textAlign: 'center',
+      textStyle: {
+        fontWeight: 'normal',
+        fontSize: defSize - 4,
+        color: cfff8,
+        textAlign: 'center',
+      },
+    }
+  })
+  let series = sData[0].data.map((item, index) => {
+    return {
+      type: 'pie',
+      clockWise: false,
+      hoverAnimation: false,
+      radius: ['16%', '20%'],
+      center: [`${arr[sData[0].data.length - 1]*(index + 1)}%`, '60%'],
+      labelLine: {
+        show: false,
+        length: 0,
+        length2: 0
+      },
+      data: [{
+        value: item,
+        label: {
+          show: true,
+          formatter: '{d}%',
+          position: 'center',
+          padding: [0, 0, 100, 0],
+          textStyle: {
+            fontSize: defSize,
+            color: cfff8
+          }
+        },
+        itemStyle: {
+          color: color[index % color.length],
+          borderWidth: 4,
+          borderColor: color[index % color.length],
+        },
+      }, {
+        value: sum - item,
+        label: {
+          show: false,
+        },
+        tooltip: {
+          show: false
+        },
+        itemStyle: {
+          color: cfff8,
+          opacity: 0.1
+        }
+      }]
+    }
+  })
+
+  return {
+    ...cloneDeep(defaultChart),
+    title: title,
+    legend: {
+      show: false
+    },
+    color: color,
+    series: series,
+  }
+}
+
+// 第七个环状图
+let paleChart7Data = {
+  color: ['#2DDD81'],
+  xData: ['类别1'],
+  sData: [{
+    name: '系列1',
+    data: [65451]
+  }],
+}
+export const paleChart7 = ({
+  color = paleChart7Data.color,
+  // xData = paleChart7Data.xData,
+  sData = paleChart7Data.sData,
+}) => {
+  let series = [{
+    type: 'pie',
+    clockWise: false,
+    hoverAnimation: false,
+    radius: ['50%', '58%'],
+    center: ['50%', '55%'],
+    labelLine: {
+      show: false
+    },
+    data: [{
+      value: sData[0].data[0] / 2,
+      tooltip: {
+        formatter: `${sData[0].data[0]}`
+      },
+      label: {
+        show: true,
+        fontFamily: 'pangmeng',
+        formatter: `${sData[0].data[0]}`,
+        position: 'center',
+        textStyle: {
+          fontSize: defSize + 8,
+          color: cfff8
+        }
+      },
+      itemStyle: {
+        color: linearColor(color[0], hexToRgba(color[0], 0.5))
+      }
+    }, {
+      value: sData[0].data[0] / 2,
+      tooltip: {
+        formatter: `${sData[0].data[0]}`
+      },
+      itemStyle: {
+        color: linearColor(hexToRgba(color[0], 0.5), hexToRgba(color[0], 0.01), [0, 1, 0, 0])
+      }
+    }]
+  }]
+  return {
+    ...cloneDeep(defaultChart),
+    legend: {
+      show: false
+    },
+    color: color,
+    series: series,
+  }
+}

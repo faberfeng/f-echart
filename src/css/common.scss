@@ -1,0 +1,444 @@
+// 外边距 内边距
+$sSizes: (0: 0 / $defSize + rem,
+  2: 2 / $defSize + rem,
+  3: 3 / $defSize + rem,
+  5: 5 / $defSize + rem,
+  10: 10 / $defSize + rem,
+  15: 15 / $defSize + rem,
+  20: 20 / $defSize + rem,
+  25: 25 / $defSize + rem,
+  30: 30 / $defSize + rem,
+  35: 35 / $defSize + rem,
+  40: 40 / $defSize + rem,
+  50: 50 / $defSize + rem,
+  60: 60 / $defSize + rem,
+  70: 70 / $defSize + rem,
+  80: 80 / $defSize + rem,
+);
+
+@each $key,
+$val in $sSizes {
+  .my-ma-#{$key} {
+    margin: $val;
+  }
+
+  .my-mx-#{$key} {
+    margin-left: $val;
+    margin-right: $val;
+  }
+
+  .my-my-#{$key} {
+    margin-top: $val;
+    margin-bottom: $val;
+  }
+
+  .my-ml-#{$key} {
+    margin-left: $val;
+  }
+
+  .my-mr-#{$key} {
+    margin-right: $val;
+  }
+
+  .my-mt-#{$key} {
+    margin-top: $val;
+  }
+
+  .my-mb-#{$key} {
+    margin-bottom: $val;
+  }
+
+  .my-pa-#{$key} {
+    padding: $val;
+  }
+
+  .my-px-#{$key} {
+    padding-left: $val;
+    padding-right: $val;
+  }
+
+  .my-py-#{$key} {
+    padding-top: $val;
+    padding-bottom: $val;
+  }
+
+  .my-pl-#{$key} {
+    padding-left: $val;
+  }
+
+  .my-pr-#{$key} {
+    padding-right: $val;
+  }
+
+  .my-pt-#{$key} {
+    padding-top: $val;
+  }
+
+  .my-pb-#{$key} {
+    padding-bottom: $val;
+  }
+}
+
+// 字体大小
+$fSizes: (8: 8,
+  10: 10,
+  12: 12,
+  14: 14,
+  16: 16,
+  18: 18,
+  20: 20,
+  24: 24,
+  28: 28,
+  32: 32,
+  36: 36,
+  40: 40,
+  42: 42,
+);
+
+@each $key,
+$val in $fSizes {
+  .fs-#{$key} {
+    font-size: $val/$defSize + rem;
+  }
+}
+
+// 字间距大小
+$letters: (1: 1,
+  2: 2,
+  3: 3,
+  4: 4,
+  6: 6,
+  8: 8,
+  10: 10,
+);
+
+@each $key,
+$val in $letters {
+  .letter-#{$key} {
+    letter-spacing: $val/$defSize + rem;
+  }
+}
+
+// 字体粗细
+.fw-normal {
+  font-weight: normal;
+}
+
+.fw-lighter {
+  font-weight: lighter;
+}
+
+.fw-bold {
+  font-weight: bold;
+}
+
+// 字体位置
+.text-left {
+  text-align: left;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-right {
+  text-align: right;
+}
+
+// 边框
+.bd-all {
+  border: 1px solid $cfff4;
+}
+
+.bd-left {
+  border-left: 1px solid $cfff4;
+}
+
+.bd-right {
+  border-right: 1px solid $cfff4;
+}
+
+.bd-top {
+  border-top: 1px solid $cfff4;
+}
+
+.bd-bottom {
+  border-bottom: 1px solid $cfff4;
+}
+
+// 色值  字体色、背景色、边框色
+$colors: ('primary': $primary,
+  'second': $second,
+  'third': $third,
+  'success': $success,
+  'warn': $warn,
+  'error': $error,
+  'info': $info,
+  'fff': $cfff,
+  'fff8': $cfff8,
+  'fff6': $cfff6,
+  'fff4': $cfff4,
+  '000': $c000,
+  '0008': $c0008,
+  '0006': $c0006,
+  '0004': $c0004,
+  'none': rgba(0, 0, 0, 0),
+);
+
+@each $key,
+$val in $colors {
+  .fc-#{$key} {
+    color: $val;
+  }
+
+  .bg-#{$key} {
+    background-color: $val;
+  }
+
+  .bdc-#{$key} {
+    border-color: $val;
+  }
+}
+
+$borderSizes: (1: 1,
+  2: 2,
+  3: 3,
+  4: 4,
+  5: 5,
+  6: 6,
+  8: 8,
+  10: 10,
+  20: 20,
+  40: 40,
+);
+
+@each $key,
+$val in $borderSizes {
+  .bdw-#{$key} {
+    border-width: $val + px;
+  }
+
+  .bdr-#{$key} {
+    border-radius: $val + px;
+  }
+}
+
+.bdr-all {
+  border-radius: 50%;
+}
+
+.bd-dotted {
+  border-style: dotted;
+}
+
+.bd-dashed {
+  border-style: dashed;
+}
+
+.bd-double {
+  border-style: double;
+}
+
+// 宽高
+.full-screen {
+  width: 100%;
+  height: 100%;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.full-height {
+  height: 100%;
+}
+
+// flex布局
+.row {
+  display: flex;
+}
+
+.col {
+  display: flex;
+  flex-direction: column;
+}
+
+.wrap {
+  flex-wrap: wrap;
+}
+
+.flex-other {
+  flex: 1;
+}
+
+.justify-start {
+  justify-content: flex-start;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
+.justify-end {
+  justify-content: flex-end;
+}
+
+.justify-around {
+  justify-content: space-around;
+}
+
+.justify-between {
+  justify-content: space-between;
+}
+
+.align-top {
+  align-items: flex-start;
+}
+
+.align-middle {
+  align-items: center;
+}
+
+.align-bottom {
+  align-items: flex-end;
+}
+
+// 定位
+.relative {
+  position: relative;
+}
+
+.absolute {
+  position: absolute;
+}
+
+.fixed {
+  position: fixed;
+}
+
+.sticky {
+  position: sticky;
+  top: 0;
+}
+
+.left-top,
+.top-left {
+  left: 0;
+  top: 0;
+}
+
+.right-top,
+.top-right {
+  right: 0;
+  top: 0;
+}
+
+.left-bottom,
+.bottom-left {
+  left: 0;
+  bottom: 0;
+}
+
+.right-bottom,
+.bottom-right {
+  right: 0;
+  bottom: 0;
+}
+
+// 超出...显示
+.ellipsis {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ellipsis2 {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+// input大小
+.def-input,
+.def-select {
+  width: 220px;
+}
+
+.small-input,
+.small-select {
+  width: 180px;
+}
+
+.xing::before {
+  position: relative;
+  content: "*";
+  color: $error;
+  right: 2px;
+}
+
+// 事件穿透
+.events-auto {
+  pointer-events: auto;
+}
+
+.events-none {
+  pointer-events: none;
+}
+
+// 滚动
+.scroll {
+  overflow: scroll;
+}
+
+.scroll-y {
+  overflow-y: scroll;
+}
+
+.scroll-x {
+  overflow-x: scroll;
+}
+
+// 其他
+.z-index-top {
+  z-index: 9;
+}
+
+.cursor {
+  cursor: pointer;
+}
+
+// 过渡、动画
+$degree: (45: 45deg,
+  90: 90deg,
+  135: 135deg,
+  180: 180deg,
+  225: 225deg,
+  270: 270deg,
+);
+
+@each $key,
+$val in $degree {
+  .rotate#{$key} {
+    transform: rotate($val);
+  }
+
+  .skew#{$key} {
+    transform: skew($val);
+  }
+}
+
+.rotate-all {
+  animation: rotateAll 4s linear infinite;
+}
+
+@keyframes rotateAll {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}

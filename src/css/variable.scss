@@ -1,0 +1,54 @@
+$primary: #3f91e4;
+$second: #27dbb4;
+$third: #d457f3;
+$success: #3eca13;
+$warn: #e6a23c;
+$error: #fc5350;
+$info: #909399;
+
+$cfff: rgba(255, 255, 255, 1);
+$cfff8: rgba(255, 255, 255, 0.8);
+$cfff6: rgba(255, 255, 255, 0.6);
+$cfff4: rgba(255, 255, 255, 0.4);
+$cfff2: rgba(255, 255, 255, 0.2);
+
+$c000: rgba(0, 0, 0, 1);
+$c0008: rgba(0, 0, 0, 0.8);
+$c0006: rgba(0, 0, 0, 0.6);
+$c0004: rgba(0, 0, 0, 0.4);
+$c0002: rgba(0, 0, 0, 0.2);
+
+$defSize: 14;
+
+$fullMinWidth: 1440px;
+$fullMinHeight: 810px;
+
+@function itemMinWidth($n) {
+  @return $n * $fullMinWidth;
+}
+
+@function itemMinHeight($n) {
+  @return $n * $fullMinHeight;
+}
+
+$fullMaxWidth: 1920px;
+$fullMaxHeight: 1080px;
+
+@function itemMaxWidth($n) {
+  @return $n * $fullMaxWidth;
+}
+
+@function itemMaxHeight($n) {
+  @return $n * $fullMaxHeight;
+}
+
+$fullMaxWidth4K: 3840px;
+$fullMaxHeight4K: 2160px;
+
+@function itemMaxWidth($n) {
+  @return $n * $fullMaxWidth4K;
+}
+
+@function itemMaxHeight($n) {
+  @return $n * $fullMaxHeight4K;
+}
