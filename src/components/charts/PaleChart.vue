@@ -12,22 +12,32 @@
 import { init } from "echarts";
 import { nextTick, onMounted, reactive } from "vue";
 import {
-  curveChart1,
-  curveChart2,
-  curveChart3,
-  curveChart4,
-  curveChart5,
-  curveChart6,
-} from "../charts/curveChart";
+  paleChart1,
+  paleChart2,
+  paleChart3,
+  paleChart4,
+  paleChart5,
+  paleChart6,
+  paleChart7,
+  paleChart8,
+  paleChart9,
+  paleChart10,
+  paleChart11,
+} from "@/charts/paleChart";
 export default {
   setup() {
     let charts = reactive({
-      curveChart1Id: curveChart1,
-      curveChart2Id: curveChart2,
-      curveChart3Id: curveChart3,
-      curveChart4Id: curveChart4,
-      curveChart5Id: curveChart5,
-      curveChart6Id: curveChart6,
+      paleChart1Id: paleChart1,
+      paleChart2Id: paleChart2,
+      paleChart3Id: paleChart3,
+      paleChart4Id: paleChart4,
+      paleChart5Id: paleChart5,
+      paleChart6Id: paleChart6,
+      paleChart7Id: paleChart7,
+      paleChart8Id: paleChart8,
+      paleChart9Id: paleChart9,
+      paleChart10Id: paleChart10,
+      paleChart11Id: paleChart11,
     });
 
     function initChart() {

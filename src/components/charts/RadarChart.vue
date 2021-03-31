@@ -11,31 +11,12 @@
 <script>
 import { init } from "echarts";
 import { nextTick, onMounted, reactive } from "vue";
-import {
-  columnChart1,
-  columnChart2,
-  columnChart3,
-  columnChart4,
-  columnChart5,
-  columnChart6,
-  columnChart7,
-  columnChart8,
-  columnChart9,
-  columnChart10,
-} from "../charts/columnChart";
+import { radarChart1, radarChart2 } from "@/charts/radarChart";
 export default {
   setup() {
     let charts = reactive({
-      columnChart1Id: columnChart1,
-      columnChart2Id: columnChart2,
-      columnChart3Id: columnChart3,
-      columnChart4Id: columnChart4,
-      columnChart5Id: columnChart5,
-      columnChart6Id: columnChart6,
-      columnChart7Id: columnChart7,
-      columnChart8Id: columnChart8,
-      columnChart9Id: columnChart9,
-      columnChart10Id: columnChart10,
+      radarChart1Id: radarChart1,
+      radarChart2Id: radarChart2,
     });
 
     function initChart() {

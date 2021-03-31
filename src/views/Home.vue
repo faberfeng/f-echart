@@ -24,14 +24,14 @@
 </template>
 
 <script>
-import LineChart from "@/components/LineChart";
-import CurveChart from "@/components/CurveChart";
-import AreaChart from "@/components/AreaChart";
-import BarChart from "@/components/BarChart";
-import ColumnChart from "@/components/ColumnChart";
-import PaleChart from "@/components/PaleChart";
-import RadarChart from "@/components/RadarChart";
-import GaugeChart from "@/components/GaugeChart";
+import LineChart from "@/components/charts/LineChart";
+import CurveChart from "@/components/charts/CurveChart";
+import AreaChart from "@/components/charts/AreaChart";
+import BarChart from "@/components/charts/BarChart";
+import ColumnChart from "@/components/charts/ColumnChart";
+import PaleChart from "@/components/charts/PaleChart";
+import RadarChart from "@/components/charts/RadarChart";
+import GaugeChart from "@/components/charts/GaugeChart";
 
 import { ref } from "vue";
 export default {

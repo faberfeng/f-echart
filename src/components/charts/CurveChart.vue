@@ -5,7 +5,6 @@
       :key="index"
       :id="item"
       class="chart-item"
-      style="width: 500px; height: 300px"
     ></div>
   </div>
 </template>
@@ -13,24 +12,22 @@
 import { init } from "echarts";
 import { nextTick, onMounted, reactive } from "vue";
 import {
-  areaChart1,
-  areaChart2,
-  areaChart3,
-  areaChart4,
-  areaChart5,
-  areaChart6,
-  areaChart7,
-} from "../charts/areaChart";
+  curveChart1,
+  curveChart2,
+  curveChart3,
+  curveChart4,
+  curveChart5,
+  curveChart6,
+} from "@/charts/curveChart";
 export default {
   setup() {
     let charts = reactive({
-      areaChart1Id: areaChart1,
-      areaChart2Id: areaChart2,
-      areaChart3Id: areaChart3,
-      areaChart4Id: areaChart4,
-      areaChart5Id: areaChart5,
-      areaChart6Id: areaChart6,
-      areaChart7Id: areaChart7,
+      curveChart1Id: curveChart1,
+      curveChart2Id: curveChart2,
+      curveChart3Id: curveChart3,
+      curveChart4Id: curveChart4,
+      curveChart5Id: curveChart5,
+      curveChart6Id: curveChart6,
     });
 
     function initChart() {
