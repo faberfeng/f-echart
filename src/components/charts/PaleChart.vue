@@ -2,8 +2,8 @@
   <div class="row justify-around align-middle wrap">
     <div
       v-for="(item, index) in Object.keys(charts)"
-      :key="index"
       :id="item"
+      :key="index"
       class="chart-item"
     ></div>
   </div>
@@ -23,6 +23,7 @@ import {
   paleChart9,
   paleChart10,
   paleChart11,
+  paleChart13,
 } from "@/charts/paleChart";
 export default {
   setup() {
@@ -38,6 +39,7 @@ export default {
       paleChart9Id: paleChart9,
       paleChart10Id: paleChart10,
       paleChart11Id: paleChart11,
+      paleChart13Id: paleChart13,
     });
 
     function initChart() {

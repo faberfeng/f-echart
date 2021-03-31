@@ -700,3 +700,178 @@ export const barChart4 = ({
     series: series,
   }
 }
+
+/**
+ * 第五个条状图
+ * @param {Object} barChart4Data 默认数据
+ * @param {Array} color 颜色集合
+ * @param {Array} xData 横坐标集合
+ * @param {Array} sData 数据集合
+ */
+let barChart5Data = {
+  color: ['#8B521F', '#0456F6', '#FF704A', '#F9C34B'],
+  xData: ['原住民', '迁入民', '临时居民', '访客'],
+  sData: [{
+    name: '',
+    data: [58, 42, 37, 63]
+  }],
+  total: 200,
+}
+export const barChart5 = ({
+  color = barChart5Data.color,
+  xData = barChart5Data.xData,
+  sData = barChart5Data.sData,
+  total = barChart5Data.total,
+}) => {
+  let maxArr = Array(xData.length).fill(total);
+  let series = [{
+    name: sData[0].name,
+    type: 'custom',
+    renderItem: (params, api) => {
+      let location = api.coord([api.value(0), api.value(1)]);
+      let xAxisPoint = api.coord([0, api.value(1)]);
+      location = [location[0], location[1] - 2];
+      xAxisPoint = [xAxisPoint[0], xAxisPoint[1] - 2];
+      return {
+        type: 'group',
+        children: [{
+            type: 'RowCubeTop',
+            shape: {
+              x: location[0],
+              y: location[1],
+              xAxisPoint: xAxisPoint
+            },
+            style: {
+              fill: linearColor(color[params.dataIndex], thinColor(color[params.dataIndex]), [0, 0, 1, 0])
+            }
+          },
+          {
+            type: 'RowCubeBottom',
+            shape: {
+              x: location[0],
+              y: location[1],
+              xAxisPoint: xAxisPoint
+            },
+            style: {
+              fill: linearColor(color[params.dataIndex], thinColor(color[params.dataIndex]), [0, 0, 1, 0])
+            }
+          },
+          {
+            type: 'RowCubeRight',
+            shape: {
+              x: location[0],
+              y: location[1],
+              xAxisPoint: xAxisPoint
+            },
+            style: {
+              fill: linearColor(color[params.dataIndex], thinColor(color[params.dataIndex]), [0, 0, 1, 0])
+            }
+          }
+        ]
+      }
+    },
+    z: 2,
+    data: sData[0].data
+  }, {
+    name: sData[0].name,
+    type: 'custom',
+    renderItem: (params, api) => {
+      let location = api.coord([api.value(0), api.value(1)])
+      let xAxisPoint = api.coord([0, api.value(1)]);
+      location = [location[0], location[1] - 2];
+      xAxisPoint = [xAxisPoint[0], xAxisPoint[1] - 2];
+      return {
+        type: 'group',
+        children: [{
+            type: 'RowCubeTop',
+            shape: {
+              x: location[0],
+              y: location[1],
+              xAxisPoint: xAxisPoint
+            },
+            style: {
+              fill: 'rgba(255,255,255,.1)'
+            }
+          },
+          {
+            type: 'RowCubeBottom',
+            shape: {
+              x: location[0],
+              y: location[1],
+              xAxisPoint: xAxisPoint
+            },
+            style: {
+              fill: 'rgba(255,255,255,.2)'
+            }
+          },
+          {
+            type: 'RowCubeRight',
+            shape: {
+              x: location[0],
+              y: location[1],
+              xAxisPoint: xAxisPoint
+            },
+            style: {
+              fill: 'rgba(255,255,255,.3)'
+            }
+          }
+        ]
+      }
+    },
+    tooltip: {
+      show: false,
+    },
+    z: 1,
+    data: maxArr
+  }]
+  let yAxis = [{
+    inverse: true,
+    type: 'category',
+    data: xData,
+    axisLine: {
+      show: false,
+      lineStyle: {
+        color: cfff8
+      }
+    },
+    axisTick: {
+      show: false,
+    },
+  }, {
+    inverse: true,
+    type: 'category',
+    data: sData[0].data.map(item => `${(item/total*100).toFixed(2)}%`),
+    axisLabel: {
+      fontSize: defSize,
+      fontFamily: 'pangmeng'
+    },
+    axisLine: {
+      show: false,
+      lineStyle: {
+        color: cfff8
+      }
+    },
+    axisTick: {
+      show: false,
+    },
+  }]
+  return {
+    ...cloneDeep(defaultChart),
+    grid: {
+      left: '15%',
+      right: '20%',
+      top: 5,
+      bottom: 0,
+    },
+    legend: {
+      show: false
+    },
+    color: color,
+    xAxis: {
+      type: 'value',
+      show: false,
+    },
+    yAxis: yAxis,
+    series: series,
+  }
+}

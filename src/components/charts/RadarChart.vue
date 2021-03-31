@@ -2,8 +2,8 @@
   <div class="row justify-around align-middle wrap">
     <div
       v-for="(item, index) in Object.keys(charts)"
-      :key="index"
       :id="item"
+      :key="index"
       class="chart-item"
     ></div>
   </div>
