@@ -558,11 +558,13 @@ let barChart4Data = {
   sData: [{
     data: [70, 90, 35, 72, 20]
   }],
+  title: '消防运维长效性',
 }
 export const barChart4 = ({
   color = barChart4Data.color,
   xData = barChart4Data.xData,
   sData = barChart4Data.sData,
+  title = barChart4Data.title,
   status = [1, 1, 0, 1, 0],
 }) => {
   let maxArr = Array(xData.length).fill(100);
@@ -609,8 +611,8 @@ export const barChart4 = ({
     }
   }, {
     type: 'pictorialBar',
-    symbolSize: [3, 3],
-    symbolOffset: [2, 0],
+    symbolSize: [4, 4],
+    symbolOffset: [4, 0],
     symbolPosition: 'end',
     z: 3,
     color: cfff8,
@@ -620,18 +622,19 @@ export const barChart4 = ({
     }
   }, {
     type: 'pictorialBar',
-    symbolSize: [10, 10],
-    symbolOffset: [6, 0],
+    symbolSize: [8, 8],
+    symbolOffset: [7, 0],
     symbolPosition: 'end',
     z: 2,
     data: sData[0].data.map((item, index) => {
       return {
         value: item || 1,
         itemStyle: {
-          color: 'none',
+          color: color[status[index]],
+          // color: 'none',
           borderColor: color[status[index]],
           borderType: 'solid',
-          borderWidth: 1
+          borderWidth: 2
         },
         tooltip: {
           show: !!item,
@@ -645,12 +648,21 @@ export const barChart4 = ({
     grid: {
       left: '30%',
       right: '10%',
-      top: 30,
+      top: title ? 40 : 20,
       bottom: 10,
+    },
+    title: {
+      text: title,
+      left: 'center',
+      textStyle: {
+        color: '#62E3FE',
+        fontWeight: 'normal',
+        fontSize: defSize
+      }
     },
     legend: {
       selectedMode: false,
-      top: 10,
+      top: title ? 20 : 5,
       right: '10%',
       itemWidth: 8,
       itemHeight: 8,
@@ -709,13 +721,13 @@ export const barChart4 = ({
  * @param {Array} sData 数据集合
  */
 let barChart5Data = {
-  color: ['#8B521F', '#0456F6', '#FF704A', '#F9C34B'],
-  xData: ['原住民', '迁入民', '临时居民', '访客'],
+  color: ['#8B521F', '#0456F6'],
+  xData: ['本市常驻', '外地访客'],
   sData: [{
     name: '',
-    data: [58, 42, 37, 63]
+    data: [58, 42]
   }],
-  total: 200,
+  total: 100,
 }
 export const barChart5 = ({
   color = barChart5Data.color,
@@ -858,7 +870,7 @@ export const barChart5 = ({
   return {
     ...cloneDeep(defaultChart),
     grid: {
-      left: '15%',
+      left: '20%',
       right: '20%',
       top: 5,
       bottom: 0,

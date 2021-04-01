@@ -573,3 +573,119 @@ export const curveChart6 = ({
     series: series,
   }
 }
+
+/**
+ * 第七个曲线图图
+ * @param {Array} color 颜色集合
+ * @param {Array} xData 横坐标集合
+ * @param {Array} sData 数据集合
+ */
+let curveChart7Data = {
+  color: ['#D13F3F', '#F98539', '#999999', '#42E4FE', '#9742FE'],
+  xData: ['01-23', '01-24', '01-25', '01-26', '01-27', '01-28', '01-29'],
+  sData: [{
+    name: '报警',
+    data: [240, 730, 710, 710, 620, 880, 840],
+  }, {
+    name: '故障',
+    data: [50, 340, 270, 450, 670, 260, 780]
+  }, {
+    name: '屏蔽',
+    data: [460, 440, 420, 400, 380, 360, 500]
+  }, {
+    name: '动作',
+    data: [210, 480, 290, 420, 380, 590, 610]
+  }, {
+    name: '隐患',
+    data: [20, 40, 20, 20, 30, 50, 10]
+  }]
+}
+export const curveChart7 = ({
+  color = curveChart7Data.color,
+  xData = curveChart7Data.xData,
+  sData = curveChart7Data.sData,
+}) => {
+  let series = sData.map((item, index) => {
+    return {
+      type: 'line',
+      name: item.name,
+      areaStyle: {
+        opacity: 0,
+      },
+      itemStyle: {
+        color: hexToRgba(color[index], index == 0 ? 0.8 : 0.4)
+      },
+      lineStyle: {
+        width: index == 0 ? 2 : 1,
+      },
+      label: {
+        show: index == 0,
+        color: cfff8,
+        fontSize: defSize - 6,
+      },
+      symbol: index == 0 ? "circle" : "none",
+      showSymbol: true,
+      smooth: true,
+      data: item.data,
+    }
+  })
+  return {
+    ...cloneDeep(defaultChart),
+    grid: {
+      bottom: 40,
+    },
+    legend: {
+      top: 20,
+      right: 10,
+      textStyle: {
+        color: cfff8,
+        fontSize: defSize - 2
+      },
+      itemWidth: 6,
+      itemHeight: 2,
+    },
+    tooltip: {
+      trigger: 'axis'
+    },
+    xAxis: {
+      type: 'category',
+      data: xData,
+      boundaryGap: false,
+      axisTick: {
+        show: false
+      },
+      axisLabel: {
+        fontSize: defSize - 2,
+        color: cfff8
+      },
+      axisLine: {
+        show: false
+      },
+    },
+    yAxis: {
+      name: '报警数',
+      type: 'value',
+      splitNumber: 3,
+      nameTextStyle: {
+        color: cfff8
+      },
+      axisLabel: {
+        fontSize: defSize - 2,
+        color: cfff8
+      },
+      axisLine: {
+        show: false,
+      },
+      splitLine: {
+        lineStyle: {
+          color: [cfff4]
+        }
+      },
+      axisTick: {
+        show: false
+      },
+    },
+    color: color,
+    series: series,
+  }
+}

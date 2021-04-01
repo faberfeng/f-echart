@@ -590,8 +590,8 @@ export const gaugeChart4 = ({
 }) => {
   let series = [{
     type: 'gauge',
-    radius: '72%',
-    center: ['50%', '55%'],
+    radius: '80%',
+    center: ['50%', '50%'],
     startAngle: '89.99',
     endAngle: '-270',
     title: {
@@ -622,8 +622,8 @@ export const gaugeChart4 = ({
     }
   }, {
     type: 'gauge',
-    radius: '61%',
-    center: ['50%', '55%'],
+    radius: '65%',
+    center: ['50%', '50%'],
     startAngle: '89.99',
     endAngle: '-270',
     title: {
@@ -654,8 +654,8 @@ export const gaugeChart4 = ({
     }
   }, {
     type: 'gauge',
-    radius: '60%',
-    center: ['50%', '55%'],
+    radius: '64%',
+    center: ['50%', '50%'],
     startAngle: '220',
     endAngle: '-40',
     title: {
@@ -666,7 +666,7 @@ export const gaugeChart4 = ({
     },
     axisLine: {
       lineStyle: {
-        width: 12,
+        width: 10,
         color: [
           [1, linearColor(color[0], color[1], [0, 0, 1, 0])]
         ]
@@ -694,8 +694,8 @@ export const gaugeChart4 = ({
     }],
   }, {
     type: 'gauge',
-    radius: '45%',
-    center: ['50%', '55%'],
+    radius: '50%',
+    center: ['50%', '50%'],
     startAngle: '89.99',
     endAngle: '-270',
     title: {

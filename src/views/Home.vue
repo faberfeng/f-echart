@@ -33,7 +33,9 @@
           {{ item }}
         </span>
       </a-row>
-      <Personnel v-show="currTheme == 0" />
+      <Personnel v-if="currTheme == 0" />
+      <Alarm v-else-if="currTheme == 2" />
+      <Fire v-else-if="currTheme == 3" />
     </a-tab-pane>
   </a-tabs>
 </template>
@@ -48,7 +50,9 @@ import PaleChart from "@/components/charts/PaleChart";
 import RadarChart from "@/components/charts/RadarChart";
 import GaugeChart from "@/components/charts/GaugeChart";
 
-import Personnel from "@/components/themes/personnel/Index";
+import Personnel from "@/components/themes/personnel/index";
+import Alarm from "@/components/themes/alarm/index";
+import Fire from "@/components/themes/fire/index";
 
 import { reactive, ref } from "vue";
 export default {
@@ -64,6 +68,8 @@ export default {
     GaugeChart,
 
     Personnel,
+    Alarm,
+    Fire,
   },
   setup() {
     let currBtn = ref(0);

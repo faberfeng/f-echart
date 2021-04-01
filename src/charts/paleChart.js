@@ -1081,8 +1081,8 @@ export const paleChart13 = ({
   let series = [{
     type: 'pie',
     clockwise: false,
-    radius: ['45%', '50%'],
-    center: ['40%', '50%'],
+    radius: ['50%', '60%'],
+    center: ['35%', '50%'],
     data: sData[0].data.map((item, index) => {
       return {
         name: `${xData[index]}：${item}`,
@@ -1109,8 +1109,8 @@ export const paleChart13 = ({
     },
   }, {
     type: 'gauge',
-    radius: '35%',
-    center: ['40%', '50%'],
+    radius: '40%',
+    center: ['35%', '50%'],
     startAngle: 110,
     endAngle: 10,
     axisLabel: {
@@ -1133,10 +1133,23 @@ export const paleChart13 = ({
     detail: {
       show: false
     },
+    pointer: {
+      show: false
+    },
+    data: [{
+      value: 1,
+      name: title,
+      title: {
+        color: cfff8,
+        fontSize: defSize + 2,
+        offsetCenter: [0, 0]
+      },
+    }],
+    z: 2,
   }, {
     type: 'gauge',
-    radius: '35%',
-    center: ['40%', '50%'],
+    radius: '40%',
+    center: ['35%', '50%'],
     startAngle: 290,
     endAngle: 190,
     axisLabel: {
@@ -1159,10 +1172,11 @@ export const paleChart13 = ({
     detail: {
       show: false
     },
+    z: 2,
   }, {
     type: 'pie',
-    radius: ['0%', '34%'],
-    center: ['40%', '50%'],
+    radius: ['0%', '39%'],
+    center: ['35%', '50%'],
     emphasis: {
       scale: false
     },
@@ -1178,19 +1192,11 @@ export const paleChart13 = ({
     itemStyle: {
       color: 'rgba(28,31,49,0.8)'
     },
-    data: [1]
+    data: [1],
+    z: 1
   }]
   return {
     ...cloneDeep(defaultChart),
-    title: {
-      text: title,
-      top: "middle",
-      left: "35%",
-      textStyle: {
-        color: cfff8,
-        fontSize: defSize + 2,
-      }
-    },
     legend: {
       orient: "vertical",
       top: "middle",
@@ -1200,7 +1206,7 @@ export const paleChart13 = ({
       itemWidth: 8,
       itemHeight: 8,
       textStyle: {
-        fontSize: defSize - 4,
+        fontSize: defSize,
         color: cfff8
       }
     },

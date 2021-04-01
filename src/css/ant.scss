@@ -1,0 +1,352 @@
+// 覆盖ant样式
+
+// 提示覆盖背景，边框
+.ant-message {
+  color: $cfff;
+
+  .ant-message-notice {
+    .ant-message-notice-content {
+      padding: 0;
+      background: none;
+    }
+
+    .ant-message-custom-content {
+      padding: 6px 40px;
+    }
+
+    .ant-message-info {
+      background: rgba(23, 125, 220, 0.3);
+      border: 1px solid #177DDC;
+    }
+
+    .ant-message-success {
+      background: rgba(81, 206, 98, 0.3);
+      border: 1px solid #51CE62;
+    }
+
+    .ant-message-warning {
+      background: rgba(87, 66, 15, 0.3);
+      border: 1px solid #CDAB53;
+    }
+
+    .ant-message-error {
+      background: rgba(220, 60, 60, 0.3);
+      border: 1px solid #DC3C3C;
+    }
+  }
+}
+
+// 分割线颜色
+.ant-divider {
+  background: $cfff4;
+}
+
+.ant-divider-horizontal {
+  margin: 0;
+  height: 0.5px;
+}
+
+// 输入框
+.ant-input {
+  color: $cfff;
+  background: $second3;
+  box-shadow: 0px 0px 5px 0px $second3;
+  border-color: $second;
+}
+
+.ant-input-affix-wrapper {
+  background: $second3;
+  border-color: $second;
+
+  .ant-input {
+    background: none;
+    border: none;
+    box-shadow: none;
+  }
+
+  .ant-input-clear-icon {
+    color: $cfff8;
+    padding-right: 5px;
+  }
+
+  .ant-input-search-icon {
+    color: $second;
+    padding-left: 10px;
+    border-left: 1px solid $second3;
+  }
+}
+
+// 下拉框
+.ant-select {
+  color: $cfff8;
+
+  .ant-select-arrow {
+    color: $cfff8;
+  }
+}
+
+.ant-select-multiple .ant-select-selector,
+.ant-select-single:not(.ant-select-customize-input) .ant-select-selector {
+  background: $second3;
+  box-shadow: 0px 0px 5px 0px $second3;
+  border-color: $second;
+  height: auto;
+}
+
+.ant-select-disabled.ant-select-single:not(.ant-select-customize-input) .ant-select-selector {
+  background: $cfff2;
+  color: $cfff8;
+  border-color: $cfff4;
+}
+
+.ant-select-multiple {
+  .ant-select-selection-item {
+    background: $second3;
+    border: none;
+    color: $cfff8;
+  }
+
+  .ant-select-selection-item-remove {
+    color: $cfff8;
+  }
+}
+
+.ant-select-dropdown {
+  color: $cfff8;
+
+  .ant-select-item {
+    color: $cfff6;
+  }
+
+  .ant-select-item-option-active:not(.ant-select-item-option-disabled) {
+    background: none;
+  }
+
+  .ant-select-item:hover,
+  .ant-select-item-option-selected:not(.ant-select-item-option-disabled) {
+    color: $cfff6;
+    background: $second3;
+  }
+}
+
+// 级联选择器
+.ant-cascader-picker {
+  background: transparent;
+  color: $cfff8;
+
+  .ant-cascader-picker-clear {
+    background: none;
+    color: $cfff8;
+  }
+
+  .ant-cascader-picker-arrow {
+    color: $cfff8;
+  }
+}
+
+.ant-cascader-menus {
+  color: $cfff8;
+  // border: 1px solid $second3;
+
+  .ant-cascader-menu {
+    border-color: $second3;
+  }
+
+  .ant-cascader-menu-item-disabled {
+    color: $cfff2;
+  }
+
+  .ant-cascader-menu-item-expand-icon {
+    color: $cfff8;
+  }
+
+  .ant-cascader-menu-item:hover,
+  .ant-cascader-menu-item-active:not(.ant-cascader-menu-item-disabled),
+  .ant-cascader-menu-item-active:not(.ant-cascader-menu-item-disabled):hover {
+    background: $second3;
+    color: $cfff6;
+  }
+}
+
+// 单选 多选
+.ant-radio-wrapper,
+.ant-checkbox-wrapper,
+.ant-radio-disabled+span {
+  color: $cfff8;
+}
+
+.ant-radio-inner,
+.ant-radio-disabled .ant-radio-inner,
+.ant-checkbox-inner,
+.ant-checkbox-disabled .ant-checkbox-inner {
+  background: inherit;
+}
+
+.ant-radio-disabled .ant-radio-inner::after {
+  background: $cfff6;
+}
+
+.ant-checkbox-disabled.ant-checkbox-checked .ant-checkbox-inner::after {
+  border-color: $cfff6;
+}
+
+
+// 下拉菜单
+.ant-dropdown-menu-item:hover,
+.ant-dropdown-menu-submenu-title:hover {
+  background-color: rgba(88, 229, 254, 0.3);
+}
+
+// 表格
+.ant-table {
+  background: inherit;
+}
+
+.ant-table-thead>tr>th {
+  color: $cfff8;
+}
+
+.ant-table-tbody>tr>td {
+  color: $cfff6;
+}
+
+.ant-table-thead>tr>th,
+.ant-table-tbody>tr:hover:not(.ant-table-expanded-row):not(.ant-table-row-selected)>td {
+  background: $second3;
+  box-shadow: 0px 0px 5px 0px $second3;
+}
+
+.ant-table-bordered .ant-table-header>table,
+.ant-table-bordered .ant-table-body>table,
+.ant-table-bordered .ant-table-fixed-left table,
+.ant-table-bordered .ant-table-fixed-right table,
+.ant-table-bordered .ant-table-thead>tr>th,
+.ant-table-bordered .ant-table-tbody>tr>td {
+  border-color: $second;
+}
+
+// 分页
+.ant-pagination {
+  color: $cfff;
+
+  .ant-pagination-item {
+    background: none;
+    border-color: $cfff2;
+
+    a {
+      color: $cfff6;
+    }
+  }
+
+  .ant-pagination-item-active {
+    background: $second3;
+    box-shadow: 0px 0px 10px 0px $second3;
+    border-color: $second;
+
+    a {
+      color: $cfff8;
+    }
+  }
+
+  .ant-pagination-prev,
+  .ant-pagination-next {
+    .ant-pagination-item-link {
+      background: none;
+      border-color: $cfff2;
+
+      .anticon {
+        color: $cfff6;
+      }
+    }
+  }
+
+  .ant-pagination-options-quick-jumper input {
+    background: none;
+    border-color: $second;
+    color: $cfff8;
+  }
+}
+
+// .ant-tabs-bar {
+//   border: none;
+
+//   .ant-tabs-nav {
+//     .ant-tabs-tab {
+
+//       padding: 35px 80px 10px;
+
+//       &:hover {
+//         color: $second;
+//       }
+//     }
+//   }
+// }
+
+
+// 弹窗 
+.ant-modal {
+  background: $c0008;
+  border: 1px solid $primary;
+  padding-bottom: 0;
+
+  .ant-modal-header,
+  .ant-modal-content {
+    background: none;
+    color: $cfff;
+    border-color: $cfff4;
+
+    .ant-modal-title,
+    .ant-modal-close {
+      color: $cfff;
+    }
+  }
+
+  .ant-modal-footer,
+  .ant-modal-confirm-btns {
+    border-color: $cfff4;
+
+    .ant-btn {
+      background: inherit;
+      color: $cfff6;
+      border-color: $cfff4;
+    }
+
+    .ant-btn-primary {
+      background: $primary;
+      border-color: $primary;
+    }
+  }
+
+  .ant-modal-confirm-body .ant-modal-confirm-title {
+    color: $cfff;
+  }
+}
+
+.green-confirm {
+  .ant-modal-confirm-body .anticon {
+    color: green !important;
+  }
+}
+
+.error-confirm {
+  .ant-modal-confirm-body .anticon {
+    color: $error !important;
+  }
+}
+
+.ant-form-item-label>label {
+  color: $cfff8;
+}
+
+.ant-switch {
+  background: $cfff2;
+}
+
+.ant-switch-checked {
+  background: $primary;
+}
+
+.ant-empty-small,
+.ant-empty-normal {
+  color: $cfff;
+}

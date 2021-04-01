@@ -34,4 +34,9 @@ export default {
   width: 400px;
   height: 300px;
 }
+
+.panel-bg {
+  background: url("~@/assets/imgs/chart/panel_bg.png") center no-repeat;
+  background-size: 100% 100%;
+}
 </style>

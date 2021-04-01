@@ -409,6 +409,13 @@ $val in $borderSizes {
   cursor: pointer;
 }
 
+// 高度
+@for $i from 5 through 30 {
+  .height-#{$i} {
+    height: clamp(itemMinHeight($i / 100), 1vh * $i, itemMaxHeight($i / 100));
+  }
+}
+
 // 过渡、动画
 $degree: (45: 45deg,
   90: 90deg,

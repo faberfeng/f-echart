@@ -12,18 +12,26 @@
           {{ item }}
         </span>
       </a-row>
+      <QualifiedIsNot :status="oneData.status" />
     </ChartTitle>
-    <div id="alarmCurveChart7Id" class="height-30"></div>
+    <div class="my-mt-20 my-py-10 panel-bg">
+      <div class="my-pt-10 text-center fs-12 fc-primary">
+        {{ oneData.text }}
+      </div>
+      <div id="alarmColumnChart10Id" class="height-20"></div>
+    </div>
   </div>
 </template>
 <script>
 import ChartTitle from "@/components/others/ChartTitle";
-import { curveChart7 } from "@/charts/curveChart";
+import QualifiedIsNot from "@/components/others/QualifiedIsNot";
+import { columnChart10 } from "@/charts/columnChart";
 import { onMounted, ref } from "vue";
 import { init } from "echarts";
 export default {
   components: {
     ChartTitle,
+    QualifiedIsNot,
   },
   props: {
     oneData: Object,
@@ -37,14 +45,14 @@ export default {
     }
 
     let { chartTwoData } = props;
-    let alarmCurveChart7Id = null;
+    let alarmColumnChart10Id = null;
     function initData() {
-      if (!alarmCurveChart7Id)
-        alarmCurveChart7Id = init(
-          document.getElementById("alarmCurveChart7Id")
+      if (!alarmColumnChart10Id)
+        alarmColumnChart10Id = init(
+          document.getElementById("alarmColumnChart10Id")
         );
-      alarmCurveChart7Id.setOption(curveChart7({ chartTwoData }), true);
-      alarmCurveChart7Id.resize();
+      alarmColumnChart10Id.setOption(columnChart10(chartTwoData), true);
+      alarmColumnChart10Id.resize();
     }
 
     onMounted(() => {

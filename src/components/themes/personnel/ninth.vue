@@ -1,9 +1,13 @@
 <template>
   <div class="bg-0006 radius-4 my-pa-5" style="min-width: 360px">
-    <div :style="`height: ${firstChartHeight}px`" id="barChart5ThemeId"></div>
-    <div style="height: 200px" id="paleChart11ThemeId"></div>
+    <div
+      :style="`height: ${firstChartHeight}px`"
+      id="personnelBarChart5Id"
+    ></div>
+    <div class="height-20" id="personnelPaleChart11Id"></div>
     <a-row
       type="flex"
+      justify="center"
       align="middle"
       v-for="(item, index) in threeArr"
       :key="index"
@@ -13,14 +17,14 @@
         v-for="iItem in Math.round(20 * item.percent)"
         :key="iItem"
         :title="item.value"
-        class="iconfont fs-14 cursor"
+        class="iconfont fs-12 cursor"
         :class="item.icon"
         :style="{ color: item.color }"
       ></i>
       <i
         v-for="iItem in Math.round(20 * (1 - item.percent))"
         :key="iItem"
-        class="iconfont fs-14"
+        class="iconfont fs-12"
         :class="item.icon"
         :style="{ color: item.thinColor }"
       ></i>
@@ -52,22 +56,30 @@ export default {
       return item;
     });
 
-    let firstChartHeight = computed(() => chartOneData.xData.length * 25);
-    let barChart5ThemeId = null;
-    let paleChart11ThemeId = null;
+    let firstChartHeight = computed(() => {
+      if (chartOneData.xData) return chartOneData.xData.length * 25;
+      else return 50;
+    });
+    let personnelBarChart5Id = null;
+    let personnelPaleChart11Id = null;
 
     function initData() {
-      if (!barChart5ThemeId)
-        barChart5ThemeId = init(document.getElementById("barChart5ThemeId"));
-      barChart5ThemeId.setOption(barChart5(cloneDeep(chartOneData)), true);
-      barChart5ThemeId.resize();
-
-      if (!paleChart11ThemeId)
-        paleChart11ThemeId = init(
-          document.getElementById("paleChart11ThemeId")
+      if (!personnelBarChart5Id)
+        personnelBarChart5Id = init(
+          document.getElementById("personnelBarChart5Id")
         );
-      paleChart11ThemeId.setOption(paleChart11(cloneDeep(chartTwoData)), true);
-      paleChart11ThemeId.resize();
+      personnelBarChart5Id.setOption(barChart5(chartOneData), true);
+      personnelBarChart5Id.resize();
+
+      if (!personnelPaleChart11Id)
+        personnelPaleChart11Id = init(
+          document.getElementById("personnelPaleChart11Id")
+        );
+      personnelPaleChart11Id.setOption(
+        paleChart11(cloneDeep(chartTwoData)),
+        true
+      );
+      personnelPaleChart11Id.resize();
     }
 
     onMounted(() => {
@@ -82,5 +94,3 @@ export default {
   },
 };
 </script>
-<style lang="scss" scoped>
-</style>

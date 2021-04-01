@@ -51,7 +51,8 @@
     "rules": {
       "no-new": "off",
       "no-undef": "off",
-      "vue/html-self-closing": "off"
+      "vue/html-self-closing": "off",
+      "no-dupe-keys": "off"
     }
   },
   "browserslist": [
