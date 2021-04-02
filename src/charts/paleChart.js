@@ -16,7 +16,7 @@ let paleChart1Data = {
     name: '',
     data: [100, 30, 40, 50]
   }],
-  width: 180,
+  width: 140,
 }
 export const paleChart1 = ({
   color = paleChart1Data.color,
@@ -26,7 +26,7 @@ export const paleChart1 = ({
 }) => {
   let series = [{
     type: 'pie',
-    clockwise: false,
+    clockwise: true,
     emphasis: {
       scaleSize: 4
     },
@@ -94,7 +94,7 @@ export const paleChart2 = ({
 }) => {
   let series = [{
     type: 'pie',
-    clockwise: false,
+    clockwise: true,
     radius: ['30%', '38%'],
     center: ['50%', '50%'],
     data: sData[0].data.map((item, index) => {
@@ -225,7 +225,7 @@ export const paleChart4 = ({
 }) => {
   let series = [{
     type: 'pie',
-    clockwise: false,
+    clockwise: true,
     radius: ['45%', '50%'],
     center: ['50%', '50%'],
     data: sData[0].data.map((item, index) => {
@@ -352,48 +352,66 @@ export const paleChart4 = ({
   }
 }
 
-// 第五个环状图
+/**
+ * 第五个环状图
+ * @param {Boolean} showLabel 是否展示label项
+ * @param {Number} legendType legend位置  1：上  2：右 3：下  4：左
+ */
 let paleChart5Data = {
   color: ['#5B8FF9', '#5AD8A6', '#5D7092', '#F6BD16', '#E8684A', '#FF9D4D', '#6DC8EC', '#9270CA', '#269A99', '#FF99C3', '#5B8FF9', '#BDD2FD', '#5AD8A6'],
   xData: ['工程类', '金融类', '数学类', '经济类', '管理类', '艺术与设计类', '自然科学类', '计算机类', '心理学', '教育与公共卫生类', '酒店管理', '法律与社会学', '其他'],
   sData: [{
     data: [9, 10, 5, 15, 12, 30, 28, 31, 12, 6, 5, 7, 8]
   }],
+  showLabel: true,
+  legendType: 1
 }
 export const paleChart5 = ({
   color = paleChart5Data.color,
   xData = paleChart5Data.xData,
   sData = paleChart5Data.sData,
+  showLabel = paleChart5Data.showLabel,
+  legendType = paleChart5Data.legendType,
 }) => {
   let legend = [{
-    top: '5%',
-    data: xData.slice(0, 9),
+    orient: legendType % 2 == 0 ? "vertical" : "horizontal",
+    top: legendType == 1 ? '5%' : 'auto',
+    right: legendType == 2 ? '5%' : 'auto',
+    bottom: legendType == 3 ? '5%' : 'middle',
+    left: legendType == 4 ? '5%' : 'auto',
+    data: xData.slice(0, 7),
     icon: 'circle',
+    itemGap: 4,
     itemWidth: 8,
     itemHeight: 8,
     textStyle: {
-      fontSize: defSize - 6,
+      fontSize: defSize - 4,
       color: cfff8
     }
   }];
-  if (xData.length > 9) {
+  if (xData.length > 7) {
     legend.push({
-      bottom: '2%',
-      data: xData.slice(9),
+      orient: legendType % 2 == 0 ? "vertical" : "horizontal",
+      top: legendType == 3 ? '5%' : 'auto',
+      right: legendType == 4 ? '5%' : 'auto',
+      bottom: legendType == 1 ? '5%' : 'middle',
+      left: legendType == 2 ? '5%' : 'auto',
+      data: xData.slice(7),
       icon: 'circle',
+      itemGap: 4,
       itemWidth: 8,
       itemHeight: 8,
       textStyle: {
-        fontSize: defSize - 6,
+        fontSize: defSize - 4,
         color: cfff8
       }
     })
   }
   let series = [{
     type: 'pie',
-    clockwise: false,
-    radius: [0, '40%'],
-    center: ['50%', '60%'],
+    clockwise: true,
+    radius: [0, '55%'],
+    center: ['50%', '50%'],
     data: sData[0].data.map((item, index) => {
       return {
         name: xData[index],
@@ -404,6 +422,7 @@ export const paleChart5 = ({
       scaleSize: 4
     },
     label: {
+      show: showLabel,
       color: cfff8,
       fontSize: defSize - 4,
       formatter: "{d}%",
@@ -817,16 +836,17 @@ export const paleChart9 = ({
   return {
     ...cloneDeep(defaultChart),
     legend: {
-      top: '15%',
-      left: '55%',
+      top: '13%',
+      left: '52%',
       orient: "vertical",
       data: xData,
+      itemGap: 8,
       itemWidth: 8,
       itemHeight: 8,
       icon: 'circle',
       textStyle: {
         color: cfff8,
-        fontSize: defSize - 2
+        fontSize: defSize - 4
       }
     },
     color: color,
@@ -1054,7 +1074,7 @@ export const paleChart11 = ({
       itemWidth: 8,
       itemHeight: 8,
       textStyle: {
-        fontSize: defSize,
+        fontSize: defSize - 2,
         color: cfff8
       }
     },
@@ -1082,7 +1102,7 @@ export const paleChart13 = ({
 }) => {
   let series = [{
     type: 'pie',
-    clockwise: false,
+    clockwise: true,
     radius: ['50%', '60%'],
     center: [showLabel ? '35%' : '18%', '50%'],
     data: sData[0].data.map((item, index) => {
@@ -1210,7 +1230,7 @@ export const paleChart13 = ({
       itemWidth: 8,
       itemHeight: 8,
       textStyle: {
-        fontSize: defSize,
+        fontSize: defSize - 2,
         color: cfff8
       }
     },

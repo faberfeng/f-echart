@@ -49,9 +49,6 @@ export const columnChart1 = ({
         type: 'bar',
         name: item.name,
         data: item.data,
-        tooltip: {
-          show: false
-        },
         barWidth: '25%',
         itemStyle: {
           borderRadius: [20, 20, 0, 0],
@@ -73,6 +70,9 @@ export const columnChart1 = ({
   })
   return {
     ...cloneDeep(defaultChart),
+    tooltip: {
+      trigger: 'axis'
+    },
     grid: {
       left: '15%',
       right: '15%',
@@ -185,9 +185,6 @@ export const columnChart2 = ({
         type: 'bar',
         name: item.name,
         data: item.data,
-        tooltip: {
-          show: false
-        },
         barWidth: '25%',
         itemStyle: {
           borderRadius: [20, 20, 0, 0],
@@ -217,6 +214,9 @@ export const columnChart2 = ({
   return {
     ...cloneDeep(defaultChart),
     grid: cloneDeep(defGrid),
+    tooltip: {
+      trigger: 'axis'
+    },
     legend: {
       show: false
     },
@@ -293,9 +293,6 @@ export const columnChart3 = ({
         type: 'bar',
         name: item.name,
         data: item.data,
-        tooltip: {
-          show: false
-        },
         barWidth: '25%',
         itemStyle: {
           color: linearColor(hexToRgba(color[0], 0.8), hexToRgba(color[0], 0.01))
@@ -324,6 +321,9 @@ export const columnChart3 = ({
   return {
     ...cloneDeep(defaultChart),
     grid: cloneDeep(defGrid),
+    tooltip: {
+      trigger: 'axis'
+    },
     legend: {
       show: false
     },
@@ -771,6 +771,9 @@ export const columnChart7 = ({
   return {
     ...cloneDeep(defaultChart),
     grid: cloneDeep(defGrid),
+    tooltip: {
+      trigger: 'axis'
+    },
     legend: {
       top: '5%',
       textStyle: {

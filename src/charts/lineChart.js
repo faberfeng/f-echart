@@ -97,6 +97,9 @@ export const lineChart1 = ({
   })
   return {
     ...cloneDeep(defaultChart),
+    tooltip: {
+      trigger: 'axis'
+    },
     grid: cloneDeep(defGrid),
     legend: {
       top: '5%',
@@ -168,6 +171,9 @@ export const lineChart2 = ({
   })
   return {
     ...cloneDeep(defaultChart),
+    tooltip: {
+      trigger: 'axis'
+    },
     grid: cloneDeep(defGrid),
     legend: {
       top: '5%',
@@ -254,6 +260,9 @@ export const lineChart3 = ({
   })
   return {
     ...cloneDeep(defaultChart),
+    tooltip: {
+      trigger: 'axis'
+    },
     grid: cloneDeep(defGrid),
     legend: {
       top: '5%',
@@ -330,6 +339,9 @@ export const lineChart4 = ({
   })
   return {
     ...cloneDeep(defaultChart),
+    tooltip: {
+      trigger: 'axis'
+    },
     grid: cloneDeep(defGrid),
     legend: {
       show: false,
@@ -398,6 +410,9 @@ export const lineChart5 = ({
   })
   return {
     ...cloneDeep(defaultChart),
+    tooltip: {
+      trigger: 'axis'
+    },
     grid: cloneDeep(defGrid),
     legend: {
       show: false,
@@ -492,6 +507,9 @@ export const lineChart6 = ({
   })
   return {
     ...cloneDeep(defaultChart),
+    tooltip: {
+      trigger: 'axis'
+    },
     grid: cloneDeep(defGrid),
     legend: {
       top: '5%',

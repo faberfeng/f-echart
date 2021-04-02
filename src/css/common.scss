@@ -168,8 +168,11 @@ $val in $letters {
 
 // 色值  字体色、背景色、边框色
 $colors: ('primary': $primary,
+  'primary3': $primary3,
   'second': $second,
+  'second3': $second3,
   'third': $third,
+  'third3': $third3,
   'success': $success,
   'warn': $warn,
   'error': $error,

@@ -15,7 +15,7 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   min-height: 100%;
-  background-color: rgba(0, 0, 0, 1);
+  background: #000010;
 }
 
 .ff-fz {
@@ -31,8 +31,8 @@ export default {
 }
 
 .chart-item {
-  width: 400px;
-  height: 300px;
+  width: 300px;
+  height: 225px;
 }
 
 .panel-bg {

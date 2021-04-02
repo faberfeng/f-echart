@@ -53,6 +53,9 @@ export const curveChart1 = ({
   })
   return {
     ...cloneDeep(defaultChart),
+    tooltip: {
+      trigger: 'axis'
+    },
     grid: {
       left: '10%',
       right: '10%',
@@ -149,6 +152,9 @@ export const curveChart2 = ({
   })
   return {
     ...cloneDeep(defaultChart),
+    tooltip: {
+      trigger: 'axis'
+    },
     grid: cloneDeep(defGrid),
     legend: {
       top: '5%',
@@ -246,6 +252,9 @@ export const curveChart3 = ({
   })
   return {
     ...cloneDeep(defaultChart),
+    tooltip: {
+      trigger: 'axis'
+    },
     grid: cloneDeep(defGrid),
     legend: {
       top: '5%',
@@ -346,6 +355,9 @@ export const curveChart4 = ({
   })
   return {
     ...cloneDeep(defaultChart),
+    tooltip: {
+      trigger: 'axis'
+    },
     grid: cloneDeep(defGrid),
     legend: {
       top: '5%',
@@ -444,6 +456,9 @@ export const curveChart5 = ({
   })
   return {
     ...cloneDeep(defaultChart),
+    tooltip: {
+      trigger: 'axis'
+    },
     grid: cloneDeep(defGrid),
     legend: {
       show: false
@@ -528,6 +543,9 @@ export const curveChart6 = ({
   })
   return {
     ...cloneDeep(defaultChart),
+    tooltip: {
+      trigger: 'axis'
+    },
     grid: cloneDeep(defGrid),
     legend: {
       show: false
@@ -631,6 +649,9 @@ export const curveChart7 = ({
   })
   return {
     ...cloneDeep(defaultChart),
+    tooltip: {
+      trigger: 'axis'
+    },
     grid: {
       bottom: 40,
     },
@@ -643,9 +664,6 @@ export const curveChart7 = ({
       },
       itemWidth: 6,
       itemHeight: 2,
-    },
-    tooltip: {
-      trigger: 'axis'
     },
     xAxis: {
       type: 'category',

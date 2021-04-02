@@ -79,6 +79,9 @@ export const areaChart1 = ({
   })
   return {
     ...cloneDeep(defaultChart),
+    tooltip: {
+      trigger: 'axis'
+    },
     grid: cloneDeep(defGrid),
     legend: {
       top: '5%',
@@ -134,15 +137,17 @@ let areaChart2Data = {
   }, {
     name: '其他',
     data: [210, 480, 290, 420, 380, 590, 610, 390, 820]
-  }]
+  }],
+  unit: "数量"
 }
 export const areaChart2 = ({
   color = areaChart2Data.color,
   xData = areaChart2Data.xData,
   sData = areaChart2Data.sData,
+  unit = areaChart2Data.unit,
 }) => {
   let yAxis = cloneDeep(yAxisItem);
-  yAxis.name = '数量';
+  yAxis.name = unit;
   let series = sData.map((item, index) => {
     let obj = {
       type: 'line',
@@ -160,6 +165,9 @@ export const areaChart2 = ({
   })
   return {
     ...cloneDeep(defaultChart),
+    tooltip: {
+      trigger: 'axis'
+    },
     grid: cloneDeep(defGrid),
     legend: {
       top: '5%',
@@ -168,6 +176,7 @@ export const areaChart2 = ({
         color: cfff8,
         fontSize: defSize - 4
       },
+      itemGap: 4,
       itemWidth: 10,
       itemHeight: 10,
     },
@@ -279,6 +288,9 @@ export const areaChart3 = ({
   series = [...series, ...markAreas]
   return {
     ...cloneDeep(defaultChart),
+    tooltip: {
+      trigger: 'axis'
+    },
     grid: cloneDeep(defGrid),
     legend: {
       top: '5%',
@@ -356,6 +368,9 @@ export const areaChart4 = ({
   })
   return {
     ...cloneDeep(defaultChart),
+    tooltip: {
+      trigger: 'axis'
+    },
     grid: cloneDeep(defGrid),
     legend: {
       top: '5%',
@@ -428,6 +443,9 @@ export const areaChart5 = ({
   })
   return {
     ...cloneDeep(defaultChart),
+    tooltip: {
+      trigger: 'axis'
+    },
     grid: cloneDeep(defGrid),
     legend: {
       top: '5%',
@@ -503,6 +521,9 @@ export const areaChart6 = ({
   })
   return {
     ...cloneDeep(defaultChart),
+    tooltip: {
+      trigger: 'axis'
+    },
     grid: cloneDeep(defGrid),
     legend: {
       top: '5%',
@@ -586,6 +607,9 @@ export const areaChart7 = ({
   })
   return {
     ...cloneDeep(defaultChart),
+    tooltip: {
+      trigger: 'axis'
+    },
     grid: {
       left: '10%',
       right: '10%',

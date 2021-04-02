@@ -11,13 +11,21 @@
     <a-col :span="6">
       <Second :oneData="secondObj.oneData" />
     </a-col>
+    <a-col :span="6">
+      <Seventh :oneData="serventhObj.oneData" />
+    </a-col>
+    <a-col :span="6">
+      <Eighth :oneData="eighthObj.oneData" />
+    </a-col>
   </a-row>
 </template>
 <script>
 import First from "./first";
 import Second from "./second";
+import Seventh from "./seventh";
+import Eighth from "./eighth";
 export default {
-  components: { First, Second },
+  components: { First, Second, Seventh, Eighth },
   setup() {
     let firstObj = {
       oneData: {
@@ -29,7 +37,6 @@ export default {
         chartData: {
           xData: ["峰时", "谷时", "平时", "其他"],
           sData: [{ data: [36249, 33182, 83831, 31187] }],
-          width: 140,
         },
       },
       twoData: {
@@ -38,7 +45,10 @@ export default {
       },
       threeData: {
         tabs: ["不同行业客户分时段耗电", "不同行业客户月度耗电"],
-        chartData: {},
+        subTabs: ["当日", "当月", "当季", "当年"],
+        chartData: {
+          unit: "耗电:kwh",
+        },
       },
     };
     let secondObj = {
@@ -63,9 +73,52 @@ export default {
         ],
       },
     };
+    let serventhObj = {
+      oneData: {
+        title: "能源消耗情况",
+        chartData: {
+          color: ["#E9C46A", "#299D8F", "#E76F51", "#F4A261"],
+          xData: ["峰时", "平时", "谷时", "其他"],
+          sData: [{ data: [40, 25, 20, 15] }],
+          showLabel: false,
+          legendType: 4,
+        },
+        decorateArr: [
+          { name: "接入园区", value: "99", unit: "个" },
+          { name: "接入比例", value: "90.6%" },
+          { name: "耗电功率", value: "22.4", unit: "kw" },
+        ],
+      },
+    };
+    let eighthObj = {
+      oneData: {
+        title: "已接入园区情况",
+        decorateArr: [
+          { name: "接入园区", value: "99个", class: "ff-pm fc-primary" },
+          { name: "接入比例", value: "90.6%", class: "ff-pm fc-primary" },
+        ],
+        chartData1: {
+          xData: ["当前耗电功率"],
+          sData: [{ data: [22.4] }],
+          unit: "kw",
+        },
+        chartData2: {
+          color: ["#6480F6", "#67B4FD"],
+          xData: ["当日耗电功率峰值"],
+          sData: [{ data: [22.4] }],
+          unit: "kw",
+        },
+        chartData3: {
+          xData: ["峰时", "谷时", "平时", "其他"],
+          sData: [{ data: [36249, 33182, 83831, 31187] }],
+        },
+      },
+    };
     return {
       firstObj,
       secondObj,
+      serventhObj,
+      eighthObj,
     };
   },
 };

@@ -415,10 +415,13 @@ export const gaugeChart3 = ({
   color = gaugeChart3Data.color,
   xData = gaugeChart3Data.xData,
   sData = gaugeChart3Data.sData,
+  min = 0,
+  max = 100,
+  unit = '%'
 }) => {
   let series = [{
     type: 'gauge',
-    radius: '68%',
+    radius: '80%',
     center: ['50%', '55%'],
     startAngle: 230,
     endAngle: -50,
@@ -434,6 +437,7 @@ export const gaugeChart3 = ({
     },
     splitLine: {
       length: 2,
+      distance: 0,
       lineStyle: {
         color: linearColor(color[0], color[1], [0, 0, 1, 0]),
         type: 'dotted'
@@ -450,6 +454,8 @@ export const gaugeChart3 = ({
     startAngle: 230,
     endAngle: -50,
     splitNumber: 19,
+    min: min,
+    max: max,
     title: {
       show: false
     },
@@ -458,7 +464,7 @@ export const gaugeChart3 = ({
     },
     axisLine: {
       lineStyle: {
-        width: 15,
+        width: 12,
         color: [
           [1, linearColor(color[0], color[1], [0, 0, 1, 0])]
         ]
@@ -468,22 +474,27 @@ export const gaugeChart3 = ({
       show: false
     },
     splitLine: {
-      length: 15,
+      width: 1,
+      length: 12,
+      distance: -12,
       lineStyle: {
-        color: 'rgba(6,6,6,0.4)',
+        color: 'rgba(0,0,0,1)',
       }
     },
     detail: {
-      formatter: '{value}%',
+      formatter: `{value}${unit}`,
       color: '#F7D60B',
       offsetCenter: [0, 0],
       fontFamily: 'pangmeng',
       fontWeight: 600,
-      fontSize: defSize + 6
+      fontSize: defSize,
     },
     pointer: {
       width: 4,
-      length: '100%'
+      length: '100%',
+      itemStyle: {
+        opacity: 0.6
+      }
     },
     data: [{
       name: xData[0],
@@ -522,7 +533,7 @@ export const gaugeChart3 = ({
     }
   }, {
     type: 'gauge',
-    radius: '35%',
+    radius: '36%',
     center: ['50%', '55%'],
     startAngle: 270,
     endAngle: -89.999,
@@ -549,15 +560,18 @@ export const gaugeChart3 = ({
   }, {
     type: 'funnel',
     left: 'center',
-    top: '80%',
+    top: '85%',
     minSize: '100%',
-    maxSize: '80%',
+    maxSize: '85%',
     width: '55%',
     height: '12%',
     label: {
       position: 'inside',
-      fontSize: defSize - 2,
+      fontSize: defSize - 4,
       color: cfff8
+    },
+    tooltip: {
+      show: false
     },
     data: [{
       name: xData[0],
@@ -598,7 +612,7 @@ export const gaugeChart4 = ({
 }) => {
   let series = [{
     type: 'gauge',
-    radius: '80%',
+    radius: '72%',
     center: ['50%', '50%'],
     startAngle: '89.99',
     endAngle: '-270',
@@ -630,7 +644,7 @@ export const gaugeChart4 = ({
     }
   }, {
     type: 'gauge',
-    radius: '65%',
+    radius: '61%',
     center: ['50%', '50%'],
     startAngle: '89.99',
     endAngle: '-270',
@@ -662,7 +676,7 @@ export const gaugeChart4 = ({
     }
   }, {
     type: 'gauge',
-    radius: '64%',
+    radius: '60%',
     center: ['50%', '50%'],
     startAngle: '220',
     endAngle: '-40',
@@ -924,10 +938,13 @@ export const gaugeChart6 = ({
   color = gaugeChart6Data.color,
   xData = gaugeChart6Data.xData,
   sData = gaugeChart6Data.sData,
+  min = 0,
+  max = 100,
+  unit = '℃'
 }) => {
   let series = [{
     type: 'gauge',
-    radius: '68%',
+    radius: '80%',
     center: ['50%', '55%'],
     startAngle: 230,
     endAngle: -50,
@@ -943,6 +960,7 @@ export const gaugeChart6 = ({
     },
     splitLine: {
       length: 2,
+      distance: 0,
       lineStyle: {
         color: linearColor(color[0], color[1], [0, 0, 1, 0]),
         type: 'dotted'
@@ -959,6 +977,8 @@ export const gaugeChart6 = ({
     startAngle: 230,
     endAngle: -50,
     splitNumber: 19,
+    min: min,
+    max: max,
     title: {
       show: false
     },
@@ -967,7 +987,7 @@ export const gaugeChart6 = ({
     },
     axisLine: {
       lineStyle: {
-        width: 15,
+        width: 12,
         color: [
           [1, {
             type: 'linear',
@@ -994,22 +1014,22 @@ export const gaugeChart6 = ({
       show: false
     },
     splitLine: {
-      length: 15,
-      lineStyle: {
-        color: 'rgba(6,6,6,0.4)',
-      }
+      show: false
     },
     detail: {
-      formatter: '{value}℃',
+      formatter: `{value}${unit}`,
       color: cfff8,
       offsetCenter: [0, 0],
       fontFamily: 'pangmeng',
       fontWeight: 600,
-      fontSize: defSize + 6
+      fontSize: defSize + 2
     },
     pointer: {
       width: 4,
-      length: '100%'
+      length: '100%',
+      itemStyle: {
+        opacity: 0.6
+      }
     },
     data: [{
       name: xData[0],
@@ -1048,7 +1068,7 @@ export const gaugeChart6 = ({
     }
   }, {
     type: 'gauge',
-    radius: '35%',
+    radius: '36%',
     center: ['50%', '55%'],
     startAngle: 270,
     endAngle: -89.999,
@@ -1077,13 +1097,16 @@ export const gaugeChart6 = ({
     left: 'center',
     top: '80%',
     minSize: '100%',
-    maxSize: '80%',
+    maxSize: '85%',
     width: '55%',
     height: '12%',
     label: {
       position: 'inside',
       fontSize: defSize - 2,
       color: cfff8
+    },
+    tooltip: {
+      show: false
     },
     data: [{
       name: '标准值：16℃-24℃',
@@ -1996,7 +2019,7 @@ export const gaugeChart10 = ({
 }) => {
   let series = [{
     type: 'pie',
-    clockwise: false,
+    clockwise: true,
     emphasis: {
       scale: false
     },
