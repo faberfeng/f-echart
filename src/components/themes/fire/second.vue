@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-0006">
+  <div class="bg-0006 my-pa-10">
     <ChartTitle :title="oneData.title" :type="1">
       <a-row type="flex" justify="end" class="flex-other">
         <CaretDownOutlined class="fs-20 fc-primary" v-show="true" />
@@ -7,13 +7,11 @@
       </a-row>
     </ChartTitle>
     <a-row type="flex" justify="space-around" class="my-py-10 fc-fff8">
-      <a-col
-        :span="10"
-        v-for="(item, index) in oneData.decorateArr"
-        :key="index"
-      >
-        <DecorateBox :type="1" :data="item" />
-      </a-col>
+      <template v-for="(item, index) in oneData.decorateArr" :key="index">
+        <a-col :span="10">
+          <DecorateBox :type="1" :data="item" />
+        </a-col>
+      </template>
     </a-row>
     <div id="fireBarChart4Id" class="height-20"></div>
   </div>
@@ -23,7 +21,6 @@ import { CaretDownOutlined, CaretUpOutlined } from "@ant-design/icons-vue";
 
 import ChartTitle from "@/components/others/ChartTitle";
 import DecorateBox from "@/components/others/DecorateBox";
-import QualifiedIsNot from "@/components/others/QualifiedIsNot";
 
 import { onMounted } from "vue";
 import { init } from "echarts";
@@ -36,7 +33,6 @@ export default {
 
     ChartTitle,
     DecorateBox,
-    QualifiedIsNot,
   },
   props: {
     oneData: Object,

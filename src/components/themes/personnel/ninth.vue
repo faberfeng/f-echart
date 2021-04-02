@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-0006 radius-4 my-pa-5" style="min-width: 360px">
+  <div class="bg-0006 radius-4 my-pa-10">
     <div
       :style="`height: ${firstChartHeight}px`"
       id="personnelBarChart5Id"

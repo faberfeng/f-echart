@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-0006">
+  <div class="bg-0006 my-pa-10">
     <ChartTitle :title="oneData.title" :type="1">
       <a-row type="flex" justify="end" class="flex-other">
         <QualifiedIsNot :status="oneData.status" />

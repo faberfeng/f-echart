@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-0006">
+  <div class="bg-0006 my-pa-10">
     <ChartTitle :title="oneData.title" :type="1">
       <a-row type="flex" justify="end" class="flex-other">
         <CaretDownOutlined class="fs-20 fc-primary" v-show="true" />
@@ -14,20 +14,15 @@
     <ChartTitle :title="twoData.title" :type="3" />
     <div id="fireThirdBarChart4Id" class="height-20"></div>
     <ChartTitle :title="threeData.title" :type="3" />
-    <DefTable
-      :isRank="true"
-      :thead="threeData.thead"
-      :tbody="threeData.tbody"
-    />
+    <DefTable :type="1" :thead="threeData.thead" :tbody="threeData.tbody" />
     <ChartTitle :title="fourData.title" :type="3" />
-    <DefTable :isRank="true" :thead="fourData.thead" :tbody="fourData.tbody" />
+    <DefTable :type="1" :thead="fourData.thead" :tbody="fourData.tbody" />
   </div>
 </template>
 <script>
 import { CaretDownOutlined, CaretUpOutlined } from "@ant-design/icons-vue";
 
 import ChartTitle from "@/components/others/ChartTitle";
-import QualifiedIsNot from "@/components/others/QualifiedIsNot";
 import DecorateBox from "@/components/others/DecorateBox";
 import DefTable from "@/components/others/DefTable";
 
@@ -41,7 +36,6 @@ export default {
     CaretUpOutlined,
 
     ChartTitle,
-    QualifiedIsNot,
     DecorateBox,
     DefTable,
   },

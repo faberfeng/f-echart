@@ -10,7 +10,7 @@
       {{ data.name }}
     </div>
     <div class="text-center">
-      <span class="fs-14" :class="data.color || ''">{{ data.value }}</span>
+      <span class="fs-14" :class="data.class">{{ data.value }}</span>
       <span class="my-pl-2" v-show="data.unit">{{ data.unit }} </span>
     </div>
   </div>

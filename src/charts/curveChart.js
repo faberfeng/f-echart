@@ -151,7 +151,7 @@ export const curveChart2 = ({
     ...cloneDeep(defaultChart),
     grid: cloneDeep(defGrid),
     legend: {
-      top: 40,
+      top: '5%',
       right: '10%',
       itemWidth: 10,
       itemHeight: 8,
@@ -248,7 +248,7 @@ export const curveChart3 = ({
     ...cloneDeep(defaultChart),
     grid: cloneDeep(defGrid),
     legend: {
-      top: 40,
+      top: '5%',
       right: '10%',
       itemWidth: 10,
       itemHeight: 8,
@@ -348,7 +348,7 @@ export const curveChart4 = ({
     ...cloneDeep(defaultChart),
     grid: cloneDeep(defGrid),
     legend: {
-      top: 40,
+      top: '5%',
       right: '10%',
       itemWidth: 10,
       itemHeight: 8,
@@ -635,7 +635,7 @@ export const curveChart7 = ({
       bottom: 40,
     },
     legend: {
-      top: 20,
+      top: '5%',
       right: 10,
       textStyle: {
         color: cfff8,

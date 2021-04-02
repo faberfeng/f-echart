@@ -31,8 +31,30 @@ export let defaultChart = {
 export let defGrid = {
   left: '15%',
   right: '10%',
-  top: 80,
-  bottom: 40,
+  top: '20%',
+  bottom: 25,
+}
+
+/**
+ * 获取数组最大字符串长度
+ * @param {Array} arr xData
+ */
+export const getMaxLen = arr => {
+  let len = 0;
+  arr.forEach(item => {
+    if (item.length && item.length > len) len = item.length;
+  })
+  return len;
+}
+
+/**
+ * 计算左边距
+ * @param {Array} arr xData
+ */
+export const maxGridLeft = arr => {
+  let len = getMaxLen(arr);
+  if (len < 6) return 14 * (len + 1)
+  else return 14 * len
 }
 
 /**

@@ -99,7 +99,7 @@ export const lineChart1 = ({
     ...cloneDeep(defaultChart),
     grid: cloneDeep(defGrid),
     legend: {
-      top: 30,
+      top: '5%',
       right: '10%',
       textStyle: {
         color: cfff8,
@@ -170,7 +170,7 @@ export const lineChart2 = ({
     ...cloneDeep(defaultChart),
     grid: cloneDeep(defGrid),
     legend: {
-      top: 30,
+      top: '5%',
       right: '10%',
       textStyle: {
         color: cfff8,
@@ -256,7 +256,7 @@ export const lineChart3 = ({
     ...cloneDeep(defaultChart),
     grid: cloneDeep(defGrid),
     legend: {
-      top: 30,
+      top: '5%',
       right: '10%',
       textStyle: {
         color: cfff8,
@@ -494,7 +494,7 @@ export const lineChart6 = ({
     ...cloneDeep(defaultChart),
     grid: cloneDeep(defGrid),
     legend: {
-      top: 30,
+      top: '5%',
       textStyle: {
         fontSize: defSize - 2,
         color: cfff8,

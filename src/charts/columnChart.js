@@ -81,7 +81,7 @@ export const columnChart1 = ({
     },
     legend: {
       show: true,
-      top: 30,
+      top: '5%',
       right: '10%',
       itemWidth: 8,
       itemHeight: 4,
@@ -737,14 +737,18 @@ export const columnChart6 = ({
  */
 let columnChart7Data = {
   color: ['#5B8FF9', '#FF99C3', '#9270CA', '#FBE031'],
-  xData: ['人工智能', '生命健康', '数字信息', '其他'],
+  xData: ['当日', '当月', '当季', '当年'],
   sData: [{
+    name: '人工智能',
     data: [96, 77, 56, 93]
   }, {
+    name: '生命健康',
     data: [56, 56, 36, 99]
   }, {
+    name: '数字信息',
     data: [94, 95, 92, 74]
   }, {
+    name: '其他',
     data: [56, 100, 90, 48]
   }],
 }
@@ -756,10 +760,8 @@ export const columnChart7 = ({
   let series = sData.map((item, index) => {
     return {
       type: 'bar',
+      name: item.name,
       data: item.data,
-      tooltip: {
-        show: false
-      },
       barWidth: `${50 / sData.length}%`,
       itemStyle: {
         color: linearColor(hexToRgba(color[index], 0.8), hexToRgba(color[index], 0.01))
@@ -770,7 +772,13 @@ export const columnChart7 = ({
     ...cloneDeep(defaultChart),
     grid: cloneDeep(defGrid),
     legend: {
-      show: false
+      top: '5%',
+      textStyle: {
+        color: cfff8,
+        fontSize: defSize - 2
+      },
+      itemWidth: 8,
+      itemHeight: 8,
     },
     xAxis: {
       type: 'category',

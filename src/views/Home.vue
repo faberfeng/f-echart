@@ -1,5 +1,9 @@
 <template>
-  <a-tabs v-model="currTheme" tab-position="left" class="my-py-20 fc-fff">
+  <a-tabs
+    v-model="currTheme"
+    tab-position="left"
+    class="my-py-20 my-pr-20 fc-fff"
+  >
     <a-tab-pane :key="1" tab="图表">
       <a-row type="flex" align="middle" class="my-pt-20 fs-16">
         <span
@@ -36,6 +40,7 @@
       <Personnel v-if="currTheme == 0" />
       <Alarm v-else-if="currTheme == 2" />
       <Fire v-else-if="currTheme == 3" />
+      <Energy v-else-if="currTheme == 5" />
     </a-tab-pane>
   </a-tabs>
 </template>
@@ -53,6 +58,7 @@ import GaugeChart from "@/components/charts/GaugeChart";
 import Personnel from "@/components/themes/personnel/index";
 import Alarm from "@/components/themes/alarm/index";
 import Fire from "@/components/themes/fire/index";
+import Energy from "@/components/themes/energy/index";
 
 import { reactive, ref } from "vue";
 export default {
@@ -70,6 +76,7 @@ export default {
     Personnel,
     Alarm,
     Fire,
+    Energy,
   },
   setup() {
     let currBtn = ref(0);

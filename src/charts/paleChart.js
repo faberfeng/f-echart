@@ -30,7 +30,7 @@ export const paleChart1 = ({
     emphasis: {
       scaleSize: 4
     },
-    radius: [0, '35%'],
+    radius: [0, '40%'],
     center: ['50%', '50%'],
     data: sData[0].data.map((item, index) => {
       return {
@@ -41,7 +41,7 @@ export const paleChart1 = ({
     label: {
       fontFamily: "pangmeng",
       color: cfff8,
-      formatter: "{c}",
+      formatter: "{d}%",
     },
     labelLine: {
       length: 5,
@@ -54,7 +54,7 @@ export const paleChart1 = ({
   return {
     ...cloneDeep(defaultChart),
     legend: {
-      bottom: 10,
+      bottom: '2%',
       data: xData,
       itemWidth: 8,
       itemHeight: 8,
@@ -183,7 +183,7 @@ export const paleChart3 = ({
   return {
     ...cloneDeep(defaultChart),
     legend: {
-      bottom: 10,
+      bottom: '2%',
       data: xData,
       icon: 'circle',
       itemWidth: 5,
@@ -338,7 +338,7 @@ export const paleChart4 = ({
       }
     },
     legend: {
-      bottom: 10,
+      bottom: '2%',
       data: xData,
       itemWidth: 8,
       itemHeight: 8,
@@ -366,7 +366,7 @@ export const paleChart5 = ({
   sData = paleChart5Data.sData,
 }) => {
   let legend = [{
-    top: 60,
+    top: '5%',
     data: xData.slice(0, 9),
     icon: 'circle',
     itemWidth: 8,
@@ -378,7 +378,7 @@ export const paleChart5 = ({
   }];
   if (xData.length > 9) {
     legend.push({
-      bottom: 10,
+      bottom: '2%',
       data: xData.slice(9),
       icon: 'circle',
       itemWidth: 8,
@@ -1071,21 +1071,23 @@ let paleChart13Data = {
     data: [240, 140, 20]
   }],
   title: 400,
+  showLabel: true
 }
 export const paleChart13 = ({
   color = paleChart13Data.color,
   xData = paleChart13Data.xData,
   sData = paleChart13Data.sData,
   title = paleChart13Data.title,
+  showLabel = paleChart13Data.showLabel,
 }) => {
   let series = [{
     type: 'pie',
     clockwise: false,
     radius: ['50%', '60%'],
-    center: ['35%', '50%'],
+    center: [showLabel ? '35%' : '18%', '50%'],
     data: sData[0].data.map((item, index) => {
       return {
-        name: `${xData[index]}：${item}`,
+        name: `${xData[index]}：${item}${showLabel ? '' : `，占比：${(item/title*100).toFixed(2)}%`}`,
         value: item,
       }
     }),
@@ -1096,10 +1098,12 @@ export const paleChart13 = ({
       formatter: '{b}'
     },
     label: {
+      show: showLabel,
       color: cfff8,
       formatter: "{d}%",
     },
     labelLine: {
+      show: showLabel,
       length: 4,
       length2: 10,
       lineStyle: {
@@ -1110,7 +1114,7 @@ export const paleChart13 = ({
   }, {
     type: 'gauge',
     radius: '40%',
-    center: ['35%', '50%'],
+    center: [showLabel ? '35%' : '18%', '50%'],
     startAngle: 110,
     endAngle: 10,
     axisLabel: {
@@ -1149,7 +1153,7 @@ export const paleChart13 = ({
   }, {
     type: 'gauge',
     radius: '40%',
-    center: ['35%', '50%'],
+    center: [showLabel ? '35%' : '18%', '50%'],
     startAngle: 290,
     endAngle: 190,
     axisLabel: {
@@ -1176,7 +1180,7 @@ export const paleChart13 = ({
   }, {
     type: 'pie',
     radius: ['0%', '39%'],
-    center: ['35%', '50%'],
+    center: [showLabel ? '35%' : '18%', '50%'],
     emphasis: {
       scale: false
     },

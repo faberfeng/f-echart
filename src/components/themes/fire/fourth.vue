@@ -1,29 +1,25 @@
 <template>
-  <div class="bg-0006">
+  <div class="bg-0006 my-pa-10">
     <ChartTitle :title="oneData.title" :type="1">
       <a-row type="flex" justify="end" class="flex-other">
         <QualifiedIsNot :status="oneData.status" />
       </a-row>
     </ChartTitle>
-    <div class="my-mt-10 my-pt-20 panel-bg">
-      <div class="my-pt-10 my-pb-10 fc-primary text-center">
+    <div class="my-mt-10 panel-bg">
+      <div class="my-pt-15 my-pb-10 fc-primary text-center">
         {{ oneData.text }}
       </div>
       <a-row type="flex" justify="space-around" align="middle">
-        <a-col :span="10" class="height-25" id="fireGaugeChart4Id"></a-col>
+        <a-col :span="10">
+          <div class="height-17" id="fireGaugeChart4Id"></div>
+          <div class="text-center my-pb-15">生成数</div>
+        </a-col>
         <a-col :span="8">
-          <div class="my-pb-15">
-            <DecorateBox
-              :type="1"
-              :data="{ name: '响应数', value: '14446', color: 'fc-second' }"
-            />
-          </div>
-          <div class="my-pb-15">
-            <DecorateBox
-              :type="1"
-              :data="{ name: '待处理数', value: '10', color: 'fc-error' }"
-            />
-          </div>
+          <template v-for="(item, index) in oneData.decorateArr" :key="index">
+            <div class="my-pb-15">
+              <DecorateBox :type="1" :data="item" />
+            </div>
+          </template>
         </a-col>
       </a-row>
     </div>

@@ -574,7 +574,13 @@ export const gaugeChart3 = ({
   }
 }
 
-// 第四个仪表盘
+/**
+ * 第四个仪表盘
+ * @param {Array} color 颜色集合
+ * @param {Array} xData 横坐标集合
+ * @param {Array} sData 数据集合
+ * @param type 展示类型  1: 百分比  2: 数值
+ */
 let gaugeChart4Data = {
   color: ['#249EEA', '#00EFF8', '#905FFF'],
   xData: ['类目'],
@@ -582,11 +588,13 @@ let gaugeChart4Data = {
     name: '系列',
     data: [80]
   }],
+  type: 1
 }
 export const gaugeChart4 = ({
   color = gaugeChart4Data.color,
   xData = gaugeChart4Data.xData,
   sData = gaugeChart4Data.sData,
+  type = gaugeChart4Data.type,
 }) => {
   let series = [{
     type: 'gauge',
@@ -666,7 +674,7 @@ export const gaugeChart4 = ({
     },
     axisLine: {
       lineStyle: {
-        width: 10,
+        width: 8,
         color: [
           [1, linearColor(color[0], color[1], [0, 0, 1, 0])]
         ]
@@ -682,10 +690,10 @@ export const gaugeChart4 = ({
       show: false
     },
     detail: {
-      formatter: '{value}%',
-      offsetCenter: [0, -10],
+      formatter: type == 1 ? '{value}%' : '{value}',
+      offsetCenter: [0, type == 1 ? -10 : 0],
       color: cfff8,
-      fontSize: defSize + 10,
+      fontSize: defSize + 4,
       fontFamily: 'pangmeng'
     },
     data: [{
@@ -694,7 +702,7 @@ export const gaugeChart4 = ({
     }],
   }, {
     type: 'gauge',
-    radius: '50%',
+    radius: '45%',
     center: ['50%', '50%'],
     startAngle: '89.99',
     endAngle: '-270',
@@ -722,6 +730,7 @@ export const gaugeChart4 = ({
       show: false
     },
     detail: {
+      show: type == 1,
       formatter: '{value}/100',
       offsetCenter: [0, 20],
       color: cfff4,

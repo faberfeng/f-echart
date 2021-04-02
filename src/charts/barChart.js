@@ -6,6 +6,7 @@ import {
   cfff8,
   defSize,
   cloneDeep,
+  maxGridLeft,
   defaultChart,
   hexToRgba,
   thinColor,
@@ -221,7 +222,7 @@ export const barChart1 = ({
     grid: cloneDeep(defGrid),
     legend: {
       show: true,
-      top: 40,
+      top: '5%',
       right: '10%',
       textStyle: {
         color: cfff8,
@@ -426,7 +427,7 @@ export const barChart2 = ({
   return {
     ...cloneDeep(defaultChart),
     grid: {
-      left: '25%',
+      left: maxGridLeft(xData),
       right: '15%',
       top: 40,
       bottom: 40,
@@ -499,7 +500,7 @@ export const barChart3 = ({
   return {
     ...cloneDeep(defaultChart),
     grid: {
-      left: '20%',
+      left: maxGridLeft(xData),
       right: '20%',
       top: 40,
       bottom: 40,
@@ -646,7 +647,7 @@ export const barChart4 = ({
   return {
     ...cloneDeep(defaultChart),
     grid: {
-      left: '30%',
+      left: maxGridLeft(xData),
       right: '10%',
       top: title ? 40 : 20,
       bottom: 10,
@@ -662,7 +663,7 @@ export const barChart4 = ({
     },
     legend: {
       selectedMode: false,
-      top: title ? 20 : 5,
+      top: title ? '10%' : '0%',
       right: '10%',
       itemWidth: 8,
       itemHeight: 8,
@@ -870,7 +871,7 @@ export const barChart5 = ({
   return {
     ...cloneDeep(defaultChart),
     grid: {
-      left: '20%',
+      left: maxGridLeft(xData),
       right: '20%',
       top: 5,
       bottom: 0,

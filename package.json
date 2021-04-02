@@ -52,7 +52,8 @@
       "no-new": "off",
       "no-undef": "off",
       "vue/html-self-closing": "off",
-      "no-dupe-keys": "off"
+      "vue/no-v-for-template-key": "off",
+      "vue/no-multiple-template-root": "off"
     }
   },
   "browserslist": [

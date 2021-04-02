@@ -81,7 +81,7 @@ export const areaChart1 = ({
     ...cloneDeep(defaultChart),
     grid: cloneDeep(defGrid),
     legend: {
-      top: 40,
+      top: '5%',
       right: "10%",
       textStyle: {
         color: cfff8,
@@ -120,17 +120,20 @@ export const areaChart1 = ({
  * @param {Array} sData 数据集合
  */
 let areaChart2Data = {
-  color: ['#2549FF', '#D5BD2C', '#AF7FFF'],
-  xData: ['人工智能', '生命健康', '数字信息', '其他'],
+  color: ['#34DEF9', '#507BD2', '#D1BB2B', '#7C61A9'],
+  xData: ['1h', '2h', '3h', '4h', '5h', '6h', '7h', '8h', '9h'],
   sData: [{
-    name: '迁入',
-    data: [100, 900, 700, 50],
+    name: '人工智能',
+    data: [460, 440, 420, 400, 380, 360, 500, 780, 940]
   }, {
-    name: '回迁',
-    data: [400, 350, 300, 950]
+    name: '生命健康',
+    data: [50, 340, 270, 450, 670, 260, 780, 490, 910]
   }, {
-    name: '迁出',
-    data: [300, 200, 750, 550]
+    name: '数字信息',
+    data: [240, 730, 710, 710, 620, 880, 840, 800, 760],
+  }, {
+    name: '其他',
+    data: [210, 480, 290, 420, 380, 590, 610, 390, 820]
   }]
 }
 export const areaChart2 = ({
@@ -145,28 +148,28 @@ export const areaChart2 = ({
       type: 'line',
       name: item.name,
       areaStyle: {
-        color: linearColor(hexToRgba(color[index], 0.8), hexToRgba(color[index], 0.01))
+        color: linearColor(hexToRgba(color[index], 0.8), hexToRgba(color[index], 0.01)),
+        opacity: +(index == 0),
       },
       data: item.data,
       symbol: "none",
       symbolSize: 10,
     }
-    if (index == 1) obj.symbol = "circle";
+    if (index == 0) obj.symbol = "circle";
     return obj;
   })
   return {
     ...cloneDeep(defaultChart),
     grid: cloneDeep(defGrid),
     legend: {
-      top: 40,
+      top: '5%',
       right: "10%",
       textStyle: {
         color: cfff8,
-        fontSize: defSize - 2
+        fontSize: defSize - 4
       },
       itemWidth: 10,
       itemHeight: 10,
-      icon: "circle"
     },
     color: color,
     xAxis: {
@@ -278,7 +281,7 @@ export const areaChart3 = ({
     ...cloneDeep(defaultChart),
     grid: cloneDeep(defGrid),
     legend: {
-      top: 40,
+      top: '5%',
       right: "10%",
       textStyle: {
         color: cfff8,
@@ -355,7 +358,7 @@ export const areaChart4 = ({
     ...cloneDeep(defaultChart),
     grid: cloneDeep(defGrid),
     legend: {
-      top: 40,
+      top: '5%',
       right: "10%",
       textStyle: {
         color: cfff8,
@@ -427,7 +430,7 @@ export const areaChart5 = ({
     ...cloneDeep(defaultChart),
     grid: cloneDeep(defGrid),
     legend: {
-      top: 40,
+      top: '5%',
       right: "10%",
       textStyle: {
         color: cfff8,
@@ -502,7 +505,7 @@ export const areaChart6 = ({
     ...cloneDeep(defaultChart),
     grid: cloneDeep(defGrid),
     legend: {
-      top: 40,
+      top: '5%',
       right: "10%",
       textStyle: {
         color: cfff8,
