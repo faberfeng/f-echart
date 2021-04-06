@@ -28,10 +28,7 @@
       />
     </a-col>
     <a-col :span="6">
-      <Sixth
-        :oneData="sixthObj.oneData"
-        :twoData="sixthObj.twoData"
-      />
+      <Sixth :oneData="sixthObj.oneData" :twoData="sixthObj.twoData" />
     </a-col>
   </a-row>
 </template>
@@ -58,11 +55,11 @@ export default {
       oneData: {
         title: "消防安全情况",
         decorateArr: [
-          { name: "接入园区", value: "99", unit: "个", class: "fc-primary" },
-          { name: "接入比例", value: "90.6%", class: "fc-primary" },
-          { name: "达标园区", value: "99", unit: "个", class: "fc-primary" },
-          { name: "达标比例", value: "100%", class: "fc-second" },
-          { name: "不达标园区", value: "0", unit: "个", class: "fc-warn" },
+          { name: "接入园区", value: "99", unit: "个", color: "#3f91e4" },
+          { name: "接入比例", value: "90.6%", color: "#3f91e4" },
+          { name: "达标园区", value: "99", unit: "个", color: "#3f91e4" },
+          { name: "达标比例", value: "100%", color: "#27dbb4" },
+          { name: "不达标园区", value: "0", unit: "个", color: "#e6a23c" },
         ],
       },
       twoData: {
@@ -106,8 +103,8 @@ export default {
         status: 1,
         text: "电子督查单响应度：要求达到80%，实际99.99%",
         decorateArr: [
-          { name: "响应数", value: "14446", class: "fc-second" },
-          { name: "待处理数", value: "10", class: "fc-error" },
+          { name: "响应数", value: "14446", color: "#27dbb4" },
+          { name: "待处理数", value: "10", color: "#e6a23c" },
         ],
         chartData: {
           type: 2,
@@ -124,8 +121,8 @@ export default {
         title: "报警事件响应占比：99%",
         status: 1,
         decorateArr: [
-          { name: "待处理", value: "894", class: "fc-warn" },
-          { name: "累计", value: "3214", class: "fc-second" },
+          { name: "待处理", value: "894", color: "#e6a23c" },
+          { name: "累计", value: "3214", color: "#27dbb4" },
         ],
         chartData: {},
       },
@@ -157,11 +154,11 @@ export default {
       oneData: {
         title: "已接入园区情况",
         decorateArr: [
-          { name: "接入园区", value: "99", unit: "个", class: "fc-primary" },
-          { name: "接入比例", value: "90.6%", class: "fc-primary" },
-          { name: "达标园区", value: "99", unit: "个", class: "fc-primary" },
-          { name: "达标比例", value: "100%", class: "fc-second" },
-          { name: "不达标园区", value: "0", unit: "个", class: "fc-warn" },
+          { name: "接入园区", value: "99", unit: "个", color: "#3f91e4" },
+          { name: "接入比例", value: "90.6%", color: "#3f91e4" },
+          { name: "达标园区", value: "99", unit: "个", color: "#3f91e4" },
+          { name: "达标比例", value: "100%", color: "#27dbb4" },
+          { name: "不达标园区", value: "0", unit: "个", color: "#e6a23c" },
         ],
       },
       twoData: {

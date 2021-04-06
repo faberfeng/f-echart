@@ -41,6 +41,7 @@
       <Alarm v-else-if="currTheme == 2" />
       <Fire v-else-if="currTheme == 3" />
       <Energy v-else-if="currTheme == 5" />
+      <Device v-else-if="currTheme == 6" />
     </a-tab-pane>
   </a-tabs>
 </template>
@@ -59,6 +60,7 @@ import Personnel from "@/components/themes/personnel/index";
 import Alarm from "@/components/themes/alarm/index";
 import Fire from "@/components/themes/fire/index";
 import Energy from "@/components/themes/energy/index";
+import Device from "@/components/themes/device/index";
 
 import { reactive, ref } from "vue";
 export default {
@@ -77,6 +79,7 @@ export default {
     Alarm,
     Fire,
     Energy,
+    Device,
   },
   setup() {
     let currBtn = ref(0);
@@ -95,11 +98,16 @@ export default {
     let themesBtns = reactive([
       "人员态势",
       "安防态势",
-      "报警态势",
+      "报警管理",
       "消防态势",
       "环境态势",
       "能耗态势",
       "设备态势",
+      "楼宇/园区",
+      "资产态势",
+      "车辆态势",
+      "办公态势",
+      "监控态势",
     ]);
     return {
       currBtn,

@@ -31,8 +31,8 @@ export default {
       oneData: {
         title: "能源消耗情况",
         decorateArr: [
-          { name: "接入园区", value: "99个", class: "ff-pm fc-primary" },
-          { name: "接入比例", value: "90.6%", class: "ff-pm fc-primary" },
+          { name: "接入园区", value: "99个", color: "#3f91e4" },
+          { name: "接入比例", value: "90.6%", color: "#3f91e4" },
         ],
         chartData: {
           xData: ["峰时", "谷时", "平时", "其他"],
@@ -94,8 +94,8 @@ export default {
       oneData: {
         title: "已接入园区情况",
         decorateArr: [
-          { name: "接入园区", value: "99个", class: "ff-pm fc-primary" },
-          { name: "接入比例", value: "90.6%", class: "ff-pm fc-primary" },
+          { name: "接入园区", value: "99个", color: "#3f91e4" },
+          { name: "接入比例", value: "90.6%", color: "#3f91e4" },
         ],
         chartData1: {
           xData: ["当前耗电功率"],

@@ -3,7 +3,7 @@
     <ChartTitle :title="oneData.title" :type="1" />
     <a-row type="flex" justify="space-between" class="my-py-10 fc-fff6 fs-12">
       <a-col v-for="(item, index) in oneData.decorateArr" :key="index">
-        <DecorateBox :type="3" :data="item" />
+        <DecorateBox :type="2" :data="item" />
       </a-col>
     </a-row>
     <a-divider />

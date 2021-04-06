@@ -49,10 +49,10 @@ $fullMaxHeight: 1080px;
 $fullMaxWidth4K: 3840px;
 $fullMaxHeight4K: 2160px;
 
-@function itemMaxWidth($n) {
+@function itemMaxWidth4K($n) {
   @return $n * $fullMaxWidth4K;
 }
 
-@function itemMaxHeight($n) {
+@function itemMaxHeight4K($n) {
   @return $n * $fullMaxHeight4K;
 }
