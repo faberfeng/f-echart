@@ -19,7 +19,7 @@
       <a-col :span="12" class="ff-pm">83,831.34元</a-col>
     </a-row>
 
-    <ChartTitle :type="3" :title="twoData.title" />
+    <ChartTitle :type="4" :title="twoData.title" />
     <div class="height-20" id="energyFirstColumnChart7Id"></div>
 
     <a-row type="flex" align="middle" class="text-center">

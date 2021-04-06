@@ -4,9 +4,10 @@
     type="flex"
     align="middle"
     :class="{
-      'my-pa-5 chart-title': type == 1,
-      'my-py-5 my-px-10': type == 3,
-      'my-py-2 my-px-5 bg-fff2': type == 4,
+      'my-pa-5 chart-title1': type == 1,
+      'my-mt-20 chart-title2': type == 2,
+      'my-py-5 my-px-10': type == 4,
+      'my-py-2 my-px-5 bg-fff2': type == 5,
     }"
   >
     <template v-if="type == 1">
@@ -14,6 +15,11 @@
       <slot></slot>
     </template>
     <template v-if="type == 2">
+      <div class="relative text-center fc-fff6" style="bottom: 1.5rem">
+        {{ title }}
+      </div>
+    </template>
+    <template v-if="type == 3">
       <a-col :span="6">
         <a-image :preview="false" :src="subtitleLeft"></a-image>
       </a-col>
@@ -24,7 +30,7 @@
         <a-image :preview="false" :src="subtitleRight"></a-image>
       </a-col>
     </template>
-    <template v-if="type == 3">
+    <template v-if="type == 4">
       <a-col :flex="1" class="my-pt-5">
         <a-divider />
       </a-col>
@@ -33,7 +39,7 @@
         <a-divider />
       </a-col>
     </template>
-    <template v-if="type == 4">
+    <template v-if="type == 5">
       <span class="flex-other">{{ title }}</span>
       <QualifiedIsNot :status="status" />
     </template>
@@ -63,8 +69,14 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-.chart-title {
-  background: url("~@/assets/imgs/chart/chart_title_bg.png") center no-repeat;
+.chart-title1 {
+  background: url("~@/assets/imgs/chart/title1_bg.png") center no-repeat;
+  background-size: 100% 100%;
+  font-size: 1rem;
+}
+
+.chart-title2 {
+  background: url("~@/assets/imgs/chart/title2_bg.png") center no-repeat;
   background-size: 100% 100%;
   font-size: 1rem;
 }

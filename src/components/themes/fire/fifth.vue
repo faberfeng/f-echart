@@ -1,10 +1,10 @@
 <template>
   <div class="bg-0006 my-pa-10">
     <div class="bd-all">
-      <ChartTitle :title="oneData.title" :status="oneData.status" :type="4" />
+      <ChartTitle :title="oneData.title" :status="oneData.status" :type="5" />
     </div>
     <div class="my-mt-10 bd-all">
-      <ChartTitle :title="twoData.title" :status="twoData.status" :type="4" />
+      <ChartTitle :title="twoData.title" :status="twoData.status" :type="5" />
       <div class="bd-top">
         <a-row type="flex" align="middle" class="my-py-10">
           <template v-for="(item, index) in twoData.decorateArr" :key="index">
@@ -19,12 +19,12 @@
       <ChartTitle
         :title="threeData.title"
         :status="threeData.status"
-        :type="4"
+        :type="5"
       />
       <div class="bd-top height-17" id="firePaleChart13Id"></div>
     </div>
     <div class="my-mt-10 bd-all">
-      <ChartTitle :title="fourData.title" :status="fourData.status" :type="4" />
+      <ChartTitle :title="fourData.title" :status="fourData.status" :type="5" />
       <a-row type="flex" align="middle" class="bd-top bd-bottom">
         <template v-for="(item, index) in fourData.decorateArr" :key="index">
           <span class="my-pl-5 my-py-2">{{ item.name }}:</span>
@@ -36,7 +36,7 @@
           </span>
         </template>
       </a-row>
-      <ChartTitle :title="fiveData.title" :status="fiveData.status" :type="4" />
+      <ChartTitle :title="fiveData.title" :status="fiveData.status" :type="5" />
       <a-row type="flex" align="middle" class="bd-top">
         <template v-for="(item, index) in fiveData.decorateArr" :key="index">
           <span class="my-pl-5 my-py-2">{{ item.name }}:</span>
