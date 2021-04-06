@@ -7,8 +7,9 @@
       </a-row>
     </ChartTitle>
     <div class="my-pt-10">
-      <DefTable :type="3" :thead="oneData.thead" :tbody="oneData.tbody" />
+      <DefTable :type="2" :thead="oneData.thead" :tbody="oneData.tbody" />
     </div>
+    <ChartTitle :type="2" title="第二个标题" />
   </div>
 </template>
 <script>
