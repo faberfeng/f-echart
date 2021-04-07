@@ -1214,16 +1214,16 @@ let columnChart11Data = {
 export const columnChart11 = ({
   color = columnChart11Data.color,
   xData = columnChart11Data.xData,
-  sData = columnChart11Data.sData,
+  sData = columnChart11Data.sData
 }) => {
-  let pictorialBarData = sData.map((item, index) => {
+  const pictorialBarData = sData.map((item, index) => {
     if (index === 0) {
       return {
         data: item.data
-      };
+      }
     }
-    let i = index;
-    let arr = item.data;
+    let i = index
+    let arr = item.data
     while (i > 0) {
       i -= 1
       arr = arr.map((aItem, aIndex) => {
@@ -1250,9 +1250,9 @@ export const columnChart11 = ({
           borderColor: color[0],
           borderType: 'solid',
           borderWidth: 6
-        },
+        }
       }
-    }),
+    })
   }, {
     name: '底部小环',
     type: 'pictorialBar',
@@ -1269,12 +1269,12 @@ export const columnChart11 = ({
           borderColor: color[0],
           borderType: 'solid',
           borderWidth: 10
-        },
+        }
       }
-    }),
+    })
   }, {
-    name: "底部圆",
-    type: "pictorialBar",
+    name: '底部圆',
+    type: 'pictorialBar',
     symbolSize: [35, 10],
     symbolOffset: [0, 5],
     z: 12,
@@ -1291,9 +1291,9 @@ export const columnChart11 = ({
     })
   }]
   sData.forEach((item, index) => {
-    let arr = [{
+    const arr = [{
       name: item.name,
-      type: "pictorialBar",
+      type: 'pictorialBar',
       symbolSize: [35, 10],
       symbolOffset: [0, -5],
       z: 12,
@@ -1303,7 +1303,7 @@ export const columnChart11 = ({
       data: item.data.map((dItem, dIndex) => {
         return {
           value: index === 0 ? dItem : pictorialBarData[index].data[dIndex],
-          symbolPosition: "end",
+          symbolPosition: 'end',
           itemStyle: {
             color: hexToRgba(color[index], 0.6)
           }
@@ -1320,6 +1320,20 @@ export const columnChart11 = ({
       itemStyle: {
         color: index % 2 == 0 ? hexToRgba(color[index], 0.3) : linearColor(hexToRgba(color[index], 0.4), hexToRgba(color[index], 0.1))
       },
+      label: {
+        show: true,
+        color: cfff8,
+        offset: [-50, 0],
+        align: 'center',
+        formatter: '{a}\n{val|{c}}',
+        rich: {
+          val: {
+            fontSize: 16,
+            color: '#34DEF9',
+            padding: [5, 0, 0, 0]
+          }
+        }
+      },
       data: item.data
     }]
     series = [...series, ...arr]
@@ -1330,7 +1344,7 @@ export const columnChart11 = ({
       left: '5%',
       right: '5%',
       top: 30,
-      bottom: 40,
+      bottom: 40
     },
     legend: {
       show: false
@@ -1349,7 +1363,7 @@ export const columnChart11 = ({
       },
       axisLine: {
         show: false
-      },
+      }
     },
     yAxis: {
       show: false

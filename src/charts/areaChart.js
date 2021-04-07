@@ -506,7 +506,10 @@ export const areaChart6 = ({
   color = areaChart6Data.color,
   xData = areaChart6Data.xData,
   sData = areaChart6Data.sData,
+  unit = ""
 }) => {
+  let yAxis = cloneDeep(yAxisItem);
+  yAxis.name = unit;
   let series = sData.map((item, index) => {
     return {
       type: 'line',
@@ -557,7 +560,7 @@ export const areaChart6 = ({
         show: false
       }
     },
-    yAxis: cloneDeep(yAxisItem),
+    yAxis: yAxis,
     series: series,
   }
 }
