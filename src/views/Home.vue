@@ -119,9 +119,3 @@ export default {
   },
 };
 </script>
-<style lang="scss" scoped>
-.table-box {
-  width: 40%;
-  max-height: 200px;
-}
-</style>

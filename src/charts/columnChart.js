@@ -375,7 +375,7 @@ export const columnChart3 = ({
 let getSeries = (sData, color) => {
   let len = sData.length;
   let series = [];
-  sData.map((item, index) => {
+  sData.forEach((item, index) => {
     let arr = [{
       name: item.name,
       type: 'custom',
@@ -848,7 +848,7 @@ export const columnChart8 = ({
   sData = columnChart8Data.sData,
 }) => {
   let series = [];
-  sData.map((item, index) => {
+  sData.forEach((item, index) => {
     let arr = [{
       type: 'bar',
       barWidth: "20%",
@@ -967,7 +967,7 @@ export const columnChart9 = ({
   sData = columnChart9Data.sData,
 }) => {
   let series = [];
-  sData.map((item) => {
+  sData.forEach((item) => {
     let arr = [{
       type: 'bar',
       barWidth: "20%",
@@ -1073,7 +1073,7 @@ export const columnChart10 = ({
   sData = columnChart10Data.sData,
 }) => {
   let series = [];
-  sData.map((item) => {
+  sData.forEach((item) => {
     let arr = [{
       name: item.name || '',
       type: 'bar',
@@ -1181,6 +1181,171 @@ export const columnChart10 = ({
         fontSize: defSize - 2,
         color: cfff8,
         padding: [5, 0, 0, 0]
+      },
+      axisLine: {
+        show: false
+      },
+    },
+    yAxis: {
+      show: false
+    },
+    color: color,
+    series: series
+  }
+}
+
+/**
+ * 第十一个柱状图
+ */
+let columnChart11Data = {
+  color: ['#3AAEFD', '#FFBB49', '#FFFFFF'],
+  xData: ['会议室空置率：35%'],
+  sData: [{
+    name: '使用中',
+    data: [5]
+  }, {
+    name: '已预订',
+    data: [5]
+  }, {
+    name: '空闲数',
+    data: [4]
+  }],
+}
+export const columnChart11 = ({
+  color = columnChart11Data.color,
+  xData = columnChart11Data.xData,
+  sData = columnChart11Data.sData,
+}) => {
+  let pictorialBarData = sData.map((item, index) => {
+    if (index === 0) {
+      return {
+        data: item.data
+      };
+    }
+    let i = index;
+    let arr = item.data;
+    while (i > 0) {
+      i -= 1
+      arr = arr.map((aItem, aIndex) => {
+        return aItem + sData[i].data[aIndex]
+      })
+    }
+    return {
+      data: arr
+    }
+  })
+  let series = [{
+    name: '底部大环',
+    type: 'pictorialBar',
+    symbolSize: [50, 10],
+    symbolOffset: [0, 12],
+    tooltip: {
+      show: false
+    },
+    data: sData[0].data.map((item) => {
+      return {
+        value: item,
+        itemStyle: {
+          color: 'none',
+          borderColor: color[0],
+          borderType: 'solid',
+          borderWidth: 6
+        },
+      }
+    }),
+  }, {
+    name: '底部小环',
+    type: 'pictorialBar',
+    symbolSize: [45, 10],
+    symbolOffset: [0, 10],
+    tooltip: {
+      show: false
+    },
+    data: sData[0].data.map((item) => {
+      return {
+        value: item,
+        itemStyle: {
+          color: 'none',
+          borderColor: color[0],
+          borderType: 'solid',
+          borderWidth: 10
+        },
+      }
+    }),
+  }, {
+    name: "底部圆",
+    type: "pictorialBar",
+    symbolSize: [35, 10],
+    symbolOffset: [0, 5],
+    z: 12,
+    tooltip: {
+      show: false
+    },
+    data: sData[0].data.map(item => {
+      return {
+        value: item,
+        itemStyle: {
+          color: color[0]
+        }
+      }
+    })
+  }]
+  sData.forEach((item, index) => {
+    let arr = [{
+      name: item.name,
+      type: "pictorialBar",
+      symbolSize: [35, 10],
+      symbolOffset: [0, -5],
+      z: 12,
+      tooltip: {
+        show: false
+      },
+      data: item.data.map((dItem, dIndex) => {
+        return {
+          value: index === 0 ? dItem : pictorialBarData[index].data[dIndex],
+          symbolPosition: "end",
+          itemStyle: {
+            color: hexToRgba(color[index], 0.6)
+          }
+        }
+      })
+    }, {
+      name: item.name,
+      type: 'bar',
+      barWidth: 35,
+      stack: 'stack',
+      tooltip: {
+        formatter: '{a}：{c}'
+      },
+      itemStyle: {
+        color: index % 2 == 0 ? hexToRgba(color[index], 0.3) : linearColor(hexToRgba(color[index], 0.4), hexToRgba(color[index], 0.1))
+      },
+      data: item.data
+    }]
+    series = [...series, ...arr]
+  })
+  return {
+    ...cloneDeep(defaultChart),
+    grid: {
+      left: '5%',
+      right: '5%',
+      top: 30,
+      bottom: 40,
+    },
+    legend: {
+      show: false
+    },
+    xAxis: {
+      type: 'category',
+      data: xData,
+      boundaryGap: ['10%', '10%'],
+      axisTick: {
+        show: false
+      },
+      axisLabel: {
+        fontSize: defSize,
+        color: '#47FEFF',
+        padding: [10, 0, 0, 0]
       },
       axisLine: {
         show: false
