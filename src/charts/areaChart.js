@@ -12,7 +12,7 @@ import {
   linearColor
 } from './common.js'
 // y轴默认
-let yAxisItem = {
+const yAxisItem = {
   type: 'value',
   splitNumber: 4,
   nameTextStyle: {
@@ -23,7 +23,7 @@ let yAxisItem = {
     color: cfff8
   },
   axisLine: {
-    show: false,
+    show: false
   },
   splitLine: {
     lineStyle: {
@@ -32,7 +32,7 @@ let yAxisItem = {
   },
   axisTick: {
     show: false
-  },
+  }
 }
 
 /**
@@ -42,12 +42,12 @@ let yAxisItem = {
  * @param {Array} xData 横坐标集合
  * @param {Array} sData 数据集合
  */
-let areaChart1Data = {
+const areaChart1Data = {
   color: ['#2549FF', '#D58B2C', '#AF7FFF'],
   xData: ['人工智能', '生命健康', '数字信息', '其他'],
   sData: [{
     name: '迁入',
-    data: [100, 900, 700, 50],
+    data: [100, 900, 700, 50]
   }, {
     name: '回迁',
     data: [400, 350, 300, 950]
@@ -59,23 +59,23 @@ let areaChart1Data = {
 export const areaChart1 = ({
   color = areaChart1Data.color,
   xData = areaChart1Data.xData,
-  sData = areaChart1Data.sData,
+  sData = areaChart1Data.sData
 }) => {
-  let yAxis = cloneDeep(yAxisItem);
-  yAxis.name = '数量';
-  let series = sData.map((item, index) => {
-    let obj = {
+  const yAxis = cloneDeep(yAxisItem)
+  yAxis.name = '数量'
+  const series = sData.map((item, index) => {
+    const obj = {
       type: 'line',
       name: item.name,
       areaStyle: {
         color: linearColor(hexToRgba(color[index], 0.8), hexToRgba(color[index], 0.01))
       },
       data: item.data,
-      symbol: "none",
-      symbolSize: 10,
+      symbol: 'none',
+      symbolSize: 10
     }
-    if (index == 1) obj.symbol = "circle";
-    return obj;
+    if (index == 1) obj.symbol = 'circle'
+    return obj
   })
   return {
     ...cloneDeep(defaultChart),
@@ -85,14 +85,14 @@ export const areaChart1 = ({
     grid: cloneDeep(defGrid),
     legend: {
       top: '5%',
-      right: "10%",
+      right: '10%',
       textStyle: {
         color: cfff8,
         fontSize: defSize - 2
       },
       itemWidth: 10,
       itemHeight: 10,
-      icon: "circle"
+      icon: 'circle'
     },
     color: color,
     xAxis: {
@@ -108,10 +108,10 @@ export const areaChart1 = ({
       },
       axisLine: {
         show: false
-      },
+      }
     },
     yAxis: yAxis,
-    series: series,
+    series: series
   }
 }
 
@@ -122,7 +122,7 @@ export const areaChart1 = ({
  * @param {Array} xData 横坐标集合
  * @param {Array} sData 数据集合
  */
-let areaChart2Data = {
+const areaChart2Data = {
   color: ['#34DEF9', '#507BD2', '#D1BB2B', '#7C61A9'],
   xData: ['1h', '2h', '3h', '4h', '5h', '6h', '7h', '8h', '9h'],
   sData: [{
@@ -133,35 +133,36 @@ let areaChart2Data = {
     data: [50, 340, 270, 450, 670, 260, 780, 490, 910]
   }, {
     name: '数字信息',
-    data: [240, 730, 710, 710, 620, 880, 840, 800, 760],
+    data: [240, 730, 710, 710, 620, 880, 840, 800, 760]
   }, {
     name: '其他',
     data: [210, 480, 290, 420, 380, 590, 610, 390, 820]
   }],
-  unit: "数量"
 }
 export const areaChart2 = ({
   color = areaChart2Data.color,
   xData = areaChart2Data.xData,
   sData = areaChart2Data.sData,
-  unit = areaChart2Data.unit,
+  unit = '',
+  smooth = false
 }) => {
-  let yAxis = cloneDeep(yAxisItem);
-  yAxis.name = unit;
-  let series = sData.map((item, index) => {
-    let obj = {
+  const yAxis = cloneDeep(yAxisItem)
+  yAxis.name = unit
+  const series = sData.map((item, index) => {
+    const obj = {
       type: 'line',
       name: item.name,
       areaStyle: {
         color: linearColor(hexToRgba(color[index], 0.8), hexToRgba(color[index], 0.01)),
-        opacity: +(index == 0),
+        opacity: +(index == 0)
       },
+      smooth: smooth,
       data: item.data,
-      symbol: "none",
-      symbolSize: 10,
+      symbol: 'none',
+      symbolSize: 6
     }
-    if (index == 0) obj.symbol = "circle";
-    return obj;
+    if (index == 0) obj.symbol = 'circle'
+    return obj
   })
   return {
     ...cloneDeep(defaultChart),
@@ -171,14 +172,14 @@ export const areaChart2 = ({
     grid: cloneDeep(defGrid),
     legend: {
       top: '5%',
-      right: "10%",
+      right: '10%',
       textStyle: {
         color: cfff8,
         fontSize: defSize - 4
       },
       itemGap: 4,
       itemWidth: 10,
-      itemHeight: 10,
+      itemHeight: 10
     },
     color: color,
     xAxis: {
@@ -194,10 +195,10 @@ export const areaChart2 = ({
       },
       axisLine: {
         show: false
-      },
+      }
     },
     yAxis: yAxis,
-    series: series,
+    series: series
   }
 }
 
@@ -208,20 +209,20 @@ export const areaChart2 = ({
  * @param {Array} xData 横坐标集合
  * @param {Array} sData 数据集合
  */
-let areaChart3Data = {
+const areaChart3Data = {
   color: ['#B28F36'],
   xData: ['1h', '2h', '3h', '4h', '5h', '6h', '7h', '8h', '9h', '10h', '11h', '12h'],
   sData: [{
-    data: [10, 132, 101, 134, 90, 120, 132, 101, 230, 210, 101, 14],
+    data: [10, 132, 101, 134, 90, 120, 132, 101, 230, 210, 101, 14]
   }]
 }
 export const areaChart3 = ({
   color = areaChart3Data.color,
   xData = areaChart3Data.xData,
-  sData = areaChart3Data.sData,
+  sData = areaChart3Data.sData
 }) => {
-  let yAxis = cloneDeep(yAxisItem);
-  yAxis.name = 'm³';
+  const yAxis = cloneDeep(yAxisItem)
+  yAxis.name = 'm³'
   yAxis.splitLine = {
     show: false
   }
@@ -236,10 +237,10 @@ export const areaChart3 = ({
         color: linearColor(hexToRgba(color[index], 0.8), hexToRgba(color[index], 0.01))
       },
       data: item.data,
-      symbol: "none",
+      symbol: 'none'
     }
   })
-  let markAreas = [{
+  const markAreas = [{
     type: 'line',
     markArea: {
       silent: true,
@@ -253,7 +254,7 @@ export const areaChart3 = ({
           y: '50%'
         }]
       ]
-    },
+    }
   }, {
     type: 'line',
     markArea: {
@@ -268,7 +269,7 @@ export const areaChart3 = ({
           y: '70%'
         }]
       ]
-    },
+    }
   }, {
     type: 'line',
     markArea: {
@@ -283,7 +284,7 @@ export const areaChart3 = ({
           y: '80%'
         }]
       ]
-    },
+    }
   }]
   series = [...series, ...markAreas]
   return {
@@ -294,14 +295,14 @@ export const areaChart3 = ({
     grid: cloneDeep(defGrid),
     legend: {
       top: '5%',
-      right: "10%",
+      right: '10%',
       textStyle: {
         color: cfff8,
         fontSize: defSize - 2
       },
       itemWidth: 10,
       itemHeight: 10,
-      icon: "circle"
+      icon: 'circle'
     },
     color: color,
     xAxis: {
@@ -325,7 +326,7 @@ export const areaChart3 = ({
       }
     },
     yAxis: yAxis,
-    series: series,
+    series: series
   }
 }
 
@@ -336,34 +337,40 @@ export const areaChart3 = ({
  * @param {Array} xData 横坐标集合
  * @param {Array} sData 数据集合
  */
-let areaChart4Data = {
+const areaChart4Data = {
   color: ['#5F47D9', '#4BB38D', '#FF9D4D'],
   xData: ['2020-01', '2020-02', '2020-03', '2020-04', '2020-05', '2020-06'],
   sData: [{
     name: 'London',
-    data: [350, 180, 375, 680, 550, 700],
+    data: [350, 180, 375, 680, 550, 700]
   }, {
     name: 'Paris',
-    data: [680, 600, 500, 270, 840, 500],
+    data: [680, 600, 500, 270, 840, 500]
   }, {
     name: 'Row',
-    data: [520, 740, 100, 210, 255, 900],
+    data: [520, 740, 100, 210, 255, 900]
   }]
 }
 export const areaChart4 = ({
   color = areaChart4Data.color,
   xData = areaChart4Data.xData,
   sData = areaChart4Data.sData,
+  showLabel = false
 }) => {
-  let series = sData.map((item, index) => {
+  const series = sData.map((item, index) => {
     return {
       type: 'line',
       name: item.name,
       areaStyle: {
         color: linearColor(hexToRgba(color[index], 0.8), hexToRgba(color[index], 0.01))
       },
+      label: {
+        show: showLabel,
+        color: cfff8,
+        fontSize: defSize - 6
+      },
       data: item.data,
-      symbolSize: 5,
+      symbolSize: 5
     }
   })
   return {
@@ -374,14 +381,14 @@ export const areaChart4 = ({
     grid: cloneDeep(defGrid),
     legend: {
       top: '5%',
-      right: "10%",
+      right: '10%',
       textStyle: {
         color: cfff8,
         fontSize: defSize - 2
       },
       itemWidth: 10,
       itemHeight: 10,
-      icon: "circle"
+      icon: 'circle'
     },
     color: color,
     xAxis: {
@@ -405,7 +412,7 @@ export const areaChart4 = ({
       }
     },
     yAxis: cloneDeep(yAxisItem),
-    series: series,
+    series: series
   }
 }
 
@@ -416,20 +423,20 @@ export const areaChart4 = ({
  * @param {Array} xData 横坐标集合
  * @param {Array} sData 数据集合
  */
-let areaChart5Data = {
+const areaChart5Data = {
   color: ['#269A99'],
   xData: ['2020-01', '2020-02', '2020-03', '2020-04', '2020-05'],
   sData: [{
     name: 'London',
-    data: [310, 570, 440, 640, 380],
+    data: [310, 570, 440, 640, 380]
   }]
 }
 export const areaChart5 = ({
   color = areaChart5Data.color,
   xData = areaChart5Data.xData,
-  sData = areaChart5Data.sData,
+  sData = areaChart5Data.sData
 }) => {
-  let series = sData.map((item, index) => {
+  const series = sData.map((item, index) => {
     return {
       type: 'line',
       smooth: true,
@@ -438,7 +445,7 @@ export const areaChart5 = ({
         color: linearColor(hexToRgba(color[index], 0.8), hexToRgba(color[index], 0.01))
       },
       data: item.data,
-      symbol: 'none',
+      symbol: 'none'
     }
   })
   return {
@@ -449,14 +456,14 @@ export const areaChart5 = ({
     grid: cloneDeep(defGrid),
     legend: {
       top: '5%',
-      right: "10%",
+      right: '10%',
       textStyle: {
         color: cfff8,
         fontSize: defSize - 2
       },
       itemWidth: 10,
       itemHeight: 5,
-      icon: "rect"
+      icon: 'rect'
     },
     color: color,
     xAxis: {
@@ -480,7 +487,7 @@ export const areaChart5 = ({
       }
     },
     yAxis: cloneDeep(yAxisItem),
-    series: series,
+    series: series
   }
 }
 
@@ -491,26 +498,27 @@ export const areaChart5 = ({
  * @param {Array} xData 横坐标集合
  * @param {Array} sData 数据集合
  */
-let areaChart6Data = {
+const areaChart6Data = {
   color: ['#269A99', '#FF9569'],
   xData: ['2020-01', '2020-02', '2020-03', '2020-04', '2020-05'],
   sData: [{
     name: 'London',
-    data: [310, 570, 440, 640, 380],
+    data: [310, 570, 440, 640, 380]
   }, {
     name: 'Row',
-    data: [890, 180, 310, 290, 170],
+    data: [890, 180, 310, 290, 170]
   }]
 }
 export const areaChart6 = ({
   color = areaChart6Data.color,
   xData = areaChart6Data.xData,
   sData = areaChart6Data.sData,
-  unit = ""
+  showLabel = false,
+  unit = ''
 }) => {
   let yAxis = cloneDeep(yAxisItem);
-  yAxis.name = unit;
-  let series = sData.map((item, index) => {
+  yAxis.name = unit
+  const series = sData.map((item, index) => {
     return {
       type: 'line',
       smooth: true,
@@ -518,8 +526,13 @@ export const areaChart6 = ({
       areaStyle: {
         color: linearColor(hexToRgba(color[index], 0.8), hexToRgba(color[index], 0.01))
       },
+      label: {
+        show: showLabel,
+        color: cfff8,
+        fontSize: defSize - 6
+      },
       data: item.data,
-      symbolSize: 5,
+      symbolSize: 5
     }
   })
   return {
@@ -530,14 +543,14 @@ export const areaChart6 = ({
     grid: cloneDeep(defGrid),
     legend: {
       top: '5%',
-      right: "10%",
+      right: '10%',
       textStyle: {
         color: cfff8,
         fontSize: defSize - 2
       },
       itemWidth: 10,
       itemHeight: 5,
-      icon: "rect"
+      icon: 'rect'
     },
     color: color,
     xAxis: {
@@ -561,7 +574,7 @@ export const areaChart6 = ({
       }
     },
     yAxis: yAxis,
-    series: series,
+    series: series
   }
 }
 
@@ -572,30 +585,30 @@ export const areaChart6 = ({
  * @param {Array} xData 横坐标集合
  * @param {Array} sData 数据集合
  */
-let areaChart7Data = {
+const areaChart7Data = {
   color: ['#142EE2', '#14D1CF', '#FFD462'],
   xData: ['2020-01', '2020-02', '2020-03', '2020-04', '2020-05', '2020-06', '2020-07', '2020-08'],
   sData: [{
     name: 'London',
-    data: [1300, 2800, 2900, 3500, 4400, 4600, 3800, 2700],
+    data: [1300, 2800, 2900, 3500, 4400, 4600, 3800, 2700]
   }, {
     name: 'Paris',
-    data: [1000, 2100, 1800, 1500, 2000, 2500, 2200, 1000],
+    data: [1000, 2100, 1800, 1500, 2000, 2500, 2200, 1000]
   }, {
     name: 'Row',
-    data: [200, 1500, 1100, 800, 700, 900, 950, 200],
+    data: [200, 1500, 1100, 800, 700, 900, 950, 200]
   }]
 }
 export const areaChart7 = ({
   color = areaChart7Data.color,
   xData = areaChart7Data.xData,
-  sData = areaChart7Data.sData,
+  sData = areaChart7Data.sData
 }) => {
-  let yAxis = cloneDeep(yAxisItem);
+  const yAxis = cloneDeep(yAxisItem)
   yAxis.axisLabel = {
     show: false
   }
-  let series = sData.map((item, index) => {
+  const series = sData.map((item, index) => {
     return {
       type: 'line',
       smooth: true,
@@ -605,7 +618,7 @@ export const areaChart7 = ({
       },
       data: item.data,
       symbol: 'circle',
-      symbolSize: 2,
+      symbolSize: 2
     }
   })
   return {
@@ -617,7 +630,7 @@ export const areaChart7 = ({
       left: '10%',
       right: '10%',
       top: 80,
-      bottom: 40,
+      bottom: 40
     },
     legend: {
       show: false
@@ -647,6 +660,6 @@ export const areaChart7 = ({
       }
     },
     yAxis: yAxis,
-    series: series,
+    series: series
   }
 }

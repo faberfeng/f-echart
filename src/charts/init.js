@@ -1,6 +1,6 @@
 import {
   graphic
-} from 'echarts';
+} from 'echarts'
 
 // 条状图自定义 3D柱子 横向
 const RowCubeTop = graphic.extendShape({

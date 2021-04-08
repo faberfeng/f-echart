@@ -1,30 +1,32 @@
 import {
   cfff4,
+  cfff6,
   cfff8,
   defSize,
   cloneDeep,
   defaultChart,
   hexToRgba,
   linearColor,
-} from "./common";
+  cfff2
+} from './common'
 
 // 第一个环状图
-let paleChart1Data = {
+const paleChart1Data = {
   color: ['#D5B3FF', '#FF6C38', '#F7D60B', '#11E2FF'],
   xData: ['学生', '教师', '领导', '职工'],
   sData: [{
     name: '',
     data: [100, 30, 40, 50]
   }],
-  width: 140,
+  width: 140
 }
 export const paleChart1 = ({
   color = paleChart1Data.color,
   xData = paleChart1Data.xData,
   sData = paleChart1Data.sData,
-  width = paleChart1Data.width,
+  width = paleChart1Data.width
 }) => {
-  let series = [{
+  const series = [{
     type: 'pie',
     clockwise: true,
     emphasis: {
@@ -35,21 +37,21 @@ export const paleChart1 = ({
     data: sData[0].data.map((item, index) => {
       return {
         name: xData[index],
-        value: item,
+        value: item
       }
     }),
     label: {
-      fontFamily: "pangmeng",
+      fontFamily: 'pangmeng',
       color: cfff8,
-      formatter: "{d}%",
+      formatter: '{d}%'
     },
     labelLine: {
       length: 5,
       length2: 50,
       lineStyle: {
-        color: "#00BAE3",
-      },
-    },
+        color: '#00BAE3'
+      }
+    }
   }]
   return {
     ...cloneDeep(defaultChart),
@@ -64,21 +66,21 @@ export const paleChart1 = ({
     },
     graphic: [{
       type: 'image',
-      top: "middle",
-      left: "center",
+      top: 'middle',
+      left: 'center',
       style: {
         image: require('../assets/imgs/chart/morepale1-bg.png'),
         width: width,
-        height: width,
+        height: width
       }
     }],
     color: color,
-    series: series,
+    series: series
   }
 }
 
 // 第二个环状图
-let paleChart2Data = {
+const paleChart2Data = {
   color: ['#43AA8B', '#2DC4B6', '#E76F51', '#FB8F3A', '#F9C74F', '#90BE6D', '#277DA1'],
   xData: ['图书馆面积', '体育馆面积', '食堂面积', '教学面积', '办公面积', '宿舍面积', '其他'],
   sData: [{
@@ -90,9 +92,9 @@ export const paleChart2 = ({
   color = paleChart2Data.color,
   xData = paleChart2Data.xData,
   sData = paleChart2Data.sData,
-  width = paleChart2Data.width,
+  width = paleChart2Data.width
 }) => {
-  let series = [{
+  const series = [{
     type: 'pie',
     clockwise: true,
     radius: ['30%', '38%'],
@@ -100,7 +102,7 @@ export const paleChart2 = ({
     data: sData[0].data.map((item, index) => {
       return {
         name: xData[index],
-        value: item,
+        value: item
       }
     }),
     emphasis: {
@@ -108,12 +110,12 @@ export const paleChart2 = ({
     },
     label: {
       color: cfff8,
-      formatter: "{d}%",
+      formatter: '{d}%'
     },
     labelLine: {
       length: 10,
-      length2: 5,
-    },
+      length2: 5
+    }
   }]
   return {
     ...cloneDeep(defaultChart),
@@ -130,42 +132,42 @@ export const paleChart2 = ({
     },
     graphic: [{
       type: 'image',
-      top: "middle",
-      left: "center",
+      top: 'middle',
+      left: 'center',
       style: {
         image: require('../assets/imgs/chart/morepale2-bg.png'),
         width: width,
-        height: width / 1.3,
+        height: width / 1.3
       }
     }],
     color: color,
-    series: series,
+    series: series
   }
 }
 
 // 第三个环状图
-let paleChart3Data = {
+const paleChart3Data = {
   color: ['#E76F51', '#F4A261', '#E9C46A', '#299D8F', '#A8DADC'],
   xData: ['书籍', '论文', '获奖', '专利', '软件'],
   sData: [{
     data: [30, 10, 15, 20, 25]
   }],
-  width: 230,
+  width: 230
 }
 export const paleChart3 = ({
   color = paleChart3Data.color,
   xData = paleChart3Data.xData,
   sData = paleChart3Data.sData,
-  width = paleChart3Data.width,
+  width = paleChart3Data.width
 }) => {
-  let series = [{
+  const series = [{
     type: 'pie',
     radius: ['25%', '40%'],
     center: ['50%', '50%'],
     data: sData[0].data.map((item, index) => {
       return {
         name: xData[index],
-        value: item,
+        value: item
       }
     }),
     emphasis: {
@@ -173,12 +175,12 @@ export const paleChart3 = ({
     },
     label: {
       color: cfff8,
-      formatter: "{d}%",
+      formatter: '{d}%'
     },
     labelLine: {
       length: 20,
-      length2: 5,
-    },
+      length2: 5
+    }
   }]
   return {
     ...cloneDeep(defaultChart),
@@ -195,43 +197,44 @@ export const paleChart3 = ({
     },
     graphic: [{
       type: 'image',
-      top: "middle",
-      left: "center",
+      top: 'middle',
+      left: 'center',
       style: {
         image: require('../assets/imgs/chart/morepale3-bg.png'),
         width: width,
-        height: width,
+        height: width
       }
     }],
     color: color,
-    series: series,
+    series: series
   }
 }
 
 // 第四个环状图
-let paleChart4Data = {
+const paleChart4Data = {
   color: ['#D5B3FF', '#FF6C38', '#F7D60B', '#11E2FF'],
   xData: ['本科', '专科', '硕士', '博士'],
   sData: [{
     data: [46, 19, 23, 12]
   }],
-  title: '学历分布',
+  title: '学历分布'
 }
 export const paleChart4 = ({
   color = paleChart4Data.color,
   xData = paleChart4Data.xData,
   sData = paleChart4Data.sData,
   title = paleChart4Data.title,
+  showLabel = true
 }) => {
-  let series = [{
+  const series = [{
     type: 'pie',
     clockwise: true,
-    radius: ['45%', '50%'],
-    center: ['50%', '50%'],
+    radius: ['45%', '55%'],
+    center: ['50%', '45%'],
     data: sData[0].data.map((item, index) => {
       return {
         name: xData[index],
-        value: item,
+        value: item
       }
     }),
     emphasis: {
@@ -239,12 +242,12 @@ export const paleChart4 = ({
     },
     label: {
       color: cfff8,
-      formatter: "{b}\n{yellow|{d}%}",
+      formatter: showLabel ? '{b}\n{yellow|{d}%}' : '{d}%',
       rich: {
         yellow: {
           color: '#F7D60B',
-          fontFamily: "pangmeng",
-          fontSize: defSize,
+          fontFamily: 'pangmeng',
+          fontSize: defSize
         }
       }
     },
@@ -253,12 +256,13 @@ export const paleChart4 = ({
       length2: 20,
       lineStyle: {
         type: 'dotted',
-        color: cfff8,
+        color: cfff8
       }
-    },
+    }
   }, {
     type: 'gauge',
     radius: '35%',
+    center: ['50%', '45%'],
     startAngle: 110,
     endAngle: 10,
     axisLabel: {
@@ -280,10 +284,11 @@ export const paleChart4 = ({
     },
     detail: {
       show: false
-    },
+    }
   }, {
     type: 'gauge',
     radius: '35%',
+    center: ['50%', '45%'],
     startAngle: 290,
     endAngle: 190,
     axisLabel: {
@@ -306,11 +311,24 @@ export const paleChart4 = ({
     detail: {
       show: false
     },
+    pointer: {
+      show: false
+    },
+    data: [{
+      value: 1,
+      name: title,
+      title: {
+        color: cfff8,
+        fontSize: defSize,
+        offsetCenter: [0, 0]
+      }
+    }],
   }, {
     type: 'pie',
     radius: ['0%', '34%'],
+    center: ['50%', '45%'],
     axisLabel: {
-      show: false,
+      show: false
     },
     axisLine: {
       show: false
@@ -322,21 +340,12 @@ export const paleChart4 = ({
       scale: false
     },
     itemStyle: {
-      color: 'rgba(28,31,49,0.8)'
+      color: cfff2
     },
     data: [1]
   }]
   return {
     ...cloneDeep(defaultChart),
-    title: {
-      text: title,
-      top: "middle",
-      left: "center",
-      textStyle: {
-        color: cfff8,
-        fontSize: defSize,
-      }
-    },
     legend: {
       bottom: '2%',
       data: xData,
@@ -348,7 +357,7 @@ export const paleChart4 = ({
       }
     },
     color: color,
-    series: series,
+    series: series
   }
 }
 
@@ -357,7 +366,7 @@ export const paleChart4 = ({
  * @param {Boolean} showLabel 是否展示label项
  * @param {Number} legendType legend位置  1：上  2：右 3：下  4：左
  */
-let paleChart5Data = {
+const paleChart5Data = {
   color: ['#5B8FF9', '#5AD8A6', '#5D7092', '#F6BD16', '#E8684A', '#FF9D4D', '#6DC8EC', '#9270CA', '#269A99', '#FF99C3', '#5B8FF9', '#BDD2FD', '#5AD8A6'],
   xData: ['工程类', '金融类', '数学类', '经济类', '管理类', '艺术与设计类', '自然科学类', '计算机类', '心理学', '教育与公共卫生类', '酒店管理', '法律与社会学', '其他'],
   sData: [{
@@ -371,10 +380,10 @@ export const paleChart5 = ({
   xData = paleChart5Data.xData,
   sData = paleChart5Data.sData,
   showLabel = paleChart5Data.showLabel,
-  legendType = paleChart5Data.legendType,
+  legendType = paleChart5Data.legendType
 }) => {
-  let legend = [{
-    orient: legendType % 2 == 0 ? "vertical" : "horizontal",
+  const legend = [{
+    orient: legendType % 2 == 0 ? 'vertical' : 'horizontal',
     top: legendType == 1 ? '5%' : 'auto',
     right: legendType == 2 ? '5%' : 'auto',
     bottom: legendType == 3 ? '5%' : 'middle',
@@ -388,10 +397,10 @@ export const paleChart5 = ({
       fontSize: defSize - 4,
       color: cfff8
     }
-  }];
+  }]
   if (xData.length > 7) {
     legend.push({
-      orient: legendType % 2 == 0 ? "vertical" : "horizontal",
+      orient: legendType % 2 == 0 ? 'vertical' : 'horizontal',
       top: legendType == 3 ? '5%' : 'auto',
       right: legendType == 4 ? '5%' : 'auto',
       bottom: legendType == 1 ? '5%' : 'middle',
@@ -407,7 +416,7 @@ export const paleChart5 = ({
       }
     })
   }
-  let series = [{
+  const series = [{
     type: 'pie',
     clockwise: true,
     radius: [0, '55%'],
@@ -415,7 +424,7 @@ export const paleChart5 = ({
     data: sData[0].data.map((item, index) => {
       return {
         name: xData[index],
-        value: item,
+        value: item
       }
     }),
     emphasis: {
@@ -425,52 +434,52 @@ export const paleChart5 = ({
       show: showLabel,
       color: cfff8,
       fontSize: defSize - 4,
-      formatter: "{d}%",
+      formatter: '{d}%'
     },
     labelLine: {
-      length: 8,
-    },
+      length: 8
+    }
   }]
   return {
     ...cloneDeep(defaultChart),
     legend: legend,
     color: color,
-    series: series,
+    series: series
   }
 }
 
 // 第六个环状图
-let paleChart6Data = {
+const paleChart6Data = {
   color: ['#2BFB63', '#C6BF18', '#00D9FF', '#F76747'],
   xData: ['迟到(人)', '请假(人)', '未到(人)', '实到(人)'],
   sData: [{
     data: [90, 72, 54, 3384]
-  }],
+  }]
 }
 export const paleChart6 = ({
   color = paleChart6Data.color,
   xData = paleChart6Data.xData,
-  sData = paleChart6Data.sData,
+  sData = paleChart6Data.sData
 }) => {
-  let sum = sData[0].data.reduce((item, pre) => {
+  const sum = sData[0].data.reduce((item, pre) => {
     return item += pre
   })
-  let arr = [50, 33, 25, 20];
-  let title = xData.map((item, index) => {
+  const arr = [50, 33, 25, 20]
+  const title = xData.map((item, index) => {
     return {
       text: item,
-      left: `${arr[xData.length - 1]*(index + 1) - 1}%`,
+      left: `${arr[xData.length - 1] * (index + 1) - 1}%`,
       top: '75%',
       textAlign: 'center',
       textStyle: {
         fontWeight: 'normal',
         fontSize: defSize - 4,
         color: cfff8,
-        textAlign: 'center',
-      },
+        textAlign: 'center'
+      }
     }
   })
-  let series = sData[0].data.map((item, index) => {
+  const series = sData[0].data.map((item, index) => {
     return {
       type: 'pie',
       clockwise: false,
@@ -478,7 +487,7 @@ export const paleChart6 = ({
         scale: false
       },
       radius: ['16%', '20%'],
-      center: [`${arr[sData[0].data.length - 1]*(index + 1)}%`, '60%'],
+      center: [`${arr[sData[0].data.length - 1] * (index + 1)}%`, '60%'],
       labelLine: {
         show: false,
         length: 0,
@@ -497,12 +506,12 @@ export const paleChart6 = ({
         itemStyle: {
           color: color[index % color.length],
           borderWidth: 4,
-          borderColor: color[index % color.length],
-        },
+          borderColor: color[index % color.length]
+        }
       }, {
         value: sum - item,
         label: {
-          show: false,
+          show: false
         },
         tooltip: {
           show: false
@@ -522,25 +531,25 @@ export const paleChart6 = ({
       show: false
     },
     color: color,
-    series: series,
+    series: series
   }
 }
 
 // 第七个环状图
-let paleChart7Data = {
+const paleChart7Data = {
   color: ['#2DDD81'],
   xData: ['类别1'],
   sData: [{
     name: '系列1',
     data: [65451]
-  }],
+  }]
 }
 export const paleChart7 = ({
   color = paleChart7Data.color,
   // xData = paleChart7Data.xData,
-  sData = paleChart7Data.sData,
+  sData = paleChart7Data.sData
 }) => {
-  let series = [{
+  const series = [{
     type: 'pie',
     clockwise: false,
     emphasis: {
@@ -583,19 +592,19 @@ export const paleChart7 = ({
       show: false
     },
     color: color,
-    series: series,
+    series: series
   }
 }
 
 /**
  * 第八个环状图
  */
-let paleChart8Data = {
+const paleChart8Data = {
   color: ['#38DAF1', '#38A8F1', '#386BF1', '#6B38F1'],
   xData: ['高新企业', '重点企业', '落税企业', '规土企业'],
   sData: [{
     data: [75, 65, 40, 20]
-  }],
+  }]
 }
 export const paleChart8 = ({
   color = paleChart8Data.color,
@@ -603,14 +612,14 @@ export const paleChart8 = ({
   sData = paleChart8Data.sData,
   total = 200
 }) => {
-  let series = [];
+  let series = []
   sData[0].data.map((item, i) => {
-    let arr = [{
+    const arr = [{
       type: 'pie',
       radius: [61 - i * 15 + '%', 64 - i * 15 + '%'],
-      center: ["50%", "50%"],
+      center: ['50%', '50%'],
       label: {
-        show: false,
+        show: false
       },
       labelLine: {
         show: false
@@ -626,13 +635,13 @@ export const paleChart8 = ({
           formatter: '{d}%',
           color: cfff8,
           position: 'inside'
-        },
+        }
       }, {
         value: total - item,
         itemStyle: {
-          color: "none",
+          color: 'none',
           borderWidth: 5,
-          borderRadius: 5,
+          borderRadius: 5
         },
         tooltip: {
           show: false
@@ -650,17 +659,17 @@ export const paleChart8 = ({
         scale: false
       },
       radius: [62 - i * 15 + '%', 63 - i * 15 + '%'],
-      center: ["50%", "50%"],
+      center: ['50%', '50%'],
       label: {
         show: false
       },
       itemStyle: {
         label: {
-          show: false,
+          show: false
         },
         labelLine: {
           show: false
-        },
+        }
       },
       data: [{
         value: 75,
@@ -669,7 +678,7 @@ export const paleChart8 = ({
         },
         tooltip: {
           show: false
-        },
+        }
       }, {
         value: 25,
         itemStyle: {
@@ -678,9 +687,9 @@ export const paleChart8 = ({
         },
         tooltip: {
           show: false
-        },
+        }
       }]
-    }];
+    }]
     series = [...series, ...arr]
   })
   return {
@@ -699,7 +708,7 @@ export const paleChart8 = ({
     grid: {
       top: '15%',
       bottom: '55%',
-      left: "50%",
+      left: '50%',
       containLabel: false
     },
     graphic: [{
@@ -709,12 +718,12 @@ export const paleChart8 = ({
       style: {
         image: require('../assets/imgs/chart/chart_decorate.png'),
         width: 200 * 1.27,
-        height: 200,
+        height: 200
       }
     }],
     color: color,
     xAxis: {
-      show: false,
+      show: false
     },
     yAxis: {
       type: 'category',
@@ -731,23 +740,23 @@ export const paleChart8 = ({
         interval: 0,
         inside: false,
         color: cfff8,
-        fontSize: defSize - 4,
+        fontSize: defSize - 4
       },
-      data: xData,
+      data: xData
     },
-    series: series,
+    series: series
   }
 }
 
 /**
  * 第九个环状图
  */
-let paleChart9Data = {
+const paleChart9Data = {
   color: ['#38DAF1', '#38A8F1', '#386BF1', '#6B38F1'],
   xData: ['高新企业', '重点企业', '落税企业', '规土企业'],
   sData: [{
     data: [75, 65, 40, 20]
-  }],
+  }]
 }
 export const paleChart9 = ({
   color = paleChart9Data.color,
@@ -755,18 +764,18 @@ export const paleChart9 = ({
   sData = paleChart9Data.sData,
   total = 200
 }) => {
-  let series = [];
+  let series = []
   sData[0].data.map((item, i) => {
-    let arr = [{
+    const arr = [{
       type: 'pie',
       clockwise: false,
       emphasis: {
         scaleSize: 4
       },
       radius: [59 - i * 15 + '%', 66 - i * 15 + '%'],
-      center: ["50%", "50%"],
+      center: ['50%', '50%'],
       label: {
-        show: false,
+        show: false
       },
       labelLine: {
         show: false
@@ -775,14 +784,14 @@ export const paleChart9 = ({
         value: item,
         name: xData[i],
         label: {
-          show: false,
-        },
+          show: false
+        }
       }, {
         value: total - item,
         itemStyle: {
-          color: "none",
+          color: 'none',
           borderWidth: 5,
-          borderRadius: 5,
+          borderRadius: 5
         },
         tooltip: {
           show: false
@@ -800,17 +809,17 @@ export const paleChart9 = ({
         scale: false
       },
       radius: [60 - i * 15 + '%', 65 - i * 15 + '%'],
-      center: ["50%", "50%"],
+      center: ['50%', '50%'],
       label: {
         show: false
       },
       itemStyle: {
         label: {
-          show: false,
+          show: false
         },
         labelLine: {
           show: false
-        },
+        }
       },
       data: [{
         value: 75,
@@ -819,7 +828,7 @@ export const paleChart9 = ({
         },
         tooltip: {
           show: false
-        },
+        }
       }, {
         value: 25,
         itemStyle: {
@@ -828,9 +837,9 @@ export const paleChart9 = ({
         },
         tooltip: {
           show: false
-        },
+        }
       }]
-    }];
+    }]
     series = [...series, ...arr]
   })
   return {
@@ -838,7 +847,7 @@ export const paleChart9 = ({
     legend: {
       top: '13%',
       left: '52%',
-      orient: "vertical",
+      orient: 'vertical',
       data: xData,
       itemGap: 8,
       itemWidth: 8,
@@ -851,35 +860,35 @@ export const paleChart9 = ({
     },
     color: color,
     xAxis: {
-      show: false,
+      show: false
     },
     yAxis: {
       show: false
     },
-    series: series,
+    series: series
   }
 }
 
 /**
  * 第十个环状图
  */
-let paleChart10Data = {
+const paleChart10Data = {
   color: [],
   sData: [{
-      data: [60],
+      data: [60]
     },
     {
-      data: [120],
-    },
-  ],
+      data: [120]
+    }
+  ]
 }
 export const paleChart10 = ({
   color = paleChart10Data.color,
   sData = paleChart10Data.sData,
   total = 180,
-  angle = 0,
+  angle = 0
 }) => {
-  let angleArr = [{
+  const angleArr = [{
     start: 0,
     end: 90,
     color: '#FF8E89'
@@ -896,13 +905,13 @@ export const paleChart10 = ({
     end: 0,
     color: '#4386FA'
   }]
-  let rings = [];
+  const rings = []
   angleArr.map((item, index) => {
-    let pei = 0.6;
+    let pei = 0.6
     if (index % 2 == 0) pei = 0.65
     rings.push({
       type: 'custom',
-      coordinateSystem: "none",
+      coordinateSystem: 'none',
       renderItem: function (params, api) {
         return {
           type: 'arc',
@@ -915,17 +924,17 @@ export const paleChart10 = ({
           },
           style: {
             stroke: item.color,
-            fill: "transparent",
+            fill: 'transparent',
             lineWidth: 1
           },
           silent: true
-        };
+        }
       },
       data: [0]
-    }, )
+    })
   })
 
-  let series = sData.map((item, index) => {
+  const series = sData.map((item, index) => {
     return {
       type: 'pie',
       radius: index == 0 ? ['40%', '50%'] : ['32%', '35%'],
@@ -936,7 +945,7 @@ export const paleChart10 = ({
       },
       labelLine: {
         length: 5,
-        length2: 20,
+        length2: 20
       },
       emphasis: {
         scaleSize: 4
@@ -966,8 +975,8 @@ export const paleChart10 = ({
                   color: '#646CF9' // 100% 处的颜色
                 }
               ]
-            },
-          },
+            }
+          }
         },
         {
           value: total - item.data[0],
@@ -1010,15 +1019,15 @@ export const paleChart10 = ({
       //     bottom: index == 1 ? "5%" : 'auto',
       //     left: index == 1 ? "5%" : 'auto',
       //   }
-      // }), 
+      // }),
       {
         text: `${total}`,
         textStyle: {
           fontSize: defSize + 4,
-          color: 'rgba(102, 252, 255, 1)',
+          color: 'rgba(102, 252, 255, 1)'
         },
         left: 'center',
-        top: 'middle',
+        top: 'middle'
       }
     ],
     color: color,
@@ -1029,7 +1038,7 @@ export const paleChart10 = ({
 /**
  * 第十一个环状图 南丁格尔图
  */
-let paleChart11Data = {
+const paleChart11Data = {
   color: ['#B6F6EB', '#88E7E0', '#5DDBD3', '#36CFC9', '#11C2C1', '#01989D'],
   xData: ['19岁以下', '19-25', '26-35', '36-45', '46-55', '55岁以上'],
   sData: [{
@@ -1041,9 +1050,9 @@ export const paleChart11 = ({
   color = paleChart11Data.color,
   xData = paleChart11Data.xData,
   sData = paleChart11Data.sData,
-  total = 1050,
+  total = 1050
 }) => {
-  let series = [{
+  const series = [{
     type: 'pie',
     width: '50%',
     radius: ['0%', '90%'],
@@ -1051,16 +1060,16 @@ export const paleChart11 = ({
     clockwise: true,
     avoidLabelOverlap: true,
     label: {
-      show: false,
+      show: false
     },
     emphasis: {
       scaleSize: 4
     },
     data: sData[0].data.map((item, index) => {
       return {
-        name: `${xData[index]}  ${(item/total*100).toFixed(2)}%`,
+        name: `${xData[index]}  ${(item / total * 100).toFixed(2)}%`,
         value: item,
-        tooltip: `${xData[index]}: {c}`,
+        tooltip: `${xData[index]}: {c}`
       }
     }),
     roseType: 'radius'
@@ -1068,7 +1077,7 @@ export const paleChart11 = ({
   return {
     ...cloneDeep(defaultChart),
     legend: {
-      orient: "vertical",
+      orient: 'vertical',
       top: 'middle',
       right: 20,
       itemWidth: 8,
@@ -1079,12 +1088,12 @@ export const paleChart11 = ({
       }
     },
     color: color,
-    series: series,
+    series: series
   }
 }
 
 // 第十三个环状图
-let paleChart13Data = {
+const paleChart13Data = {
   color: ['#11E2FF', '#D13F3F', '#5263AB'],
   xData: ['正常设备', '报警设备', '离线设备'],
   sData: [{
@@ -1098,17 +1107,17 @@ export const paleChart13 = ({
   xData = paleChart13Data.xData,
   sData = paleChart13Data.sData,
   title = paleChart13Data.title,
-  showLabel = paleChart13Data.showLabel,
+  showLabel = paleChart13Data.showLabel
 }) => {
-  let series = [{
+  const series = [{
     type: 'pie',
     clockwise: true,
     radius: ['50%', '60%'],
     center: [showLabel ? '35%' : '18%', '50%'],
     data: sData[0].data.map((item, index) => {
       return {
-        name: `${xData[index]}：${item}${showLabel ? '' : `，占比：${(item/title*100).toFixed(2)}%`}`,
-        value: item,
+        name: `${xData[index]}：${item}${showLabel ? '' : `，占比：${(item / title * 100).toFixed(2)}%`}`,
+        value: item
       }
     }),
     emphasis: {
@@ -1120,7 +1129,7 @@ export const paleChart13 = ({
     label: {
       show: showLabel,
       color: cfff8,
-      formatter: "{d}%",
+      formatter: '{d}%'
     },
     labelLine: {
       show: showLabel,
@@ -1128,9 +1137,9 @@ export const paleChart13 = ({
       length2: 10,
       lineStyle: {
         type: 'solid',
-        color: cfff4,
+        color: cfff4
       }
-    },
+    }
   }, {
     type: 'gauge',
     radius: '40%',
@@ -1167,9 +1176,9 @@ export const paleChart13 = ({
         color: cfff8,
         fontSize: defSize + 2,
         offsetCenter: [0, 0]
-      },
+      }
     }],
-    z: 2,
+    z: 2
   }, {
     type: 'gauge',
     radius: '40%',
@@ -1196,7 +1205,7 @@ export const paleChart13 = ({
     detail: {
       show: false
     },
-    z: 2,
+    z: 2
   }, {
     type: 'pie',
     radius: ['0%', '39%'],
@@ -1205,7 +1214,7 @@ export const paleChart13 = ({
       scale: false
     },
     axisLabel: {
-      show: false,
+      show: false
     },
     axisLine: {
       show: false
@@ -1214,7 +1223,7 @@ export const paleChart13 = ({
       show: false
     },
     itemStyle: {
-      color: 'rgba(28,31,49,0.8)'
+      color: cfff2
     },
     data: [1],
     z: 1
@@ -1222,9 +1231,9 @@ export const paleChart13 = ({
   return {
     ...cloneDeep(defaultChart),
     legend: {
-      orient: "vertical",
-      top: "middle",
-      right: "5%",
+      orient: 'vertical',
+      top: 'middle',
+      right: '5%',
       itemGap: 20,
       icon: 'circle',
       itemWidth: 8,
@@ -1235,6 +1244,6 @@ export const paleChart13 = ({
       }
     },
     color: color,
-    series: series,
+    series: series
   }
 }

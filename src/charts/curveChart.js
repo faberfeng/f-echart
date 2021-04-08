@@ -10,7 +10,7 @@ import {
   defaultChart,
   linearColor,
   hexToRgba
-} from "./common";
+} from './common'
 
 /**
  * 第一个曲线图图
@@ -19,26 +19,26 @@ import {
  * @param {Array} xData 横坐标集合
  * @param {Array} sData 数据集合
  */
-let curveChart1Data = {
+const curveChart1Data = {
   color: ['#5BF7E0', '#E6BE54', '#F05794'],
   xData: ['2020-01', '2020-02', '2020-03', '2020-04', '2020-05', '2020-06', '2020-07', '2020-08'],
   sData: [{
     name: 'London',
-    data: [1300, 2800, 2900, 3500, 4400, 4600, 3800, 2700],
+    data: [1300, 2800, 2900, 3500, 4400, 4600, 3800, 2700]
   }, {
     name: 'Paris',
-    data: [1000, 2100, 1800, 1500, 2000, 2500, 2200, 1000],
+    data: [1000, 2100, 1800, 1500, 2000, 2500, 2200, 1000]
   }, {
     name: 'Row',
-    data: [200, 1500, 1100, 800, 700, 900, 950, 200],
+    data: [200, 1500, 1100, 800, 700, 900, 950, 200]
   }]
 }
 export const curveChart1 = ({
   color = curveChart1Data.color,
   xData = curveChart1Data.xData,
-  sData = curveChart1Data.sData,
+  sData = curveChart1Data.sData
 }) => {
-  let series = sData.map((item) => {
+  const series = sData.map((item) => {
     return {
       type: 'line',
       smooth: true,
@@ -48,7 +48,7 @@ export const curveChart1 = ({
       },
       data: item.data,
       symbol: 'circle',
-      symbolSize: 2,
+      symbolSize: 2
     }
   })
   return {
@@ -60,7 +60,7 @@ export const curveChart1 = ({
       left: '10%',
       right: '10%',
       top: 80,
-      bottom: 40,
+      bottom: 40
     },
     legend: {
       show: false
@@ -95,7 +95,7 @@ export const curveChart1 = ({
         show: false
       },
       axisLine: {
-        show: false,
+        show: false
       },
       splitLine: {
         lineStyle: {
@@ -104,9 +104,9 @@ export const curveChart1 = ({
       },
       axisTick: {
         show: false
-      },
+      }
     }],
-    series: series,
+    series: series
   }
 }
 
@@ -117,7 +117,7 @@ export const curveChart1 = ({
  * @param {Array} xData 横坐标集合
  * @param {Array} sData 数据集合
  */
-let curveChart2Data = {
+const curveChart2Data = {
   color: ['#5AD8A6', '#5B8FF9'],
   xData: ['2020-01', '2020-02', '2020-03', '2020-04', '2020-05', '2020-06'],
   sData: [{
@@ -131,9 +131,9 @@ let curveChart2Data = {
 export const curveChart2 = ({
   color = curveChart2Data.color,
   xData = curveChart2Data.xData,
-  sData = curveChart2Data.sData,
+  sData = curveChart2Data.sData
 }) => {
-  let series = sData.map((item, index) => {
+  const series = sData.map((item, index) => {
     return {
       type: 'line',
       smooth: true,
@@ -144,10 +144,10 @@ export const curveChart2 = ({
       lineStyle: {
         shadowColor: color[index % color.length],
         shadowBlur: 1,
-        shadowOffsetY: 3,
+        shadowOffsetY: 3
       },
       data: item.data,
-      symbolSize: 5,
+      symbolSize: 5
     }
   })
   return {
@@ -163,7 +163,7 @@ export const curveChart2 = ({
       itemHeight: 8,
       textStyle: {
         fontSize: defSize - 2,
-        color: cfff8,
+        color: cfff8
       }
     },
     color: color,
@@ -182,7 +182,7 @@ export const curveChart2 = ({
         show: false
       },
       splitLine: {
-        show: false,
+        show: false
       }
     },
     yAxis: [{
@@ -195,7 +195,7 @@ export const curveChart2 = ({
         color: cfff8
       },
       axisLine: {
-        show: false,
+        show: false
       },
       splitLine: {
         lineStyle: {
@@ -204,9 +204,9 @@ export const curveChart2 = ({
       },
       axisTick: {
         show: false
-      },
+      }
     }],
-    series: series,
+    series: series
   }
 }
 
@@ -217,7 +217,7 @@ export const curveChart2 = ({
  * @param {Array} xData 横坐标集合
  * @param {Array} sData 数据集合
  */
-let curveChart3Data = {
+const curveChart3Data = {
   color: ['#D8885A', '#7A5BF9'],
   xData: ['2020-01', '2020-02', '2020-03', '2020-04', '2020-05', '2020-06'],
   sData: [{
@@ -231,9 +231,9 @@ let curveChart3Data = {
 export const curveChart3 = ({
   color = curveChart3Data.color,
   xData = curveChart3Data.xData,
-  sData = curveChart3Data.sData,
+  sData = curveChart3Data.sData
 }) => {
-  let series = sData.map((item, index) => {
+  const series = sData.map((item, index) => {
     return {
       type: 'line',
       smooth: true,
@@ -244,10 +244,10 @@ export const curveChart3 = ({
       lineStyle: {
         shadowColor: color[index % color.length],
         shadowBlur: 1,
-        shadowOffsetY: 3,
+        shadowOffsetY: 3
       },
       data: item.data,
-      symbolSize: 5,
+      symbolSize: 5
     }
   })
   return {
@@ -263,7 +263,7 @@ export const curveChart3 = ({
       itemHeight: 8,
       textStyle: {
         fontSize: defSize - 2,
-        color: cfff8,
+        color: cfff8
       }
     },
     color: color,
@@ -282,7 +282,7 @@ export const curveChart3 = ({
         show: false
       },
       splitLine: {
-        show: false,
+        show: false
       }
     },
     yAxis: [{
@@ -295,7 +295,7 @@ export const curveChart3 = ({
         color: cfff8
       },
       axisLine: {
-        show: false,
+        show: false
       },
       splitLine: {
         lineStyle: {
@@ -304,9 +304,9 @@ export const curveChart3 = ({
       },
       axisTick: {
         show: false
-      },
+      }
     }],
-    series: series,
+    series: series
   }
 }
 
@@ -317,7 +317,7 @@ export const curveChart3 = ({
  * @param {Array} xData 横坐标集合
  * @param {Array} sData 数据集合
  */
-let curveChart4Data = {
+const curveChart4Data = {
   color: ['#40B5FF', '#FEBC0F'],
   xData: ['2020-01', '2020-02', '2020-03', '2020-04', '2020-05', '2020-06'],
   sData: [{
@@ -326,19 +326,19 @@ let curveChart4Data = {
   }, {
     name: 'Paris',
     data: [794, 790, 519, 876, 609, 22]
-  }],
+  }]
 }
 export const curveChart4 = ({
   color = curveChart4Data.color,
   xData = curveChart4Data.xData,
-  sData = curveChart4Data.sData,
+  sData = curveChart4Data.sData
 }) => {
-  let areaStyleArr = [{
+  const areaStyleArr = [{
     opacity: 0
   }, {
     color: linearColor(hexToRgba(color[1], 0.8), hexToRgba(color[1], 0.01))
   }]
-  let series = sData.map((item, index) => {
+  const series = sData.map((item, index) => {
     return {
       type: 'line',
       smooth: true,
@@ -347,10 +347,10 @@ export const curveChart4 = ({
       label: {
         show: true,
         color: cfff8,
-        fontSize: defSize - 8,
+        fontSize: defSize - 8
       },
       data: item.data,
-      symbolSize: 5,
+      symbolSize: 5
     }
   })
   return {
@@ -366,7 +366,7 @@ export const curveChart4 = ({
       itemHeight: 8,
       textStyle: {
         fontSize: defSize - 2,
-        color: cfff8,
+        color: cfff8
       }
     },
     color: color,
@@ -385,7 +385,7 @@ export const curveChart4 = ({
         color: cfff4
       },
       splitLine: {
-        show: false,
+        show: false
       }
     },
     yAxis: [{
@@ -398,16 +398,16 @@ export const curveChart4 = ({
         color: cfff8
       },
       axisLine: {
-        show: false,
+        show: false
       },
       splitLine: {
         color: cfff4
       },
       axisTick: {
         show: false
-      },
+      }
     }],
-    series: series,
+    series: series
   }
 }
 
@@ -418,7 +418,7 @@ export const curveChart4 = ({
  * @param {Array} xData 横坐标集合
  * @param {Array} sData 数据集合
  */
-let curveChart5Data = {
+const curveChart5Data = {
   color: ['#D58B2C'],
   xData: ['人工智能', '生命健康', '数字信息', '其他'],
   sData: [{
@@ -428,9 +428,9 @@ let curveChart5Data = {
 export const curveChart5 = ({
   color = curveChart5Data.color,
   xData = curveChart5Data.xData,
-  sData = curveChart5Data.sData,
+  sData = curveChart5Data.sData
 }) => {
-  let series = sData.map((item, index) => {
+  const series = sData.map((item, index) => {
     return {
       type: 'line',
       smooth: true,
@@ -442,16 +442,16 @@ export const curveChart5 = ({
         color: color[index % color.length],
         shadowColor: color[index % color.length],
         shadowBlur: 4,
-        shadowOffsetY: 4,
+        shadowOffsetY: 4
       },
       itemStyle: {
         color: 'none',
         borderColor: color[index % color.length],
-        borderWidth: 2,
+        borderWidth: 2
       },
       data: item.data,
       symbol: 'circle',
-      symbolSize: 8,
+      symbolSize: 8
     }
   })
   return {
@@ -479,7 +479,7 @@ export const curveChart5 = ({
         show: false
       },
       splitLine: {
-        show: false,
+        show: false
       }
     },
     yAxis: [{
@@ -493,7 +493,7 @@ export const curveChart5 = ({
         color: cfff8
       },
       axisLine: {
-        show: false,
+        show: false
       },
       splitLine: {
         lineStyle: {
@@ -502,9 +502,9 @@ export const curveChart5 = ({
       },
       axisTick: {
         show: false
-      },
+      }
     }],
-    series: series,
+    series: series
   }
 }
 
@@ -515,7 +515,7 @@ export const curveChart5 = ({
  * @param {Array} xData 横坐标集合
  * @param {Array} sData 数据集合
  */
-let curveChart6Data = {
+const curveChart6Data = {
   color: ['#465EF0', '#EEBB46'],
   xData: ['1h', '2h', '3h', '4h', '5h', '6h', '7h', '8h', '9h', '10h', '11h', '12h'],
   sData: [{
@@ -527,9 +527,9 @@ let curveChart6Data = {
 export const curveChart6 = ({
   color = curveChart6Data.color,
   xData = curveChart6Data.xData,
-  sData = curveChart6Data.sData,
+  sData = curveChart6Data.sData
 }) => {
-  let series = sData.map((item) => {
+  const series = sData.map((item) => {
     return {
       type: 'line',
       smooth: true,
@@ -538,7 +538,7 @@ export const curveChart6 = ({
         opacity: 0
       },
       data: item.data,
-      symbol: 'none',
+      symbol: 'none'
     }
   })
   return {
@@ -566,7 +566,7 @@ export const curveChart6 = ({
         color: cfff4
       },
       splitLine: {
-        show: false,
+        show: false
       }
     },
     yAxis: [{
@@ -579,16 +579,16 @@ export const curveChart6 = ({
         color: cfff8
       },
       axisLine: {
-        show: false,
+        show: false
       },
       splitLine: {
         show: false
       },
       axisTick: {
         show: false
-      },
+      }
     }],
-    series: series,
+    series: series
   }
 }
 
@@ -598,12 +598,12 @@ export const curveChart6 = ({
  * @param {Array} xData 横坐标集合
  * @param {Array} sData 数据集合
  */
-let curveChart7Data = {
+const curveChart7Data = {
   color: ['#D13F3F', '#F98539', '#999999', '#42E4FE', '#9742FE'],
   xData: ['01-23', '01-24', '01-25', '01-26', '01-27', '01-28', '01-29'],
   sData: [{
     name: '报警',
-    data: [240, 730, 710, 710, 620, 880, 840],
+    data: [240, 730, 710, 710, 620, 880, 840]
   }, {
     name: '故障',
     data: [50, 340, 270, 450, 670, 260, 780]
@@ -621,30 +621,30 @@ let curveChart7Data = {
 export const curveChart7 = ({
   color = curveChart7Data.color,
   xData = curveChart7Data.xData,
-  sData = curveChart7Data.sData,
+  sData = curveChart7Data.sData
 }) => {
-  let series = sData.map((item, index) => {
+  const series = sData.map((item, index) => {
     return {
       type: 'line',
       name: item.name,
       areaStyle: {
-        opacity: 0,
+        opacity: 0
       },
       itemStyle: {
         color: hexToRgba(color[index], index == 0 ? 0.8 : 0.4)
       },
       lineStyle: {
-        width: index == 0 ? 2 : 1,
+        width: index == 0 ? 2 : 1
       },
       label: {
         show: index == 0,
         color: cfff8,
-        fontSize: defSize - 6,
+        fontSize: defSize - 6
       },
-      symbol: index == 0 ? "circle" : "none",
+      symbol: index == 0 ? 'circle' : 'none',
       showSymbol: true,
       smooth: true,
-      data: item.data,
+      data: item.data
     }
   })
   return {
@@ -653,7 +653,7 @@ export const curveChart7 = ({
       trigger: 'axis'
     },
     grid: {
-      bottom: 40,
+      bottom: 40
     },
     legend: {
       top: '5%',
@@ -663,7 +663,7 @@ export const curveChart7 = ({
         fontSize: defSize - 2
       },
       itemWidth: 6,
-      itemHeight: 2,
+      itemHeight: 2
     },
     xAxis: {
       type: 'category',
@@ -678,7 +678,7 @@ export const curveChart7 = ({
       },
       axisLine: {
         show: false
-      },
+      }
     },
     yAxis: {
       name: '报警数',
@@ -692,7 +692,7 @@ export const curveChart7 = ({
         color: cfff8
       },
       axisLine: {
-        show: false,
+        show: false
       },
       splitLine: {
         lineStyle: {
@@ -701,9 +701,9 @@ export const curveChart7 = ({
       },
       axisTick: {
         show: false
-      },
+      }
     },
     color: color,
-    series: series,
+    series: series
   }
 }
