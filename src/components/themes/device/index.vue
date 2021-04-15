@@ -9,7 +9,7 @@
       />
     </a-col>
     <a-col :span="6">
-      <Second :title="firstObj.title" :oneArr="firstObj.oneArr" />
+      <Second :title="secondObj.title" :oneArr="secondObj.oneArr" />
     </a-col>
   </a-row>
 </template>

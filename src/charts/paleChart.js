@@ -6,359 +6,414 @@ import {
   defaultChart,
   hexToRgba,
   linearColor,
-  cfff2
-} from './common'
+  cfff2,
+} from "./common";
 
 // 第一个环状图
 const paleChart1Data = {
-  color: ['#D5B3FF', '#FF6C38', '#F7D60B', '#11E2FF'],
-  xData: ['学生', '教师', '领导', '职工'],
-  sData: [{
-    name: '',
-    data: [100, 30, 40, 50]
-  }],
-  width: 140
-}
+  color: ["#D5B3FF", "#FF6C38", "#F7D60B", "#11E2FF"],
+  xData: ["学生", "教师", "领导", "职工"],
+  sData: [
+    {
+      name: "",
+      data: [100, 30, 40, 50],
+    },
+  ],
+  width: 140,
+};
 export const paleChart1 = ({
   color = paleChart1Data.color,
   xData = paleChart1Data.xData,
   sData = paleChart1Data.sData,
-  width = paleChart1Data.width
+  width = paleChart1Data.width,
 }) => {
-  const series = [{
-    type: 'pie',
-    clockwise: true,
-    emphasis: {
-      scaleSize: 4
+  const series = [
+    {
+      type: "pie",
+      clockwise: true,
+      emphasis: {
+        scaleSize: 4,
+      },
+      radius: [0, "40%"],
+      center: ["50%", "50%"],
+      data: sData[0].data.map((item, index) => {
+        return {
+          name: xData[index],
+          value: item,
+        };
+      }),
+      label: {
+        fontFamily: "pangmeng",
+        color: cfff8,
+        formatter: "{d}%",
+      },
+      labelLine: {
+        length: 5,
+        length2: 50,
+        lineStyle: {
+          color: "#00BAE3",
+        },
+      },
     },
-    radius: [0, '40%'],
-    center: ['50%', '50%'],
-    data: sData[0].data.map((item, index) => {
-      return {
-        name: xData[index],
-        value: item
-      }
-    }),
-    label: {
-      fontFamily: 'pangmeng',
-      color: cfff8,
-      formatter: '{d}%'
-    },
-    labelLine: {
-      length: 5,
-      length2: 50,
-      lineStyle: {
-        color: '#00BAE3'
-      }
-    }
-  }]
+  ];
   return {
     ...cloneDeep(defaultChart),
     legend: {
-      bottom: '2%',
+      bottom: "2%",
       data: xData,
       itemWidth: 8,
       itemHeight: 8,
       textStyle: {
-        color: cfff8
-      }
+        color: cfff8,
+      },
     },
-    graphic: [{
-      type: 'image',
-      top: 'middle',
-      left: 'center',
-      style: {
-        image: require('../assets/imgs/chart/morepale1-bg.png'),
-        width: width,
-        height: width
-      }
-    }],
+    graphic: [
+      {
+        type: "image",
+        top: "middle",
+        left: "center",
+        style: {
+          image: require("../assets/imgs/chart/morepale1-bg.png"),
+          width: width,
+          height: width,
+        },
+      },
+    ],
     color: color,
-    series: series
-  }
-}
+    series: series,
+  };
+};
 
 // 第二个环状图
 const paleChart2Data = {
-  color: ['#43AA8B', '#2DC4B6', '#E76F51', '#FB8F3A', '#F9C74F', '#90BE6D', '#277DA1'],
-  xData: ['图书馆面积', '体育馆面积', '食堂面积', '教学面积', '办公面积', '宿舍面积', '其他'],
-  sData: [{
-    data: [15, 14, 12, 22, 16, 11, 10]
-  }],
-  width: 180
-}
+  color: [
+    "#43AA8B",
+    "#2DC4B6",
+    "#E76F51",
+    "#FB8F3A",
+    "#F9C74F",
+    "#90BE6D",
+    "#277DA1",
+  ],
+  xData: [
+    "图书馆面积",
+    "体育馆面积",
+    "食堂面积",
+    "教学面积",
+    "办公面积",
+    "宿舍面积",
+    "其他",
+  ],
+  sData: [
+    {
+      data: [15, 14, 12, 22, 16, 11, 10],
+    },
+  ],
+  width: 180,
+};
 export const paleChart2 = ({
   color = paleChart2Data.color,
   xData = paleChart2Data.xData,
   sData = paleChart2Data.sData,
-  width = paleChart2Data.width
+  width = paleChart2Data.width,
 }) => {
-  const series = [{
-    type: 'pie',
-    clockwise: true,
-    radius: ['30%', '38%'],
-    center: ['50%', '50%'],
-    data: sData[0].data.map((item, index) => {
-      return {
-        name: xData[index],
-        value: item
-      }
-    }),
-    emphasis: {
-      scaleSize: 4
+  const series = [
+    {
+      type: "pie",
+      clockwise: true,
+      radius: ["30%", "38%"],
+      center: ["50%", "50%"],
+      data: sData[0].data.map((item, index) => {
+        return {
+          name: xData[index],
+          value: item,
+        };
+      }),
+      emphasis: {
+        scaleSize: 4,
+      },
+      label: {
+        color: cfff8,
+        formatter: "{d}%",
+      },
+      labelLine: {
+        length: 10,
+        length2: 5,
+      },
     },
-    label: {
-      color: cfff8,
-      formatter: '{d}%'
-    },
-    labelLine: {
-      length: 10,
-      length2: 5
-    }
-  }]
+  ];
   return {
     ...cloneDeep(defaultChart),
     legend: {
       bottom: 5,
       data: xData,
-      icon: 'circle',
+      icon: "circle",
       itemWidth: 5,
       itemHeight: 5,
       textStyle: {
         fontSize: defSize - 4,
-        color: cfff8
-      }
+        color: cfff8,
+      },
     },
-    graphic: [{
-      type: 'image',
-      top: 'middle',
-      left: 'center',
-      style: {
-        image: require('../assets/imgs/chart/morepale2-bg.png'),
-        width: width,
-        height: width / 1.3
-      }
-    }],
+    graphic: [
+      {
+        type: "image",
+        top: "middle",
+        left: "center",
+        style: {
+          image: require("../assets/imgs/chart/morepale2-bg.png"),
+          width: width,
+          height: width / 1.3,
+        },
+      },
+    ],
     color: color,
-    series: series
-  }
-}
+    series: series,
+  };
+};
 
 // 第三个环状图
 const paleChart3Data = {
-  color: ['#E76F51', '#F4A261', '#E9C46A', '#299D8F', '#A8DADC'],
-  xData: ['书籍', '论文', '获奖', '专利', '软件'],
-  sData: [{
-    data: [30, 10, 15, 20, 25]
-  }],
-  width: 230
-}
+  color: ["#E76F51", "#F4A261", "#E9C46A", "#299D8F", "#A8DADC"],
+  xData: ["书籍", "论文", "获奖", "专利", "软件"],
+  sData: [
+    {
+      data: [30, 10, 15, 20, 25],
+    },
+  ],
+  width: 230,
+};
 export const paleChart3 = ({
   color = paleChart3Data.color,
   xData = paleChart3Data.xData,
   sData = paleChart3Data.sData,
-  width = paleChart3Data.width
+  width = paleChart3Data.width,
 }) => {
-  const series = [{
-    type: 'pie',
-    radius: ['25%', '40%'],
-    center: ['50%', '50%'],
-    data: sData[0].data.map((item, index) => {
-      return {
-        name: xData[index],
-        value: item
-      }
-    }),
-    emphasis: {
-      scaleSize: 4
+  const series = [
+    {
+      type: "pie",
+      radius: ["25%", "40%"],
+      center: ["50%", "50%"],
+      data: sData[0].data.map((item, index) => {
+        return {
+          name: xData[index],
+          value: item,
+        };
+      }),
+      emphasis: {
+        scaleSize: 4,
+      },
+      label: {
+        color: cfff8,
+        formatter: "{d}%",
+      },
+      labelLine: {
+        length: 20,
+        length2: 5,
+      },
     },
-    label: {
-      color: cfff8,
-      formatter: '{d}%'
-    },
-    labelLine: {
-      length: 20,
-      length2: 5
-    }
-  }]
+  ];
   return {
     ...cloneDeep(defaultChart),
     legend: {
-      bottom: '2%',
+      bottom: "2%",
       data: xData,
-      icon: 'circle',
+      icon: "circle",
       itemWidth: 5,
       itemHeight: 5,
       textStyle: {
         fontSize: defSize - 4,
-        color: cfff8
-      }
+        color: cfff8,
+      },
     },
-    graphic: [{
-      type: 'image',
-      top: 'middle',
-      left: 'center',
-      style: {
-        image: require('../assets/imgs/chart/morepale3-bg.png'),
-        width: width,
-        height: width
-      }
-    }],
+    graphic: [
+      {
+        type: "image",
+        top: "middle",
+        left: "center",
+        style: {
+          image: require("../assets/imgs/chart/morepale3-bg.png"),
+          width: width,
+          height: width,
+        },
+      },
+    ],
     color: color,
-    series: series
-  }
-}
+    series: series,
+  };
+};
 
 // 第四个环状图
 const paleChart4Data = {
-  color: ['#D5B3FF', '#FF6C38', '#F7D60B', '#11E2FF'],
-  xData: ['本科', '专科', '硕士', '博士'],
-  sData: [{
-    data: [46, 19, 23, 12]
-  }],
-  title: '学历分布'
-}
+  color: ["#D5B3FF", "#FF6C38", "#F7D60B", "#11E2FF"],
+  xData: ["本科", "专科", "硕士", "博士"],
+  sData: [
+    {
+      data: [46, 19, 23, 12],
+    },
+  ],
+  title: "学历分布",
+};
 export const paleChart4 = ({
   color = paleChart4Data.color,
   xData = paleChart4Data.xData,
   sData = paleChart4Data.sData,
   title = paleChart4Data.title,
-  showLabel = true
+  showLabel = true,
 }) => {
-  const series = [{
-    type: 'pie',
-    clockwise: true,
-    radius: ['45%', '55%'],
-    center: ['50%', '45%'],
-    data: sData[0].data.map((item, index) => {
-      return {
-        name: xData[index],
-        value: item
-      }
-    }),
-    emphasis: {
-      scaleSize: 4
-    },
-    label: {
-      color: cfff8,
-      formatter: showLabel ? '{b}\n{yellow|{d}%}' : '{d}%',
-      rich: {
-        yellow: {
-          color: '#F7D60B',
-          fontFamily: 'pangmeng',
-          fontSize: defSize
-        }
-      }
-    },
-    labelLine: {
-      length: 4,
-      length2: 20,
-      lineStyle: {
-        type: 'dotted',
-        color: cfff8
-      }
-    }
-  }, {
-    type: 'gauge',
-    radius: '35%',
-    center: ['50%', '45%'],
-    startAngle: 110,
-    endAngle: 10,
-    axisLabel: {
-      show: false
-    },
-    axisLine: {
-      lineStyle: {
-        width: 2,
-        color: [
-          [1, linearColor(hexToRgba('#11E2FF', 0.8), hexToRgba('#11E2FF', 0.01))]
-        ]
-      }
-    },
-    axisTick: {
-      show: false
-    },
-    splitLine: {
-      show: false
-    },
-    detail: {
-      show: false
-    }
-  }, {
-    type: 'gauge',
-    radius: '35%',
-    center: ['50%', '45%'],
-    startAngle: 290,
-    endAngle: 190,
-    axisLabel: {
-      show: false
-    },
-    axisLine: {
-      lineStyle: {
-        width: 2,
-        color: [
-          [1, linearColor(hexToRgba('#11E2FF', 0.01), hexToRgba('#11E2FF', 0.8))]
-        ]
-      }
-    },
-    axisTick: {
-      show: false
-    },
-    splitLine: {
-      show: false
-    },
-    detail: {
-      show: false
-    },
-    pointer: {
-      show: false
-    },
-    data: [{
-      value: 1,
-      name: title,
-      title: {
+  const series = [
+    {
+      type: "pie",
+      clockwise: true,
+      radius: ["45%", "55%"],
+      center: ["50%", "45%"],
+      data: sData[0].data.map((item, index) => {
+        return {
+          name: xData[index],
+          value: item,
+        };
+      }),
+      emphasis: {
+        scaleSize: 4,
+      },
+      label: {
         color: cfff8,
-        fontSize: defSize,
-        offsetCenter: [0, 0]
-      }
-    }],
-  }, {
-    type: 'pie',
-    radius: ['0%', '34%'],
-    center: ['50%', '45%'],
-    axisLabel: {
-      show: false
+        formatter: showLabel ? "{b}\n{yellow|{d}%}" : "{d}%",
+        rich: {
+          yellow: {
+            color: "#F7D60B",
+            fontFamily: "pangmeng",
+            fontSize: defSize,
+          },
+        },
+      },
+      labelLine: {
+        length: 4,
+        length2: 20,
+        lineStyle: {
+          type: "dotted",
+          color: cfff8,
+        },
+      },
     },
-    axisLine: {
-      show: false
+    {
+      type: "gauge",
+      radius: "35%",
+      center: ["50%", "45%"],
+      startAngle: 110,
+      endAngle: 10,
+      axisLabel: {
+        show: false,
+      },
+      axisLine: {
+        lineStyle: {
+          width: 2,
+          color: [
+            [
+              1,
+              linearColor(
+                hexToRgba("#11E2FF", 0.8),
+                hexToRgba("#11E2FF", 0.01)
+              ),
+            ],
+          ],
+        },
+      },
+      axisTick: {
+        show: false,
+      },
+      splitLine: {
+        show: false,
+      },
+      detail: {
+        show: false,
+      },
     },
-    tooltip: {
-      show: false
+    {
+      type: "gauge",
+      radius: "35%",
+      center: ["50%", "45%"],
+      startAngle: 290,
+      endAngle: 190,
+      axisLabel: {
+        show: false,
+      },
+      axisLine: {
+        lineStyle: {
+          width: 2,
+          color: [
+            [
+              1,
+              linearColor(
+                hexToRgba("#11E2FF", 0.01),
+                hexToRgba("#11E2FF", 0.8)
+              ),
+            ],
+          ],
+        },
+      },
+      axisTick: {
+        show: false,
+      },
+      splitLine: {
+        show: false,
+      },
+      detail: {
+        show: false,
+      },
+      pointer: {
+        show: false,
+      },
+      data: [
+        {
+          value: 1,
+          name: title,
+          title: {
+            color: cfff8,
+            fontSize: defSize,
+            offsetCenter: [0, 0],
+          },
+        },
+      ],
     },
-    emphasis: {
-      scale: false
+    {
+      type: "pie",
+      radius: ["0%", "34%"],
+      center: ["50%", "45%"],
+      axisLabel: {
+        show: false,
+      },
+      axisLine: {
+        show: false,
+      },
+      tooltip: {
+        show: false,
+      },
+      emphasis: {
+        scale: false,
+      },
+      itemStyle: {
+        color: cfff2,
+      },
+      data: [1],
     },
-    itemStyle: {
-      color: cfff2
-    },
-    data: [1]
-  }]
+  ];
   return {
     ...cloneDeep(defaultChart),
     legend: {
-      bottom: '2%',
+      bottom: "2%",
       data: xData,
       itemWidth: 8,
       itemHeight: 8,
       textStyle: {
         fontSize: defSize - 4,
-        color: cfff8
-      }
+        color: cfff8,
+      },
     },
     color: color,
-    series: series
-  }
-}
+    series: series,
+  };
+};
 
 /**
  * 第五个环状图
@@ -366,331 +421,392 @@ export const paleChart4 = ({
  * @param {Number} legendType legend位置  1：上  2：右 3：下  4：左
  */
 const paleChart5Data = {
-  color: ['#5B8FF9', '#5AD8A6', '#5D7092', '#F6BD16', '#E8684A', '#FF9D4D', '#6DC8EC', '#9270CA', '#269A99', '#FF99C3', '#5B8FF9', '#BDD2FD', '#5AD8A6'],
-  xData: ['工程类', '金融类', '数学类', '经济类', '管理类', '艺术与设计类', '自然科学类', '计算机类', '心理学', '教育与公共卫生类', '酒店管理', '法律与社会学', '其他'],
-  sData: [{
-    data: [9, 10, 5, 15, 12, 30, 28, 31, 12, 6, 5, 7, 8]
-  }],
+  color: [
+    "#5B8FF9",
+    "#5AD8A6",
+    "#5D7092",
+    "#F6BD16",
+    "#E8684A",
+    "#FF9D4D",
+    "#6DC8EC",
+    "#9270CA",
+    "#269A99",
+    "#FF99C3",
+    "#5B8FF9",
+    "#BDD2FD",
+    "#5AD8A6",
+  ],
+  xData: [
+    "工程类",
+    "金融类",
+    "数学类",
+    "经济类",
+    "管理类",
+    "艺术与设计类",
+    "自然科学类",
+    "计算机类",
+    "心理学",
+    "教育与公共卫生类",
+    "酒店管理",
+    "法律与社会学",
+    "其他",
+  ],
+  sData: [
+    {
+      data: [9, 10, 5, 15, 12, 30, 28, 31, 12, 6, 5, 7, 8],
+    },
+  ],
   showLabel: true,
-  legendType: 1
-}
+  legendType: 1,
+};
 export const paleChart5 = ({
   color = paleChart5Data.color,
   xData = paleChart5Data.xData,
   sData = paleChart5Data.sData,
   showLabel = paleChart5Data.showLabel,
-  legendType = paleChart5Data.legendType
+  legendType = paleChart5Data.legendType,
 }) => {
-  const legend = [{
-    orient: legendType % 2 == 0 ? 'vertical' : 'horizontal',
-    top: legendType == 1 ? '5%' : 'auto',
-    right: legendType == 2 ? '5%' : 'auto',
-    bottom: legendType == 3 ? '5%' : 'middle',
-    left: legendType == 4 ? '5%' : 'auto',
-    data: xData.slice(0, 7),
-    icon: 'circle',
-    itemGap: 4,
-    itemWidth: 8,
-    itemHeight: 8,
-    textStyle: {
-      fontSize: defSize - 4,
-      color: cfff8
-    }
-  }]
-  if (xData.length > 7) {
-    legend.push({
-      orient: legendType % 2 == 0 ? 'vertical' : 'horizontal',
-      top: legendType == 3 ? '5%' : 'auto',
-      right: legendType == 4 ? '5%' : 'auto',
-      bottom: legendType == 1 ? '5%' : 'middle',
-      left: legendType == 2 ? '5%' : 'auto',
-      data: xData.slice(7),
-      icon: 'circle',
+  const legend = [
+    {
+      orient: legendType % 2 == 0 ? "vertical" : "horizontal",
+      top: legendType == 1 ? "5%" : "auto",
+      right: legendType == 2 ? "5%" : "auto",
+      bottom: legendType == 3 ? "5%" : "middle",
+      left: legendType == 4 ? "5%" : "auto",
+      data: xData.slice(0, 7),
+      icon: "circle",
       itemGap: 4,
       itemWidth: 8,
       itemHeight: 8,
       textStyle: {
         fontSize: defSize - 4,
-        color: cfff8
-      }
-    })
+        color: cfff8,
+      },
+    },
+  ];
+  if (xData.length > 7) {
+    legend.push({
+      orient: legendType % 2 == 0 ? "vertical" : "horizontal",
+      top: legendType == 3 ? "5%" : "auto",
+      right: legendType == 4 ? "5%" : "auto",
+      bottom: legendType == 1 ? "5%" : "middle",
+      left: legendType == 2 ? "5%" : "auto",
+      data: xData.slice(7),
+      icon: "circle",
+      itemGap: 4,
+      itemWidth: 8,
+      itemHeight: 8,
+      textStyle: {
+        fontSize: defSize - 4,
+        color: cfff8,
+      },
+    });
   }
-  const series = [{
-    type: 'pie',
-    clockwise: true,
-    radius: [0, '55%'],
-    center: ['50%', '50%'],
-    data: sData[0].data.map((item, index) => {
-      return {
-        name: xData[index],
-        value: item
-      }
-    }),
-    emphasis: {
-      scaleSize: 4
+  const series = [
+    {
+      type: "pie",
+      clockwise: true,
+      radius: [0, "55%"],
+      center: ["50%", "50%"],
+      data: sData[0].data.map((item, index) => {
+        return {
+          name: xData[index],
+          value: item,
+        };
+      }),
+      emphasis: {
+        scaleSize: 4,
+      },
+      label: {
+        show: showLabel,
+        color: cfff8,
+        fontSize: defSize - 4,
+        formatter: "{d}%",
+      },
+      labelLine: {
+        length: 8,
+      },
     },
-    label: {
-      show: showLabel,
-      color: cfff8,
-      fontSize: defSize - 4,
-      formatter: '{d}%'
-    },
-    labelLine: {
-      length: 8
-    }
-  }]
+  ];
   return {
     ...cloneDeep(defaultChart),
     legend: legend,
     color: color,
-    series: series
-  }
-}
+    series: series,
+  };
+};
 
 // 第六个环状图
 const paleChart6Data = {
-  color: ['#2BFB63', '#C6BF18', '#00D9FF', '#F76747'],
-  xData: ['迟到(人)', '请假(人)', '未到(人)', '实到(人)'],
-  sData: [{
-    data: [90, 72, 54, 3384]
-  }]
-}
+  color: ["#2BFB63", "#C6BF18", "#00D9FF", "#F76747"],
+  xData: ["迟到(人)", "请假(人)", "未到(人)", "实到(人)"],
+  sData: [
+    {
+      data: [90, 72, 54, 3384],
+    },
+  ],
+};
 export const paleChart6 = ({
   color = paleChart6Data.color,
   xData = paleChart6Data.xData,
-  sData = paleChart6Data.sData
+  sData = paleChart6Data.sData,
 }) => {
   const sum = sData[0].data.reduce((item, pre) => {
-    return item += pre
-  })
-  const arr = [50, 33, 25, 20]
+    return (item += pre);
+  });
+  const arr = [50, 33, 25, 20];
   const title = xData.map((item, index) => {
     return {
       text: item,
       left: `${arr[xData.length - 1] * (index + 1) - 1}%`,
-      top: '75%',
-      textAlign: 'center',
+      top: "75%",
+      textAlign: "center",
       textStyle: {
-        fontWeight: 'normal',
+        fontWeight: "normal",
         fontSize: defSize - 4,
         color: cfff8,
-        textAlign: 'center'
-      }
-    }
-  })
+        textAlign: "center",
+      },
+    };
+  });
   const series = sData[0].data.map((item, index) => {
     return {
-      type: 'pie',
+      type: "pie",
       clockwise: false,
       emphasis: {
-        scale: false
+        scale: false,
       },
-      radius: ['16%', '20%'],
-      center: [`${arr[sData[0].data.length - 1] * (index + 1)}%`, '60%'],
+      radius: ["16%", "20%"],
+      center: [`${arr[sData[0].data.length - 1] * (index + 1)}%`, "60%"],
       labelLine: {
         show: false,
         length: 0,
-        length2: 0
+        length2: 0,
       },
-      data: [{
-        value: item,
-        label: {
-          show: true,
-          formatter: '{d}%',
-          position: 'center',
-          padding: [0, 0, 100, 0],
-          fontSize: defSize,
-          color: cfff8
+      data: [
+        {
+          value: item,
+          label: {
+            show: true,
+            formatter: "{d}%",
+            position: "center",
+            padding: [0, 0, 100, 0],
+            fontSize: defSize,
+            color: cfff8,
+          },
+          itemStyle: {
+            color: color[index % color.length],
+            borderWidth: 4,
+            borderColor: color[index % color.length],
+          },
         },
-        itemStyle: {
-          color: color[index % color.length],
-          borderWidth: 4,
-          borderColor: color[index % color.length]
-        }
-      }, {
-        value: sum - item,
-        label: {
-          show: false
+        {
+          value: sum - item,
+          label: {
+            show: false,
+          },
+          tooltip: {
+            show: false,
+          },
+          itemStyle: {
+            color: cfff8,
+            opacity: 0.1,
+          },
         },
-        tooltip: {
-          show: false
-        },
-        itemStyle: {
-          color: cfff8,
-          opacity: 0.1
-        }
-      }]
-    }
-  })
+      ],
+    };
+  });
 
   return {
     ...cloneDeep(defaultChart),
     title: title,
     legend: {
-      show: false
+      show: false,
     },
     color: color,
-    series: series
-  }
-}
+    series: series,
+  };
+};
 
 // 第七个环状图
 const paleChart7Data = {
-  color: ['#2DDD81'],
-  xData: ['类别1'],
-  sData: [{
-    name: '系列1',
-    data: [65451]
-  }]
-}
+  color: ["#2DDD81"],
+  xData: ["类别1"],
+  sData: [
+    {
+      name: "系列1",
+      data: [65451],
+    },
+  ],
+};
 export const paleChart7 = ({
   color = paleChart7Data.color,
   // xData = paleChart7Data.xData,
-  sData = paleChart7Data.sData
+  sData = paleChart7Data.sData,
 }) => {
-  const series = [{
-    type: 'pie',
-    clockwise: false,
-    emphasis: {
-      scale: false
+  const series = [
+    {
+      type: "pie",
+      clockwise: false,
+      emphasis: {
+        scale: false,
+      },
+      radius: ["50%", "58%"],
+      center: ["50%", "55%"],
+      labelLine: {
+        show: false,
+      },
+      data: [
+        {
+          value: sData[0].data[0] / 2,
+          tooltip: {
+            formatter: `${sData[0].data[0]}`,
+          },
+          label: {
+            show: true,
+            fontFamily: "pangmeng",
+            formatter: `${sData[0].data[0]}`,
+            position: "center",
+            fontSize: defSize + 8,
+            color: cfff8,
+          },
+          itemStyle: {
+            color: linearColor(color[0], hexToRgba(color[0], 0.5)),
+          },
+        },
+        {
+          value: sData[0].data[0] / 2,
+          tooltip: {
+            formatter: `${sData[0].data[0]}`,
+          },
+          itemStyle: {
+            color: linearColor(
+              hexToRgba(color[0], 0.5),
+              hexToRgba(color[0], 0.01),
+              [0, 1, 0, 0]
+            ),
+          },
+        },
+      ],
     },
-    radius: ['50%', '58%'],
-    center: ['50%', '55%'],
-    labelLine: {
-      show: false
-    },
-    data: [{
-      value: sData[0].data[0] / 2,
-      tooltip: {
-        formatter: `${sData[0].data[0]}`
-      },
-      label: {
-        show: true,
-        fontFamily: 'pangmeng',
-        formatter: `${sData[0].data[0]}`,
-        position: 'center',
-        fontSize: defSize + 8,
-        color: cfff8
-      },
-      itemStyle: {
-        color: linearColor(color[0], hexToRgba(color[0], 0.5))
-      }
-    }, {
-      value: sData[0].data[0] / 2,
-      tooltip: {
-        formatter: `${sData[0].data[0]}`
-      },
-      itemStyle: {
-        color: linearColor(hexToRgba(color[0], 0.5), hexToRgba(color[0], 0.01), [0, 1, 0, 0])
-      }
-    }]
-  }]
+  ];
   return {
     ...cloneDeep(defaultChart),
     legend: {
-      show: false
+      show: false,
     },
     color: color,
-    series: series
-  }
-}
+    series: series,
+  };
+};
 
 /**
  * 第八个环状图
  */
 const paleChart8Data = {
-  color: ['#38DAF1', '#38A8F1', '#386BF1', '#6B38F1'],
-  xData: ['高新企业', '重点企业', '落税企业', '规土企业'],
-  sData: [{
-    data: [75, 65, 40, 20]
-  }]
-}
+  color: ["#38DAF1", "#38A8F1", "#386BF1", "#6B38F1"],
+  xData: ["高新企业", "重点企业", "落税企业", "规土企业"],
+  sData: [
+    {
+      data: [75, 65, 40, 20],
+    },
+  ],
+};
 export const paleChart8 = ({
   color = paleChart8Data.color,
   xData = paleChart8Data.xData,
   sData = paleChart8Data.sData,
-  total = 200
+  total = 200,
 }) => {
-  let series = []
+  let series = [];
   sData[0].data.map((item, i) => {
-    const arr = [{
-      type: 'pie',
-      radius: [61 - i * 15 + '%', 64 - i * 15 + '%'],
-      center: ['50%', '50%'],
-      label: {
-        show: false
-      },
-      labelLine: {
-        show: false
-      },
-      emphasis: {
-        scaleSize: 4
-      },
-      data: [{
-        value: item,
-        name: xData[i],
+    const arr = [
+      {
+        type: "pie",
+        radius: [61 - i * 15 + "%", 64 - i * 15 + "%"],
+        center: ["50%", "50%"],
         label: {
-          show: true,
-          formatter: '{d}%',
-          color: cfff8,
-          position: 'inside'
-        }
-      }, {
-        value: total - item,
-        itemStyle: {
-          color: 'none',
-          borderWidth: 5,
-          borderRadius: 5
-        },
-        tooltip: {
-          show: false
-        },
-        label: {
-          show: false
-        }
-      }]
-    }, {
-      name: '背景线',
-      type: 'pie',
-      silent: true,
-      z: 1,
-      emphasis: {
-        scale: false
-      },
-      radius: [62 - i * 15 + '%', 63 - i * 15 + '%'],
-      center: ['50%', '50%'],
-      label: {
-        show: false
-      },
-      itemStyle: {
-        label: {
-          show: false
+          show: false,
         },
         labelLine: {
-          show: false
-        }
+          show: false,
+        },
+        emphasis: {
+          scaleSize: 4,
+        },
+        data: [
+          {
+            value: item,
+            name: xData[i],
+            label: {
+              show: true,
+              formatter: "{d}%",
+              color: cfff8,
+              position: "inside",
+            },
+          },
+          {
+            value: total - item,
+            itemStyle: {
+              color: "none",
+              borderWidth: 5,
+              borderRadius: 5,
+            },
+            tooltip: {
+              show: false,
+            },
+            label: {
+              show: false,
+            },
+          },
+        ],
       },
-      data: [{
-        value: 75,
-        itemStyle: {
-          color: hexToRgba(color[2], 0.6)
+      {
+        name: "背景线",
+        type: "pie",
+        silent: true,
+        z: 1,
+        emphasis: {
+          scale: false,
         },
-        tooltip: {
-          show: false
-        }
-      }, {
-        value: 25,
-        itemStyle: {
-          color: 'none',
-          borderWidth: 0
+        radius: [62 - i * 15 + "%", 63 - i * 15 + "%"],
+        center: ["50%", "50%"],
+        label: {
+          show: false,
         },
-        tooltip: {
-          show: false
-        }
-      }]
-    }]
-    series = [...series, ...arr]
-  })
+        itemStyle: {
+          label: {
+            show: false,
+          },
+          labelLine: {
+            show: false,
+          },
+        },
+        data: [
+          {
+            value: 75,
+            itemStyle: {
+              color: hexToRgba(color[2], 0.6),
+            },
+            tooltip: {
+              show: false,
+            },
+          },
+          {
+            value: 25,
+            itemStyle: {
+              color: "none",
+              borderWidth: 0,
+            },
+            tooltip: {
+              show: false,
+            },
+          },
+        ],
+      },
+    ];
+    series = [...series, ...arr];
+  });
   return {
     ...cloneDeep(defaultChart),
     legend: {
@@ -701,297 +817,322 @@ export const paleChart8 = ({
       itemHeight: 8,
       textStyle: {
         color: cfff8,
-        fontSize: defSize - 2
-      }
+        fontSize: defSize - 2,
+      },
     },
     grid: {
-      top: '15%',
-      bottom: '55%',
-      left: '50%',
-      containLabel: false
+      top: "15%",
+      bottom: "55%",
+      left: "50%",
+      containLabel: false,
     },
-    graphic: [{
-      type: 'image',
-      top: 'middle',
-      left: 'center',
-      style: {
-        image: require('../assets/imgs/chart/chart_decorate.png'),
-        width: 200 * 1.27,
-        height: 200
-      }
-    }],
+    graphic: [
+      {
+        type: "image",
+        top: "middle",
+        left: "center",
+        style: {
+          image: require("../assets/imgs/chart/chart_decorate.png"),
+          width: 200 * 1.27,
+          height: 200,
+        },
+      },
+    ],
     color: color,
     xAxis: {
-      show: false
+      show: false,
     },
     yAxis: {
-      type: 'category',
+      type: "category",
       inverse: true,
       z: 3,
       axisLine: {
-        show: false
+        show: false,
       },
       axisTick: {
-        show: false
+        show: false,
       },
       axisLabel: {
         show: true,
         interval: 0,
         inside: false,
         color: cfff8,
-        fontSize: defSize - 4
+        fontSize: defSize - 4,
       },
-      data: xData
+      data: xData,
     },
-    series: series
-  }
-}
+    series: series,
+  };
+};
 
 /**
  * 第九个环状图
  */
 const paleChart9Data = {
-  color: ['#38DAF1', '#38A8F1', '#386BF1', '#6B38F1'],
-  xData: ['高新企业', '重点企业', '落税企业', '规土企业'],
-  sData: [{
-    data: [75, 65, 40, 20]
-  }]
-}
+  color: ["#38DAF1", "#38A8F1", "#386BF1", "#6B38F1"],
+  xData: ["高新企业", "重点企业", "落税企业", "规土企业"],
+  sData: [
+    {
+      data: [75, 65, 40, 20],
+    },
+  ],
+};
 export const paleChart9 = ({
   color = paleChart9Data.color,
   xData = paleChart9Data.xData,
   sData = paleChart9Data.sData,
-  total = 200
+  total = 200,
 }) => {
-  let series = []
+  let series = [];
   sData[0].data.map((item, i) => {
-    const arr = [{
-      type: 'pie',
-      clockwise: false,
-      emphasis: {
-        scaleSize: 4
-      },
-      radius: [59 - i * 15 + '%', 66 - i * 15 + '%'],
-      center: ['50%', '50%'],
-      label: {
-        show: false
-      },
-      labelLine: {
-        show: false
-      },
-      data: [{
-        value: item,
-        name: xData[i],
-        label: {
-          show: false
-        }
-      }, {
-        value: total - item,
-        itemStyle: {
-          color: 'none',
-          borderWidth: 5,
-          borderRadius: 5
+    const arr = [
+      {
+        type: "pie",
+        clockwise: false,
+        emphasis: {
+          scaleSize: 4,
         },
-        tooltip: {
-          show: false
-        },
+        radius: [59 - i * 15 + "%", 66 - i * 15 + "%"],
+        center: ["50%", "50%"],
         label: {
-          show: false
-        }
-      }]
-    }, {
-      name: '背景线',
-      type: 'pie',
-      silent: true,
-      clockwise: false,
-      emphasis: {
-        scale: false
-      },
-      radius: [60 - i * 15 + '%', 65 - i * 15 + '%'],
-      center: ['50%', '50%'],
-      label: {
-        show: false
-      },
-      itemStyle: {
-        label: {
-          show: false
+          show: false,
         },
         labelLine: {
-          show: false
-        }
+          show: false,
+        },
+        data: [
+          {
+            value: item,
+            name: xData[i],
+            label: {
+              show: false,
+            },
+          },
+          {
+            value: total - item,
+            itemStyle: {
+              color: "none",
+              borderWidth: 5,
+              borderRadius: 5,
+            },
+            tooltip: {
+              show: false,
+            },
+            label: {
+              show: false,
+            },
+          },
+        ],
       },
-      data: [{
-        value: 75,
-        itemStyle: {
-          color: hexToRgba(color[2], 0.2)
+      {
+        name: "背景线",
+        type: "pie",
+        silent: true,
+        clockwise: false,
+        emphasis: {
+          scale: false,
         },
-        tooltip: {
-          show: false
-        }
-      }, {
-        value: 25,
-        itemStyle: {
-          color: 'none',
-          borderWidth: 0
+        radius: [60 - i * 15 + "%", 65 - i * 15 + "%"],
+        center: ["50%", "50%"],
+        label: {
+          show: false,
         },
-        tooltip: {
-          show: false
-        }
-      }]
-    }]
-    series = [...series, ...arr]
-  })
+        itemStyle: {
+          label: {
+            show: false,
+          },
+          labelLine: {
+            show: false,
+          },
+        },
+        data: [
+          {
+            value: 75,
+            itemStyle: {
+              color: hexToRgba(color[2], 0.2),
+            },
+            tooltip: {
+              show: false,
+            },
+          },
+          {
+            value: 25,
+            itemStyle: {
+              color: "none",
+              borderWidth: 0,
+            },
+            tooltip: {
+              show: false,
+            },
+          },
+        ],
+      },
+    ];
+    series = [...series, ...arr];
+  });
   return {
     ...cloneDeep(defaultChart),
     legend: {
-      top: '13%',
-      left: '52%',
-      orient: 'vertical',
+      top: "13%",
+      left: "52%",
+      orient: "vertical",
       data: xData,
       itemGap: 8,
       itemWidth: 8,
       itemHeight: 8,
-      icon: 'circle',
+      icon: "circle",
       textStyle: {
         color: cfff8,
-        fontSize: defSize - 4
-      }
+        fontSize: defSize - 4,
+      },
     },
     color: color,
     xAxis: {
-      show: false
+      show: false,
     },
     yAxis: {
-      show: false
+      show: false,
     },
-    series: series
-  }
-}
+    series: series,
+  };
+};
 
 /**
  * 第十个环状图
  */
 const paleChart10Data = {
   color: [],
-  sData: [{
-      data: [60]
+  sData: [
+    {
+      data: [60],
     },
     {
-      data: [120]
-    }
-  ]
-}
+      data: [120],
+    },
+  ],
+};
 export const paleChart10 = ({
   color = paleChart10Data.color,
   sData = paleChart10Data.sData,
   total = 180,
-  angle = 0
+  angle = 0,
 }) => {
-  const angleArr = [{
-    start: 0,
-    end: 90,
-    color: '#FF8E89'
-  }, {
-    start: 90,
-    end: 180,
-    color: '#8450F9'
-  }, {
-    start: 180,
-    end: 270,
-    color: '#0CD3DB'
-  }, {
-    start: 270,
-    end: 0,
-    color: '#4386FA'
-  }]
-  const rings = []
+  const angleArr = [
+    {
+      start: 0,
+      end: 90,
+      color: "#FF8E89",
+    },
+    {
+      start: 90,
+      end: 180,
+      color: "#8450F9",
+    },
+    {
+      start: 180,
+      end: 270,
+      color: "#0CD3DB",
+    },
+    {
+      start: 270,
+      end: 0,
+      color: "#4386FA",
+    },
+  ];
+  const rings = [];
   angleArr.map((item, index) => {
-    let pei = 0.6
-    if (index % 2 == 0) pei = 0.65
+    let pei = 0.6;
+    if (index % 2 == 0) pei = 0.65;
     rings.push({
-      type: 'custom',
-      coordinateSystem: 'none',
-      renderItem: function (params, api) {
+      type: "custom",
+      coordinateSystem: "none",
+      renderItem: function(params, api) {
         return {
-          type: 'arc',
+          type: "arc",
           shape: {
             cx: api.getWidth() / 2,
             cy: api.getHeight() / 2,
-            r: Math.min(api.getWidth(), api.getHeight()) / 2 * pei,
-            startAngle: (item.start + (index % 2 == 0 ? angle : -angle)) * Math.PI / 180,
-            endAngle: (item.end + (index % 2 == 0 ? angle : -angle)) * Math.PI / 180
+            r: (Math.min(api.getWidth(), api.getHeight()) / 2) * pei,
+            startAngle:
+              ((item.start + (index % 2 == 0 ? angle : -angle)) * Math.PI) /
+              180,
+            endAngle:
+              ((item.end + (index % 2 == 0 ? angle : -angle)) * Math.PI) / 180,
           },
           style: {
             stroke: item.color,
-            fill: 'transparent',
-            lineWidth: 1
+            fill: "transparent",
+            lineWidth: 1,
           },
-          silent: true
-        }
+          silent: true,
+        };
       },
-      data: [0]
-    })
-  })
+      data: [0],
+    });
+  });
 
   const series = sData.map((item, index) => {
     return {
-      type: 'pie',
-      radius: index == 0 ? ['40%', '50%'] : ['32%', '35%'],
-      center: ['50%', '50%'],
+      type: "pie",
+      radius: index == 0 ? ["40%", "50%"] : ["32%", "35%"],
+      center: ["50%", "50%"],
       startAngle: 90,
       label: {
-        show: false
+        show: false,
       },
       labelLine: {
         length: 5,
-        length2: 20
+        length2: 20,
       },
       emphasis: {
-        scaleSize: 4
+        scaleSize: 4,
       },
-      data: [{
+      data: [
+        {
           value: item.data[0],
           name: item.name,
           itemStyle: {
             color: {
-              colorStops: [{
+              colorStops: [
+                {
                   offset: 0,
-                  color: '#A098FC' // 0% 处的颜色
+                  color: "#A098FC", // 0% 处的颜色
                 },
                 {
                   offset: 0.3,
-                  color: '#4386FA' // 0% 处的颜色
+                  color: "#4386FA", // 0% 处的颜色
                 },
                 {
                   offset: 0.6,
-                  color: '#4FADFD' // 0% 处的颜色
+                  color: "#4FADFD", // 0% 处的颜色
                 },
                 {
                   offset: 0.8,
-                  color: '#0CD3DB' // 100% 处的颜色
-                }, {
+                  color: "#0CD3DB", // 100% 处的颜色
+                },
+                {
                   offset: 1,
-                  color: '#646CF9' // 100% 处的颜色
-                }
-              ]
-            }
-          }
+                  color: "#646CF9", // 100% 处的颜色
+                },
+              ],
+            },
+          },
         },
         {
           value: total - item.data[0],
           label: {
-            show: false
+            show: false,
           },
           tooltip: {
-            show: false
+            show: false,
           },
           itemStyle: {
-            color: 'RGBA(11, 21, 43, 0.6)'
-          }
-        }
-      ]
-    }
-  })
+            color: "RGBA(11, 21, 43, 0.6)",
+          },
+        },
+      ],
+    };
+  });
 
   return {
     ...cloneDeep(defaultChart),
@@ -1023,226 +1164,389 @@ export const paleChart10 = ({
         text: `${total}`,
         textStyle: {
           fontSize: defSize + 4,
-          color: 'rgba(102, 252, 255, 1)'
+          color: "rgba(102, 252, 255, 1)",
         },
-        left: 'center',
-        top: 'middle'
-      }
+        left: "center",
+        top: "middle",
+      },
     ],
     color: color,
-    series: [...rings, ...series]
-  }
-}
+    series: [...rings, ...series],
+  };
+};
 
 /**
  * 第十一个环状图 南丁格尔图
  */
 const paleChart11Data = {
-  color: ['#B6F6EB', '#88E7E0', '#5DDBD3', '#36CFC9', '#11C2C1', '#01989D'],
-  xData: ['19岁以下', '19-25', '26-35', '36-45', '46-55', '55岁以上'],
-  sData: [{
-    data: [300, 250, 200, 150, 100, 50]
-  }]
-}
+  color: ["#B6F6EB", "#88E7E0", "#5DDBD3", "#36CFC9", "#11C2C1", "#01989D"],
+  xData: ["19岁以下", "19-25", "26-35", "36-45", "46-55", "55岁以上"],
+  sData: [
+    {
+      data: [300, 250, 200, 150, 100, 50],
+    },
+  ],
+};
 
 export const paleChart11 = ({
   color = paleChart11Data.color,
   xData = paleChart11Data.xData,
   sData = paleChart11Data.sData,
-  total = 1050
+  total = 1050,
 }) => {
-  const series = [{
-    type: 'pie',
-    width: '50%',
-    radius: ['0%', '90%'],
-    center: ['50%', '50%'],
-    clockwise: true,
-    avoidLabelOverlap: true,
-    label: {
-      show: false
+  const series = [
+    {
+      type: "pie",
+      width: "50%",
+      radius: ["0%", "90%"],
+      center: ["50%", "50%"],
+      clockwise: true,
+      avoidLabelOverlap: true,
+      label: {
+        show: false,
+      },
+      emphasis: {
+        scaleSize: 4,
+      },
+      data: sData[0].data.map((item, index) => {
+        return {
+          name: `${xData[index]}  ${((item / total) * 100).toFixed(2)}%`,
+          value: item,
+          tooltip: `${xData[index]}: {c}`,
+        };
+      }),
+      roseType: "radius",
     },
-    emphasis: {
-      scaleSize: 4
-    },
-    data: sData[0].data.map((item, index) => {
-      return {
-        name: `${xData[index]}  ${(item / total * 100).toFixed(2)}%`,
-        value: item,
-        tooltip: `${xData[index]}: {c}`
-      }
-    }),
-    roseType: 'radius'
-  }]
+  ];
   return {
     ...cloneDeep(defaultChart),
     legend: {
-      orient: 'vertical',
-      top: 'middle',
+      orient: "vertical",
+      top: "middle",
       right: 20,
       itemWidth: 8,
       itemHeight: 8,
       textStyle: {
         fontSize: defSize - 2,
-        color: cfff8
-      }
+        color: cfff8,
+      },
     },
     color: color,
-    series: series
-  }
-}
+    series: series,
+  };
+};
 
 // 第十三个环状图
 const paleChart13Data = {
-  color: ['#11E2FF', '#D13F3F', '#5263AB'],
-  xData: ['正常设备', '报警设备', '离线设备'],
-  sData: [{
-    data: [240, 140, 20]
-  }],
+  color: ["#11E2FF", "#D13F3F", "#5263AB"],
+  xData: ["正常设备", "报警设备", "离线设备"],
+  sData: [
+    {
+      data: [240, 140, 20],
+    },
+  ],
   title: 400,
-  showLabel: true
-}
+  showLabel: true,
+};
 export const paleChart13 = ({
   color = paleChart13Data.color,
   xData = paleChart13Data.xData,
   sData = paleChart13Data.sData,
   title = paleChart13Data.title,
-  showLabel = paleChart13Data.showLabel
+  showLabel = paleChart13Data.showLabel,
 }) => {
-  const series = [{
-    type: 'pie',
-    clockwise: true,
-    radius: ['50%', '60%'],
-    center: [showLabel ? '35%' : '18%', '50%'],
-    data: sData[0].data.map((item, index) => {
-      return {
-        name: `${xData[index]}：${item}${showLabel ? '' : `，占比：${(item / title * 100).toFixed(2)}%`}`,
-        value: item
-      }
-    }),
-    emphasis: {
-      scaleSize: 4
-    },
-    tooltip: {
-      formatter: '{b}'
-    },
-    label: {
-      show: showLabel,
-      color: cfff8,
-      formatter: '{d}%'
-    },
-    labelLine: {
-      show: showLabel,
-      length: 4,
-      length2: 10,
-      lineStyle: {
-        type: 'solid',
-        color: cfff4
-      }
-    }
-  }, {
-    type: 'gauge',
-    radius: '40%',
-    center: [showLabel ? '35%' : '18%', '50%'],
-    startAngle: 110,
-    endAngle: 10,
-    axisLabel: {
-      show: false
-    },
-    axisLine: {
-      lineStyle: {
-        width: 2,
-        color: [
-          [1, linearColor(hexToRgba('#11E2FF', 0.8), hexToRgba('#11E2FF', 0.01))]
-        ]
-      }
-    },
-    axisTick: {
-      show: false
-    },
-    splitLine: {
-      show: false
-    },
-    detail: {
-      show: false
-    },
-    pointer: {
-      show: false
-    },
-    data: [{
-      value: 1,
-      name: title,
-      title: {
+  const series = [
+    {
+      type: "pie",
+      clockwise: true,
+      radius: ["50%", "60%"],
+      center: [showLabel ? "35%" : "18%", "50%"],
+      data: sData[0].data.map((item, index) => {
+        return {
+          name: `${xData[index]}：${item}${
+            showLabel ? "" : `，占比：${((item / title) * 100).toFixed(2)}%`
+          }`,
+          value: item,
+        };
+      }),
+      emphasis: {
+        scaleSize: 4,
+      },
+      tooltip: {
+        formatter: "{b}",
+      },
+      label: {
+        show: showLabel,
         color: cfff8,
-        fontSize: defSize + 2,
-        offsetCenter: [0, 0]
-      }
-    }],
-    z: 2
-  }, {
-    type: 'gauge',
-    radius: '40%',
-    center: [showLabel ? '35%' : '18%', '50%'],
-    startAngle: 290,
-    endAngle: 190,
-    axisLabel: {
-      show: false
+        formatter: "{d}%",
+      },
+      labelLine: {
+        show: showLabel,
+        length: 4,
+        length2: 10,
+        lineStyle: {
+          type: "solid",
+          color: cfff4,
+        },
+      },
     },
-    axisLine: {
-      lineStyle: {
-        width: 2,
-        color: [
-          [1, linearColor(hexToRgba('#11E2FF', 0.01), hexToRgba('#11E2FF', 0.8))]
-        ]
-      }
+    {
+      type: "gauge",
+      radius: "40%",
+      center: [showLabel ? "35%" : "18%", "50%"],
+      startAngle: 110,
+      endAngle: 10,
+      axisLabel: {
+        show: false,
+      },
+      axisLine: {
+        lineStyle: {
+          width: 2,
+          color: [
+            [
+              1,
+              linearColor(
+                hexToRgba("#11E2FF", 0.8),
+                hexToRgba("#11E2FF", 0.01)
+              ),
+            ],
+          ],
+        },
+      },
+      axisTick: {
+        show: false,
+      },
+      splitLine: {
+        show: false,
+      },
+      detail: {
+        show: false,
+      },
+      pointer: {
+        show: false,
+      },
+      data: [
+        {
+          value: 1,
+          name: title,
+          title: {
+            color: cfff8,
+            fontSize: defSize + 2,
+            offsetCenter: [0, 0],
+          },
+        },
+      ],
+      z: 2,
     },
-    axisTick: {
-      show: false
+    {
+      type: "gauge",
+      radius: "40%",
+      center: [showLabel ? "35%" : "18%", "50%"],
+      startAngle: 290,
+      endAngle: 190,
+      axisLabel: {
+        show: false,
+      },
+      axisLine: {
+        lineStyle: {
+          width: 2,
+          color: [
+            [
+              1,
+              linearColor(
+                hexToRgba("#11E2FF", 0.01),
+                hexToRgba("#11E2FF", 0.8)
+              ),
+            ],
+          ],
+        },
+      },
+      axisTick: {
+        show: false,
+      },
+      splitLine: {
+        show: false,
+      },
+      detail: {
+        show: false,
+      },
+      z: 2,
     },
-    splitLine: {
-      show: false
+    {
+      type: "pie",
+      radius: ["0%", "39%"],
+      center: [showLabel ? "35%" : "18%", "50%"],
+      emphasis: {
+        scale: false,
+      },
+      axisLabel: {
+        show: false,
+      },
+      axisLine: {
+        show: false,
+      },
+      tooltip: {
+        show: false,
+      },
+      itemStyle: {
+        color: cfff2,
+      },
+      data: [1],
+      z: 1,
     },
-    detail: {
-      show: false
-    },
-    z: 2
-  }, {
-    type: 'pie',
-    radius: ['0%', '39%'],
-    center: [showLabel ? '35%' : '18%', '50%'],
-    emphasis: {
-      scale: false
-    },
-    axisLabel: {
-      show: false
-    },
-    axisLine: {
-      show: false
-    },
-    tooltip: {
-      show: false
-    },
-    itemStyle: {
-      color: cfff2
-    },
-    data: [1],
-    z: 1
-  }]
+  ];
   return {
     ...cloneDeep(defaultChart),
     legend: {
-      orient: 'vertical',
-      top: 'middle',
-      right: '5%',
+      orient: "vertical",
+      top: "middle",
+      right: "5%",
       itemGap: 20,
-      icon: 'circle',
+      icon: "circle",
       itemWidth: 8,
       itemHeight: 8,
       textStyle: {
         fontSize: defSize - 2,
-        color: cfff8
-      }
+        color: cfff8,
+      },
     },
     color: color,
-    series: series
-  }
-}
+    series: series,
+  };
+};
+
+// 第十四个环状图
+const paleChart14Data = {
+  color: ["#63F2FC", "#39B3FF", "#A5DCFF"],
+  xData: ["自用", "闲置", "出租"],
+  sData: [
+    {
+      data: [3000, 3000, 3000],
+    },
+  ],
+};
+export const paleChart14 = ({
+  color = paleChart14Data.color,
+  xData = paleChart14Data.xData,
+  sData = paleChart14Data.sData,
+  showLegend = true,
+  total = 9000,
+  unit = "m³",
+  title = "总建筑面积",
+}) => {
+  const series = [
+    {
+      type: "pie",
+      radius: ["75%", "85%"],
+      center: [showLegend ? "30%" : "50%", "50%"],
+      emphasis: {
+        scale: false,
+      },
+      label: {
+        show: false,
+      },
+      labelLine: {
+        show: false,
+      },
+      tooltip: {
+        show: false,
+      },
+      itemStyle: {
+        color: "rgba(57, 179, 255, 0.2)",
+      },
+      data: [
+        {
+          value: 1,
+        },
+      ],
+    },
+    {
+      type: "pie",
+      clockwise: true,
+      radius: ["60%", "75%"],
+      center: [showLegend ? "30%" : "50%", "50%"],
+      data: sData[0].data.map((item, index) => {
+        return {
+          name: `${xData[index]}：${((item / total) * 100).toFixed(2)}${unit}`,
+          value: item,
+          tooltip: {
+            formatter: `${xData[index]}：{c}`,
+          },
+        };
+      }),
+      emphasis: {
+        scaleSize: 4,
+      },
+      label: {
+        show: false,
+      },
+      labelLine: {
+        show: false,
+      },
+    },
+    {
+      type: "gauge",
+      radius: "45%",
+      center: [showLegend ? "30%" : "50%", "50%"],
+      axisLabel: {
+        show: false,
+      },
+      axisLine: {
+        show: false,
+      },
+      axisTick: {
+        show: false,
+      },
+      splitLine: {
+        show: false,
+      },
+      detail: {
+        show: false,
+      },
+      pointer: {
+        show: false,
+      },
+      data: [
+        {
+          value: 1,
+          name: `{val|${total}}{unit|m³}\n${title}`,
+          title: {
+            color: cfff8,
+            fontSize: defSize - 2,
+            offsetCenter: [0, "10%"],
+            rich: {
+              val: {
+                fontSize: defSize + 10,
+                color: "#39B3FF",
+                fontWeight: 600,
+              },
+              unit: {
+                fontSize: defSize - 2,
+                color: "#39B3FF",
+              },
+            },
+          },
+        },
+      ],
+    },
+  ];
+  return {
+    ...cloneDeep(defaultChart),
+    legend: {
+      show: showLegend,
+      orient: "vertical",
+      top: "middle",
+      right: "10%",
+      itemGap: 10,
+      icon: "rect",
+      itemWidth: 12,
+      itemHeight: 4,
+      textStyle: {
+        fontSize: defSize,
+        color: cfff8,
+      },
+    },
+    color: color,
+    series: series,
+  };
+};
