@@ -1187,7 +1187,6 @@ const paleChart11Data = {
     },
   ],
 };
-
 export const paleChart11 = ({
   color = paleChart11Data.color,
   xData = paleChart11Data.xData,
@@ -1221,6 +1220,127 @@ export const paleChart11 = ({
   return {
     ...cloneDeep(defaultChart),
     legend: {
+      orient: "vertical",
+      top: "middle",
+      right: 20,
+      itemWidth: 8,
+      itemHeight: 8,
+      textStyle: {
+        fontSize: defSize - 2,
+        color: cfff8,
+      },
+    },
+    color: color,
+    series: series,
+  };
+};
+
+// 第十二个环状图
+const paleChart12Data = {
+  color: ["#00FFFF"],
+  xData: [""],
+  sData: [{ data: [47] }],
+};
+export const paleChart12 = ({
+  color = paleChart12Data.color,
+  // xData = paleChart12Data.xData,
+  sData = paleChart12Data.sData,
+}) => {
+  const series = [
+    {
+      type: "gauge",
+      radius: "85%",
+      splitNumber: 48,
+      startAngle: 270,
+      endAngle: -90,
+      axisLine: {
+        show: false,
+      },
+      splitLine: {
+        length: 8,
+        distance: 0,
+        lineStyle: {
+          width: 1,
+          color: hexToRgba(color[0], 0.5),
+        },
+      },
+      axisLabel: {
+        show: false,
+      },
+      axisTick: {
+        show: false,
+      },
+      detail: {
+        show: false,
+      },
+    },
+    {
+      type: "pie",
+      radius: ["46%", "50%"],
+      emphasis: {
+        scale: false,
+      },
+      label: {
+        show: false,
+      },
+      labelLine: {
+        show: false,
+      },
+      tooltip: {
+        show: false,
+      },
+      itemStyle: {
+        color: hexToRgba(color[0], 0.6),
+      },
+      data: [
+        {
+          value: 1,
+        },
+      ],
+    },
+    {
+      type: "gauge",
+      radius: "53%",
+      startAngle: 270,
+      endAngle: 270 - (3.6 * sData[0].data[0]).toFixed(0),
+      axisLine: {
+        show: true,
+        lineStyle: {
+          width: 12,
+          color: [[1, color[0]]],
+        },
+      },
+      pointer: {
+        show: false,
+      },
+      splitLine: {
+        show: false,
+      },
+      axisLabel: {
+        show: false,
+      },
+      axisTick: {
+        show: false,
+      },
+      detail: {
+        show: true,
+        formatter: "{value}%",
+        offsetCenter: [0, 0],
+        color: color[0],
+        fontSize: defSize + 6,
+        fontFamily: "pangmeng",
+      },
+      data: [
+        {
+          value: sData[0].data[0],
+        },
+      ],
+    },
+  ];
+  return {
+    ...cloneDeep(defaultChart),
+    legend: {
+      show: false,
       orient: "vertical",
       top: "middle",
       right: 20,
@@ -1467,7 +1587,7 @@ export const paleChart14 = ({
       center: [showLegend ? "30%" : "50%", "50%"],
       data: sData[0].data.map((item, index) => {
         return {
-          name: `${xData[index]}：${((item / total) * 100).toFixed(2)}${unit}`,
+          name: `${xData[index]}：${((item / total) * 100).toFixed(2)}%`,
           value: item,
           tooltip: {
             formatter: `${xData[index]}：{c}`,
@@ -1509,11 +1629,11 @@ export const paleChart14 = ({
       data: [
         {
           value: 1,
-          name: `{val|${total}}{unit|m³}\n${title}`,
+          name: `{val|${total}}{unit|${unit}}${title ? "\n" + title : ""}`,
           title: {
             color: cfff8,
             fontSize: defSize - 2,
-            offsetCenter: [0, "10%"],
+            offsetCenter: [0, 0],
             rich: {
               val: {
                 fontSize: defSize + 10,

@@ -23,6 +23,7 @@ import {
   paleChart9,
   paleChart10,
   paleChart11,
+  paleChart12,
   paleChart13,
   paleChart14,
 } from "@/charts/paleChart";
@@ -40,6 +41,7 @@ export default {
       paleChart9Id: paleChart9,
       paleChart10Id: paleChart10,
       paleChart11Id: paleChart11,
+      paleChart12Id: paleChart12,
       paleChart13Id: paleChart13,
       paleChart14Id: paleChart14,
     });
