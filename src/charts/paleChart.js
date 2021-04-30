@@ -1,4 +1,5 @@
 import {
+  cfff2,
   cfff4,
   cfff8,
   defSize,
@@ -6,7 +7,7 @@ import {
   defaultChart,
   hexToRgba,
   linearColor,
-  cfff2,
+  cfff6,
 } from "./common";
 
 // 第一个环状图
@@ -1664,6 +1665,311 @@ export const paleChart14 = ({
       textStyle: {
         fontSize: defSize,
         color: cfff8,
+      },
+    },
+    color: color,
+    series: series,
+  };
+};
+
+// 第十五个环状图
+const paleChart15Data = {
+  color: ["#63F2FC"],
+  xData: ["设备正常率"],
+  sData: [
+    {
+      data: [80],
+    },
+  ],
+};
+export const paleChart15 = ({
+  color = paleChart15Data.color,
+  xData = paleChart15Data.xData,
+  sData = paleChart15Data.sData,
+}) => {
+  let gaugeSeries = [
+    {
+      type: "gauge",
+      clockwise: false,
+      radius: "66%",
+      center: ["50%", "40%"],
+      startAngle: sData[0].data[0] > 50 ? 90 : 270,
+      endAngle: sData[0].data[0] * 3.6 - 90,
+      axisLabel: {
+        show: false,
+      },
+      axisLine: {
+        lineStyle: {
+          width: 3,
+          color: [
+            [
+              1,
+              sData[0].data[0] > 50
+                ? linearColor(hexToRgba(color[0], 0.7), hexToRgba(color[0], 1))
+                : linearColor(
+                    hexToRgba(color[0], 1),
+                    hexToRgba(color[0], 0.01)
+                  ),
+            ],
+          ],
+        },
+      },
+      axisTick: {
+        show: false,
+      },
+      splitLine: {
+        show: false,
+      },
+      detail: {
+        show: true,
+        formatter: "{value}{unit|%}",
+        fontFamily: "pangmeng",
+        fontWeight: "normal",
+        fontSize: defSize + 6,
+        color: color[0],
+        offsetCenter: [0, 0],
+        rich: {
+          unit: {
+            fontSize: defSize - 2,
+            color: color[0],
+            padding: [8, 0, 0, 4],
+          },
+        },
+      },
+      pointer: {
+        show: false,
+      },
+      data: [
+        {
+          value: sData[0].data[0],
+          name: xData[0],
+          title: {
+            color: cfff8,
+            fontSize: defSize,
+            offsetCenter: [0, "130%"],
+          },
+        },
+      ],
+    },
+  ];
+  if (sData[0].data[0] > 50) {
+    gaugeSeries.push({
+      type: "gauge",
+      clockwise: false,
+      radius: "66%",
+      center: ["50%", "40%"],
+      startAngle: 270,
+      endAngle: 90,
+      axisLabel: {
+        show: false,
+      },
+      axisLine: {
+        lineStyle: {
+          width: 3,
+          color: [
+            [
+              1,
+              linearColor(hexToRgba(color[0], 0.7), hexToRgba(color[0], 0.01)),
+            ],
+          ],
+        },
+      },
+      axisTick: {
+        show: false,
+      },
+      splitLine: {
+        show: false,
+      },
+      detail: {
+        show: false,
+      },
+      pointer: {
+        show: false,
+      },
+    });
+  }
+  const series = [
+    ...gaugeSeries,
+    {
+      type: "pie",
+      radius: ["64%", "65%"],
+      center: ["50%", "40%"],
+      emphasis: {
+        scale: false,
+      },
+      label: {
+        show: false,
+      },
+      labelLine: {
+        show: false,
+      },
+      tooltip: {
+        show: false,
+      },
+      itemStyle: {
+        color: "rgba(57, 179, 255, 0.2)",
+      },
+      data: [1],
+    },
+    {
+      type: "pie",
+      radius: ["44%", "45%"],
+      center: ["50%", "40%"],
+      emphasis: {
+        scale: false,
+      },
+      label: {
+        show: false,
+      },
+      labelLine: {
+        show: false,
+      },
+      tooltip: {
+        show: false,
+      },
+      itemStyle: {
+        color: color[0],
+      },
+      data: [1],
+    },
+    {
+      type: "pie",
+      radius: ["0%", "44%"],
+      center: ["50%", "40%"],
+      emphasis: {
+        scale: false,
+      },
+      axisLabel: {
+        show: false,
+      },
+      axisLine: {
+        show: false,
+      },
+      tooltip: {
+        show: false,
+      },
+      itemStyle: {
+        color: "rgba(0,0,0,0.1)",
+      },
+      data: [1],
+      z: 1,
+    },
+  ];
+
+  return {
+    ...cloneDeep(defaultChart),
+    legend: {
+      show: false,
+    },
+    color: color,
+    series: series,
+  };
+};
+
+// 第十六个环状图
+const paleChart16Data = {
+  color: ["#39B3FF", "#EDA026", "#FFFFFF"],
+  xData: ["自用", "出租", "待租"],
+  sData: [
+    {
+      data: [4250, 2975, 1275],
+    },
+  ],
+};
+export const paleChart16 = ({
+  color = paleChart16Data.color,
+  xData = paleChart16Data.xData,
+  sData = paleChart16Data.sData,
+  total = 8500,
+  unit = "m³",
+  title = "总建筑面积",
+}) => {
+  const series = [
+    {
+      type: "pie",
+      clockwise: true,
+      radius: ["55%", "63%"],
+      center: ["50%", "30%"],
+      data: sData[0].data.map((item, index) => {
+        return {
+          name: `${xData[index]}：${((item / total) * 100).toFixed(2)}%`,
+          value: item,
+          tooltip: {
+            formatter: `${xData[index]}：{c}`,
+          },
+        };
+      }),
+      emphasis: {
+        scaleSize: 4,
+      },
+      label: {
+        show: false,
+      },
+      labelLine: {
+        show: false,
+      },
+    },
+    {
+      type: "gauge",
+      radius: "55%",
+      center: ["50%", "30%"],
+      axisLabel: {
+        show: false,
+      },
+      axisLine: {
+        show: false,
+      },
+      axisTick: {
+        show: false,
+      },
+      splitLine: {
+        show: false,
+      },
+      detail: {
+        show: false,
+      },
+      pointer: {
+        show: false,
+      },
+      data: [
+        {
+          value: 1,
+          name: `{val|${total}}{unit|${unit}}${title ? "\n" + title : ""}`,
+          title: {
+            color: cfff4,
+            fontSize: defSize - 2,
+            offsetCenter: [0, 0],
+            rich: {
+              val: {
+                fontFamily: "pangmeng",
+                fontWeight: "normal",
+                fontSize: defSize + 6,
+                color: cfff8,
+              },
+              unit: {
+                fontSize: defSize - 4,
+                color: cfff8,
+              },
+            },
+          },
+        },
+      ],
+    },
+  ];
+  return {
+    ...cloneDeep(defaultChart),
+    legend: {
+      show: true,
+      orient: "vertical",
+      left: "center",
+      bottom: 0,
+      itemGap: 5,
+      icon: "circle",
+      itemWidth: 4,
+      itemHeight: 4,
+      textStyle: {
+        fontSize: defSize,
+        color: cfff6,
       },
     },
     color: color,

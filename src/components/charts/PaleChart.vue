@@ -26,6 +26,8 @@ import {
   paleChart12,
   paleChart13,
   paleChart14,
+  paleChart15,
+  paleChart16,
 } from "@/charts/paleChart";
 export default {
   setup() {
@@ -44,6 +46,8 @@ export default {
       paleChart12Id: paleChart12,
       paleChart13Id: paleChart13,
       paleChart14Id: paleChart14,
+      paleChart15Id: paleChart15,
+      paleChart16Id: paleChart16,
     });
 
     function initChart() {
