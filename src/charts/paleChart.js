@@ -1976,3 +1976,144 @@ export const paleChart16 = ({
     series: series,
   };
 };
+
+// 第十七个环状图
+const paleChart17Data = {
+  color: ["#39B3FF", "#EEBE80", "#63F2FC", "#FFFFFF"],
+  xData: ["暖通空调", "照明插座", "动力用电", "特殊用电"],
+  sData: [
+    {
+      data: [220.7, 144.6, 43.3, 95.2],
+    },
+  ],
+};
+export const paleChart17 = ({
+  color = paleChart17Data.color,
+  xData = paleChart17Data.xData,
+  sData = paleChart17Data.sData,
+  total = 503.8,
+  unit = "KWh",
+  title = "当日耗电",
+  showLabel = true,
+  showInner = true,
+}) => {
+  const series = [
+    {
+      type: "pie",
+      clockwise: true,
+      radius: ["75%", "80%"],
+      center: ["25%", "50%"],
+      data: sData[0].data.map((item, index) => {
+        return {
+          name: `${xData[index]}：${item}${unit}`,
+          value: item,
+          tooltip: {
+            formatter: `${xData[index]}：{c}`,
+          },
+          label: {
+            show: showLabel,
+            formatter: "{d}%",
+            color: color[index],
+          },
+        };
+      }),
+      emphasis: {
+        scaleSize: 4,
+      },
+      labelLine: {
+        show: showLabel,
+        length: 5,
+        length2: 5,
+      },
+    },
+    {
+      type: "gauge",
+      radius: "60%",
+      center: ["25%", "50%"],
+      axisLabel: {
+        show: false,
+      },
+      axisLine: {
+        show: false,
+      },
+      axisTick: {
+        show: false,
+      },
+      splitLine: {
+        show: false,
+      },
+      detail: {
+        show: false,
+      },
+      pointer: {
+        show: false,
+      },
+      data: [
+        {
+          value: 1,
+          name: `{val|${total}}\n{unit|${unit}}${title ? "\n" + title : ""}`,
+          title: {
+            color: cfff4,
+            fontSize: defSize - 2,
+            offsetCenter: [0, 0],
+            rich: {
+              val: {
+                fontFamily: "pangmeng",
+                fontWeight: "normal",
+                fontSize: defSize + 4,
+                color: cfff8,
+              },
+              unit: {
+                fontSize: defSize - 2,
+                color: cfff8,
+              },
+            },
+          },
+        },
+      ],
+    },
+  ];
+  if (showInner) {
+    series.push({
+      type: "pie",
+      clockwise: true,
+      radius: ["60%", "68%"],
+      center: ["25%", "50%"],
+      data: [1],
+      itemStyle: {
+        color: cfff4,
+      },
+      emphasis: {
+        scale: false,
+      },
+      tooltip: {
+        show: false,
+      },
+      label: {
+        show: false,
+      },
+      labelLine: {
+        show: false,
+      },
+    });
+  }
+  return {
+    ...cloneDeep(defaultChart),
+    legend: {
+      show: true,
+      orient: "vertical",
+      top: "center",
+      right: 5,
+      itemGap: 20,
+      icon: "circle",
+      itemWidth: 6,
+      itemHeight: 6,
+      textStyle: {
+        fontSize: defSize - 2,
+        color: cfff6,
+      },
+    },
+    color: color,
+    series: series,
+  };
+};

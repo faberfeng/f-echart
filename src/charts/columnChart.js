@@ -1535,3 +1535,156 @@ export const columnChart11 = ({
     series: series,
   };
 };
+
+/**
+ * 第十二个柱状图
+ * @param {Object} columnChart12Data 默认数据
+ * @param {Array} color 颜色集合
+ * @param {Array} xData 横坐标集合
+ * @param {Array} sData 数据集合
+ */
+const columnChart12Data = {
+  color: ["#63FC77", "#EEBE80", "#4E55C2", "#63F2FC"],
+  xData: [2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24],
+  sData: [
+    {
+      name: "低区热水蓄水池液位",
+      data: [260, 620, 740, 760, 800, 900, 400, 500, 490, 420, 370, 400],
+    },
+    {
+      name: "冷水蓄水池液位",
+      data: [400, 500, 490, 420, 370, 400, 200, 240, 180, 240, 250, 200],
+    },
+    {
+      name: "高区热水蓄水池液位",
+      data: [250, 420, 320, 350, 310, 380, 260, 620, 740, 760, 800, 900],
+    },
+    {
+      name: "热水补水压力",
+      data: [200, 240, 180, 240, 250, 200, 250, 420, 320, 350, 310, 380],
+    },
+  ],
+};
+export const columnChart12 = ({
+  color = columnChart12Data.color,
+  xData = columnChart12Data.xData,
+  sData = columnChart12Data.sData,
+  types = ["line", "line", "line", "bar"],
+  xName = "h",
+  yName = ["m", "MPa"],
+}) => {
+  const series = sData.map((item, index) => {
+    if (types[index] == "bar") {
+      return {
+        type: "bar",
+        name: item.name,
+        data: item.data,
+        barWidth: "20%",
+        yAxisIndex: 1,
+        itemStyle: {
+          color: hexToRgba(color[index], 0.8),
+        },
+      };
+    } else {
+      return {
+        type: "line",
+        name: item.name,
+        data: item.data,
+        lineStyle: {
+          color: color[index],
+        },
+        symbol: "none",
+      };
+    }
+  });
+  return {
+    ...cloneDeep(defaultChart),
+    tooltip: {
+      trigger: "axis",
+    },
+    grid: {
+      left: "15%",
+      right: "15%",
+      top: 40,
+      bottom: 80,
+    },
+    legend: {
+      show: true,
+      bottom: "5%",
+      left: "center",
+      itemWidth: 8,
+      itemHeight: 4,
+      textStyle: {
+        color: cfff8,
+        fontSize: defSize - 2,
+      },
+    },
+    xAxis: {
+      type: "category",
+      name: xName,
+      data: xData,
+      axisTick: {
+        show: false,
+      },
+      axisLabel: {
+        fontSize: defSize - 2,
+        color: cfff8,
+      },
+      axisLine: {
+        lineStyle: {
+          color: cfff4,
+        },
+      },
+    },
+    yAxis: [
+      {
+        type: "value",
+        name: yName[0] || "",
+        splitNumber: 3,
+        nameTextStyle: {
+          color: cfff4,
+        },
+        axisLabel: {
+          fontSize: defSize - 2,
+          color: cfff8,
+        },
+        axisLine: {
+          show: false,
+        },
+        splitLine: {
+          lineStyle: {
+            color: [cfff4],
+          },
+        },
+        axisTick: {
+          show: false,
+        },
+      },
+      {
+        type: "value",
+        name: yName[1] || "",
+        splitNumber: 3,
+        nameTextStyle: {
+          color: cfff4,
+        },
+        axisLabel: {
+          fontSize: defSize - 2,
+          color: cfff8,
+        },
+        axisLine: {
+          show: false,
+        },
+        splitLine: {
+          lineStyle: {
+            color: [cfff4],
+          },
+        },
+        axisTick: {
+          show: false,
+        },
+      },
+    ],
+    color: color,
+    series: series,
+  };
+};
