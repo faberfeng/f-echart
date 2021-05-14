@@ -1,11 +1,9 @@
 <template>
   <div class="row justify-around align-middle wrap">
-    <div
-      v-for="(item, index) in Object.keys(charts)"
-      :id="item"
-      :key="index"
-      class="chart-item"
-    ></div>
+    <div v-for="(item, index) in Object.keys(charts)"
+         :id="item"
+         :key="index"
+         class="chart-item"></div>
   </div>
 </template>
 <script>
@@ -21,7 +19,7 @@ import {
   areaChart7,
 } from "@/charts/areaChart";
 export default {
-  setup() {
+  setup () {
     let charts = reactive({
       areaChart1Id: areaChart1,
       areaChart2Id: areaChart2,
@@ -31,15 +29,13 @@ export default {
       areaChart6Id: areaChart6,
       areaChart7Id: areaChart7,
     });
-
-    function initChart() {
+    function initChart () {
       for (let key in charts) {
         let chartId = init(document.getElementById(key));
         chartId.setOption(charts[key]({}), true);
         chartId.resize();
       }
     }
-
     onMounted(() => {
       nextTick(() => {
         initChart();
