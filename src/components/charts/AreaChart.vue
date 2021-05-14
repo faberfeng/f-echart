@@ -17,6 +17,7 @@ import {
   areaChart5,
   areaChart6,
   areaChart7,
+  areaChart8,
 } from "@/charts/areaChart";
 export default {
   setup () {
@@ -28,6 +29,7 @@ export default {
       areaChart5Id: areaChart5,
       areaChart6Id: areaChart6,
       areaChart7Id: areaChart7,
+      areaChart8Id: areaChart8,
     });
     function initChart () {
       for (let key in charts) {

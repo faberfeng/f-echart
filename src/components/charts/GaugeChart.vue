@@ -23,6 +23,7 @@ import {
   gaugeChart8,
   gaugeChart9,
   gaugeChart10,
+  gaugeChart11,
 } from "@/charts/gaugeChart";
 export default {
   setup() {
@@ -37,6 +38,7 @@ export default {
       gaugeChart8Id: gaugeChart8,
       gaugeChart9Id: gaugeChart9,
       gaugeChart10Id: gaugeChart10,
+      gaugeChart11Id: gaugeChart11,
     });
 
     function initChart() {

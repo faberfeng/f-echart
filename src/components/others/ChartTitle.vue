@@ -11,14 +11,11 @@
     }"
   >
     <template v-if="type == 1">
-      <span class="ff-fg my-pl-10">{{ title }}</span>
+      <span class="ff-fg fs-16 my-pl-10">{{ title }}</span>
       <slot></slot>
     </template>
     <template v-if="type == 2">
-      <div
-        class="relative full-width text-center fc-fff6"
-        style="bottom: 0.5rem"
-      >
+      <div class="relative full-width text-center fs-16" style="bottom: 0.8rem">
         {{ title }}
       </div>
     </template>
@@ -75,12 +72,10 @@ export default {
 .chart-title1 {
   background: url("~@/assets/imgs/chart/title1_bg.png") center no-repeat;
   background-size: 100% 100%;
-  font-size: 1rem;
 }
 
 .chart-title2 {
   background: url("~@/assets/imgs/chart/title2_bg.png") center no-repeat;
   background-size: 100% 100%;
-  font-size: 1rem;
 }
 </style>
