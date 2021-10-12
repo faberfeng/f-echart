@@ -24,6 +24,7 @@ import {
   gaugeChart9,
   gaugeChart10,
   gaugeChart11,
+  gaugeChart12,
 } from "@/charts/gaugeChart";
 export default {
   setup() {
@@ -39,6 +40,7 @@ export default {
       gaugeChart9Id: gaugeChart9,
       gaugeChart10Id: gaugeChart10,
       gaugeChart11Id: gaugeChart11,
+      gaugeChart12Id: gaugeChart12,
     });
 
     function initChart() {

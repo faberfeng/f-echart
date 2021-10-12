@@ -18,7 +18,6 @@ import {
   curveChart4,
   curveChart5,
   curveChart6,
-  curveChart7,
 } from "@/charts/curveChart";
 export default {
   setup() {
@@ -29,7 +28,6 @@ export default {
       curveChart4Id: curveChart4,
       curveChart5Id: curveChart5,
       curveChart6Id: curveChart6,
-      curveChart7Id: curveChart7,
     });
 
     function initChart() {

@@ -1,13 +1,13 @@
 import {
   cfff4,
+  cfff6,
   cfff8,
   defSize,
-  cloneDeep,
   defaultChart,
   hexToRgba,
+  thinColor,
   linearColor,
   radialColor,
-  thinColor,
 } from "./common";
 // 第一个仪表盘
 const gaugeChart1Data = {
@@ -24,6 +24,9 @@ export const gaugeChart1 = ({
   color = gaugeChart1Data.color,
   xData = gaugeChart1Data.xData,
   sData = gaugeChart1Data.sData,
+  min = 80,
+  max = 120,
+  unit = "kpa",
 }) => {
   const series = [
     {
@@ -90,14 +93,22 @@ export const gaugeChart1 = ({
       center: ["50%", "55%"],
       startAngle: "215",
       endAngle: "-35",
-      min: 80,
-      max: 120,
+      min: min,
+      max: max,
       detail: {
-        formatter: "{value} kpa",
+        formatter: `{value}{unit|${unit}}`,
         offsetCenter: [0, 0],
         color: cfff8,
         fontSize: defSize - 2,
         fontFamily: "pangmeng",
+        rich: {
+          unit: {
+            color: cfff8,
+            fontSize: defSize - 2,
+            fontFamily: "pangmeng",
+            padding: [0, 0, 0, 5],
+          },
+        },
       },
       pointer: {
         length: "95%",
@@ -139,6 +150,7 @@ export const gaugeChart1 = ({
         fontSize: defSize - 6,
       },
       axisLine: {
+        roundCap: true,
         lineStyle: {
           width: 3,
           color: [
@@ -183,7 +195,7 @@ export const gaugeChart1 = ({
     },
   ];
   return {
-    ...cloneDeep(defaultChart),
+    ...defaultChart,
     series: series,
   };
 };
@@ -203,20 +215,23 @@ export const gaugeChart2 = ({
   color = gaugeChart2Data.color,
   xData = gaugeChart2Data.xData,
   sData = gaugeChart2Data.sData,
+  min = -20,
+  max = 200,
+  unit = "",
 }) => {
   const series = [
     {
       type: "gauge",
-      radius: "80%",
+      radius: "90%",
       center: ["50%", "65%"],
       startAngle: 200,
       endAngle: -20,
-      min: -20,
-      max: 200,
+      min: min,
+      max: max,
       splitNumber: 11,
       axisLabel: {
         color: cfff8,
-        distance: -10,
+        distance: -16,
         fontSize: defSize - 4,
       },
       axisLine: {
@@ -234,7 +249,7 @@ export const gaugeChart2 = ({
     },
     {
       type: "gauge",
-      radius: "62%",
+      radius: "72%",
       center: ["50%", "65%"],
       startAngle: 200,
       endAngle: -20,
@@ -260,7 +275,7 @@ export const gaugeChart2 = ({
     },
     {
       type: "gauge",
-      radius: "60%",
+      radius: "70%",
       center: ["50%", "65%"],
       startAngle: 185,
       endAngle: 180 - sData[0].data[0],
@@ -268,6 +283,7 @@ export const gaugeChart2 = ({
         show: false,
       },
       axisLine: {
+        roundCap: true,
         lineStyle: {
           width: 4,
           color: [[1, color[0]]],
@@ -284,9 +300,9 @@ export const gaugeChart2 = ({
       },
     },
     {
-      name: "光感",
+      name: xData[0],
       type: "gauge",
-      radius: "60%",
+      radius: "70%",
       center: ["50%", "65%"],
       startAngle: 200,
       endAngle: -20,
@@ -319,12 +335,19 @@ export const gaugeChart2 = ({
         show: false,
       },
       detail: {
-        formatter: "{value}",
+        formatter: `{value}{unit|${unit}}`,
         color: cfff8,
         offsetCenter: [0, 0],
         fontFamily: "pangmeng",
         fontSize: defSize + 16,
         fontWeight: 600,
+        rich: {
+          unit: {
+            color: cfff8,
+            fontSize: defSize,
+            padding: [10, 0, 0, 2],
+          },
+        },
       },
       pointer: {
         width: 4,
@@ -345,7 +368,7 @@ export const gaugeChart2 = ({
     },
     {
       type: "gauge",
-      radius: "45%",
+      radius: "55%",
       center: ["50%", "65%"],
       startAngle: 270,
       endAngle: -89.999,
@@ -370,7 +393,7 @@ export const gaugeChart2 = ({
     },
     {
       type: "gauge",
-      radius: "40%",
+      radius: "50%",
       center: ["50%", "65%"],
       startAngle: 270,
       endAngle: -89.999,
@@ -420,13 +443,184 @@ export const gaugeChart2 = ({
     },
   ];
   return {
-    ...cloneDeep(defaultChart),
+    ...defaultChart,
     series: series,
   };
 };
 
 // 第三个仪表盘
 const gaugeChart3Data = {
+  color: ["#249EEA", "#00EFF8", "#905FFF"],
+  xData: ["类目"],
+  sData: [
+    {
+      name: "系列",
+      data: [80],
+    },
+  ],
+};
+export const gaugeChart3 = ({
+  color = gaugeChart3Data.color,
+  xData = gaugeChart3Data.xData,
+  sData = gaugeChart3Data.sData,
+  isPercent = true,
+  total = 100,
+}) => {
+  const series = [
+    {
+      type: "gauge",
+      radius: "72%",
+      center: ["50%", "50%"],
+      startAngle: "89.99",
+      endAngle: "-270",
+      title: {
+        show: false,
+      },
+      axisLabel: {
+        show: false,
+      },
+      axisLine: {
+        lineStyle: {
+          width: 6,
+          color: [[1, linearColor(color[1], color[0], [0, 0, 1, 0])]],
+        },
+      },
+      axisTick: {
+        show: false,
+      },
+      splitLine: {
+        show: false,
+      },
+      pointer: {
+        show: false,
+      },
+      detail: {
+        show: false,
+      },
+    },
+    {
+      type: "gauge",
+      radius: "61%",
+      center: ["50%", "50%"],
+      startAngle: "89.99",
+      endAngle: "-270",
+      title: {
+        show: false,
+      },
+      axisLabel: {
+        show: false,
+      },
+      axisLine: {
+        lineStyle: {
+          width: 1,
+          color: [[1, color[0]]],
+        },
+      },
+      axisTick: {
+        show: false,
+      },
+      splitLine: {
+        show: false,
+      },
+      pointer: {
+        show: false,
+      },
+      detail: {
+        show: false,
+      },
+    },
+    {
+      type: "gauge",
+      radius: "60%",
+      center: ["50%", "50%"],
+      startAngle: "220",
+      endAngle: "-40",
+      title: {
+        show: false,
+      },
+      axisLabel: {
+        show: false,
+      },
+      axisLine: {
+        roundCap: true,
+        lineStyle: {
+          width: 8,
+          color: [[1, linearColor(color[0], color[1], [0, 0, 1, 0])]],
+        },
+      },
+      axisTick: {
+        show: false,
+      },
+      splitLine: {
+        show: false,
+      },
+      pointer: {
+        show: false,
+      },
+      detail: {
+        formatter: isPercent ? "{value}%" : "{value}",
+        offsetCenter: [0, isPercent ? -10 : 0],
+        color: cfff8,
+        fontSize: defSize + 4,
+        fontFamily: "pangmeng",
+      },
+      data: [
+        {
+          name: xData[0],
+          value: sData[0].data[0],
+        },
+      ],
+    },
+    {
+      type: "gauge",
+      radius: "45%",
+      center: ["50%", "50%"],
+      startAngle: "89.99",
+      endAngle: "-270",
+      title: {
+        show: false,
+      },
+      axisLabel: {
+        show: false,
+      },
+      axisLine: {
+        lineStyle: {
+          width: 1,
+          color: [[1, color[2]]],
+        },
+      },
+      axisTick: {
+        show: false,
+      },
+      splitLine: {
+        show: false,
+      },
+      pointer: {
+        show: false,
+      },
+      detail: {
+        show: isPercent,
+        formatter: `{value}/${total}`,
+        offsetCenter: [0, 20],
+        color: cfff4,
+        fontSize: defSize,
+      },
+      data: [
+        {
+          name: xData[0],
+          value: sData[0].data[0],
+        },
+      ],
+    },
+  ];
+  return {
+    ...defaultChart,
+    series: series,
+  };
+};
+
+// 第四个仪表盘
+const gaugeChart4Data = {
   color: ["#2046F3", "#14BAFB"],
   xData: ["执行效率"],
   sData: [
@@ -436,10 +630,10 @@ const gaugeChart3Data = {
     },
   ],
 };
-export const gaugeChart3 = ({
-  color = gaugeChart3Data.color,
-  xData = gaugeChart3Data.xData,
-  sData = gaugeChart3Data.sData,
+export const gaugeChart4 = ({
+  color = gaugeChart4Data.color,
+  xData = gaugeChart4Data.xData,
+  sData = gaugeChart4Data.sData,
   min = 0,
   max = 100,
   unit = "%",
@@ -615,195 +809,19 @@ export const gaugeChart3 = ({
     },
   ];
   return {
-    ...cloneDeep(defaultChart),
-    series: series,
-  };
-};
-
-/**
- * 第四个仪表盘
- * @param {Array} color 颜色集合
- * @param {Array} xData 横坐标集合
- * @param {Array} sData 数据集合
- * @param type 展示类型  1: 百分比  2: 数值
- */
-const gaugeChart4Data = {
-  color: ["#249EEA", "#00EFF8", "#905FFF"],
-  xData: ["类目"],
-  sData: [
-    {
-      name: "系列",
-      data: [80],
-    },
-  ],
-  type: 1,
-};
-export const gaugeChart4 = ({
-  color = gaugeChart4Data.color,
-  xData = gaugeChart4Data.xData,
-  sData = gaugeChart4Data.sData,
-  type = gaugeChart4Data.type,
-}) => {
-  const series = [
-    {
-      type: "gauge",
-      radius: "72%",
-      center: ["50%", "50%"],
-      startAngle: "89.99",
-      endAngle: "-270",
-      title: {
-        show: false,
-      },
-      axisLabel: {
-        show: false,
-      },
-      axisLine: {
-        lineStyle: {
-          width: 6,
-          color: [[1, linearColor(color[1], color[0], [0, 0, 1, 0])]],
-        },
-      },
-      axisTick: {
-        show: false,
-      },
-      splitLine: {
-        show: false,
-      },
-      pointer: {
-        show: false,
-      },
-      detail: {
-        show: false,
-      },
-    },
-    {
-      type: "gauge",
-      radius: "61%",
-      center: ["50%", "50%"],
-      startAngle: "89.99",
-      endAngle: "-270",
-      title: {
-        show: false,
-      },
-      axisLabel: {
-        show: false,
-      },
-      axisLine: {
-        lineStyle: {
-          width: 1,
-          color: [[1, color[0]]],
-        },
-      },
-      axisTick: {
-        show: false,
-      },
-      splitLine: {
-        show: false,
-      },
-      pointer: {
-        show: false,
-      },
-      detail: {
-        show: false,
-      },
-    },
-    {
-      type: "gauge",
-      radius: "60%",
-      center: ["50%", "50%"],
-      startAngle: "220",
-      endAngle: "-40",
-      title: {
-        show: false,
-      },
-      axisLabel: {
-        show: false,
-      },
-      axisLine: {
-        lineStyle: {
-          width: 8,
-          color: [[1, linearColor(color[0], color[1], [0, 0, 1, 0])]],
-        },
-      },
-      axisTick: {
-        show: false,
-      },
-      splitLine: {
-        show: false,
-      },
-      pointer: {
-        show: false,
-      },
-      detail: {
-        formatter: type == 1 ? "{value}%" : "{value}",
-        offsetCenter: [0, type == 1 ? -10 : 0],
-        color: cfff8,
-        fontSize: defSize + 4,
-        fontFamily: "pangmeng",
-      },
-      data: [
-        {
-          name: xData[0],
-          value: sData[0].data[0],
-        },
-      ],
-    },
-    {
-      type: "gauge",
-      radius: "45%",
-      center: ["50%", "50%"],
-      startAngle: "89.99",
-      endAngle: "-270",
-      title: {
-        show: false,
-      },
-      axisLabel: {
-        show: false,
-      },
-      axisLine: {
-        lineStyle: {
-          width: 1,
-          color: [[1, color[2]]],
-        },
-      },
-      axisTick: {
-        show: false,
-      },
-      splitLine: {
-        show: false,
-      },
-      pointer: {
-        show: false,
-      },
-      detail: {
-        show: type == 1,
-        formatter: "{value}/100",
-        offsetCenter: [0, 20],
-        color: cfff4,
-        fontSize: defSize,
-      },
-      data: [
-        {
-          name: xData[0],
-          value: sData[0].data[0],
-        },
-      ],
-    },
-  ];
-  return {
-    ...cloneDeep(defaultChart),
+    ...defaultChart,
     series: series,
   };
 };
 
 // 第五个仪表盘
 const gaugeChart5Data = {
-  color: ["#18DCED", "#F8705E", "#18DBEC"],
-  xData: ["类目"],
+  color: ["#1492FB", "#CAE637", "#FB7422"],
+  xData: ["温度"],
   sData: [
     {
-      name: "系列",
-      data: [233],
+      name: "系列1",
+      data: [32],
     },
   ],
 };
@@ -811,176 +829,10 @@ export const gaugeChart5 = ({
   color = gaugeChart5Data.color,
   xData = gaugeChart5Data.xData,
   sData = gaugeChart5Data.sData,
-}) => {
-  const series = [
-    {
-      type: "gauge",
-      radius: "72%",
-      center: ["50%", "55%"],
-      startAngle: "89.99",
-      endAngle: "-270",
-      title: {
-        show: false,
-      },
-      axisLabel: {
-        show: false,
-      },
-      axisLine: {
-        lineStyle: {
-          width: 6,
-          color: [[1, linearColor(color[1], color[0], [0, 0, 1, 0])]],
-        },
-      },
-      axisTick: {
-        show: false,
-      },
-      splitLine: {
-        show: false,
-      },
-      pointer: {
-        show: false,
-      },
-      detail: {
-        show: false,
-      },
-    },
-    {
-      type: "gauge",
-      radius: "61%",
-      center: ["50%", "55%"],
-      startAngle: "89.99",
-      endAngle: "-270",
-      title: {
-        show: false,
-      },
-      axisLabel: {
-        show: false,
-      },
-      axisLine: {
-        lineStyle: {
-          width: 1,
-          color: [[1, color[0]]],
-        },
-      },
-      axisTick: {
-        show: false,
-      },
-      splitLine: {
-        show: false,
-      },
-      pointer: {
-        show: false,
-      },
-      detail: {
-        show: false,
-      },
-    },
-    {
-      type: "gauge",
-      radius: "60%",
-      center: ["50%", "55%"],
-      startAngle: "220",
-      endAngle: "-40",
-      title: {
-        show: false,
-      },
-      axisLabel: {
-        show: false,
-      },
-      axisLine: {
-        lineStyle: {
-          width: 12,
-          color: [[1, linearColor(color[0], color[1], [0, 0, 1, 0])]],
-        },
-      },
-      axisTick: {
-        show: false,
-      },
-      splitLine: {
-        show: false,
-      },
-      pointer: {
-        show: false,
-      },
-      detail: {
-        formatter: `${sData[0].data[0] / 5}%`,
-        offsetCenter: [0, -10],
-        color: cfff8,
-        fontSize: defSize + 10,
-        fontFamily: "pangmeng",
-      },
-      data: [
-        {
-          name: xData[0],
-          value: sData[0].data[0],
-        },
-      ],
-    },
-    {
-      type: "gauge",
-      radius: "45%",
-      center: ["50%", "55%"],
-      startAngle: "89.99",
-      endAngle: "-270",
-      title: {
-        show: false,
-      },
-      axisLabel: {
-        show: false,
-      },
-      axisLine: {
-        lineStyle: {
-          width: 1,
-          color: [[1, color[2]]],
-        },
-      },
-      axisTick: {
-        show: false,
-      },
-      splitLine: {
-        show: false,
-      },
-      pointer: {
-        show: false,
-      },
-      detail: {
-        formatter: "{value}/500",
-        offsetCenter: [0, 20],
-        color: cfff4,
-        fontSize: defSize,
-      },
-      data: [
-        {
-          name: xData[0],
-          value: sData[0].data[0],
-        },
-      ],
-    },
-  ];
-  return {
-    ...cloneDeep(defaultChart),
-    series: series,
-  };
-};
-
-// 第六个仪表盘
-const gaugeChart6Data = {
-  color: ["#1492FB", "#CAE637", "#FB7422"],
-  xData: ["摄氏度"],
-  sData: [
-    {
-      name: "系列1",
-      data: [63],
-    },
-  ],
-};
-export const gaugeChart6 = ({
-  color = gaugeChart6Data.color,
-  xData = gaugeChart6Data.xData,
-  sData = gaugeChart6Data.sData,
   min = 0,
   max = 100,
   unit = "℃",
+  title = "标准值：16℃-24℃",
 }) => {
   const series = [
     {
@@ -1016,8 +868,8 @@ export const gaugeChart6 = ({
       type: "gauge",
       radius: "60%",
       center: ["50%", "55%"],
-      startAngle: 230,
-      endAngle: -50,
+      startAngle: 220,
+      endAngle: -40,
       splitNumber: 19,
       min: min,
       max: max,
@@ -1028,6 +880,7 @@ export const gaugeChart6 = ({
         show: false,
       },
       axisLine: {
+        roundCap: true,
         lineStyle: {
           width: 12,
           color: [
@@ -1160,7 +1013,7 @@ export const gaugeChart6 = ({
       },
       data: [
         {
-          name: "标准值：16℃-24℃",
+          name: title,
           value: 10,
           itemStyle: {
             borderWidth: 0,
@@ -1174,13 +1027,13 @@ export const gaugeChart6 = ({
     },
   ];
   return {
-    ...cloneDeep(defaultChart),
+    ...defaultChart,
     series: series,
   };
 };
 
-// 第七个仪表盘
-const gaugeChart7Data = {
+// 第六个仪表盘
+const gaugeChart6Data = {
   color: ["#AF8D35"],
   xData: ["光感"],
   sData: [
@@ -1190,24 +1043,27 @@ const gaugeChart7Data = {
     },
   ],
 };
-export const gaugeChart7 = ({
-  color = gaugeChart7Data.color,
-  xData = gaugeChart7Data.xData,
-  sData = gaugeChart7Data.sData,
+export const gaugeChart6 = ({
+  color = gaugeChart6Data.color,
+  xData = gaugeChart6Data.xData,
+  sData = gaugeChart6Data.sData,
+  min = -20,
+  max = 200,
+  unit = "lux",
 }) => {
   const series = [
     {
       type: "gauge",
-      radius: "80%",
+      radius: "90%",
       center: ["50%", "65%"],
       startAngle: 200,
       endAngle: -20,
-      min: -20,
-      max: 200,
+      min: min,
+      max: max,
       splitNumber: 11,
       axisLabel: {
         color: cfff8,
-        distance: -15,
+        distance: -18,
         fontSize: defSize - 4,
       },
       axisLine: {
@@ -1225,12 +1081,12 @@ export const gaugeChart7 = ({
     },
     {
       type: "gauge",
-      radius: "65%",
+      radius: "75%",
       center: ["50%", "65%"],
       startAngle: 200,
       endAngle: -20,
-      min: -20,
-      max: 200,
+      min: min,
+      max: max,
       splitNumber: 11,
       axisLabel: {
         show: false,
@@ -1257,7 +1113,7 @@ export const gaugeChart7 = ({
     },
     {
       type: "gauge",
-      radius: "64%",
+      radius: "74%",
       center: ["50%", "65%"],
       startAngle: 200,
       endAngle: 180 - sData[0].data[0],
@@ -1266,7 +1122,7 @@ export const gaugeChart7 = ({
       },
       axisLine: {
         lineStyle: {
-          width: 10,
+          width: 8,
           color: [
             [1, linearColor(hexToRgba(color[0], 0.01), color[0], [0, 0, 1, 0])],
           ],
@@ -1283,21 +1139,21 @@ export const gaugeChart7 = ({
       },
     },
     {
-      name: "光感",
+      name: xData[0],
       type: "gauge",
-      radius: "55%",
+      radius: "65%",
       center: ["50%", "65%"],
       startAngle: 200,
       endAngle: -20,
-      min: -20,
-      max: 200,
+      min: min,
+      max: max,
       splitNumber: 33,
       axisLabel: {
         show: false,
       },
       axisLine: {
         lineStyle: {
-          width: 12,
+          width: 10,
           color: [
             [1, linearColor(color[0], hexToRgba(color[0], 0.01), [0, 0, 1, 0])],
           ],
@@ -1308,18 +1164,26 @@ export const gaugeChart7 = ({
       },
       splitLine: {
         width: 1,
-        length: 12,
-        distance: -12,
+        length: 10,
+        distance: -10,
         lineStyle: {
           color: "rgba(0,0,0,0.8)",
         },
       },
       detail: {
-        formatter: "{value} lux",
+        formatter: `{value}{unit|${unit}}`,
         color: cfff8,
         offsetCenter: [0, 0],
         fontFamily: "pangmeng",
-        fontSize: defSize,
+        fontSize: defSize + 2,
+        rich: {
+          unit: {
+            fontSize: defSize + 2,
+            fontFamily: "pangmeng",
+            color: cfff8,
+            padding: [0, 0, 0, 5],
+          },
+        },
       },
       pointer: {
         width: 10,
@@ -1340,7 +1204,7 @@ export const gaugeChart7 = ({
     },
     {
       type: "gauge",
-      radius: "45%",
+      radius: "50%",
       center: ["50%", "65%"],
       startAngle: 270,
       endAngle: -89.999,
@@ -1349,7 +1213,7 @@ export const gaugeChart7 = ({
       },
       axisLine: {
         lineStyle: {
-          width: 6,
+          width: 4,
           color: [[1, hexToRgba(color[0], 0.2)]],
         },
       },
@@ -1365,7 +1229,7 @@ export const gaugeChart7 = ({
     },
     {
       type: "gauge",
-      radius: "32%",
+      radius: "42%",
       center: ["50%", "65%"],
       startAngle: 270,
       endAngle: -89.999,
@@ -1390,7 +1254,7 @@ export const gaugeChart7 = ({
     },
     {
       type: "gauge",
-      radius: "32%",
+      radius: "42%",
       center: ["50%", "65%"],
       startAngle: 270,
       endAngle: -89.999,
@@ -1415,13 +1279,13 @@ export const gaugeChart7 = ({
     },
   ];
   return {
-    ...cloneDeep(defaultChart),
+    ...defaultChart,
     series: series,
   };
 };
 
-// 第八个仪表盘
-const gaugeChart8Data = {
+// 第七个仪表盘
+const gaugeChart7Data = {
   color: ["#023650", "#2B908F"],
   xData: ["温度", "湿度"],
   sData: [
@@ -1431,10 +1295,10 @@ const gaugeChart8Data = {
     },
   ],
 };
-export const gaugeChart8 = ({
-  color = gaugeChart8Data.color,
-  xData = gaugeChart8Data.xData,
-  sData = gaugeChart8Data.sData,
+export const gaugeChart7 = ({
+  color = gaugeChart7Data.color,
+  xData = gaugeChart7Data.xData,
+  sData = gaugeChart7Data.sData,
 }) => {
   const graphic = [
     {
@@ -1745,7 +1609,7 @@ export const gaugeChart8 = ({
     },
   ];
   return {
-    ...cloneDeep(defaultChart),
+    ...defaultChart,
     yAxis: [
       {
         show: false,
@@ -1802,8 +1666,8 @@ export const gaugeChart8 = ({
   };
 };
 
-// 第九个仪表盘
-const gaugeChart9Data = {
+// 第八个仪表盘
+const gaugeChart8Data = {
   color: ["#B28F36", "#0A7968", "#0A8FBC"],
   xData: ["PM2.5", "TVOC", "CO2"],
   sData: [
@@ -1813,10 +1677,12 @@ const gaugeChart9Data = {
     },
   ],
 };
-export const gaugeChart9 = ({
-  color = gaugeChart9Data.color,
-  xData = gaugeChart9Data.xData,
-  sData = gaugeChart9Data.sData,
+export const gaugeChart8 = ({
+  color = gaugeChart8Data.color,
+  xData = gaugeChart8Data.xData,
+  sData = gaugeChart8Data.sData,
+  units = ["ppm", "ppm", "ppm"],
+  titles = ["标准值：0-35", "标准值：0.16-0.3", "标准值：458-916"],
 }) => {
   const safeColor = "#6BDCCB";
   const series = [
@@ -1850,14 +1716,15 @@ export const gaugeChart9 = ({
         },
       },
       axisLabel: {
-        distance: -15,
+        distance: -20,
         fontSize: defSize - 6,
+        color: cfff4,
       },
       pointer: {
         width: 2,
       },
       detail: {
-        formatter: "{value}ppm",
+        formatter: `{value}${units[0]}`,
         fontFamily: "pangmeng",
         fontSize: defSize - 4,
         color: cfff8,
@@ -1909,14 +1776,15 @@ export const gaugeChart9 = ({
         },
       },
       axisLabel: {
-        distance: -15,
+        distance: -20,
         fontSize: defSize - 6,
+        color: cfff4,
       },
       pointer: {
         width: 2,
       },
       detail: {
-        formatter: "{value}ppm",
+        formatter: `{value}${units[1]}`,
         fontFamily: "pangmeng",
         fontSize: defSize - 4,
         color: cfff8,
@@ -1968,14 +1836,15 @@ export const gaugeChart9 = ({
         },
       },
       axisLabel: {
-        distance: -15,
+        distance: -20,
         fontSize: defSize - 6,
+        color: cfff4,
       },
       pointer: {
         width: 2,
       },
       detail: {
-        formatter: "{value}ppm",
+        formatter: `{value}${units[2]}`,
         fontFamily: "pangmeng",
         fontSize: defSize - 4,
         color: cfff8,
@@ -2013,13 +1882,13 @@ export const gaugeChart9 = ({
         show: false,
       },
       detail: {
-        formatter: "标准值：0-35",
+        formatter: titles[0],
         fontSize: defSize - 4,
         color: cfff4,
-        offsetCenter: [0, 80],
+        offsetCenter: [0, 75],
       },
       title: {
-        offsetCenter: [-10, -80],
+        offsetCenter: [-10, -75],
         fontFamily: "pangmeng",
         color: cfff8,
         fontSize: defSize,
@@ -2051,13 +1920,13 @@ export const gaugeChart9 = ({
         show: false,
       },
       detail: {
-        formatter: "标准值：0.16-0.3",
+        formatter: titles[1],
         fontSize: defSize - 4,
         color: cfff4,
-        offsetCenter: [0, 80],
+        offsetCenter: [0, 75],
       },
       title: {
-        offsetCenter: [0, -80],
+        offsetCenter: [0, -75],
         fontFamily: "pangmeng",
         color: cfff8,
         fontSize: defSize,
@@ -2089,13 +1958,13 @@ export const gaugeChart9 = ({
         show: false,
       },
       detail: {
-        formatter: "标准值：458-916",
+        formatter: titles[2],
         fontSize: defSize - 4,
         color: cfff4,
-        offsetCenter: [0, 80],
+        offsetCenter: [0, 75],
       },
       title: {
-        offsetCenter: [10, -80],
+        offsetCenter: [10, -75],
         fontFamily: "pangmeng",
         color: cfff8,
         fontSize: defSize,
@@ -2109,13 +1978,13 @@ export const gaugeChart9 = ({
     },
   ];
   return {
-    ...cloneDeep(defaultChart),
+    ...defaultChart,
     series: series,
   };
 };
 
-// 第十个仪表盘
-const gaugeChart10Data = {
+// 第九个仪表盘
+const gaugeChart9Data = {
   color: ["#E53475"],
   xData: ["类目1"],
   sData: [
@@ -2125,10 +1994,10 @@ const gaugeChart10Data = {
     },
   ],
 };
-export const gaugeChart10 = ({
-  color = gaugeChart10Data.color,
-  // xData = gaugeChart10Data.xData,
-  sData = gaugeChart10Data.sData,
+export const gaugeChart9 = ({
+  color = gaugeChart9Data.color,
+  xData = gaugeChart9Data.xData,
+  sData = gaugeChart9Data.sData,
 }) => {
   const series = [
     {
@@ -2137,9 +2006,12 @@ export const gaugeChart10 = ({
       emphasis: {
         scale: false,
       },
-      radius: ["79%", "80%"],
+      radius: ["78%", "80%"],
       center: ["50%", "55%"],
       labelLine: {
+        show: false,
+      },
+      tooltip: {
         show: false,
       },
       data: [
@@ -2165,14 +2037,14 @@ export const gaugeChart10 = ({
     },
     {
       type: "liquidFill",
-      radius: "70%",
+      radius: "68%",
       center: ["50%", "55%"],
       data: [sData[0].data[0] / 100],
       backgroundStyle: {
         color: radialColor("#3782FF", hexToRgba("#264F8E", 0.5)),
       },
       tooltip: {
-        show: false,
+        formatter: `${xData[0]}：${sData[0].data[0]}`,
       },
       outline: {
         borderDistance: 0,
@@ -2192,13 +2064,13 @@ export const gaugeChart10 = ({
     },
   ];
   return {
-    ...cloneDeep(defaultChart),
+    ...defaultChart,
     series: series,
   };
 };
 
-// 第十一个仪表盘
-const gaugeChart11Data = {
+// 第十个仪表盘
+const gaugeChart10Data = {
   color: ["#28EBFE"],
   xData: ["设备正常率"],
   sData: [
@@ -2207,15 +2079,15 @@ const gaugeChart11Data = {
     },
   ],
 };
-export const gaugeChart11 = ({
-  color = gaugeChart11Data.color,
-  xData = gaugeChart11Data.xData,
-  sData = gaugeChart11Data.sData,
+export const gaugeChart10 = ({
+  color = gaugeChart10Data.color,
+  xData = gaugeChart10Data.xData,
+  sData = gaugeChart10Data.sData,
 }) => {
   const series = [
     {
       type: "gauge",
-      radius: "75%",
+      radius: "80%",
       center: ["50%", "70%"],
       splitNumber: 0,
       startAngle: 180,
@@ -2271,7 +2143,194 @@ export const gaugeChart11 = ({
     },
   ];
   return {
-    ...cloneDeep(defaultChart),
+    ...defaultChart,
+    series: series,
+  };
+};
+
+// 第十一个仪表盘
+const gaugeChart11Data = {
+  color: ["#63F2FC"],
+  xData: ["巡检完成率"],
+  sData: [
+    {
+      data: [75],
+    },
+  ],
+};
+export const gaugeChart11 = ({
+  color = gaugeChart11Data.color,
+  xData = gaugeChart11Data.xData,
+  sData = gaugeChart11Data.sData,
+}) => {
+  const series = [
+    {
+      type: "gauge",
+      radius: "70%",
+      center: ["50%", "50%"],
+      splitNumber: 0,
+      startAngle: 270,
+      endAngle: -90,
+      axisLine: {
+        show: true,
+        lineStyle: {
+          width: 15,
+          color: [
+            [0.58, color[0]],
+            [1, hexToRgba(color[0], 0.2)],
+          ],
+        },
+      },
+      splitLine: {
+        show: false,
+      },
+      axisLabel: {
+        show: false,
+      },
+      axisTick: {
+        show: false,
+      },
+      pointer: {
+        show: false,
+      },
+      title: {
+        show: true,
+        offsetCenter: [0, "20%"],
+        fontSize: defSize - 2,
+        color: cfff6,
+      },
+      detail: {
+        show: true,
+        offsetCenter: [0, "-10%"],
+        formatter: `{val|${sData[0].data[0]}%}`,
+        textStyle: {
+          fontSize: defSize,
+          color: cfff8,
+        },
+        rich: {
+          val: {
+            fontSize: defSize + 14,
+            color: color[0],
+          },
+        },
+      },
+      data: [
+        {
+          name: xData[0],
+          value: sData[0].data[0],
+        },
+      ],
+    },
+    {
+      type: "pie",
+      clockwise: true,
+      emphasis: {
+        scale: false,
+      },
+      radius: ["49%", "50%"],
+      center: ["50%", "50%"],
+      labelLine: {
+        show: false,
+      },
+      tooltip: {
+        show: false,
+      },
+      label: {
+        show: false,
+      },
+      data: [
+        {
+          value: 1,
+          itemStyle: {
+            color: linearColor(
+              hexToRgba(color[0], 0.8),
+              hexToRgba(color[0], 0.01)
+            ),
+          },
+        },
+      ],
+    },
+  ];
+  return {
+    ...defaultChart,
+    series: series,
+  };
+};
+
+// 第十二个仪表盘
+const gaugeChart12Data = {
+  color: ["#28EBFE"],
+  xData: ["设备正常率"],
+  sData: [
+    {
+      data: [80],
+    },
+  ],
+};
+export const gaugeChart12 = ({
+  color = gaugeChart12Data.color,
+  xData = gaugeChart12Data.xData,
+  sData = gaugeChart12Data.sData,
+}) => {
+  const series = [
+    {
+      type: "gauge",
+      radius: "60%",
+      center: ["50%", "40%"],
+      splitNumber: 0,
+      startAngle: 235,
+      endAngle: -55,
+      axisLine: {
+        show: true,
+        lineStyle: {
+          width: 20,
+          color: [
+            [0.01, color[1] || "#3186ED"],
+            [
+              sData[0].data[0] / 100 - 0.01,
+              linearColor(hexToRgba(color[0], 0.1), color[0], [0, 0, 1, 0]),
+            ],
+            [0.99, hexToRgba(color[0], 0.1)],
+            [1, color[1] || "#3186ED"],
+          ],
+        },
+      },
+      splitLine: {
+        show: false,
+      },
+      axisLabel: {
+        show: false,
+      },
+      axisTick: {
+        show: false,
+      },
+      pointer: {
+        show: false,
+      },
+      title: {
+        show: true,
+        offsetCenter: [0, "120%"],
+        color: cfff8,
+      },
+      detail: {
+        show: true,
+        offsetCenter: [0, 0],
+        formatter: `${sData[0].data[0]}%`,
+        textStyle: {
+          fontSize: defSize + 10,
+          color: cfff8,
+        },
+      },
+      data: [
+        {
+          name: xData[0],
+          value: sData[0].data[0],
+        },
+      ],
+    },
+  ];
+  return {
+    ...defaultChart,
     series: series,
   };
 };

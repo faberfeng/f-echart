@@ -2,17 +2,17 @@
  * 条状图
  */
 import {
+  cfff2,
   cfff4,
   cfff8,
   defSize,
+  defGrid,
   cloneDeep,
   maxGridLeft,
   defaultChart,
   hexToRgba,
   thinColor,
   linearColor,
-  cfff2,
-  defGrid,
 } from "./common";
 
 /**

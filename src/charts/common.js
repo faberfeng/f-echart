@@ -36,6 +36,40 @@ export const defGrid = {
   bottom: 25,
 };
 
+// 图表图例
+export const legendObj = {
+  top: {
+    legend: {
+      top: "5%",
+      right: "auto",
+    },
+    center: ["50%", "60%"],
+  },
+  bottom: {
+    legend: {
+      bottom: "5%",
+      right: "auto",
+    },
+    center: ["50%", "40%"],
+  },
+  left: {
+    legend: {
+      orient: "vertical",
+      top: "middle",
+      left: "5%",
+    },
+    center: ["60%", "50%"],
+  },
+  right: {
+    legend: {
+      orient: "vertical",
+      top: "middle",
+      right: "5%",
+    },
+    center: ["40%", "50%"],
+  },
+};
+
 /**
  * 获取数组最大字符串长度
  * @param {Array} arr xData

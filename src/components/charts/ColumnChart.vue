@@ -22,8 +22,6 @@ import {
   columnChart8,
   columnChart9,
   columnChart10,
-  columnChart11,
-  columnChart12,
 } from "@/charts/columnChart";
 export default {
   setup() {
@@ -38,8 +36,6 @@ export default {
       columnChart8Id: columnChart8,
       columnChart9Id: columnChart9,
       columnChart10Id: columnChart10,
-      columnChart11Id: columnChart11,
-      columnChart12Id: columnChart12,
     });
 
     function initChart() {

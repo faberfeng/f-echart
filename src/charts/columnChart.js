@@ -3,15 +3,16 @@
  */
 
 import {
+  cfff2,
   cfff4,
   cfff8,
   defSize,
-  cloneDeep,
   defaultChart,
-  hexToRgba,
-  linearColor,
-  thinColor,
   defGrid,
+  hexToRgba,
+  thinColor,
+  linearColor,
+  lineDefTooltip,
 } from "./common";
 
 /**
@@ -24,6 +25,7 @@ import {
 const columnChart1Data = {
   color: ["#E9C46A", "#299D8F"],
   xData: [2015, 2016, 2017, 2018, 2019, 2020],
+  yData: ["数量", "人均"],
   sData: [
     {
       name: "博士",
@@ -47,6 +49,9 @@ export const columnChart1 = ({
   color = columnChart1Data.color,
   xData = columnChart1Data.xData,
   sData = columnChart1Data.sData,
+  yData = columnChart1Data.yData,
+  showLegend = true,
+  xName = "",
 }) => {
   const series = sData.map((item, index) => {
     if (index <= 1) {
@@ -76,19 +81,42 @@ export const columnChart1 = ({
       };
     }
   });
+  const yAxis = yData.map((item) => {
+    return {
+      type: "value",
+      name: item,
+      splitNumber: 3,
+      nameTextStyle: {
+        color: cfff4,
+      },
+      axisLabel: {
+        fontSize: defSize - 2,
+        color: cfff8,
+      },
+      axisLine: {
+        show: false,
+      },
+      splitLine: {
+        lineStyle: {
+          color: [cfff4],
+        },
+      },
+      axisTick: {
+        show: false,
+      },
+    };
+  });
   return {
-    ...cloneDeep(defaultChart),
-    tooltip: {
-      trigger: "axis",
-    },
+    ...defaultChart,
+    tooltip: lineDefTooltip,
     grid: {
       left: "15%",
       right: "15%",
-      top: 80,
-      bottom: 40,
+      top: "30%",
+      bottom: "15%",
     },
     legend: {
-      show: true,
+      show: showLegend,
       top: "5%",
       right: "10%",
       itemWidth: 8,
@@ -99,6 +127,7 @@ export const columnChart1 = ({
       },
     },
     xAxis: {
+      name: xName,
       type: "category",
       data: xData,
       axisTick: {
@@ -114,54 +143,7 @@ export const columnChart1 = ({
         },
       },
     },
-    yAxis: [
-      {
-        type: "value",
-        name: "数量",
-        splitNumber: 3,
-        nameTextStyle: {
-          color: cfff4,
-        },
-        axisLabel: {
-          fontSize: defSize - 2,
-          color: cfff8,
-        },
-        axisLine: {
-          show: false,
-        },
-        splitLine: {
-          lineStyle: {
-            color: [cfff4],
-          },
-        },
-        axisTick: {
-          show: false,
-        },
-      },
-      {
-        type: "value",
-        name: "人均",
-        splitNumber: 3,
-        nameTextStyle: {
-          color: cfff4,
-        },
-        axisLabel: {
-          fontSize: defSize - 2,
-          color: cfff8,
-        },
-        axisLine: {
-          show: false,
-        },
-        splitLine: {
-          lineStyle: {
-            color: [cfff4],
-          },
-        },
-        axisTick: {
-          show: false,
-        },
-      },
-    ],
+    yAxis: yAxis,
     color: color,
     series: series,
   };
@@ -179,11 +161,11 @@ const columnChart2Data = {
   xData: ["园区1", "园区2", "园区3", "园区4", "园区5", "园区6", "园区7"],
   sData: [
     {
-      name: "",
+      name: "London",
       data: [260, 620, 740, 760, 800, 900, 920],
     },
     {
-      name: "",
+      name: "Paris",
       data: [250, 420, 320, 350, 310, 380, 340],
     },
   ],
@@ -192,6 +174,9 @@ export const columnChart2 = ({
   color = columnChart2Data.color,
   xData = columnChart2Data.xData,
   sData = columnChart2Data.sData,
+  showLegend = false,
+  xName = "",
+  yName = "数量",
 }) => {
   const series = sData.map((item, index) => {
     if (index == 0) {
@@ -211,33 +196,40 @@ export const columnChart2 = ({
     } else {
       return {
         type: "line",
+        name: item.name,
         data: item.data,
         emphasis: {
           scale: false,
         },
         itemStyle: {
-          color: "none",
-          borderWidth: 2,
+          borderWidth: 1,
           borderColor: cfff4,
         },
         lineStyle: {
           color: color[0],
         },
         symbol: "circle",
-        symbolSize: 10,
+        symbolSize: 6,
       };
     }
   });
   return {
-    ...cloneDeep(defaultChart),
-    grid: cloneDeep(defGrid),
-    tooltip: {
-      trigger: "axis",
-    },
+    ...defaultChart,
+    grid: defGrid,
+    tooltip: lineDefTooltip,
     legend: {
-      show: false,
+      show: showLegend,
+      top: "5%",
+      right: "10%",
+      itemWidth: 8,
+      itemHeight: 4,
+      textStyle: {
+        color: cfff8,
+        fontSize: defSize - 2,
+      },
     },
     xAxis: {
+      name: xName,
       type: "category",
       data: xData,
       axisTick: {
@@ -253,31 +245,29 @@ export const columnChart2 = ({
         },
       },
     },
-    yAxis: [
-      {
-        type: "value",
-        name: "数量",
-        splitNumber: 3,
-        nameTextStyle: {
-          color: cfff8,
-        },
-        axisLabel: {
-          fontSize: defSize - 2,
-          color: cfff8,
-        },
-        axisLine: {
-          show: false,
-        },
-        splitLine: {
-          lineStyle: {
-            color: [cfff4],
-          },
-        },
-        axisTick: {
-          show: false,
+    yAxis: {
+      type: "value",
+      name: yName,
+      splitNumber: 3,
+      nameTextStyle: {
+        color: cfff8,
+      },
+      axisLabel: {
+        fontSize: defSize - 2,
+        color: cfff8,
+      },
+      axisLine: {
+        show: false,
+      },
+      splitLine: {
+        lineStyle: {
+          color: [cfff4],
         },
       },
-    ],
+      axisTick: {
+        show: false,
+      },
+    },
     color: color,
     series: series,
   };
@@ -288,7 +278,7 @@ export const columnChart2 = ({
  * @param {Object} columnChart3Data 默认数据
  * @param {Array} color 颜色集合
  * @param {Array} xData 横坐标集合
- * @param {Array} sData 数据集合   1、2为柱状图   3、4 为折线图
+ * @param {Array} sData 数据集合  一条数据显示为一个柱状和一个个折线图  折线图为辅助显示
  */
 const columnChart3Data = {
   color: ["#FBE031", "#7BFAFF"],
@@ -298,20 +288,20 @@ const columnChart3Data = {
       name: "",
       data: [260, 620, 740, 760, 800, 900, 920, 890, 560, 730, 250, 870],
     },
-    {
-      name: "",
-      data: [270, 630, 750, 770, 810, 910, 930, 900, 570, 740, 260, 880],
-    },
   ],
 };
 export const columnChart3 = ({
   color = columnChart3Data.color,
   xData = columnChart3Data.xData,
   sData = columnChart3Data.sData,
+  showLegend = false,
+  xName = "",
+  yName = "数量：万元",
 }) => {
-  const series = sData.map((item, index) => {
-    if (index == 0) {
-      return {
+  let series = [];
+  sData.forEach((item) => {
+    let arr = [
+      {
         type: "bar",
         name: item.name,
         data: item.data,
@@ -322,9 +312,8 @@ export const columnChart3 = ({
             hexToRgba(color[0], 0.01)
           ),
         },
-      };
-    } else {
-      return {
+      },
+      {
         type: "line",
         data: item.data,
         emphasis: {
@@ -338,21 +327,32 @@ export const columnChart3 = ({
         lineStyle: {
           color: color[1],
         },
+        tooltip: {
+          show: false,
+        },
         symbol: "circle",
         symbolSize: 5,
-      };
-    }
+      },
+    ];
+    series = [...series, ...arr];
   });
   return {
-    ...cloneDeep(defaultChart),
-    grid: cloneDeep(defGrid),
-    tooltip: {
-      trigger: "axis",
-    },
+    ...defaultChart,
+    grid: defGrid,
+    tooltip: lineDefTooltip,
     legend: {
-      show: false,
+      show: showLegend,
+      top: "5%",
+      right: "10%",
+      itemWidth: 8,
+      itemHeight: 4,
+      textStyle: {
+        color: cfff8,
+        fontSize: defSize - 2,
+      },
     },
     xAxis: {
+      name: xName,
       type: "category",
       data: xData,
       axisTick: {
@@ -368,37 +368,35 @@ export const columnChart3 = ({
         },
       },
     },
-    yAxis: [
-      {
-        type: "value",
-        name: "数量：万元",
-        splitNumber: 3,
-        nameTextStyle: {
-          color: cfff8,
-        },
-        axisLabel: {
-          fontSize: defSize - 2,
-          color: cfff8,
-        },
-        axisLine: {
-          show: false,
-        },
-        splitLine: {
-          lineStyle: {
-            color: [cfff4],
-          },
-        },
-        axisTick: {
-          show: false,
+    yAxis: {
+      name: yName,
+      type: "value",
+      splitNumber: 3,
+      nameTextStyle: {
+        color: cfff8,
+      },
+      axisLabel: {
+        fontSize: defSize - 2,
+        color: cfff8,
+      },
+      axisLine: {
+        show: false,
+      },
+      splitLine: {
+        lineStyle: {
+          color: [cfff4],
         },
       },
-    ],
+      axisTick: {
+        show: false,
+      },
+    },
     color: color,
     series: series,
   };
 };
 
-// 四五六数据雷同
+// 四数据
 const getSeries = (sData, color, isPercent) => {
   const len = sData.length;
   let series = [];
@@ -585,14 +583,15 @@ export const columnChart4 = ({
   color = columnChart4Data.color,
   xData = columnChart4Data.xData,
   sData = columnChart4Data.sData,
-  unit = "",
   isPercent = true,
   showLegend = false,
+  xName = "",
+  yName = "",
 }) => {
   const series = getSeries(sData, color, isPercent);
   return {
-    ...cloneDeep(defaultChart),
-    grid: cloneDeep(defGrid),
+    ...defaultChart,
+    grid: defGrid,
     legend: {
       show: showLegend,
       top: "5%",
@@ -604,6 +603,7 @@ export const columnChart4 = ({
       itemHeight: 8,
     },
     xAxis: {
+      name: xName,
       type: "category",
       data: xData,
       axisTick: {
@@ -619,33 +619,31 @@ export const columnChart4 = ({
         },
       },
     },
-    yAxis: [
-      {
-        name: unit,
-        type: "value",
-        splitNumber: 5,
-        max: isPercent ? 100 : "dataMax",
-        nameTextStyle: {
-          color: cfff4,
-        },
-        axisLabel: {
-          fontSize: defSize - 2,
+    yAxis: {
+      name: yName,
+      type: "value",
+      splitNumber: 5,
+      max: isPercent ? 100 : "dataMax",
+      nameTextStyle: {
+        color: cfff4,
+      },
+      axisLabel: {
+        fontSize: defSize - 2,
+        color: cfff8,
+        formatter: isPercent ? "{value}%" : "{value}",
+      },
+      axisLine: {
+        lineStyle: {
           color: cfff8,
-          formatter: isPercent ? "{value}%" : "{value}",
-        },
-        axisLine: {
-          lineStyle: {
-            color: cfff8,
-          },
-        },
-        splitLine: {
-          show: false,
-        },
-        axisTick: {
-          show: false,
         },
       },
-    ],
+      splitLine: {
+        show: false,
+      },
+      axisTick: {
+        show: false,
+      },
+    },
     color: color,
     series: series,
   };
@@ -659,180 +657,6 @@ export const columnChart4 = ({
  * @param {Array} sData 数据集合
  */
 const columnChart5Data = {
-  color: ["#3C82E2", "#633CE2"],
-  xData: ["人工智能", "生命健康", "数字信息", "其他"],
-  sData: [
-    {
-      data: [40, 52, 38, 76],
-    },
-    {
-      data: [64, 81, 51, 94],
-    },
-  ],
-};
-export const columnChart5 = ({
-  color = columnChart5Data.color,
-  xData = columnChart5Data.xData,
-  sData = columnChart5Data.sData,
-  unit = "",
-  isPercent = true,
-  showLegend = false,
-}) => {
-  const series = getSeries(sData, color, isPercent);
-  return {
-    ...cloneDeep(defaultChart),
-    grid: cloneDeep(defGrid),
-    legend: {
-      show: showLegend,
-      top: "5%",
-      textStyle: {
-        color: cfff8,
-        fontSize: defSize - 2,
-      },
-      itemWidth: 8,
-      itemHeight: 8,
-    },
-    xAxis: {
-      type: "category",
-      data: xData,
-      axisTick: {
-        show: false,
-      },
-      axisLabel: {
-        fontSize: defSize - 2,
-        color: cfff8,
-      },
-      axisLine: {
-        lineStyle: {
-          color: cfff4,
-        },
-      },
-    },
-    yAxis: [
-      {
-        name: unit,
-        type: "value",
-        splitNumber: 5,
-        max: isPercent ? 100 : "dataMax",
-        nameTextStyle: {
-          color: cfff4,
-        },
-        axisLabel: {
-          fontSize: defSize - 2,
-          color: cfff8,
-          formatter: isPercent ? "{value}%" : "{value}",
-        },
-        axisLine: {
-          lineStyle: {
-            color: cfff4,
-          },
-        },
-        splitLine: {
-          show: false,
-        },
-        axisTick: {
-          show: false,
-        },
-      },
-    ],
-    color: color,
-    series: series,
-  };
-};
-
-/**
- * 第六个柱状图
- * @param {Object} columnChart6Data 默认数据
- * @param {Array} color 颜色集合
- * @param {Array} xData 横坐标集合
- * @param {Array} sData 数据集合
- */
-const columnChart6Data = {
-  color: ["#3C82E2"],
-  xData: ["0-17", "18-24", "25-29", "30-34", "35-39", "40-49"],
-  sData: [
-    {
-      data: [13, 37, 18, 42, 35, 35],
-    },
-  ],
-};
-export const columnChart6 = ({
-  color = columnChart6Data.color,
-  xData = columnChart6Data.xData,
-  sData = columnChart6Data.sData,
-  unit = "",
-  isPercent = true,
-  showLegend = false,
-}) => {
-  const series = getSeries(sData, color, isPercent);
-  return {
-    ...cloneDeep(defaultChart),
-    grid: cloneDeep(defGrid),
-    legend: {
-      show: showLegend,
-      top: "5%",
-      textStyle: {
-        color: cfff8,
-        fontSize: defSize - 2,
-      },
-      itemWidth: 8,
-      itemHeight: 8,
-    },
-    xAxis: {
-      type: "category",
-      data: xData,
-      axisTick: {
-        show: false,
-      },
-      axisLabel: {
-        fontSize: defSize - 2,
-        color: cfff8,
-      },
-      axisLine: {
-        lineStyle: {
-          color: cfff4,
-        },
-      },
-    },
-    yAxis: [
-      {
-        name: unit,
-        type: "value",
-        splitNumber: 5,
-        nameTextStyle: {
-          color: cfff8,
-        },
-        axisLabel: {
-          fontSize: defSize - 2,
-          color: cfff8,
-          formatter: isPercent ? "{value}%" : "{value}",
-        },
-        axisLine: {
-          lineStyle: {
-            color: cfff4,
-          },
-        },
-        splitLine: {
-          show: false,
-        },
-        axisTick: {
-          show: false,
-        },
-      },
-    ],
-    color: color,
-    series: series,
-  };
-};
-
-/**
- * 第七个柱状图
- * @param {Object} columnChart7Data 默认数据
- * @param {Array} color 颜色集合
- * @param {Array} xData 横坐标集合
- * @param {Array} sData 数据集合
- */
-const columnChart7Data = {
   color: ["#5B8FF9", "#FF99C3", "#9270CA", "#FBE031"],
   xData: ["当日", "当月", "当季", "当年"],
   sData: [
@@ -854,10 +678,14 @@ const columnChart7Data = {
     },
   ],
 };
-export const columnChart7 = ({
-  color = columnChart7Data.color,
-  xData = columnChart7Data.xData,
-  sData = columnChart7Data.sData,
+export const columnChart5 = ({
+  color = columnChart5Data.color,
+  xData = columnChart5Data.xData,
+  sData = columnChart5Data.sData,
+  isPercent = true,
+  showLegend = true,
+  xName = "",
+  yName = "",
 }) => {
   const series = sData.map((item, index) => {
     return {
@@ -874,13 +702,13 @@ export const columnChart7 = ({
     };
   });
   return {
-    ...cloneDeep(defaultChart),
-    grid: cloneDeep(defGrid),
-    tooltip: {
-      trigger: "axis",
-    },
+    ...defaultChart,
+    grid: defGrid,
+    tooltip: lineDefTooltip,
     legend: {
+      show: showLegend,
       top: "5%",
+      right: "10%",
       textStyle: {
         color: cfff8,
         fontSize: defSize - 2,
@@ -889,6 +717,7 @@ export const columnChart7 = ({
       itemHeight: 8,
     },
     xAxis: {
+      name: xName,
       type: "category",
       data: xData,
       axisTick: {
@@ -904,45 +733,44 @@ export const columnChart7 = ({
         },
       },
     },
-    yAxis: [
-      {
-        type: "value",
-        splitNumber: 3,
-        max: 100,
-        nameTextStyle: {
-          color: cfff4,
-        },
-        axisLabel: {
-          fontSize: defSize - 2,
+    yAxis: {
+      name: yName,
+      type: "value",
+      splitNumber: 3,
+      max: 100,
+      nameTextStyle: {
+        color: cfff4,
+      },
+      axisLabel: {
+        fontSize: defSize - 2,
+        color: cfff8,
+        formatter: `{value}${isPercent ? "%" : ""}`,
+      },
+      axisLine: {
+        lineStyle: {
           color: cfff8,
-          formatter: "{value}%",
-        },
-        axisLine: {
-          lineStyle: {
-            color: cfff8,
-          },
-        },
-        splitLine: {
-          show: false,
-        },
-        axisTick: {
-          show: false,
         },
       },
-    ],
+      splitLine: {
+        show: false,
+      },
+      axisTick: {
+        show: false,
+      },
+    },
     color: color,
     series: series,
   };
 };
 
 /**
- * 第八个柱状图
- * @param {Object} columnChart8Data 默认数据
+ * 第六个柱状图
+ * @param {Object} columnChart6Data 默认数据
  * @param {Array} color 颜色集合
  * @param {Array} xData 横坐标集合
  * @param {Array} sData 数据集合
  */
-const columnChart8Data = {
+const columnChart6Data = {
   color: ["#14C0FC", "#050838"],
   xData: ["人工智能", "生命健康", "数字信息", "其他"],
   sData: [
@@ -951,10 +779,11 @@ const columnChart8Data = {
     },
   ],
 };
-export const columnChart8 = ({
-  color = columnChart8Data.color,
-  xData = columnChart8Data.xData,
-  sData = columnChart8Data.sData,
+export const columnChart6 = ({
+  color = columnChart6Data.color,
+  xData = columnChart6Data.xData,
+  sData = columnChart6Data.sData,
+  isPercent = true,
 }) => {
   let series = [];
   sData.forEach((item, index) => {
@@ -991,7 +820,7 @@ export const columnChart8 = ({
         label: {
           show: true,
           position: "top",
-          formatter: "{c}%",
+          formatter: `{c}${isPercent ? "%" : ""}`,
           fontSize: defSize - 2,
           color: cfff8,
         },
@@ -1036,12 +865,12 @@ export const columnChart8 = ({
     series = [...series, ...arr];
   });
   return {
-    ...cloneDeep(defaultChart),
+    ...defaultChart,
     grid: {
       left: "10%",
       right: "10%",
-      top: 80,
-      bottom: 40,
+      top: "20%",
+      bottom: "20%",
     },
     legend: {
       show: false,
@@ -1060,25 +889,22 @@ export const columnChart8 = ({
         show: false,
       },
     },
-    yAxis: [
-      {
-        type: "value",
-        show: false,
-      },
-    ],
+    yAxis: {
+      show: false,
+    },
     color: color,
     series: series,
   };
 };
 
 /**
- * 第九个柱状图
- * @param {Object} columnChart9Data 默认数据
+ * 第七个柱状图
+ * @param {Object} columnChart7Data 默认数据
  * @param {Array} color 颜色集合
  * @param {Array} xData 横坐标集合
  * @param {Array} sData 数据集合
  */
-const columnChart9Data = {
+const columnChart7Data = {
   color: ["#1A97FD", "#FDC01A", "#2EF8F1", "#843AFF", "#FF3A3A"],
   xData: ["正常", "常规", "紧急", "疑难", "告警"],
   sData: [
@@ -1087,10 +913,10 @@ const columnChart9Data = {
     },
   ],
 };
-export const columnChart9 = ({
-  color = columnChart9Data.color,
-  xData = columnChart9Data.xData,
-  sData = columnChart9Data.sData,
+export const columnChart7 = ({
+  color = columnChart7Data.color,
+  xData = columnChart7Data.xData,
+  sData = columnChart7Data.sData,
 }) => {
   let series = [];
   sData.forEach((item) => {
@@ -1156,12 +982,12 @@ export const columnChart9 = ({
     series = [...series, ...arr];
   });
   return {
-    ...cloneDeep(defaultChart),
+    ...defaultChart,
     grid: {
       left: "10%",
       right: "10%",
-      top: 80,
-      bottom: 40,
+      top: "20%",
+      bottom: "20%",
     },
     legend: {
       show: false,
@@ -1173,7 +999,7 @@ export const columnChart9 = ({
         show: false,
       },
       axisLabel: {
-        formatter: "15%\n{value}",
+        formatter: "{value}",
         fontSize: defSize - 2,
         color: cfff8,
       },
@@ -1193,9 +1019,9 @@ export const columnChart9 = ({
 };
 
 /**
- * 第十个柱状图
+ * 第八个柱状图
  */
-const columnChart10Data = {
+const columnChart8Data = {
   color: ["#D13F3F", "#F98539", "#999999", "#42E4FE", "#9742FE"],
   xData: ["报警", "故障", "屏蔽", "动作", "隐患"],
   sData: [
@@ -1204,10 +1030,10 @@ const columnChart10Data = {
     },
   ],
 };
-export const columnChart10 = ({
-  color = columnChart10Data.color,
-  xData = columnChart10Data.xData,
-  sData = columnChart10Data.sData,
+export const columnChart8 = ({
+  color = columnChart8Data.color,
+  xData = columnChart8Data.xData,
+  sData = columnChart8Data.sData,
 }) => {
   let series = [];
   sData.forEach((item) => {
@@ -1306,7 +1132,7 @@ export const columnChart10 = ({
     series = [...series, ...arr];
   });
   return {
-    ...cloneDeep(defaultChart),
+    ...defaultChart,
     grid: {
       left: "5%",
       right: "5%",
@@ -1341,9 +1167,9 @@ export const columnChart10 = ({
 };
 
 /**
- * 第十一个柱状图
+ * 第九个柱状图
  */
-const columnChart11Data = {
+const columnChart9Data = {
   color: ["#3AAEFD", "#FFBB49", "#FFFFFF"],
   xData: ["会议室空置率：35%"],
   sData: [
@@ -1361,10 +1187,10 @@ const columnChart11Data = {
     },
   ],
 };
-export const columnChart11 = ({
-  color = columnChart11Data.color,
-  xData = columnChart11Data.xData,
-  sData = columnChart11Data.sData,
+export const columnChart9 = ({
+  color = columnChart9Data.color,
+  xData = columnChart9Data.xData,
+  sData = columnChart9Data.sData,
 }) => {
   const pictorialBarData = sData.map((item, index) => {
     if (index === 0) {
@@ -1502,7 +1328,7 @@ export const columnChart11 = ({
     series = [...series, ...arr];
   });
   return {
-    ...cloneDeep(defaultChart),
+    ...defaultChart,
     grid: {
       left: "5%",
       right: "5%",
@@ -1537,91 +1363,98 @@ export const columnChart11 = ({
 };
 
 /**
- * 第十二个柱状图
- * @param {Object} columnChart12Data 默认数据
- * @param {Array} color 颜色集合
- * @param {Array} xData 横坐标集合
- * @param {Array} sData 数据集合
+ * 第十个柱状图
  */
-const columnChart12Data = {
-  color: ["#63FC77", "#EEBE80", "#4E55C2", "#63F2FC"],
-  xData: [2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24],
+const columnChart10Data = {
+  color: ["#4BFAFF", "#0066FF"],
+  xData: ["6:00", "8:00", "10:00", "12:00", "14:00", "16:00", "18:00", "20:00"],
   sData: [
     {
-      name: "低区热水蓄水池液位",
-      data: [260, 620, 740, 760, 800, 900, 400, 500, 490, 420, 370, 400],
-    },
-    {
-      name: "冷水蓄水池液位",
-      data: [400, 500, 490, 420, 370, 400, 200, 240, 180, 240, 250, 200],
-    },
-    {
-      name: "高区热水蓄水池液位",
-      data: [250, 420, 320, 350, 310, 380, 260, 620, 740, 760, 800, 900],
-    },
-    {
-      name: "热水补水压力",
-      data: [200, 240, 180, 240, 250, 200, 250, 420, 320, 350, 310, 380],
+      data: [3, 12, 10, 2, 5, 8, 10, 5],
     },
   ],
 };
-export const columnChart12 = ({
-  color = columnChart12Data.color,
-  xData = columnChart12Data.xData,
-  sData = columnChart12Data.sData,
-  types = ["line", "line", "line", "bar"],
-  xName = "h",
-  yName = ["m", "MPa"],
+export const columnChart10 = ({
+  color = columnChart10Data.color,
+  xData = columnChart10Data.xData,
+  sData = columnChart10Data.sData,
+  isPercent = false,
+  showLegend = false,
+  xName = "",
+  yName = "",
 }) => {
-  const series = sData.map((item, index) => {
-    if (types[index] == "bar") {
-      return {
-        type: "bar",
-        name: item.name,
-        data: item.data,
-        barWidth: "20%",
-        yAxisIndex: 1,
-        itemStyle: {
-          color: hexToRgba(color[index], 0.8),
-        },
-      };
-    } else {
-      return {
-        type: "line",
-        name: item.name,
-        data: item.data,
-        lineStyle: {
-          color: color[index],
-        },
-        symbol: "none",
-      };
-    }
-  });
+  let barWidth = 15;
+  const series = [
+    {
+      //内
+      type: "bar",
+      barWidth,
+      legendHoverLink: false,
+      symbolRepeat: true,
+      silent: true,
+      itemStyle: {
+        color: linearColor(color[0], hexToRgba(color[1], 0.2)),
+      },
+      data: sData[0].data,
+      z: 1,
+    },
+    {
+      //分隔
+      type: "pictorialBar",
+      itemStyle: {
+        color: "rgba(0,0,0,0.6)",
+      },
+      symbolRepeat: "fixed",
+      symbolMargin: 2,
+      symbol: "roundRect",
+      symbolClip: true,
+      symbolSize: [barWidth, 2],
+      symbolPosition: "start",
+      symbolOffset: [0, 0],
+      data: sData[0].data,
+      tooltip: {
+        show: false,
+      },
+      z: 2,
+    },
+    {
+      // 背景
+      type: "pictorialBar",
+      animationDuration: 0,
+      symbolRepeat: "fixed",
+      symbolMargin: "20%",
+      symbol: "roundRect",
+      symbolSize: [barWidth, 4],
+      itemStyle: {
+        color: cfff2,
+      },
+      label: {
+        show: false,
+      },
+      data: sData[0].data,
+      tooltip: {
+        show: false,
+      },
+      z: 0,
+    },
+  ];
   return {
-    ...cloneDeep(defaultChart),
-    tooltip: {
-      trigger: "axis",
-    },
-    grid: {
-      left: "15%",
-      right: "15%",
-      top: 40,
-      bottom: 80,
-    },
+    ...defaultChart,
+    grid: defGrid,
+    tooltip: lineDefTooltip,
     legend: {
-      show: true,
-      bottom: "5%",
-      left: "center",
-      itemWidth: 8,
-      itemHeight: 4,
+      show: showLegend,
+      top: "5%",
       textStyle: {
         color: cfff8,
         fontSize: defSize - 2,
       },
+      itemWidth: 8,
+      itemHeight: 8,
     },
     xAxis: {
-      type: "category",
       name: xName,
+      type: "category",
       data: xData,
       axisTick: {
         show: false,
@@ -1636,54 +1469,32 @@ export const columnChart12 = ({
         },
       },
     },
-    yAxis: [
-      {
-        type: "value",
-        name: yName[0] || "",
-        splitNumber: 3,
-        nameTextStyle: {
+    yAxis: {
+      name: yName,
+      type: "value",
+      splitNumber: 3,
+      max: isPercent ? 100 : "dataMax",
+      nameTextStyle: {
+        color: cfff4,
+      },
+      axisLabel: {
+        fontSize: defSize - 2,
+        color: cfff8,
+        formatter: isPercent ? "{value}%" : "{value}",
+      },
+      axisLine: {
+        show: false,
+      },
+      splitLine: {
+        show: false,
+        lineStyle: {
           color: cfff4,
         },
-        axisLabel: {
-          fontSize: defSize - 2,
-          color: cfff8,
-        },
-        axisLine: {
-          show: false,
-        },
-        splitLine: {
-          lineStyle: {
-            color: [cfff4],
-          },
-        },
-        axisTick: {
-          show: false,
-        },
       },
-      {
-        type: "value",
-        name: yName[1] || "",
-        splitNumber: 3,
-        nameTextStyle: {
-          color: cfff4,
-        },
-        axisLabel: {
-          fontSize: defSize - 2,
-          color: cfff8,
-        },
-        axisLine: {
-          show: false,
-        },
-        splitLine: {
-          lineStyle: {
-            color: [cfff4],
-          },
-        },
-        axisTick: {
-          show: false,
-        },
+      axisTick: {
+        show: false,
       },
-    ],
+    },
     color: color,
     series: series,
   };
