@@ -1,0 +1,66 @@
+$primary: rgb(57, 179, 255);
+$second: rgb(99, 242, 252);
+$third: rgb(160, 209, 241);
+$success: rgb(78, 242, 171);
+$warn: rgb(230, 162, 60);
+$error: rgb(238, 102, 102);
+$info: rgb(151, 165, 174);
+$golden: rgb(246, 213, 11);
+
+$primary3: rgba(57, 179, 255, 0.3);
+$second3: rgba(99, 242, 252, 0.3);
+$third3: rgba(160, 209, 241, 0.3);
+$success3: rgba(78, 242, 171, 0.3);
+$warn3: rgba(230, 162, 60, 0.3);
+$error3: rgba(238, 102, 102, 0.3);
+
+$cfff: rgba(255, 255, 255, 1);
+$cfff8: rgba(255, 255, 255, 0.8);
+$cfff6: rgba(255, 255, 255, 0.6);
+$cfff4: rgba(255, 255, 255, 0.4);
+$cfff2: rgba(255, 255, 255, 0.2);
+$cfff0: rgba(255, 255, 255, 0.05);
+
+$c000: rgba(0, 0, 0, 1);
+$c0008: rgba(0, 0, 0, 0.8);
+$c0006: rgba(0, 0, 0, 0.6);
+$c0004: rgba(0, 0, 0, 0.4);
+$c0002: rgba(0, 0, 0, 0.2);
+$c0000: rgba(0, 0, 0, 0.05);
+
+$cnone: rgba(0, 0, 0, 0);
+
+$defSize: 14;
+
+$fullMinWidth: 1440px;
+$fullMinHeight: 810px;
+
+@function itemMinWidth($n) {
+  @return $n * $fullMinWidth;
+}
+
+@function itemMinHeight($n) {
+  @return $n * $fullMinHeight;
+}
+
+$fullMaxWidth: 1920px;
+$fullMaxHeight: 1080px;
+
+@function itemMaxWidth($n) {
+  @return $n * $fullMaxWidth;
+}
+
+@function itemMaxHeight($n) {
+  @return $n * $fullMaxHeight;
+}
+
+$fullMaxWidth4K: 3840px;
+$fullMaxHeight4K: 2160px;
+
+@function itemMaxWidth4K($n) {
+  @return $n * $fullMaxWidth4K;
+}
+
+@function itemMaxHeight4K($n) {
+  @return $n * $fullMaxHeight4K;
+}
