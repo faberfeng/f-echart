@@ -18,7 +18,7 @@ const routes: Array<RouteRecordRaw> = [
     path: "/",
     component: () => import("@/views/example/index.vue"),
     meta: {
-      title: "样例~",
+      title: "上海工程建设标准管理系统",
       transition: "animate__fadeIn",
       name: "example",
       permission: "",
