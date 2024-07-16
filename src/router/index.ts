@@ -16,6 +16,20 @@ declare module "vue-router" {
 const routes: Array<RouteRecordRaw> = [
   {
     path: "/",
+    redirect: "/home",
+  },
+  {
+    path: "/home",
+    component: () => import("@/views/home/index.vue"),
+    meta: {
+      title: "上海工程建设标准管理系统导航页",
+      transition: "animate__fadeIn",
+      name: "home",
+      permission: "",
+    },
+  },
+  {
+    path: "/a",
     component: () => import("@/views/example/index.vue"),
     meta: {
       title: "上海工程建设标准管理系统",
@@ -24,6 +38,7 @@ const routes: Array<RouteRecordRaw> = [
       permission: "",
     },
   },
+
   {
     path: "/publicInfo/standardQuery",
     component: () => import("@/views/publicInfo/standardQuery/index.vue"),
