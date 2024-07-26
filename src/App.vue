@@ -21,7 +21,9 @@ export default {
 
 <style lang="scss">
 html {
-  font-size: 14px;
+  font-size: 16px;
+  font-family: Arial, Verdana, Tahoma, 微软雅黑, 黑体;
+  color: #2c3e50;
 }
 .content {
   width: 1136px;
@@ -30,5 +32,6 @@ html {
   border-color: #e9eaec;
   border-radius: 4px;
   padding: 16px;
+  box-sizing: border-box;
 }
 </style>

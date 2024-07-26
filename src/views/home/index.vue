@@ -4,12 +4,7 @@
       <li v-for="item in homeData" :key="item.title">
         <h5 class="fs-18 my-ml-20" style="color: #0273d4">{{ item.title }}</h5>
         <ul class="homeUl">
-          <li
-            class="homeLi"
-            v-for="child in item.childrens"
-            :key="child.label"
-            @click="switchRouter(child.routerUrl)"
-          >
+          <li class="homeLi" :class="!child.routerUrl ? 'noPage' : ''" v-for="child in item.childrens" :key="child.label" @click="switchRouter(child.routerUrl)">
             <span>{{ child.label }}</span>
           </li>
         </ul>
@@ -44,15 +39,15 @@ const homeData = reactive<HomeProps[]>([
       },
       {
         label: "政策性文件",
-        routerUrl: null,
+        routerUrl: "/publicInfo/policyDocument",
       },
       {
         label: "通知发布",
-        routerUrl: null,
+        routerUrl: "/publicInfo/noticeRelease",
       },
       {
         label: "标准国际化",
-        routerUrl: null,
+        routerUrl: "/publicInfo/internationalStandard",
       },
     ],
   },
@@ -90,11 +85,11 @@ const homeData = reactive<HomeProps[]>([
       },
       {
         label: "征求意见",
-        routerUrl: "/standard",
+        routerUrl: "/standardManagement/takeAdvise",
       },
       {
-        label: "公开文件",
-        routerUrl: "/standard",
+        label: "标准发布",
+        routerUrl: "/standardManagement/standardRelease",
       },
     ],
   },
@@ -103,11 +98,11 @@ const homeData = reactive<HomeProps[]>([
     childrens: [
       {
         label: "宣贯培训",
-        routerUrl: null,
+        routerUrl: "/applySupervision/propagandaTraining",
       },
       {
         label: "标准咨询",
-        routerUrl: null,
+        routerUrl: "/applySupervision/standardConsultation",
       },
     ],
   },
@@ -168,6 +163,9 @@ const switchRouter = (routerUrl: string | null) => {
         border: 2px solid #0273d4;
         color: #fff;
       }
+    }
+    .noPage {
+      color: #cccccc;
     }
   }
 }
