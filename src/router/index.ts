@@ -71,7 +71,8 @@ const routes: Array<RouteRecordRaw> = [
   },
   {
     path: "/publicInfo/internationalStandard",
-    component: () => import("@/views/publicInfo/internationalStandard/index.vue"),
+    component: () =>
+      import("@/views/publicInfo/internationalStandard/index.vue"),
     meta: {
       title: "标准国际化",
       transition: "animate__fadeIn",
@@ -91,7 +92,8 @@ const routes: Array<RouteRecordRaw> = [
   },
   {
     path: "/standardManagement/takeAdvise/details",
-    component: () => import("@/views/standardManagement/takeAdvise/details.vue"),
+    component: () =>
+      import("@/views/standardManagement/takeAdvise/details.vue"),
     meta: {
       title: "征求意见详情",
       transition: "animate__fadeIn",
@@ -101,7 +103,8 @@ const routes: Array<RouteRecordRaw> = [
   },
   {
     path: "/standardManagement/standardRelease",
-    component: () => import("@/views/standardManagement/standardRelease/index.vue"),
+    component: () =>
+      import("@/views/standardManagement/standardRelease/index.vue"),
     meta: {
       title: "标准发布",
       transition: "animate__fadeIn",
@@ -111,7 +114,8 @@ const routes: Array<RouteRecordRaw> = [
   },
   {
     path: "/applySupervision/propagandaTraining",
-    component: () => import("@/views/applySupervision/propagandaTraining/index.vue"),
+    component: () =>
+      import("@/views/applySupervision/propagandaTraining/index.vue"),
     meta: {
       title: "宣贯培训",
       transition: "animate__fadeIn",
@@ -121,7 +125,8 @@ const routes: Array<RouteRecordRaw> = [
   },
   {
     path: "/applySupervision/propagandaTraining/details",
-    component: () => import("@/views/applySupervision/propagandaTraining/details.vue"),
+    component: () =>
+      import("@/views/applySupervision/propagandaTraining/details.vue"),
     meta: {
       title: "宣贯详情",
       transition: "animate__fadeIn",
@@ -131,7 +136,8 @@ const routes: Array<RouteRecordRaw> = [
   },
   {
     path: "/applySupervision/standardConsultation",
-    component: () => import("@/views/applySupervision/standardConsultation/index.vue"),
+    component: () =>
+      import("@/views/applySupervision/standardConsultation/index.vue"),
     meta: {
       title: "标准咨询",
       transition: "animate__fadeIn",
@@ -139,7 +145,26 @@ const routes: Array<RouteRecordRaw> = [
       permission: "",
     },
   },
-  ,
+  {
+    path: "/groupStandard/applicationInfo",
+    component: () => import("@/views/groupStandard/applicationInfo/index.vue"),
+    meta: {
+      title: "团队标准信息",
+      transition: "animate__fadeIn",
+      name: "applicationInfo",
+      permission: "",
+    },
+  },
+  {
+    path: "/groupStandard/engineerInfo",
+    component: () => import("@/views/groupStandard/engineerInfo/index.vue"),
+    meta: {
+      title: "工程应用信息",
+      transition: "animate__fadeIn",
+      name: "engineerInfo",
+      permission: "",
+    },
+  },
 ];
 
 const router = createRouter({

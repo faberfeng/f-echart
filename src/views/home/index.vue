@@ -4,7 +4,13 @@
       <li v-for="item in homeData" :key="item.title">
         <h5 class="fs-18 my-ml-20" style="color: #0273d4">{{ item.title }}</h5>
         <ul class="homeUl">
-          <li class="homeLi" :class="!child.routerUrl ? 'noPage' : ''" v-for="child in item.childrens" :key="child.label" @click="switchRouter(child.routerUrl)">
+          <li
+            class="homeLi"
+            :class="!child.routerUrl ? 'noPage' : ''"
+            v-for="child in item.childrens"
+            :key="child.label"
+            @click="switchRouter(child.routerUrl)"
+          >
             <span>{{ child.label }}</span>
           </li>
         </ul>
@@ -14,7 +20,6 @@
 </template>
 
 <script setup lang="ts">
-import { pa } from "element-plus/es/locale/index.mjs";
 import { reactive } from "vue";
 import { useRouter } from "vue-router";
 interface HomeProps {
@@ -111,11 +116,11 @@ const homeData = reactive<HomeProps[]>([
     childrens: [
       {
         label: "团体标准信息",
-        routerUrl: null,
+        routerUrl: "/groupStandard/applicationInfo",
       },
       {
         label: "工程应用信息",
-        routerUrl: null,
+        routerUrl: "/groupStandard/engineerInfo",
       },
     ],
   },
@@ -133,7 +138,7 @@ const switchRouter = (routerUrl: string | null) => {
 
 <style lang="scss" scoped>
 .homebody {
-  width: 50%;
+  width: 65%;
   margin: 2rem auto;
   //   display: flex;
   //     flex-direction: column;
