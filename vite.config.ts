@@ -1,5 +1,6 @@
 import { defineConfig } from "vite";
 import vue from "@vitejs/plugin-vue";
+const mode = process.env.NODE_ENV;
 
 //头部导入
 import { fileURLToPath, URL } from "node:url";
@@ -18,7 +19,8 @@ export default defineConfig({
     // hmr: true,
   },
   plugins: [vue()],
-
+  //测试和正式环境的打包publicPath不一样,所以需要配置
+  base: mode === "production" ? "./" : "/", //打包路径
   // 添加以下配置
   // css: {
   //   preprocessorOptions: {
