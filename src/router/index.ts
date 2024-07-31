@@ -1,10 +1,5 @@
 //引入路由对象
-import {
-  createRouter,
-  createWebHistory,
-  createWebHashHistory,
-  RouteRecordRaw,
-} from "vue-router";
+import { createRouter, createWebHashHistory, RouteRecordRaw } from "vue-router";
 
 declare module "vue-router" {
   interface RouteMeta {
@@ -173,7 +168,6 @@ const routes: Array<RouteRecordRaw> = [
 ];
 
 const router = createRouter({
-  // history: createWebHistory(import.meta.env.BASE_URL),
   history: createWebHashHistory(),
   routes,
 });
