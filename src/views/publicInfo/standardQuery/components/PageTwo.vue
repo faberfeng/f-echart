@@ -1,9 +1,19 @@
 <template>
   <div>
-    <el-form :model="formState" name="basic" :label-col="{ span: 6 }" :wrapper-col="{ span: 18 }" autocomplete="off">
+    <el-form
+      :model="formState"
+      name="basic"
+      :label-col="{ span: 6 }"
+      :wrapper-col="{ span: 18 }"
+      autocomplete="off"
+    >
       <el-row :gutter="20">
         <el-col :span="8" style="height: 58px">
-          <el-input v-model:value="formState.keyword" size="large" placeholder="请输入主编单位、标准编号或标准名称" />
+          <el-input
+            v-model:value="formState.keyword"
+            size="large"
+            placeholder="请输入主编单位、标准编号或标准名称"
+          />
         </el-col>
         <el-col :span="8">
           <el-button type="primary" @click="handleSearch()">查询</el-button>
@@ -13,40 +23,65 @@
       <el-row :gutter="20">
         <el-col :span="8">
           <el-form-item label="发布日期:"
-            ><el-date-picker size="large" type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期" v-model="formState.lunchTime" /> </el-form-item
+            ><el-date-picker
+              size="large"
+              type="daterange"
+              range-separator="至"
+              start-placeholder="开始日期"
+              end-placeholder="结束日期"
+              v-model="formState.lunchTime"
+            /> </el-form-item
         ></el-col>
         <el-col :span="8">
           <el-form-item label="实施日期:"
-            ><el-date-picker size="large" type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期" v-model="formState.applyTime" /> </el-form-item
+            ><el-date-picker
+              size="large"
+              type="daterange"
+              range-separator="至"
+              start-placeholder="开始日期"
+              end-placeholder="结束日期"
+              v-model="formState.applyTime"
+            /> </el-form-item
         ></el-col>
       </el-row>
     </el-form>
   </div>
 
-  <el-table :data="tableData" border :cell-style="{ textAlign: 'center' }" :header-cell-style="{ textAlign: 'center' }">
+  <el-table
+    :data="tableData"
+    border
+    :cell-style="{ textAlign: 'center' }"
+    :header-cell-style="{ textAlign: 'center' }"
+  >
     <el-table-column prop="S_ProjectName" label="标准名称" />
     <el-table-column prop="S_ProjectNo" label="标准编号" />
     <el-table-column prop="S_Organization" label="主编单位" />
     <el-table-column prop="S_Type" label="类型" width="110">
       <template #default="scope">
         <div class="text-canter">
-          {{ scope.row.S_Type == 1 ? "强制性标准" : scope.row.S_Type == 2 ? "推荐性标准" : "" }}
+          {{
+            scope.row.S_Type == 1
+              ? "强制性标准"
+              : scope.row.S_Type == 2
+              ? "推荐性标准"
+              : ""
+          }}
         </div>
       </template>
     </el-table-column>
     <el-table-column prop="XXX" label="图集号" width="115" />
     <!-- 标注：对应属性未知 -->
-    <el-table-column prop="S_A2" label="发布日期" width="110">
-      <template #default="scope">
-        <div class="text-canter">
-          {{ formatTime(scope.row.S_A2) }}
-        </div>
-      </template>
-    </el-table-column>
-    <el-table-column prop="S_A1" label="实施日期" width="110">
+    <el-table-column prop="S_A1" label="发布日期" width="110">
       <template #default="scope">
         <div class="text-canter">
           {{ formatTime(scope.row.S_A1) }}
+        </div>
+      </template>
+    </el-table-column>
+    <el-table-column prop="S_A2" label="实施日期" width="110">
+      <template #default="scope">
+        <div class="text-canter">
+          {{ formatTime(scope.row.S_A2) }}
         </div>
       </template>
     </el-table-column>
@@ -68,7 +103,8 @@
       :background="background"
       layout="sizes, prev, pager, next, jumper"
       :total="total"
-      @change="changePagination" />
+      @change="changePagination"
+    />
   </div>
 </template>
 

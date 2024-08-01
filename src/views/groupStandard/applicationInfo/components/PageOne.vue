@@ -87,8 +87,9 @@
 <script setup lang="ts">
 import { ref, reactive, onMounted } from "vue";
 import {
-  getStandardReleaseList,
+  // getStandardReleaseList,
   getFilePathByIdAndTypeNew,
+  getGroupStandardInfo,
 } from "@/api/publicInfo";
 import dayjs from "dayjs";
 import type { Dayjs } from "dayjs";
@@ -154,29 +155,29 @@ const openFile = async (id: string) => {
 
 const queryStandardReleaseList = async () => {
   const params = {
-    pagination: JSON.stringify({
-      page: currentPage.value,
-      rows: pageSize.value,
-      sord: "ASC",
-      sidx: "S_CreateDate",
-    }),
-    queryJson: JSON.stringify({
-      type: 9,
-      S_Status: 1,
-      keyword: formState.keyword,
-      ...(formState.lunchTime && {
-        S_A2_Begin: dayjs(formState.lunchTime[0]).format("YYYY-MM-DD"),
-        S_A2_End: dayjs(formState.lunchTime[1]).format("YYYY-MM-DD"),
-      }),
-    }),
+    page: currentPage.value,
+    rows: pageSize.value,
+    keyword: undefined,
+    // ReleaseDateBegain: undefined,
+    // ReleaseDateEnd: undefined,
   };
-  await getStandardReleaseList(params).then((res) => {
+  if (formState.keyword) {
+    params.keyword = formState.keyword;
+  }
+  if (formState.lunchTime) {
+    params.ReleaseDateBegain = dayjs(formState.lunchTime[0]).format(
+      "YYYY-MM-DD"
+    );
+    params.ReleaseDateEnd = dayjs(formState.lunchTime[1]).format("YYYY-MM-DD");
+  }
+
+  await getGroupStandardInfo(params).then((res) => {
     tableData.value = res.data.rows;
     total.value = res.data.records;
   });
 };
 onMounted(() => {
-  // queryStandardReleaseList();
+  queryStandardReleaseList();
 });
 </script>
 

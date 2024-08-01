@@ -54,3 +54,19 @@ export function getQuestionnaireList(params: any) {
     params: params,
   });
 }
+//团队标准信息
+export function getGroupStandardInfo(params: any) {
+  return request({
+    url: "/LR_Api/GroupStandardApi/GetPageList",
+    method: "get",
+    params: params,
+  });
+}
+//工程应用信息
+export function getEngineerInfo(params: any) {
+  return request({
+    url: "/LR_Api/GroupStandardApi/GetPageListForEIA",
+    method: "get",
+    params: params,
+  });
+}

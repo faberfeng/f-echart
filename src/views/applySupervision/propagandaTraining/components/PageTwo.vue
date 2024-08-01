@@ -1,12 +1,30 @@
 <template>
-  <el-form :model="formState" class="my-mt-20" name="basic" :label-col="{ span: 6 }" :wrapper-col="{ span: 18 }" autocomplete="off">
+  <el-form
+    :model="formState"
+    class="my-mt-20"
+    name="basic"
+    :label-col="{ span: 6 }"
+    :wrapper-col="{ span: 18 }"
+    autocomplete="off"
+  >
     <el-row :gutter="20">
       <el-col :span="8">
-        <el-input v-model="formState.keyword" size="large" placeholder="请输入宣贯培训的名称" />
+        <el-input
+          v-model="formState.keyword"
+          size="large"
+          placeholder="请输入宣贯培训的名称"
+        />
       </el-col>
       <el-col :span="8">
         <el-form-item label="发布日期:"
-          ><el-date-picker size="large" type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期" v-model="formState.lunchTime" /> </el-form-item
+          ><el-date-picker
+            size="large"
+            type="daterange"
+            range-separator="至"
+            start-placeholder="开始日期"
+            end-placeholder="结束日期"
+            v-model="formState.lunchTime"
+          /> </el-form-item
       ></el-col>
       <el-col :span="8">
         <el-button type="primary" @click="handleSearch()">查询</el-button>
@@ -15,18 +33,29 @@
     </el-row>
   </el-form>
   <div class="my-mt-15">
-    <el-table :data="tableData" border :cell-style="{ textAlign: 'center' }" :header-cell-style="{ textAlign: 'center' }">
+    <el-table
+      :data="tableData"
+      border
+      :cell-style="{ textAlign: 'center' }"
+      :header-cell-style="{ textAlign: 'center' }"
+    >
       <el-table-column prop="S_ProjectName" label="宣贯培训名称" />
       <el-table-column prop="S_ReleaseDate" label="发布日期" width="150">
         <template #default="scope">
           <div class="text-canter">
-            {{ scope.row.S_ReleaseDate }}
+            {{ formatTime(scope.row.S_ReleaseDate) }}
           </div>
         </template>
       </el-table-column>
       <el-table-column prop="S_ID" label="宣贯计划文件" width="150">
         <template #default="scope">
-          <el-button style="width: 98px" type="primary" class="cursor" @click="viewDetails(scope.row.S_ID)">查看详情</el-button>
+          <el-button
+            style="width: 98px"
+            type="primary"
+            class="cursor"
+            @click="viewDetails(scope.row.S_ID)"
+            >查看详情</el-button
+          >
         </template>
       </el-table-column>
     </el-table>
@@ -40,7 +69,8 @@
       :background="background"
       layout="sizes, prev, pager, next, jumper"
       :total="total"
-      @change="changePagination" />
+      @change="changePagination"
+    />
   </div>
 </template>
 
@@ -70,6 +100,11 @@ const background = ref(true);
 const disabled = ref(false);
 const changePagination = () => {
   queryStandardReleaseList();
+};
+// 格式化时间样式
+const formatTime = (time: string) => {
+  if (!time) return "-";
+  return dayjs(time).format("YYYY-MM-DD");
 };
 
 // 搜索

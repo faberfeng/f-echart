@@ -1,5 +1,12 @@
 <template>
-  <el-form :model="formState" class="my-mt-20" name="basic" :label-col="{ span: 6 }" :wrapper-col="{ span: 18 }" autocomplete="off">
+  <el-form
+    :model="formState"
+    class="my-mt-20"
+    name="basic"
+    :label-col="{ span: 6 }"
+    :wrapper-col="{ span: 18 }"
+    autocomplete="off"
+  >
     <el-row :gutter="20">
       <el-col :span="12">
         <el-form-item label="发布日期:"
@@ -10,23 +17,35 @@
             range-separator="至"
             start-placeholder="开始日期"
             end-placeholder="结束日期"
-            v-model="formState.lunchTime" /> </el-form-item
+            v-model="formState.lunchTime"
+          /> </el-form-item
       ></el-col>
     </el-row>
   </el-form>
   <div class="my-mt-15">
-    <el-table :data="tableData" border :cell-style="{ textAlign: 'center' }" :header-cell-style="{ textAlign: 'center' }">
+    <el-table
+      :data="tableData"
+      border
+      :cell-style="{ textAlign: 'center' }"
+      :header-cell-style="{ textAlign: 'center' }"
+    >
       <el-table-column prop="S_ProjectName" label="通知发布名称" />
       <el-table-column prop="S_ReleaseDate" label="发布日期" width="150">
         <template #default="scope">
           <div class="text-canter">
-            {{ scope.row.S_ReleaseDate }}
+            {{ formatTime(scope.row.S_ReleaseDate) }}
           </div>
         </template>
       </el-table-column>
-      <el-table-column prop="S_ID" label="通知发布文件" width="150">
+      <el-table-column prop="S_ID" label="立项批文文件" width="150">
         <template #default="scope">
-          <el-button style="width: 98px" type="primary" class="cursor" @click="openFile(scope.row.S_ID)">查看详情</el-button>
+          <el-button
+            style="width: 98px"
+            type="primary"
+            class="cursor"
+            @click="openFile(scope.row.S_ID)"
+            >查看详情</el-button
+          >
         </template>
       </el-table-column>
     </el-table>
@@ -40,13 +59,17 @@
       :background="background"
       layout="sizes, prev, pager, next, jumper"
       :total="total"
-      @change="changePagination" />
+      @change="changePagination"
+    />
   </div>
 </template>
 
 <script setup lang="ts">
 import { ref, reactive, onMounted } from "vue";
-import { getStandardReleaseList, getFilePathByIdAndTypeNew } from "@/api/publicInfo";
+import {
+  getStandardReleaseList,
+  getFilePathByIdAndTypeNew,
+} from "@/api/publicInfo";
 import dayjs from "dayjs";
 import type { Dayjs } from "dayjs";
 type RangeValue = [Dayjs, Dayjs];
@@ -67,12 +90,19 @@ const disabled = ref(false);
 const changePagination = () => {
   queryStandardReleaseList();
 };
+// 格式化时间样式
+const formatTime = (time: string) => {
+  if (!time) return "-";
+  return dayjs(time).format("YYYY-MM-DD");
+};
 
 // 打开文件
 const openFile = async (id: string) => {
   await getFilePathByIdAndTypeNew({ id: id, type: "R0201" }).then((res) => {
     //解析文件充blod中解析
-    const url = window.URL.createObjectURL(new Blob([res], { type: "application/pdf" }));
+    const url = window.URL.createObjectURL(
+      new Blob([res], { type: "application/pdf" })
+    );
     window.open(url, "_blank");
   });
 };

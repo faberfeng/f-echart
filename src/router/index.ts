@@ -38,6 +38,16 @@ const routes: Array<RouteRecordRaw> = [
       permission: "",
     },
   },
+  {
+    path: "/publicInfo/standardQueryFeedback",
+    component: () => import("@/views/publicInfo/standardQuery/feedback.vue"),
+    meta: {
+      title: "标准查询意见反馈",
+      transition: "animate__fadeIn",
+      name: "standardQueryFeedback",
+      permission: "",
+    },
+  },
 
   {
     path: "/publicInfo/standardQuery",

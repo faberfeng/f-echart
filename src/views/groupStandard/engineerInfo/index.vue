@@ -78,7 +78,7 @@
 import Header from "@/components/Header/index.vue";
 import Title from "@/components/Title/index.vue";
 import { ref, reactive, onMounted } from "vue";
-import { getStandardReleaseList } from "@/api/publicInfo";
+import { getEngineerInfo } from "@/api/publicInfo";
 const activeKey = ref("1");
 interface FormState {
   keyword: string;
@@ -109,25 +109,22 @@ const resetSearch = () => {
 
 const queryStandardReleaseList = async () => {
   const params = {
-    pagination: JSON.stringify({
-      page: currentPage.value,
-      rows: pageSize.value,
-      sord: "ASC",
-      sidx: "S_CreateDate",
-    }),
-    queryJson: JSON.stringify({
-      type: 7,
-      S_Status: 1,
-      keyword: formState.keyword,
-    }),
+    page: currentPage.value,
+    rows: pageSize.value,
+    keyword: undefined,
+    // ReleaseDateBegain: undefined,
+    // ReleaseDateEnd: undefined,
   };
-  await getStandardReleaseList(params).then((res) => {
+  if (formState.keyword) {
+    params.keyword = formState.keyword;
+  }
+  await getEngineerInfo(params).then((res) => {
     tableData.value = res.data.rows;
     total.value = res.data.records;
   });
 };
 onMounted(() => {
-  //   queryStandardReleaseList();
+  queryStandardReleaseList();
 });
 </script>
 

@@ -3,7 +3,13 @@
   <div class="my-pb-20">
     <div class="content">
       <div class="table_header">征求意见详情</div>
-      <el-table :data="tableData" border :show-header="false" :cell-style="{ textAlign: 'center' }" style="width: 100%">
+      <el-table
+        :data="tableData"
+        border
+        :show-header="false"
+        :cell-style="{ textAlign: 'center' }"
+        style="width: 100%"
+      >
         <el-table-column prop="name" label="Name" width="180" />
         <el-table-column prop="value" label="value" />
       </el-table>
@@ -21,12 +27,16 @@
 
 <script setup lang="ts">
 import Header from "@/components/Header/index.vue";
-import { getStandardReleaseById, getFilePathByIdAndTypeNew } from "@/api/publicInfo";
+import {
+  getStandardReleaseById,
+  getFilePathByIdAndTypeNew,
+} from "@/api/publicInfo";
 import { ref, onMounted } from "vue";
 import { dayjs } from "element-plus";
 import { useRoute } from "vue-router";
+import { nextTick } from "vue";
 const route = useRoute();
-const tableData = [
+let tableData = ref([
   {
     name: "项目编号",
     value: null,
@@ -39,34 +49,45 @@ const tableData = [
     name: "截止日期",
     value: null,
   },
-];
+]);
 const rawHtml = ref();
 const queryStandardReleaseById = async () => {
   await getStandardReleaseById({
     id: route.query.S_ID,
   }).then((res) => {
     console.log(res);
-    tableData[0].value = res.data.S_ProjectNo;
-    tableData[1].value = res.data.S_ProjectName;
-    tableData[2].value = dayjs(res.data.S_A2).format("YYYY-MM-DD");
+    nextTick(() => {
+      tableData.value[0].value = res.data.S_ProjectNo;
+      tableData.value[1].value = res.data.S_ProjectName;
+      tableData.value[2].value = dayjs(res.data.S_A2).format("YYYY-MM-DD");
+    });
+    console.log(tableData, "table444");
     rawHtml.value = res.data.S_FileAddress;
   });
 };
 // 打开文件
 const openFile = async () => {
-  await getFilePathByIdAndTypeNew({ id: route.query.S_ID, type: "R0501" }).then((res) => {
-    //解析文件充blod中解析
-    const url = window.URL.createObjectURL(new Blob([res], { type: "application/pdf" }));
-    window.open(url, "_blank");
-  });
+  await getFilePathByIdAndTypeNew({ id: route.query.S_ID, type: "R0501" }).then(
+    (res) => {
+      //解析文件充blod中解析
+      const url = window.URL.createObjectURL(
+        new Blob([res], { type: "application/pdf" })
+      );
+      window.open(url, "_blank");
+    }
+  );
 };
 // 打开表单
 const openform = async () => {
-  await getFilePathByIdAndTypeNew({ id: route.query.S_ID, type: "R0502" }).then((res) => {
-    //解析文件充blod中解析
-    const url = window.URL.createObjectURL(new Blob([res], { type: "application/pdf" }));
-    window.open(url, "_blank");
-  });
+  await getFilePathByIdAndTypeNew({ id: route.query.S_ID, type: "R0502" }).then(
+    (res) => {
+      //解析文件充blod中解析
+      const url = window.URL.createObjectURL(
+        new Blob([res], { type: "application/pdf" })
+      );
+      window.open(url, "_blank");
+    }
+  );
 };
 
 onMounted(() => {

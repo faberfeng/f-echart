@@ -1,14 +1,29 @@
 <template>
   <div>
-    <el-form :model="formState" name="basic" :label-col="{ span: 6 }" :wrapper-col="{ span: 18 }" autocomplete="off">
+    <el-form
+      :model="formState"
+      name="basic"
+      :label-col="{ span: 6 }"
+      :wrapper-col="{ span: 18 }"
+      autocomplete="off"
+    >
       <el-row :gutter="20">
         <el-col :span="8">
-          <el-input v-model="formState.keyword" size="large" placeholder="请输入主编单位、标准编号或标准名称" />
+          <el-input
+            v-model="formState.keyword"
+            size="large"
+            placeholder="请输入主编单位、标准编号或标准名称"
+          />
         </el-col>
         <el-col :span="8">
           <el-form-item label="标准类型:">
             <el-select v-model="formState.selectValue" size="large">
-              <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value" />
+              <el-option
+                v-for="item in options"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value"
+              />
             </el-select>
           </el-form-item>
         </el-col>
@@ -18,17 +33,36 @@
         </el-col>
         <el-col :span="8">
           <el-form-item label="发布日期:"
-            ><el-date-picker size="large" type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期" v-model="formState.lunchTime" /> </el-form-item
+            ><el-date-picker
+              size="large"
+              type="daterange"
+              range-separator="至"
+              start-placeholder="开始日期"
+              end-placeholder="结束日期"
+              v-model="formState.lunchTime"
+            /> </el-form-item
         ></el-col>
         <el-col :span="8">
           <el-form-item label="实施日期:"
-            ><el-date-picker size="large" type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期" v-model="formState.applyTime" /> </el-form-item
+            ><el-date-picker
+              size="large"
+              type="daterange"
+              range-separator="至"
+              start-placeholder="开始日期"
+              end-placeholder="结束日期"
+              v-model="formState.applyTime"
+            /> </el-form-item
         ></el-col>
       </el-row>
     </el-form>
   </div>
 
-  <el-table :data="tableData" border :cell-style="{ textAlign: 'center' }" :header-cell-style="{ textAlign: 'center' }">
+  <el-table
+    :data="tableData"
+    border
+    :cell-style="{ textAlign: 'center' }"
+    :header-cell-style="{ textAlign: 'center' }"
+  >
     <el-table-column prop="S_ProjectName" label="标准名称" />
     <el-table-column prop="S_ProjectNo" label="标准编号" />
     <el-table-column prop="S_Organization" label="主编单位" />
@@ -40,33 +74,38 @@
       </template>
     </el-table-column> -->
     <el-table-column prop="S_ICP" label="备案号" width="115" />
-    <el-table-column prop="S_A2" label="发布日期" width="110">
-      <template #default="scope">
-        <div class="text-canter">
-          {{ formatTime(scope.row.S_A2) }}
-        </div>
-      </template>
-    </el-table-column>
-    <el-table-column prop="S_A1" label="实施日期" width="110">
+    <el-table-column prop="S_A1" label="发布日期" width="110">
       <template #default="scope">
         <div class="text-canter">
           {{ formatTime(scope.row.S_A1) }}
         </div>
       </template>
     </el-table-column>
+    <el-table-column prop="S_A2" label="实施日期" width="110">
+      <template #default="scope">
+        <div class="text-canter">
+          {{ formatTime(scope.row.S_A2) }}
+        </div>
+      </template>
+    </el-table-column>
     <el-table-column prop="S_ID" label="标准全文" width="90">
       <template #default="scope">
         <el-tooltip content="点击进入" :show-arrow="false" placement="bottom">
-          <el-icon class="fs-30 cursor" @click="openFile(scope.row.S_ID)"><Document /></el-icon>
+          <el-icon class="fs-30 cursor" @click="openFile(scope.row.S_ID)"
+            ><Document
+          /></el-icon>
         </el-tooltip>
       </template>
     </el-table-column>
-    <el-table-column prop="note" label="废止日期" width="90">
+    <el-table-column prop="S_AbolitionDate" label="废止日期" width="90">
       <!-- 标注：对应功能未知 -->
       <template #default="scope">
-        <el-tooltip content="点击进入" :show-arrow="false" placement="bottom">
+        <div class="text-canter">
+          {{ formatTime(scope.row.S_AbolitionDate) }}
+        </div>
+        <!-- <el-tooltip content="点击进入" :show-arrow="false" placement="bottom">
           <el-icon class="fs-30 cursor"><ChatLineSquare /></el-icon>
-        </el-tooltip>
+        </el-tooltip> -->
       </template>
     </el-table-column>
   </el-table>
@@ -79,14 +118,18 @@
       :background="background"
       layout="sizes, prev, pager, next, jumper"
       :total="total"
-      @change="changePagination" />
+      @change="changePagination"
+    />
   </div>
 </template>
 
 <script setup lang="ts">
 import { Document, ChatLineSquare } from "@element-plus/icons-vue";
 import { onMounted, reactive, ref } from "vue";
-import { getStandardReleaseList, getFilePathByIdAndTypeNew } from "@/api/publicInfo";
+import {
+  getStandardReleaseList,
+  getFilePathByIdAndTypeNew,
+} from "@/api/publicInfo";
 import { dayjs } from "element-plus";
 import type { Dayjs } from "dayjs";
 
@@ -137,6 +180,7 @@ const changePagination = () => {
 
 // 格式化时间样式
 const formatTime = (time: string) => {
+  if (!time) return "-";
   return dayjs(time).format("YYYY-MM-DD");
 };
 
@@ -160,7 +204,9 @@ const resetSearch = () => {
 const openFile = async (id: string) => {
   await getFilePathByIdAndTypeNew({ id: id, type: "R0101" }).then((res) => {
     //解析文件充blod中解析
-    const url = window.URL.createObjectURL(new Blob([res], { type: "application/pdf" }));
+    const url = window.URL.createObjectURL(
+      new Blob([res], { type: "application/pdf" })
+    );
     window.open(url, "_blank");
   });
 };
