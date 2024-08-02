@@ -70,3 +70,11 @@ export function getEngineerInfo(params: any) {
     params: params,
   });
 }
+//意见反馈
+export function getFeedBack(params: any) {
+  return request({
+    url: "/LR_Api/StandardReleaseApi/AskBackUpload",
+    method: "post",
+    data: params,
+  });
+}

@@ -1,7 +1,7 @@
 <template>
   <Header></Header>
   <div class="my-pb-20">
-    <div class="content">
+    <div class="content relative">
       <Title title="工程应用信息"></Title>
       <el-tabs v-model="activeKey">
         <el-tab-pane label="工程应用信息" name="1">
@@ -70,6 +70,10 @@
           </div>
         </el-tab-pane>
       </el-tabs>
+      <div class="floatTag" @click="switchLogin">
+        <img src="@/assets/imgs/edit.png" alt="" />
+        <span class="tagspan">工程应用信息填报</span>
+      </div>
     </div>
   </div>
 </template>
@@ -87,6 +91,12 @@ const formState = reactive<FormState>({
   keyword: "",
 });
 const tableData = ref([]);
+const switchLogin = () => {
+  window.open(
+    "https://ciac.zjw.sh.gov.cn/CIACuserportal/SSO/Login.aspx",
+    "_blank"
+  );
+};
 // 分页
 const currentPage = ref(1);
 const pageSize = ref(20);
@@ -136,5 +146,25 @@ onMounted(() => {
 :deep(.el-button) {
   width: 70px;
   height: 40px;
+}
+.floatTag {
+  position: absolute;
+  right: -90px;
+  top: 14%;
+  cursor: pointer;
+  img {
+    width: 80px;
+    height: 80px;
+  }
+  .tagspan {
+    display: block;
+    width: 80px;
+    height: 14px;
+    font-size: 10px;
+    font-family: PingFangSC-Medium, PingFang SC;
+    font-weight: 500;
+    color: #969696;
+    line-height: 14px;
+  }
 }
 </style>
