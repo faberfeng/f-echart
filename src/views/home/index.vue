@@ -30,6 +30,7 @@
       <el-col :span="4">
         <el-collapse v-model="activeNames" @change="handleChange">
           <el-collapse-item
+            style="background: #e3ecfd; color: #333"
             v-for="(item, index) in rankCollapseItemList"
             :title="item.title"
             :name="item.name"
@@ -106,4 +107,9 @@ const handleCheck = (data: any) => {
 };
 </script>
 
-<style></style>
+<style lang="scss" scoped>
+.el-collapse-item__header {
+  background: #f5f7fa !important;
+  color: #333 !important;
+}
+</style>
