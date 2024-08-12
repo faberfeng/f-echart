@@ -1,12 +1,13 @@
 <template>
-  <div class="my-pa-50">
-    <el-row :gutter="30">
+  <div class="my-px-80 my-my-50">
+    <el-row :gutter="50">
       <el-col :span="4">
         <el-collapse v-model="activeNames" @change="handleChange">
           <el-collapse-item
             v-for="(item, index) in collapseItemList"
             :title="item.title"
             :name="item.name"
+            class="bd-all my-pl-10 my-my-10"
             :key="index"
           >
             <div
@@ -30,7 +31,7 @@
           :table-data="tableData"
         ></TableData>
       </el-col>
-      <el-col :span="4">
+      <el-col :span="4" class="bd-all my-pa-10">
         <el-collapse v-model="activeNames" @change="handleChange">
           <el-collapse-item
             style="background: #e3ecfd; color: #333"
