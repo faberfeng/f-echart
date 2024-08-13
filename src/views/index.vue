@@ -1,15 +1,13 @@
 <template>
   <div class="common-layout">
     <el-container>
-      <el-aside width="250px">
+      <el-aside width="250px" style="min-height: 100vh; background: #545c64">
         <Menu />
       </el-aside>
       <el-container>
         <!-- <el-header>Header</el-header> -->
         <el-main>
-          <div :style="{ padding: '0 3.14rem' }">
-            <router-view />
-          </div>
+          <router-view />
         </el-main>
       </el-container>
     </el-container>

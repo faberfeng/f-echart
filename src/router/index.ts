@@ -49,6 +49,18 @@ const routes: Array<RouteRecordRaw> = [
           permission: "standardMgt",
         },
       },
+      //标签管理
+      {
+        //动态路由
+        path: `/admin/labelMgt/:id`,
+        component: () => import("@/views/admin/labelMgt/index.vue"),
+        meta: {
+          title: "标签管理",
+          transition: "animate__fadeIn",
+          name: "labelMgt",
+          permission: "labelMgt",
+        },
+      },
       // #日志管理
       {
         path: "/admin/logMgt",
