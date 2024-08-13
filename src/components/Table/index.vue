@@ -12,6 +12,7 @@
       :type="item.type"
       :label="item.label"
       :width="item.width"
+      :sortable="item.sortable"
     />
   </el-table>
 </template>

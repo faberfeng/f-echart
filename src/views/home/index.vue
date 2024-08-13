@@ -1,13 +1,12 @@
 <template>
-  <div class="my-px-80 my-my-50">
-    <el-row :gutter="50">
-      <el-col :span="4">
+  <div class="my-px-80 my-py-50">
+    <el-row :gutter="0" justify="space-between" align="center">
+      <el-col :span="4" class="bd-all my-pb-10 scroll">
         <el-collapse v-model="activeNames" @change="handleChange">
           <el-collapse-item
             v-for="(item, index) in collapseItemList"
             :title="item.title"
             :name="item.name"
-            class="bd-all my-pl-10 my-my-10"
             :key="index"
           >
             <div
@@ -25,13 +24,13 @@
           </el-collapse-item>
         </el-collapse>
       </el-col>
-      <el-col :span="16">
+      <el-col :span="15">
         <TableData
           :table-column="tableColumn"
           :table-data="tableData"
         ></TableData>
       </el-col>
-      <el-col :span="4" class="bd-all my-pa-10">
+      <el-col :span="4" class="bd-all my-pb-10 scroll">
         <el-collapse v-model="activeNames" @change="handleChange">
           <el-collapse-item
             style="background: #e3ecfd; color: #333"
@@ -68,8 +67,8 @@ const handleChange = (val: string[]) => {
 };
 const collapseItemList = ref([
   {
-    title: "标准等级（数量）",
-    name: "1",
+    title: "标准等级（200）",
+    name: "standardGrade",
     children: [
       { title: "选项1", checked: false },
       { title: "选项2", checked: false },
@@ -77,8 +76,8 @@ const collapseItemList = ref([
     ],
   },
   {
-    title: "标准纵向分级(数量)",
-    name: "2",
+    title: "基础分类(100)",
+    name: "basicClassification",
     children: [
       { title: "选项4", checked: false },
       { title: "选项5", checked: false },
@@ -86,17 +85,8 @@ const collapseItemList = ref([
     ],
   },
   {
-    title: "基础分类(数量)",
-    name: "3",
-    children: [
-      { title: "选项4", checked: false },
-      { title: "选项5", checked: false },
-      { title: "选项6", checked: false },
-    ],
-  },
-  {
-    title: "专项分类(数量)",
-    name: "4",
+    title: "专项分类(54)",
+    name: "specialClassification",
     children: [
       { title: "选项4", checked: false },
       { title: "选项5", checked: false },
@@ -106,8 +96,8 @@ const collapseItemList = ref([
 ]);
 const rankCollapseItemList = ref([
   {
-    title: "一级标题",
-    name: "1",
+    title: "主编单位排名",
+    name: "mainUnit",
     children: [
       { title: "选项1", checked: false },
       { title: "选项2", checked: false },
@@ -115,8 +105,26 @@ const rankCollapseItemList = ref([
     ],
   },
   {
-    title: "二级标题",
-    name: "2",
+    title: "参编单位排名",
+    name: "secondaryUnit",
+    children: [
+      { title: "选项4", checked: false },
+      { title: "选项5", checked: false },
+      { title: "选项6", checked: false },
+    ],
+  },
+  {
+    title: "起草人员排名",
+    name: "draftingPersonnel",
+    children: [
+      { title: "选项4", checked: false },
+      { title: "选项5", checked: false },
+      { title: "选项6", checked: false },
+    ],
+  },
+  {
+    title: "审查人员排名",
+    name: "reviewer",
     children: [
       { title: "选项4", checked: false },
       { title: "选项5", checked: false },
@@ -129,10 +137,10 @@ const handleCheck = (data: any) => {
 };
 const tableColumn = ref([
   { type: "index", label: "序号", width: "65" },
-  { prop: "S_ProjectName", label: "标准名称" },
-  { prop: "S_ProjectNo", label: "标准编号", width: "200" },
-  { prop: "S_RealeaseTime", label: "发布日期", width: "200" },
-  { prop: "S_DoTime", label: "实施日期", width: "200" },
+  { prop: "S_ProjectName", label: "标准名称", width: "200", sortable: true },
+  { prop: "S_ProjectNo", label: "标准编号", width: "200", sortable: true },
+  { prop: "S_RealeaseTime", label: "发布日期", width: "200", sortable: true },
+  { prop: "S_DoTime", label: "实施日期", width: "200", sortable: true },
 ]);
 const tableData = ref([
   {
@@ -157,8 +165,10 @@ const tableData = ref([
 </script>
 
 <style lang="scss" scoped>
-.el-collapse-item__header {
-  background: #f5f7fa !important;
+:deep(.el-collapse-item__header) {
+  background: #e3ecfd !important;
   color: #333 !important;
+  padding-left: 1rem !important;
+  font-weight: 500 !important;
 }
 </style>
