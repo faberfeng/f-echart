@@ -16,7 +16,8 @@ declare module "vue-router" {
 const routes: Array<RouteRecordRaw> = [
   {
     path: "/",
-    redirect: "/home",
+    // redirect: "/home",
+    redirect: "/admin/standardMgt",
   },
   {
     path: "/home",
@@ -27,6 +28,39 @@ const routes: Array<RouteRecordRaw> = [
       name: "home",
       permission: "",
     },
+  },
+  {
+    path: "/admin",
+    component: () => import("@/views/index.vue"),
+    meta: {
+      title: "后台管理系统",
+      transition: "animate__fadeIn",
+      name: "admin",
+      permission: "admin",
+    },
+    children: [
+      {
+        path: "/admin/standardMgt",
+        component: () => import("@/views/admin/standardMgt/index.vue"),
+        meta: {
+          title: "标准管理",
+          transition: "animate__fadeIn",
+          name: "standardMgt",
+          permission: "standardMgt",
+        },
+      },
+      // #日志管理
+      {
+        path: "/admin/logMgt",
+        component: () => import("@/views/admin/logMgt/index.vue"),
+        meta: {
+          title: "日志管理",
+          transition: "animate__fadeIn",
+          name: "logMgt",
+          permission: "logMgt",
+        },
+      },
+    ],
   },
 ];
 
