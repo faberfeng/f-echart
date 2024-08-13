@@ -25,6 +25,42 @@
         </el-collapse>
       </el-col>
       <el-col :span="15">
+        <el-row
+          :gutter="10"
+          justify="space-between"
+          align="center"
+          class="my-mb-20"
+        >
+          <el-col :span="24">
+            <el-input
+              v-model="searchForm.searchValue"
+              placeholder="请输入标准名称或编号"
+              clearable
+              @clear="handleValueReset"
+              size="large"
+            >
+              <template #prepend>
+                <el-select
+                  v-model="searchForm.selectTypeValue"
+                  placeholder="请选择"
+                  clearable
+                  style="width: 130px"
+                  size="large"
+                >
+                  <el-option
+                    v-for="(item, index) in selectTypeOptions"
+                    :key="index"
+                    :label="item.label"
+                    :value="item.value"
+                  ></el-option>
+                </el-select>
+              </template>
+              <template #append>
+                <el-button :icon="Search" @click="handleValueSearch" />
+              </template>
+            </el-input>
+          </el-col>
+        </el-row>
         <TableData
           :table-column="tableColumn"
           :table-data="tableData"
@@ -60,11 +96,18 @@
 
 <script setup lang="ts">
 import { ref } from "vue";
+import { Search } from "@element-plus/icons-vue";
 const activeNames = ref<string[]>(["1"]);
+const searchForm = ref({
+  selectTypeValue: "",
+  searchValue: "",
+});
+const selectTypeOptions = ref([
+  { label: "标准类型1", value: "1" },
+  { label: "标准类型2", value: "2" },
+  { label: "标准类型3", value: "3" },
+]);
 import TableData from "@/components/Table/index.vue";
-const handleChange = (val: string[]) => {
-  activeNames.value = val;
-};
 const collapseItemList = ref([
   {
     title: "标准等级（200）",
@@ -132,12 +175,9 @@ const rankCollapseItemList = ref([
     ],
   },
 ]);
-const handleCheck = (data: any) => {
-  console.log(data);
-};
 const tableColumn = ref([
   { type: "index", label: "序号", width: "65" },
-  { prop: "S_ProjectName", label: "标准名称", width: "200", sortable: true },
+  { prop: "S_ProjectName", label: "标准名称", sortable: true },
   { prop: "S_ProjectNo", label: "标准编号", width: "200", sortable: true },
   { prop: "S_RealeaseTime", label: "发布日期", width: "200", sortable: true },
   { prop: "S_DoTime", label: "实施日期", width: "200", sortable: true },
@@ -162,6 +202,23 @@ const tableData = ref([
     S_DoTime: "2021-09-01",
   },
 ]);
+// 切换
+const handleChange = (val: string[]) => {
+  activeNames.value = val;
+};
+
+const handleCheck = (data: any) => {
+  console.log(data);
+};
+// 搜索
+const handleValueSearch = () => {
+  console.log(searchForm.value);
+};
+// 重置
+const handleValueReset = () => {
+  searchForm.value.selectTypeValue = "";
+  searchForm.value.searchValue = "";
+};
 </script>
 
 <style lang="scss" scoped>
