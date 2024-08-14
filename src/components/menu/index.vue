@@ -2,15 +2,15 @@
   <el-menu
     default-active="1"
     class="el-menu-vertical-demo"
-    background-color="#545c64"
+    background-color="#001529"
     text-color="#fff"
-    active-text-color="#ffd04b"
     @select="handleMenuClick"
-    style="border: none"
+    style="border: none; height: calc(100vh - 60px); overflow-y: auto"
   >
-    <el-menu-item :index="menuList[0].index">{{
-      menuList[0].title
-    }}</el-menu-item>
+    <el-menu-item :index="menuList[0].index">
+      <el-icon><House /></el-icon>
+      {{ menuList[0].title }}</el-menu-item
+    >
     <el-sub-menu
       v-for="item in [menuList[1]]"
       :index="item.index"
@@ -18,6 +18,7 @@
     >
       <!-- <template v-if="item.children"></template> -->
       <template #title>
+        <el-icon><Notification /></el-icon>
         <span>{{ item.title }}</span>
       </template>
       <el-menu-item
@@ -28,15 +29,17 @@
         {{ child.title }}
       </el-menu-item>
     </el-sub-menu>
-    <el-menu-item :index="menuList[2].index">{{
-      menuList[2].title
-    }}</el-menu-item>
+    <el-menu-item :index="menuList[2].index">
+      <el-icon><Odometer /></el-icon>
+      {{ menuList[2].title }}</el-menu-item
+    >
   </el-menu>
 </template>
 
 <script setup lang="ts">
 import { defineProps, ref } from "vue";
 import { useRouter } from "vue-router";
+import { Notification, House, Odometer } from "@element-plus/icons-vue";
 const router = useRouter();
 const menuList = ref<any[]>([
   {
@@ -137,4 +140,9 @@ const handleMenuClick = (index: string) => {
 };
 </script>
 
-<style></style>
+<style lang="scss" scoped>
+.el-menu-item.is-active {
+  background-color: #1890ff;
+  color: white;
+}
+</style>
