@@ -24,7 +24,7 @@
       </template>
     </el-table-column>
   </el-table>
-  <div class="my-my-10 text-right">
+  <div class="my-my-10 row justify-end">
     <el-pagination
       @size-change="props.pagination.handleSizeChange"
       @current-change="props.pagination.handleCurrentChange"

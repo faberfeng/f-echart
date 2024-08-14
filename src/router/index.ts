@@ -39,6 +39,7 @@ const routes: Array<RouteRecordRaw> = [
       permission: "admin",
     },
     children: [
+      //标准管理
       {
         path: "/admin/standardMgt",
         component: () => import("@/views/admin/standardMgt/index.vue"),
@@ -47,6 +48,17 @@ const routes: Array<RouteRecordRaw> = [
           transition: "animate__fadeIn",
           name: "standardMgt",
           permission: "standardMgt",
+        },
+      },
+      //新增标准
+      {
+        path: "/admin/addStandard/detail",
+        component: () => import("@/views/admin/detail/index.vue"),
+        meta: {
+          title: "新增标准",
+          transition: "animate__fadeIn",
+          name: "addStandard",
+          permission: "addStandard",
         },
       },
       //标签管理

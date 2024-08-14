@@ -12,8 +12,8 @@
         <el-header class="headerBottom">
           <div><span>欢迎进入标准平台</span></div>
           <div>
-            <span>admin</span>
-            <el-button type="text" icon="el-icon-arrow-down"></el-button>
+            <span class="my-mr-10" style="vertical-align: top">admin</span>
+            <el-icon><Avatar /></el-icon>
           </div>
         </el-header>
         <el-main>
@@ -26,6 +26,7 @@
 
 <script setup>
 import Menu from "@/components/menu/index.vue";
+import { Avatar } from "@element-plus/icons-vue";
 </script>
 
 <style lang="scss" scoped>

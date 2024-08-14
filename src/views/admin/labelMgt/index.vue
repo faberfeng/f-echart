@@ -1,5 +1,5 @@
 <template>
-  <div class="my-px-10">
+  <div>
     <h1>{{ labelId }}</h1>
     <Table
       :table-column="tableColumn"
