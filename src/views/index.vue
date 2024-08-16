@@ -11,7 +11,7 @@
       <el-container>
         <el-header class="headerBottom">
           <div><span>欢迎进入标准平台</span></div>
-          <div>
+          <div class="cursor" @click="logout()">
             <span class="my-mr-10" style="vertical-align: top">admin</span>
             <el-icon><Avatar /></el-icon>
           </div>
@@ -27,6 +27,11 @@
 <script setup>
 import Menu from "@/components/menu/index.vue";
 import { Avatar } from "@element-plus/icons-vue";
+import { useRouter } from "vue-router";
+const router = useRouter();
+const logout = () => {
+  router.push("/nav");
+};
 </script>
 
 <style lang="scss" scoped>
@@ -42,7 +47,8 @@ import { Avatar } from "@element-plus/icons-vue";
 .headerBottom {
   //   border-bottom: 1px solid #ccc;
   box-shadow: 0 0.36rem 0.71rem 0 rgba(33, 81, 129, 0.1) !important;
-  background: #1890ff;
+  // background: #1890ff;
+  background: #0072c6;
   color: #fff;
   display: flex;
   justify-content: space-between;

@@ -142,7 +142,8 @@ const handleMenuClick = (index: string) => {
 
 <style lang="scss" scoped>
 .el-menu-item.is-active {
-  background-color: #1890ff;
+  // background-color: #1890ff;
+  background: #0072c6;
   color: white;
 }
 </style>
