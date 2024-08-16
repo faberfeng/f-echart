@@ -60,24 +60,36 @@
               :clearable="true"
             ></el-date-picker>
           </el-form-item>
-          <el-form-item style="width: 100%">
-            <el-button type="primary">保存</el-button>
-            <el-button>关闭</el-button>
-          </el-form-item>
         </el-form>
       </div>
       <div v-show="item.name == '2'">
-        <el-row justify="space-between" align="center">
-          <el-col :span="4"><span class="fw-bold">主编单位</span></el-col>
-          <el-col :span="4" style="text-align: right">
-            <el-button type="primary">新增</el-button>
-          </el-col>
-        </el-row>
-        <Table
-          :table-column="mainTableColumn"
-          :table-data="mainTableData"
-          :pagination="mainpagination"
-        ></Table>
+        <innerTable title="主编单位"></innerTable>
+        <innerTable title="参编单位"></innerTable>
+      </div>
+      <div v-show="item.name == '3'">
+        <innerTable title="主要起草人"></innerTable>
+      </div>
+      <div v-show="item.name == '4'">
+        <innerTable title="主要审查人"></innerTable>
+      </div>
+      <div v-show="item.name == '5'">
+        <innerTable
+          :main-table-column="termTableColumn"
+          :main-table-data="termTableData"
+          title="术语"
+        ></innerTable>
+      </div>
+      <div v-show="item.name == '6'">
+        <innerTable
+          :main-table-column="articleTabelColumn"
+          :main-table-data="articleTabelData"
+          title="条文"
+        ></innerTable>
+      </div>
+      <!-- //保存和关闭按钮，居右 -->
+      <div class="my-my-20 row justify-end">
+        <el-button type="primary" @click="saveFrom()">保存</el-button>
+        <el-button @click="closeFrom">关闭</el-button>
       </div>
     </el-tab-pane>
   </el-tabs>
@@ -85,7 +97,9 @@
 
 <script setup lang="ts">
 import { ref } from "vue";
-import Table from "@/components/Table/index.vue";
+import innerTable from "./component/innertabel.vue";
+import { useRouter } from "vue-router";
+const router = useRouter();
 const activeName = ref<string>("1");
 const tabList = ref<any[]>([
   { label: "标准信息", name: "1" },
@@ -379,32 +393,120 @@ const formItemList = ref<any[]>([
     data: [],
   },
 ]);
-
-// 主参编单位column
-const mainTableColumn = ref<any>([
-  { prop: "name", label: "单位名称" },
-  { prop: "operate", label: "操作" },
-]);
-// 主参编单位data
-const mainTableData = ref<any>([
-  { name: "单位1" },
-  { name: "单位2" },
-  { name: "单位3" },
-]);
-// 主参编单位pagination
-const mainpagination = ref<any>({
-  currentPage: 1,
-  pageSize: 10,
-  total: 3,
-  handleSizeChange: (val: number) => {
-    console.log(val, "handleSizeChange");
+//术语column
+const termTableColumn = ref([
+  //术语编号
+  { prop: "termNumber", label: "术语编号" },
+  //中文名称
+  { prop: "chineseName", label: "中文名称" },
+  //英文名称
+  { prop: "englishName", label: "英文名称" },
+  //术语条文
+  { prop: "termArticle", label: "术语条文" },
+  //术语解释
+  { prop: "termExplanation", label: "术语解释" },
+  //术语标签
+  { prop: "termLabel", label: "术语标签" },
+  //操作
+  {
+    prop: "operate",
+    label: "操作",
+    width: "150",
+    type: "operate",
+    sortable: false,
   },
-  handleCurrentChange: (val: number) => {
-    console.log(val, "handleCurrentChange");
+]);
+//术语data
+const termTableData = ref([
+  {
+    termNumber: "1",
+    chineseName: "中文名称1",
+    englishName: "英文名称1",
+    termArticle: "术语条文1",
+    termExplanation: "术语解释1",
+    termLabel: "术语标签1",
   },
-});
+  {
+    termNumber: "2",
+    chineseName: "中文名称2",
+    englishName: "英文名称2",
+    termArticle: "术语条文2",
+    termExplanation: "术语解释2",
+    termLabel: "术语标签2",
+  },
+  {
+    termNumber: "3",
+    chineseName: "中文名称3",
+    englishName: "英文名称3",
+    termArticle: "术语条文3",
+    termExplanation: "术语解释3",
+    termLabel: "术语标签3",
+  },
+]);
+//条文column
+const articleTabelColumn = ref([
+  //条文编号
+  { prop: "articleNumber", label: "条文编号" },
+  //条文
+  { prop: "article", label: "条文" },
+  //条文说明
+  { prop: "articleExplain", label: "条文说明" },
+  //条文标签（专业）
+  { prop: "articleLabel", label: "条文标签（专业）" },
+  //条文标签（管理）
+  { prop: "articleLabelManagement", label: "条文标签（管理）" },
+  //操作
+  {
+    prop: "operate",
+    label: "操作",
+    width: "150",
+    type: "operate",
+    sortable: false,
+  },
+]);
+//条文data
+const articleTabelData = ref([
+  {
+    articleNumber: "1",
+    article: "条文1",
+    articleExplain: "条文说明1",
+    articleLabel: "条文标签（专业）1",
+    articleLabelManagement: "条文标签（管理）1",
+  },
+  {
+    articleNumber: "2",
+    article: "条文2",
+    articleExplain: "条文说明2",
+    articleLabel: "条文标签（专业）2",
+    articleLabelManagement: "条文标签（管理）2",
+  },
+  {
+    articleNumber: "3",
+    article: "条文3",
+    articleExplain: "条文说明3",
+    articleLabel: "条文标签（专业）3",
+    articleLabelManagement: "条文标签（管理）3",
+  },
+]);
 const handleClick = (tab: any) => {
   console.log(tab, "tab");
+};
+//清除formItemList内的数据
+const clearForm = () => {
+  formItemList.value.forEach((item) => {
+    item.data = "";
+  });
+};
+//保存
+const saveFrom = () => {
+  console.log("保存");
+};
+//关闭
+const closeFrom = () => {
+  //返回上一页
+  router.go(-1);
+  clearForm();
+  console.log("关闭");
 };
 </script>
 

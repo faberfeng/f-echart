@@ -18,13 +18,20 @@
         <el-button type="text" size="small" @click="editTable(row)"
           >编辑</el-button
         >
-        <el-button type="text" size="small" @clcik="deleteTabel(row)"
-          >删除</el-button
+        <el-popconfirm
+          title="确定删除吗？"
+          @onConfirm="deleteTabel(row)"
+          confirmButtonText="确定"
+          cancelButtonText="取消"
         >
+          <template #reference>
+            <el-button type="text" size="small">删除</el-button>
+          </template>
+        </el-popconfirm>
       </template>
     </el-table-column>
   </el-table>
-  <div class="my-my-10 row justify-end">
+  <div class="my-my-10 row justify-end" v-if="props.showPagination">
     <el-pagination
       @size-change="props.pagination.handleSizeChange"
       @current-change="props.pagination.handleCurrentChange"
@@ -36,22 +43,39 @@
     ></el-pagination>
   </div>
 </template>
-
 <script setup lang="ts">
-import { defineProps } from "vue";
+import { defineProps, withDefaults } from "vue";
 const emits = defineEmits(["editTable", "deleteTabel"]);
-
-const props = defineProps<{
-  tableData: any[];
-  tableColumn: any[];
-  pagination: {
-    currentPage: number;
-    pageSize: number;
-    total: number;
-    handleSizeChange: (val: number) => void;
-    handleCurrentChange: (val: number) => void;
-  };
-}>();
+const props = withDefaults(
+  defineProps<{
+    tableData: any[];
+    tableColumn: any[];
+    pagination: {
+      currentPage: number;
+      pageSize: number;
+      total: number;
+      handleSizeChange: (val: number) => void;
+      handleCurrentChange: (val: number) => void;
+    };
+    showPagination: boolean;
+  }>(),
+  {
+    tableData: () => [],
+    tableColumn: () => [],
+    pagination: () => ({
+      currentPage: 1,
+      pageSize: 10,
+      total: 0,
+      handleSizeChange: (val: number) => {
+        console.log(val, "handleSizeChange");
+      },
+      handleCurrentChange: (val: number) => {
+        console.log(val, "handleCurrentChange");
+      },
+    }),
+    showPagination: true,
+  }
+);
 const editTable = (row: any) => {
   emits("editTable", row);
 };

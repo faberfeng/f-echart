@@ -64,6 +64,7 @@
         <TableData
           :table-column="tableColumn"
           :table-data="tableData"
+          :pagination="pagination"
         ></TableData>
       </el-col>
       <el-col :span="4" class="bd-all my-pb-10 scroll">
@@ -202,6 +203,17 @@ const tableData = ref([
     S_DoTime: "2021-09-01",
   },
 ]);
+const pagination = ref({
+  currentPage: 1,
+  pageSize: 10,
+  total: 3,
+  handleSizeChange: (val: number) => {
+    console.log(val, "handleSizeChange");
+  },
+  handleCurrentChange: (val: number) => {
+    console.log(val, "handleCurrentChange");
+  },
+});
 // 切换
 const handleChange = (val: string[]) => {
   activeNames.value = val;
