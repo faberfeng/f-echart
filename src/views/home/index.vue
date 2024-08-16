@@ -1,6 +1,12 @@
 <template>
-  <div class="my-px-80 my-py-50">
-    <el-row :gutter="0" justify="space-between" align="center">
+  <div>
+    <Headers />
+    <el-row
+      class="my-px-80 my-py-60"
+      :gutter="0"
+      justify="space-between"
+      align="center"
+    >
       <el-col :span="4" class="bd-all my-pb-10 scroll">
         <el-collapse v-model="activeNames" @change="handleChange">
           <el-collapse-item
@@ -109,6 +115,7 @@ const selectTypeOptions = ref([
   { label: "标准类型3", value: "3" },
 ]);
 import TableData from "@/components/Table/index.vue";
+import Headers from "@/components/Header/index.vue";
 const collapseItemList = ref([
   {
     title: "标准等级（200）",

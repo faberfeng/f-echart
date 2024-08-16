@@ -268,7 +268,7 @@ $val in $borderSizes {
 }
 
 // 高度
-@for $i from 5 through 30 {
+@for $i from 5 through 80 {
   .height-#{$i} {
     min-height: itemMinHeight($i * 0.01);
     height: 1vh * $i;
