@@ -1,0 +1,13 @@
+stages:
+  - build
+build:
+  stage: build
+  script:
+    - export VERSION=$(date +%y%m%d%H%M%S)
+    - docker build -t hub.arctron.cn/zongzhan-frontend:$VERSION .
+    - docker image save -o zongzhan-frontend.tar hub.arctron.cn/zongzhan-frontend:$VERSION
+    - ctr image import zongzhan-frontend.tar
+    - sed -i "s/\${VERSION}/$VERSION/g" manifests/deploy.yml
+    - kubectl apply -f manifests/deploy.yml --kubeconfig=/root/.kube/config
+  tags:
+    - arctron-develop
