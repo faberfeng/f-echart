@@ -204,6 +204,18 @@ const formItemList = ref<any[]>([
     placeholder: "请选择废止时间",
     data: "",
   },
+  //强制性分类-select
+  {
+    label: "强制性分类",
+    prop: "mandatoryClassification",
+    type: "select",
+    placeholder: "请选择强制性分类",
+    options: [
+      { label: "强制性分类1", value: "1" },
+      { label: "强制性分类2", value: "2" },
+      { label: "强制性分类3", value: "3" },
+    ],
+  },
   //标准代次-select
   {
     label: "标准代次",
@@ -376,19 +388,6 @@ const formItemList = ref<any[]>([
       { label: "建筑类型分类1", value: "1" },
       { label: "建筑类型分类2", value: "2" },
       { label: "建筑类型分类3", value: "3" },
-    ],
-    data: [],
-  },
-  //时间分类-multipleSelect
-  {
-    label: "时间分类",
-    prop: "timeClassification",
-    type: "multipleSelect",
-    placeholder: "请选择时间分类",
-    options: [
-      { label: "时间分类1", value: "1" },
-      { label: "时间分类2", value: "2" },
-      { label: "时间分类3", value: "3" },
     ],
     data: [],
   },

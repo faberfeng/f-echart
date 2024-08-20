@@ -37,7 +37,7 @@
 </template>
 
 <script setup lang="ts">
-import { defineProps, ref } from "vue";
+import { ref } from "vue";
 import { useRouter } from "vue-router";
 import { Notification, House, Odometer } from "@element-plus/icons-vue";
 const router = useRouter();
@@ -52,64 +52,69 @@ const menuList = ref<any[]>([
     index: "2",
     children: [
       {
-        title: "标准等级标签",
-        index: "2-1",
-        routerLink: "/admin/labelMgt/standardGrade",
-      },
-      {
         title: "基础分类标签",
         index: "2-2",
-        routerLink: "/admin/labelMgt/basicClassification",
+        routerLink: "/admin/labelMgtTree/basicClassification_1",
       },
       {
         title: "专题分类标签",
         index: "2-3",
-        routerLink: "/admin/labelMgt/specialClassification",
+        routerLink: "/admin/labelMgtTree/specialClassification_2",
+      },
+      {
+        title: "标准等级标签",
+        index: "2-1",
+        routerLink: "/admin/labelMgt/standardGrade_1",
+      },
+      {
+        title: "强制性分类标签",
+        index: "2-13",
+        routerLink: "/admin/labelMgt/mandatoryClassification_4",
       },
       {
         title: "管理条线标签",
         index: "2-4",
-        routerLink: "/admin/labelMgt/managementLine",
+        routerLink: "/admin/labelMgt/managementLine_8",
       },
       {
         title: "工程专业分类标签",
         index: "2-5",
-        routerLink: "/admin/labelMgt/engineeringProfessionalClassification",
+        routerLink: "/admin/labelMgt/engineeringProfessionalClassification_7",
       },
       {
         title: "工程全生命周期分类标签",
         index: "2-6",
-        routerLink: "/admin/labelMgt/engineeringLifeCycleClassification",
+        routerLink: "/admin/labelMgt/engineeringLifeCycleClassification_5",
       },
       {
         title: "建筑类型分类标签",
         index: "2-7",
-        routerLink: "/admin/labelMgt/buildingTypeClassification",
+        routerLink: "/admin/labelMgt/buildingTypeClassification_6",
       },
       {
-        title: "时间分类标签",
+        title: "标准状态标签",
         index: "2-8",
-        routerLink: "/admin/labelMgt/timeClassification",
+        routerLink: "/admin/labelMgt/standardStatus_2",
       },
       {
         title: "编制状态分类标签",
         index: "2-9",
-        routerLink: "/admin/labelMgt/compilationStatusClassification",
+        routerLink: "/admin/labelMgt/compilationStatusClassification_3",
       },
       {
         title: "术语标签",
         index: "2-10",
-        routerLink: "/admin/labelMgt/termLabel",
+        routerLink: "/admin/labelMgt/termLabel_9",
       },
       {
         title: "条文标签（专业）",
         index: "2-11",
-        routerLink: "/admin/labelMgt/clauseLabelProfessional",
+        routerLink: "/admin/labelMgt/clauseLabelProfessional_10",
       },
       {
         title: "条文标签（管理）",
         index: "2-12",
-        routerLink: "/admin/labelMgt/clauseLabelManagement",
+        routerLink: "/admin/labelMgt/clauseLabelManagement_11",
       },
     ],
   },

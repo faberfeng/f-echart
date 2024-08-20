@@ -1,10 +1,13 @@
 <template>
   <el-table
     :data="props.tableData"
-    stripe
+    :stripe="!props.isTree"
     border
+    row-key="id"
     :cell-style="{ textAlign: 'center' }"
     :header-cell-style="{ textAlign: 'center' }"
+    @row-click="rowClick"
+    :highlight-current-row="props.isTree"
   >
     <el-table-column
       v-for="item in props.tableColumn"
@@ -15,12 +18,12 @@
       :sortable="item.sortable"
     >
       <template v-if="item.prop == 'operate'" #default="{ row }">
-        <el-button type="text" size="small" @click="editTable(row)"
+        <el-button type="text" size="small" @click.stop="editTable(row)"
           >编辑</el-button
         >
         <el-popconfirm
           title="确定删除吗？"
-          @onConfirm="deleteTabel(row)"
+          @confirm="deleteTabel(row)"
           confirmButtonText="确定"
           cancelButtonText="取消"
         >
@@ -45,7 +48,7 @@
 </template>
 <script setup lang="ts">
 import { defineProps, withDefaults } from "vue";
-const emits = defineEmits(["editTable", "deleteTabel"]);
+const emits = defineEmits(["editTable", "deleteTabel", "rowClick"]);
 const props = withDefaults(
   defineProps<{
     tableData: any[];
@@ -58,6 +61,7 @@ const props = withDefaults(
       handleCurrentChange: (val: number) => void;
     };
     showPagination: boolean;
+    isTree: boolean;
   }>(),
   {
     tableData: () => [],
@@ -74,13 +78,20 @@ const props = withDefaults(
       },
     }),
     showPagination: true,
+    isTree: false,
   }
 );
 const editTable = (row: any) => {
   emits("editTable", row);
 };
 const deleteTabel = (row: any) => {
+  console.log(row, "row111");
   emits("deleteTabel", row);
+};
+// 表格行点击事件
+const rowClick = (row: any) => {
+  emits("rowClick", row);
+  //改变当前行的选中状态和颜色高亮
 };
 </script>
 

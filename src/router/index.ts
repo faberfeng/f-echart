@@ -78,6 +78,18 @@ const routes: Array<RouteRecordRaw> = [
           permission: "labelMgt",
         },
       },
+      //基础分类和专题分类
+      {
+        //动态路由
+        path: `/admin/labelMgtTree/:id`,
+        component: () => import("@/views/admin/labelMgt/tree.vue"),
+        meta: {
+          title: "标签管理树结构",
+          transition: "animate__fadeIn",
+          name: "labelMgtTree",
+          permission: "labelMgtTree",
+        },
+      },
       // #日志管理
       {
         path: "/admin/logMgt",

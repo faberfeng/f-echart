@@ -14,6 +14,8 @@
       :pagination="pagination"
       @edit-table="editTable"
       @delete-tabel="deleteTabel"
+      @rowClick="rowClick"
+      :is-tree="true"
     ></Table>
     <!-- // 表单对话框 -->
     <el-dialog
@@ -41,11 +43,11 @@ import Table from "@/components/Table/index.vue";
 import { useRoute } from "vue-router";
 import { ref, watch, onMounted } from "vue";
 import {
-  getStandardLabelTypeList,
-  createStandardLabel,
-  deleteStandardLabel,
-  updateStandardLabel,
-  getStandardLabelList,
+  getStandardCategoryList,
+  createStandardCategory,
+  deleteStandardCategory,
+  updateStandardCategory,
+  getStandardCategoryTree,
 } from "@/api/publicInfo.ts";
 import { ElMessage } from "element-plus";
 const route = useRoute();
@@ -80,6 +82,8 @@ const dialogType = ref("新增");
 let forms = ref({
   id: null,
   name: "",
+  pid: null,
+  addPid: null,
 });
 //新增
 const addData = () => {
@@ -89,40 +93,55 @@ const addData = () => {
 //编辑
 const editTable = (data: any) => {
   console.log(data, "editTable");
+  // data.rowshow = true;
   dialogVisible.value = true;
   dialogType.value = "编辑";
   forms.value = {
+    pid: data.pid,
     name: data.name,
     id: data.id,
+    addPid: data.id,
   };
 };
+const rowClick = (data: any) => {
+  console.log(data, "rowClick");
+  forms.value = {
+    pid: null,
+    name: "",
+    id: null,
+    addPid: data.id,
+  };
+};
+
 //删除
 const deleteTabel = (data: any) => {
   console.log(data, "deleteTabel");
-  deleteStandardLabel(data).then((res) => {
+  deleteStandardCategory(data).then((res) => {
     console.log(res, "res");
     ElMessage({
       message: "删除成功",
       type: "success",
     });
-    getStandardLabelListFn();
+    getStandardCategoryTreeFn();
   });
   console.log(data, "deleteTabel");
 };
 //获取列表
-const getStandardLabelListFn = async () => {
+const getStandardCategoryTreeFn = async () => {
   let params = {
     type: type.value,
   };
-  const res = await getStandardLabelList(params);
+  const res = await getStandardCategoryTree(params);
   tableData.value = res.data;
   console.log(res, "res");
 };
 //清除表单
 const clearForm = () => {
   forms.value = {
+    pid: null,
     name: "",
     id: null,
+    addPid: null,
   };
 };
 
@@ -145,36 +164,55 @@ const onSubmit = () => {
   };
   if (forms.value.id) {
     params.id = forms.value.id;
-    updateStandardLabel(params).then((res) => {
+    updateStandardCategory(params).then((res: any) => {
       console.log(res, "res");
-      getStandardLabelListFn();
-      ElMessage({
-        message: "编辑成功",
-        type: "success",
-      });
+      if (res.code === 200) {
+        getStandardCategoryTreeFn();
+        ElMessage({
+          message: "编辑成功",
+          type: "success",
+        });
+      } else {
+        ElMessage({
+          message: res.msg,
+          type: "error",
+        });
+      }
       dialogVisible.value = false;
       clearForm();
     });
     return;
   }
-  createStandardLabel(params).then((res) => {
+  if (forms.value.addPid) {
+    params.pid = forms.value.addPid;
+  } else {
+    params.pid = 0;
+  }
+  createStandardCategory(params).then((res: any) => {
     console.log(res, "res");
-    getStandardLabelListFn();
-    ElMessage({
-      message: "新增成功",
-      type: "success",
-    });
+    if (res.code === 200) {
+      getStandardCategoryTreeFn();
+      ElMessage({
+        message: "新增成功",
+        type: "success",
+      });
+    } else {
+      ElMessage({
+        message: res.msg,
+        type: "error",
+      });
+    }
     dialogVisible.value = false;
     clearForm();
   });
 };
-const getStandardLabelTypeListFn = async () => {
-  const res = await getStandardLabelTypeList();
+const getStandardCategoryListFn = async () => {
+  const res = await getStandardCategoryList();
   console.log(res, "res111");
 };
 onMounted(() => {
-  getStandardLabelTypeListFn();
-  getStandardLabelListFn();
+  getStandardCategoryListFn();
+  getStandardCategoryTreeFn();
 });
 watch(
   () => route.params.id,
@@ -183,9 +221,9 @@ watch(
     labelId.value = newVal;
     console.log(labelId.value.split("_")[1], "labelId.value");
     type.value = labelId.value.split("_")[1];
-    getStandardLabelTypeListFn();
-    getStandardLabelListFn();
-    // getStandardLabelTypeListFn();
+    getStandardCategoryListFn();
+    getStandardCategoryTreeFn();
+    // getStandardCategoryListFn();
   },
   { immediate: true }
 );
