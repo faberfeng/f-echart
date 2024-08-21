@@ -99,6 +99,11 @@
 import { ref } from "vue";
 import innerTable from "./component/innertabel.vue";
 import { useRouter } from "vue-router";
+import {
+  createStandard,
+  getStandardLabelList,
+  getStandardCategoryTree,
+} from "@/api/publicInfo.ts";
 const router = useRouter();
 const activeName = ref<string>("1");
 const tabList = ref<any[]>([
@@ -164,6 +169,14 @@ const formItemList = ref<any[]>([
     placeholder: "请输入标准序号",
     data: "",
   },
+  //标准代次-input
+  {
+    label: "标准代次",
+    prop: "standardGeneration",
+    type: "input",
+    placeholder: "请输入标准代次",
+    data: "",
+  },
   //立项时间-date
   {
     label: "立项时间",
@@ -209,6 +222,7 @@ const formItemList = ref<any[]>([
     label: "强制性分类",
     prop: "mandatoryClassification",
     type: "select",
+    code: 4,
     placeholder: "请选择强制性分类",
     options: [
       { label: "强制性分类1", value: "1" },
@@ -217,22 +231,23 @@ const formItemList = ref<any[]>([
     ],
   },
   //标准代次-select
-  {
-    label: "标准代次",
-    prop: "standardGeneration",
-    type: "select",
-    placeholder: "请选择标准代次",
-    options: [
-      { label: "标准代次1", value: "1" },
-      { label: "标准代次2", value: "2" },
-      { label: "标准代次3", value: "3" },
-    ],
-  },
+  // {
+  //   label: "标准代次",
+  //   prop: "standardGeneration",
+  //   type: "select",
+  //   placeholder: "请选择标准代次",
+  //   options: [
+  //     { label: "标准代次1", value: "1" },
+  //     { label: "标准代次2", value: "2" },
+  //     { label: "标准代次3", value: "3" },
+  //   ],
+  // },
   //标准类别-select
   {
     label: "标准类别",
     prop: "standardCategory",
     type: "select",
+    code: 1,
     placeholder: "请选择标准类别",
     options: [
       { label: "标准类别1", value: "1" },
@@ -245,6 +260,7 @@ const formItemList = ref<any[]>([
     label: "标准状态",
     prop: "standardStatus",
     type: "select",
+    code: 2,
     placeholder: "请选择标准状态",
     options: [
       { label: "标准状态1", value: "1" },
@@ -257,6 +273,7 @@ const formItemList = ref<any[]>([
     label: "编制状态",
     prop: "preparationStatus",
     type: "select",
+    code: 3,
     placeholder: "请选择编制状态",
     options: [
       { label: "编制状态1", value: "1" },
@@ -269,6 +286,7 @@ const formItemList = ref<any[]>([
     label: "基础分类",
     prop: "basicClassification",
     type: "treeSelect",
+    code: 1,
     treedata: [
       {
         label: "基础分类1",
@@ -307,6 +325,7 @@ const formItemList = ref<any[]>([
     label: "专题分类",
     prop: "specialName",
     type: "treeSelect",
+    code: 2,
     treedata: [
       {
         label: "专题分类1",
@@ -345,6 +364,7 @@ const formItemList = ref<any[]>([
     prop: "engineeringClassification",
     type: "multipleSelect",
     placeholder: "请选择工程专业分类",
+    code: 7,
     options: [
       { label: "工程专业分类1", value: "1" },
       { label: "工程专业分类2", value: "2" },
@@ -357,6 +377,7 @@ const formItemList = ref<any[]>([
     label: "工程全生命周期分类",
     prop: "engineeringLifeCycle",
     type: "multipleSelect",
+    code: 5,
     placeholder: "请选择工程全生命周期分类",
     options: [
       { label: "工程全生命周期分类1", value: "1" },
@@ -370,6 +391,7 @@ const formItemList = ref<any[]>([
     label: "管理条线分类",
     prop: "managementLine",
     type: "multipleSelect",
+    code: 8,
     placeholder: "请选择管理条线分类",
     options: [
       { label: "管理条线分类1", value: "1" },
@@ -383,6 +405,7 @@ const formItemList = ref<any[]>([
     label: "建筑类型分类",
     prop: "buildingType",
     type: "multipleSelect",
+    code: 6,
     placeholder: "请选择建筑类型分类",
     options: [
       { label: "建筑类型分类1", value: "1" },
@@ -499,6 +522,7 @@ const clearForm = () => {
 //保存
 const saveFrom = () => {
   console.log("保存");
+  createStandardFn();
 };
 //关闭
 const closeFrom = () => {
@@ -507,6 +531,76 @@ const closeFrom = () => {
   clearForm();
   console.log("关闭");
 };
+//新增
+const createStandardFn = () => {
+  let data = {};
+  createStandard(data).then((res) => {
+    console.log(res, "res");
+  });
+};
+//异步获取标签列表
+// const getStandardLabelListFn = async (type: any) => {
+//   new Promise((resolve, reject) => {
+//     getStandardLabelList(type)
+//       .then((res) => {
+//         console.log(res, "res");
+//         resolve(res);
+//       })
+//       .catch((err) => {
+//         reject(err);
+//       });
+//   });
+// };
+//异步获取标准分类树
+// const getStandardCategoryTreeFn = async (type: any) => {
+//   new Promise((resolve, reject) => {
+//     getStandardCategoryTree(type)
+//       .then((res) => {
+//         console.log(res, "res");
+//         resolve(res);
+//       })
+//       .catch((err) => {
+//         reject(err);
+//       });
+//   });
+// };
+const initData = async () => {
+  formItemList.value.forEach((item) => {
+    if (item.type === "select" || item.type === "multipleSelect") {
+      getStandardLabelList({ type: item.code }).then((res: any) => {
+        item.options = res.data.map((item: any) => {
+          return {
+            label: item.name,
+            value: item.id,
+          };
+        });
+      });
+    }
+    if (item.type === "treeSelect") {
+      getStandardCategoryTree({ type: item.code }).then((res: any) => {
+        item.treedata = getTreeData(res.data);
+      });
+    }
+  });
+};
+//树形结构递归方法
+const getTreeData = (data: any) => {
+  return data.map((item: any) => {
+    if (item.children) {
+      return {
+        label: item.name,
+        value: item.id,
+        children: getTreeData(item.children),
+      };
+    } else {
+      return {
+        label: item.name,
+        value: item.id,
+      };
+    }
+  });
+};
+initData();
 </script>
 
 <style></style>
