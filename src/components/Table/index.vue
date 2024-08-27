@@ -2,6 +2,7 @@
   <el-table
     :data="props.tableData"
     :stripe="!props.isTree"
+    max-height="calc(100vh - 10rem)"
     border
     row-key="id"
     :cell-style="{ textAlign: 'center' }"
@@ -77,7 +78,7 @@ const props = withDefaults(
         console.log(val, "handleCurrentChange");
       },
     }),
-    showPagination: true,
+    showPagination: false,
     isTree: false,
   }
 );

@@ -33,12 +33,15 @@
 </template>
 <script setup lang="ts">
 import { useRouter } from "vue-router";
+import useMenusStore from "@/stores/modules/menus.ts";
+const menusStore = useMenusStore();
 const router = useRouter();
 const toHome = () => {
   router.push("/home");
 };
 const toAdmin = () => {
   router.push("/admin/standardMgt");
+  menusStore.setCurrentMenu("1");
 };
 </script>
 <style lang="scss" scoped>

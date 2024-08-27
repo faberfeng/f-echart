@@ -7,25 +7,28 @@
       justify="space-between"
       align="center"
     >
-      <el-col :span="4" class="bd-all my-pb-10 scroll">
+      <el-col :span="4" class="scroll">
         <el-collapse v-model="activeNames" @change="handleChange">
           <el-collapse-item
             v-for="(item, index) in collapseItemList"
             :title="item.title"
             :name="item.name"
             :key="index"
+            class="my-mb-5"
           >
-            <div
-              v-for="(data, index) in item.children"
-              :key="index"
-              class="my-pl-20"
-            >
-              <span>{{ data.title }}</span
-              ><el-checkbox
-                class="my-ml-20"
-                v-model="data.checked"
-                @change="handleCheck(data)"
-              ></el-checkbox>
+            <div class="border_content">
+              <div
+                v-for="(data, index) in item.children"
+                :key="index"
+                class="my-pl-20"
+              >
+                <span>{{ data.title }}</span
+                ><el-checkbox
+                  class="my-ml-20"
+                  v-model="data.checked"
+                  @change="handleCheck(data)"
+                ></el-checkbox>
+              </div>
             </div>
           </el-collapse-item>
         </el-collapse>
@@ -73,7 +76,7 @@
           :pagination="pagination"
         ></TableData>
       </el-col>
-      <el-col :span="4" class="bd-all my-pb-10 scroll">
+      <el-col :span="4" class="scroll">
         <el-collapse v-model="activeNames" @change="handleChange">
           <el-collapse-item
             style="background: #e3ecfd; color: #333"
@@ -81,18 +84,21 @@
             :title="item.title"
             :name="item.name"
             :key="index"
+            class="my-mb-5"
           >
-            <div
-              v-for="(data, index) in item.children"
-              :key="index"
-              class="my-pl-20"
-            >
-              <span>{{ data.title }}</span
-              ><el-checkbox
-                class="my-ml-20"
-                v-model="data.checked"
-                @change="handleCheck(data)"
-              ></el-checkbox>
+            <div class="border_content">
+              <div
+                v-for="(data, index) in item.children"
+                :key="index"
+                class="my-pl-20"
+              >
+                <span>{{ data.title }}</span
+                ><el-checkbox
+                  class="my-ml-20"
+                  v-model="data.checked"
+                  @change="handleCheck(data)"
+                ></el-checkbox>
+              </div>
             </div>
           </el-collapse-item>
         </el-collapse>
@@ -110,9 +116,9 @@ const searchForm = ref({
   searchValue: "",
 });
 const selectTypeOptions = ref([
-  { label: "标准类型1", value: "1" },
-  { label: "标准类型2", value: "2" },
-  { label: "标准类型3", value: "3" },
+  { label: "标准检索", value: "1" },
+  { label: "条文检索", value: "2" },
+  { label: "术语检索", value: "3" },
 ]);
 import TableData from "@/components/Table/index.vue";
 import Headers from "@/components/Header/index.vue";
@@ -246,5 +252,13 @@ const handleValueReset = () => {
   color: #333 !important;
   padding-left: 1rem !important;
   font-weight: 500 !important;
+}
+:deep(.el-collapse-item__wrap) {
+  border: none !important;
+  // padding: 0;
+}
+.border_content {
+  box-shadow: 0 2px 3px 0 rgba(210, 210, 210, 0.75);
+  border: 1px solid #ebebeb;
 }
 </style>

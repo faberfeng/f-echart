@@ -1,13 +1,16 @@
 <template>
   <el-menu
-    default-active="1"
+    :default-active="defaultActive"
     class="el-menu-vertical-demo"
     background-color="#001529"
     text-color="#fff"
-    @select="handleMenuClick"
     style="border: none; height: calc(100vh - 60px); overflow-y: auto"
   >
-    <el-menu-item :index="menuList[0].index">
+    <!-- @select="handleMenuClick" -->
+    <el-menu-item
+      :index="menuList[0].index"
+      @click="handleMenuClick(menuList[0].index, menuList[0].title)"
+    >
       <el-icon><House /></el-icon>
       {{ menuList[0].title }}</el-menu-item
     >
@@ -25,11 +28,15 @@
         v-for="child in item.children"
         :index="child.index"
         :key="child.index"
+        @click="handleMenuClick(child.index, child.title)"
       >
         {{ child.title }}
       </el-menu-item>
     </el-sub-menu>
-    <el-menu-item :index="menuList[2].index">
+    <el-menu-item
+      :index="menuList[2].index"
+      @click="handleMenuClick(menuList[2].index, menuList[2].title)"
+    >
       <el-icon><Odometer /></el-icon>
       {{ menuList[2].title }}</el-menu-item
     >
@@ -39,8 +46,11 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import { useRouter } from "vue-router";
+import useMenusStore from "@/stores/modules/menus.ts";
 import { Notification, House, Odometer } from "@element-plus/icons-vue";
 const router = useRouter();
+const menusStore = useMenusStore();
+const defaultActive = ref(menusStore.getCurrentMenu);
 const menuList = ref<any[]>([
   {
     title: "标准管理",
@@ -124,7 +134,11 @@ const menuList = ref<any[]>([
     routerLink: "/admin/logMgt",
   },
 ]);
-const handleMenuClick = (index: string) => {
+const handleMenuClick = (index: string, title: any) => {
+  console.log(index, title, "index000");
+  defaultActive.value = index;
+  menusStore.setCurrentMenu(index);
+  menusStore.setMenuName(title);
   if (index === "1") {
     router.push({ path: "/admin/standardMgt" });
   } else if (index === "3") {

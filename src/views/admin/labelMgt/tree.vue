@@ -2,7 +2,7 @@
   <div>
     <el-row justify="space-between" align="center" class="my-my-10">
       <el-col :span="4"
-        ><span class="fw-bold">{{ labelId }}</span></el-col
+        ><span class="fw-bold">{{ labelName }}</span></el-col
       >
       <el-col :span="4" style="text-align: right">
         <el-button type="primary" @click="addData()">新增</el-button>
@@ -16,6 +16,7 @@
       @delete-tabel="deleteTabel"
       @rowClick="rowClick"
       :is-tree="true"
+      :show-pagination="false"
     ></Table>
     <!-- // 表单对话框 -->
     <el-dialog
@@ -50,8 +51,11 @@ import {
   getStandardCategoryTree,
 } from "@/api/publicInfo.ts";
 import { ElMessage } from "element-plus";
+import useMenusStore from "@/stores/modules/menus.ts";
+const menusStore = useMenusStore();
 const route = useRoute();
 const labelId = ref<any>(route.params.id);
+const labelName = ref<any>(menusStore.getMenuName);
 const type = ref<any>();
 console.log(type, "type11");
 const tableColumn = ref([
@@ -219,6 +223,7 @@ watch(
   (newVal: any) => {
     console.log(newVal, "newVal");
     labelId.value = newVal;
+    labelName.value = menusStore.getMenuName;
     console.log(labelId.value.split("_")[1], "labelId.value");
     type.value = labelId.value.split("_")[1];
     getStandardCategoryListFn();
