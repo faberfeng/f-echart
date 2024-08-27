@@ -176,7 +176,7 @@ const getStandardLabelTypeListFn = async () => {
   console.log(res, "res111");
 };
 onMounted(() => {
-  getStandardLabelTypeListFn();
+  // getStandardLabelTypeListFn();
   getStandardLabelListFn();
 });
 watch(

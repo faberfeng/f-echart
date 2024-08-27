@@ -17,7 +17,13 @@
             class="my-mb-5"
           >
             <div class="border_content">
-              <div
+              <el-tree
+                show-checkbox
+                :check-strictly="true"
+                :data="item.children"
+                :props="propsdata"
+              ></el-tree>
+              <!-- <div
                 v-for="(data, index) in item.children"
                 :key="index"
                 class="my-pl-20"
@@ -28,7 +34,7 @@
                   v-model="data.checked"
                   @change="handleCheck(data)"
                 ></el-checkbox>
-              </div>
+              </div> -->
             </div>
           </el-collapse-item>
         </el-collapse>
@@ -74,6 +80,7 @@
           :table-column="tableColumn"
           :table-data="tableData"
           :pagination="pagination"
+          :show-pagination="true"
         ></TableData>
       </el-col>
       <el-col :span="4" class="scroll">
@@ -87,7 +94,13 @@
             class="my-mb-5"
           >
             <div class="border_content">
-              <div
+              <el-tree
+                :check-strictly="true"
+                show-checkbox
+                :data="item.children"
+                :props="propsdata"
+              ></el-tree>
+              <!-- <div
                 v-for="(data, index) in item.children"
                 :key="index"
                 class="my-pl-20"
@@ -98,7 +111,7 @@
                   v-model="data.checked"
                   @change="handleCheck(data)"
                 ></el-checkbox>
-              </div>
+              </div> -->
             </div>
           </el-collapse-item>
         </el-collapse>
@@ -108,9 +121,17 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
 import { Search } from "@element-plus/icons-vue";
 const activeNames = ref<string[]>(["1"]);
+import {
+  getStandardLabelList,
+  getStandardCategoryTree,
+} from "@/api/publicInfo.ts";
+const propsdata = {
+  children: "children",
+  label: "name",
+};
 const searchForm = ref({
   selectTypeValue: "",
   searchValue: "",
@@ -125,6 +146,8 @@ import Headers from "@/components/Header/index.vue";
 const collapseItemList = ref([
   {
     title: "标准等级（200）",
+    value: 1,
+    type: "flat",
     name: "standardGrade",
     children: [
       { title: "选项1", checked: false },
@@ -134,6 +157,8 @@ const collapseItemList = ref([
   },
   {
     title: "基础分类(100)",
+    type: "tree",
+    value: 1,
     name: "basicClassification",
     children: [
       { title: "选项4", checked: false },
@@ -143,6 +168,8 @@ const collapseItemList = ref([
   },
   {
     title: "专项分类(54)",
+    type: "tree",
+    value: 2,
     name: "specialClassification",
     children: [
       { title: "选项4", checked: false },
@@ -244,6 +271,44 @@ const handleValueReset = () => {
   searchForm.value.selectTypeValue = "";
   searchForm.value.searchValue = "";
 };
+const initData = () => {
+  collapseItemList.value.forEach((item) => {
+    if (item.type == "flat") {
+      getStandardLabelListFn(item.value);
+    } else {
+      getStandardCategoryTreeFn(item.value);
+    }
+  });
+};
+const getStandardLabelListFn = async (type: any) => {
+  let params = {
+    type: type,
+  };
+  const res = await getStandardLabelList(params);
+  collapseItemList.value.forEach((item) => {
+    if (item.type == "flat") {
+      if (type == item.value) {
+        item.children = res.data;
+      }
+    }
+  });
+};
+const getStandardCategoryTreeFn = async (type: any) => {
+  let params = {
+    type: type,
+  };
+  const res = await getStandardCategoryTree(params);
+  collapseItemList.value.forEach((item) => {
+    if (item.type == "tree") {
+      if (type == item.value) {
+        item.children = res.data;
+      }
+    }
+  });
+};
+onMounted(() => {
+  initData();
+});
 </script>
 
 <style lang="scss" scoped>
@@ -260,5 +325,6 @@ const handleValueReset = () => {
 .border_content {
   box-shadow: 0 2px 3px 0 rgba(210, 210, 210, 0.75);
   border: 1px solid #ebebeb;
+  padding: 0.5rem 0;
 }
 </style>
