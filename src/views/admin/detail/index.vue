@@ -58,24 +58,43 @@
               type="date"
               placeholder="选择日期"
               :clearable="true"
+              value-format="yyyy-MM-dd"
             ></el-date-picker>
           </el-form-item>
         </el-form>
       </div>
       <div v-show="item.name == '2'">
-        <innerTable title="主编单位"></innerTable>
-        <innerTable title="参编单位"></innerTable>
+        <innerTable
+          title="主编单位"
+          props="chiefOrganizations"
+          @onSubmit="innerTableSubmit"
+        ></innerTable>
+        <innerTable
+          title="参编单位"
+          props="participantOrganizations"
+          @onSubmit="innerTableSubmit"
+        ></innerTable>
       </div>
       <div v-show="item.name == '3'">
-        <innerTable title="主要起草人"></innerTable>
+        <innerTable
+          title="主要起草人"
+          props="draftsmen"
+          @onSubmit="innerTableSubmit"
+        ></innerTable>
       </div>
       <div v-show="item.name == '4'">
-        <innerTable title="主要审查人"></innerTable>
+        <innerTable
+          title="主要审查人"
+          props="auditors"
+          @onSubmit="innerTableSubmit"
+        ></innerTable>
       </div>
       <div v-show="item.name == '5'">
         <innerTable
           :main-table-column="termTableColumn"
           :main-table-data="termTableData"
+          props="terms"
+          @onSubmit="innerTableSubmit"
           title="术语"
         ></innerTable>
       </div>
@@ -83,7 +102,18 @@
         <innerTable
           :main-table-column="articleTabelColumn"
           :main-table-data="articleTabelData"
+          props="articles"
+          @onSubmit="innerTableSubmit"
           title="条文"
+        ></innerTable>
+      </div>
+      <div v-show="item.name == '7'">
+        <innerTable
+          title="引用标准"
+          :main-table-column="quotedStandardsColumn"
+          :main-table-data="quotedStandardsData"
+          props="quotedStandards"
+          @onSubmit="innerTableSubmit"
         ></innerTable>
       </div>
       <!-- //保存和关闭按钮，居右 -->
@@ -106,6 +136,7 @@ import {
 } from "@/api/publicInfo.ts";
 const router = useRouter();
 const activeName = ref<string>("1");
+const submitFrom = ref<any>({});
 const tabList = ref<any[]>([
   { label: "标准信息", name: "1" },
   { label: "主参编单位", name: "2" },
@@ -113,18 +144,19 @@ const tabList = ref<any[]>([
   { label: "主要审查人", name: "4" },
   { label: "术语", name: "5" },
   { label: "条文", name: "6" },
+  { label: "引用标准", name: "7" },
 ]);
 const formItemList = ref<any[]>([
   {
     label: "标准名称",
-    prop: "standardName",
+    prop: "name",
     type: "input",
     placeholder: "请输入标准名称",
     data: "",
   },
   {
     label: "英文名称",
-    prop: "englishName",
+    prop: "enName",
     type: "input",
     placeholder: "请输入英文名称",
     data: "",
@@ -132,7 +164,7 @@ const formItemList = ref<any[]>([
   //标准号-input
   {
     label: "标准号",
-    prop: "standardNumber",
+    prop: "no",
     type: "input",
     placeholder: "请输入标准号",
     data: "",
@@ -140,7 +172,7 @@ const formItemList = ref<any[]>([
   //被替代标准名称-input
   {
     label: "被替代标准名称",
-    prop: "replacedStandardName",
+    prop: "substitutedName",
     type: "input",
     placeholder: "请输入被替代标准名称",
     data: "",
@@ -148,7 +180,7 @@ const formItemList = ref<any[]>([
   //备案号-input
   {
     label: "备案号",
-    prop: "recordNumber",
+    prop: "recordNo",
     type: "input",
     placeholder: "请输入备案号",
     data: "",
@@ -156,7 +188,7 @@ const formItemList = ref<any[]>([
   //被替代标准编号-input
   {
     label: "被替代标准编号",
-    prop: "replacedStandardNumber",
+    prop: "substitutedNo",
     type: "input",
     placeholder: "请输入被替代标准编号",
     data: "",
@@ -164,7 +196,7 @@ const formItemList = ref<any[]>([
   //标准序号-input
   {
     label: "标准序号",
-    prop: "standardNumber",
+    prop: "seqNo",
     type: "input",
     placeholder: "请输入标准序号",
     data: "",
@@ -172,7 +204,7 @@ const formItemList = ref<any[]>([
   //标准代次-input
   {
     label: "标准代次",
-    prop: "standardGeneration",
+    prop: "version",
     type: "input",
     placeholder: "请输入标准代次",
     data: "",
@@ -180,7 +212,7 @@ const formItemList = ref<any[]>([
   //立项时间-date
   {
     label: "立项时间",
-    prop: "projectTime",
+    prop: "initiateTime",
     type: "date",
     placeholder: "请选择立项时间",
     data: "",
@@ -188,12 +220,12 @@ const formItemList = ref<any[]>([
   //发布时间-date
   {
     label: "发布时间",
-    prop: "releaseTime",
+    prop: "publishTime",
     type: "date",
     placeholder: "请选择发布时间",
     data: "",
   },
-  //批准时间-date
+  //批准时间-date-少一个
   {
     label: "批准时间",
     prop: "approvalTime",
@@ -204,7 +236,7 @@ const formItemList = ref<any[]>([
   //实施时间-date
   {
     label: "实施时间",
-    prop: "implementationTime",
+    prop: "implementTime",
     type: "date",
     placeholder: "请选择实施时间",
     data: "",
@@ -212,7 +244,7 @@ const formItemList = ref<any[]>([
   //废止时间
   {
     label: "废止时间",
-    prop: "abolitionTime",
+    prop: "abolishTime",
     type: "date",
     placeholder: "请选择废止时间",
     data: "",
@@ -220,7 +252,7 @@ const formItemList = ref<any[]>([
   //强制性分类-select
   {
     label: "强制性分类",
-    prop: "mandatoryClassification",
+    prop: "mandatoryId",
     type: "select",
     code: 4,
     placeholder: "请选择强制性分类",
@@ -245,7 +277,7 @@ const formItemList = ref<any[]>([
   //标准类别-select
   {
     label: "标准类别",
-    prop: "standardCategory",
+    prop: "labelCategoryId",
     type: "select",
     code: 1,
     placeholder: "请选择标准类别",
@@ -258,7 +290,7 @@ const formItemList = ref<any[]>([
   //标准状态-select
   {
     label: "标准状态",
-    prop: "standardStatus",
+    prop: "labelStatusId",
     type: "select",
     code: 2,
     placeholder: "请选择标准状态",
@@ -323,7 +355,7 @@ const formItemList = ref<any[]>([
   //专题分类-treeSelect
   {
     label: "专题分类",
-    prop: "specialName",
+    prop: "specialCategoryIds",
     type: "treeSelect",
     code: 2,
     treedata: [
@@ -361,7 +393,7 @@ const formItemList = ref<any[]>([
   //工程专业分类-multipleSelect
   {
     label: "工程专业分类",
-    prop: "engineeringClassification",
+    prop: "projectIds",
     type: "multipleSelect",
     placeholder: "请选择工程专业分类",
     code: 7,
@@ -375,7 +407,7 @@ const formItemList = ref<any[]>([
   //工程全生命周期分类-multipleSelect
   {
     label: "工程全生命周期分类",
-    prop: "engineeringLifeCycle",
+    prop: "projectLifeCycleIds",
     type: "multipleSelect",
     code: 5,
     placeholder: "请选择工程全生命周期分类",
@@ -389,7 +421,7 @@ const formItemList = ref<any[]>([
   //管理条线分类-multipleSelect
   {
     label: "管理条线分类",
-    prop: "managementLine",
+    prop: "projectManagementLineIds",
     type: "multipleSelect",
     code: 8,
     placeholder: "请选择管理条线分类",
@@ -403,7 +435,7 @@ const formItemList = ref<any[]>([
   //建筑类型分类-multipleSelect
   {
     label: "建筑类型分类",
-    prop: "buildingType",
+    prop: "buildingIds",
     type: "multipleSelect",
     code: 6,
     placeholder: "请选择建筑类型分类",
@@ -510,6 +542,36 @@ const articleTabelData = ref([
     articleLabelManagement: "条文标签（管理）3",
   },
 ]);
+//引用标准column
+const quotedStandardsColumn = ref([
+  //标准编号
+  { prop: "standardNo", label: "标准编号" },
+  //标准名称
+  { prop: "standardName", label: "标准名称" },
+  //操作
+  {
+    prop: "operate",
+    label: "操作",
+    width: "150",
+    type: "operate",
+    sortable: false,
+  },
+]);
+//引用标准data
+const quotedStandardsData = ref([
+  {
+    standardNo: "1",
+    standardName: "标准名称1",
+  },
+  {
+    standardNo: "2",
+    standardName: "标准名称2",
+  },
+  {
+    standardNo: "3",
+    standardName: "标准名称3",
+  },
+]);
 const handleClick = (tab: any) => {
   console.log(tab, "tab");
 };
@@ -521,8 +583,15 @@ const clearForm = () => {
 };
 //保存
 const saveFrom = () => {
-  console.log("保存");
+  formItemList.value.forEach((item) => {
+    submitFrom.value[item.prop] = item.data;
+  });
+  console.log(submitFrom.value, "保存数据");
   createStandardFn();
+};
+//内部表格提交
+const innerTableSubmit = (data: any) => {
+  submitFrom.value[data.props] = data.data;
 };
 //关闭
 const closeFrom = () => {
@@ -533,10 +602,10 @@ const closeFrom = () => {
 };
 //新增
 const createStandardFn = () => {
-  let data = {};
-  createStandard(data).then((res) => {
-    console.log(res, "res");
-  });
+  // let data = submitFrom.value;
+  // createStandard(data).then((res) => {
+  //   console.log(res, "res");
+  // });
 };
 //异步获取标签列表
 // const getStandardLabelListFn = async (type: any) => {
