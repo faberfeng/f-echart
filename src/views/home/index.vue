@@ -20,6 +20,8 @@
               <el-tree
                 show-checkbox
                 :check-strictly="true"
+                :check-on-click-node="true"
+                :expand-on-click-node="false"
                 :data="item.children"
                 :props="propsdata"
               ></el-tree>
@@ -94,12 +96,7 @@
             class="my-mb-5"
           >
             <div class="border_content">
-              <el-tree
-                :check-strictly="true"
-                show-checkbox
-                :data="item.children"
-                :props="propsdata"
-              ></el-tree>
+              <el-tree :data="item.children" :props="propsdata"></el-tree>
               <!-- <div
                 v-for="(data, index) in item.children"
                 :key="index"
