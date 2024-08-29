@@ -450,17 +450,58 @@ const formItemList = ref<any[]>([
 //术语column
 const termTableColumn = ref([
   //术语编号
-  { prop: "termNumber", label: "术语编号" },
+  {
+    prop: "termNumber",
+    label: "术语编号",
+    isfrom: true,
+    type: "input",
+    data: null,
+  },
   //中文名称
-  { prop: "chineseName", label: "中文名称" },
+  {
+    prop: "chineseName",
+    label: "中文名称",
+    isfrom: true,
+    type: "input",
+    data: null,
+  },
   //英文名称
-  { prop: "englishName", label: "英文名称" },
+  {
+    prop: "englishName",
+    label: "英文名称",
+    isfrom: true,
+    type: "input",
+    data: null,
+  },
   //术语条文
-  { prop: "termArticle", label: "术语条文" },
+  {
+    prop: "termArticle",
+    label: "术语条文",
+    isfrom: true,
+    type: "input",
+    data: null,
+  },
   //术语解释
-  { prop: "termExplanation", label: "术语解释" },
+  {
+    prop: "termExplanation",
+    label: "术语解释",
+    isfrom: true,
+    type: "input",
+    data: null,
+  },
   //术语标签
-  { prop: "termLabel", label: "术语标签" },
+  {
+    prop: "termLabel",
+    label: "术语标签",
+    isfrom: true,
+    options: [
+      { label: "术语标签1", value: "1" },
+      { label: "术语标签2", value: "2" },
+      { label: "术语标签3", value: "3" },
+    ],
+    type: "select",
+    data: null,
+  },
   //操作
   {
     prop: "operate",
@@ -500,15 +541,35 @@ const termTableData = ref([
 //条文column
 const articleTabelColumn = ref([
   //条文编号
-  { prop: "articleNumber", label: "条文编号" },
+  { prop: "articleNumber", label: "条文编号", isfrom: true, type: "input" },
   //条文
-  { prop: "article", label: "条文" },
+  { prop: "article", label: "条文", isfrom: true, type: "input" },
   //条文说明
-  { prop: "articleExplain", label: "条文说明" },
+  { prop: "articleExplain", label: "条文说明", isfrom: true, type: "input" },
   //条文标签（专业）
-  { prop: "articleLabel", label: "条文标签（专业）" },
+  {
+    prop: "articleLabel",
+    label: "条文标签（专业）",
+    isfrom: true,
+    options: [
+      { label: "条文标签（专业）1", value: "1" },
+      { label: "条文标签（专业）2", value: "2" },
+      { label: "条文标签（专业）3", value: "3" },
+    ],
+    type: "select",
+  },
   //条文标签（管理）
-  { prop: "articleLabelManagement", label: "条文标签（管理）" },
+  {
+    prop: "articleLabelManagement",
+    label: "条文标签（管理）",
+    isfrom: true,
+    options: [
+      { label: "条文标签（管理）1", value: "1" },
+      { label: "条文标签（管理）2", value: "2" },
+      { label: "条文标签（管理）3", value: "3" },
+    ],
+    type: "select",
+  },
   //操作
   {
     prop: "operate",
@@ -545,9 +606,9 @@ const articleTabelData = ref([
 //引用标准column
 const quotedStandardsColumn = ref([
   //标准编号
-  { prop: "standardNo", label: "标准编号" },
+  { prop: "standardNo", label: "标准编号", isfrom: true, type: "input" },
   //标准名称
-  { prop: "standardName", label: "标准名称" },
+  { prop: "standardName", label: "标准名称", isfrom: true, type: "input" },
   //操作
   {
     prop: "operate",

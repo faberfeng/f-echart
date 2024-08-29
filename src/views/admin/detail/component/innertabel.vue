@@ -23,9 +23,21 @@
     :before-close="handleClose"
     align-center
   >
-    <el-form ref="form" :model="formes" label-width="80px">
-      <el-form-item label="单位名称">
-        <el-input v-model="formes.name"></el-input>
+    <el-form ref="form" :model="formes" label-width="auto">
+      <el-form-item
+        v-for="(item, index) in formItem"
+        :key="index"
+        :label="item.label"
+      >
+        <el-input v-if="item.type == 'input'" v-model="item.data"></el-input>
+        <el-select v-else-if="item.type == 'select'" v-model="item.data">
+          <el-option
+            v-for="(data, index) in item.options"
+            :key="index"
+            :label="data.label"
+            :value="data.value"
+          ></el-option>
+        </el-select>
       </el-form-item>
     </el-form>
     <span slot="footer" class="dialog-footer">
@@ -56,8 +68,14 @@ const props = withDefaults(
     props: "",
     title: "主要起草人",
     mainTableColumn: () => [
-      { prop: "name", label: "单位名称" },
-      { prop: "operate", label: "操作" },
+      {
+        prop: "name",
+        label: "单位名称",
+        isfrom: true,
+        type: "input",
+        data: null,
+      },
+      { prop: "operate", label: "操作", isfrom: false, type: "operate" },
     ],
     mainTableData: () => [
       { name: "单位1", id: 1 },
@@ -80,11 +98,17 @@ const props = withDefaults(
 const emits = defineEmits(["onSubmit"]);
 const dialogType = ref<string>("新增");
 const mainTableData = ref<any[]>(props.mainTableData);
+const formItem = ref<any[]>(
+  props.mainTableColumn.filter((item) => item.isfrom)
+);
 // 新增
 const addData = () => {
   dialogType.value = "新增";
   dialogVisible.value = true;
   console.log("新增");
+  formItem.value.forEach((item) => {
+    item.data = "";
+  });
   formes.value = {
     name: "",
     id: null,
@@ -114,6 +138,9 @@ const handleClose = (done: any) => {
   done();
 };
 const onSubmit = () => {
+  formItem.value.forEach((item) => {
+    formes.value[item.prop] = item.data;
+  });
   if (dialogType.value === "新增") {
     mainTableData.value.push(formes.value);
   } else {

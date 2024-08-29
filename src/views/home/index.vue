@@ -84,7 +84,7 @@
         ></TableData>
       </el-col>
       <el-col :span="4" class="scroll">
-        <el-collapse v-model="activeNames" @change="handleChange">
+        <el-collapse v-model="activeRankNames" @change="handleRankChange">
           <el-collapse-item
             style="background: #e3ecfd; color: #333"
             v-for="(item, index) in rankCollapseItemList"
@@ -123,7 +123,17 @@
 <script setup lang="ts">
 import { ref, onMounted } from "vue";
 import { Search } from "@element-plus/icons-vue";
-const activeNames = ref<string[]>(["1"]);
+const activeNames = ref<string[]>([
+  "standardGrade",
+  "basicClassification",
+  "specialClassification",
+]);
+const activeRankNames = ref<string[]>([
+  "mainUnit",
+  "secondaryUnit",
+  "draftingPersonnel",
+  "reviewer",
+]);
 import {
   getStandardLabelList,
   getStandardCategoryTree,
@@ -149,70 +159,54 @@ const collapseItemList = ref([
     value: 1,
     type: "flat",
     name: "standardGrade",
-    children: [
-      { title: "选项1", checked: false },
-      { title: "选项2", checked: false },
-      { title: "选项3", checked: false },
-    ],
+    children: [],
   },
   {
     title: "基础分类(100)",
     type: "tree",
     value: 1,
     name: "basicClassification",
-    children: [
-      { title: "选项4", checked: false },
-      { title: "选项5", checked: false },
-      { title: "选项6", checked: false },
-    ],
+    children: [],
   },
   {
     title: "专项分类(54)",
     type: "tree",
     value: 2,
     name: "specialClassification",
-    children: [
-      { title: "选项4", checked: false },
-      { title: "选项5", checked: false },
-      { title: "选项6", checked: false },
-    ],
+    children: [],
   },
 ]);
 const rankCollapseItemList = ref([
   {
     title: "主编单位排名",
     name: "mainUnit",
-    children: [
-      { title: "选项1", checked: false },
-      { title: "选项2", checked: false },
-      { title: "选项3", checked: false },
-    ],
+    children: [{ name: "选项1", checked: false }],
   },
   {
     title: "参编单位排名",
     name: "secondaryUnit",
     children: [
-      { title: "选项4", checked: false },
-      { title: "选项5", checked: false },
-      { title: "选项6", checked: false },
+      { name: "选项2", checked: false },
+      { name: "选项3", checked: false },
     ],
   },
   {
     title: "起草人员排名",
     name: "draftingPersonnel",
     children: [
-      { title: "选项4", checked: false },
-      { title: "选项5", checked: false },
-      { title: "选项6", checked: false },
+      { name: "选项4", checked: false },
+      { name: "选项5", checked: false },
+      { name: "选项6", checked: false },
     ],
   },
   {
     title: "审查人员排名",
     name: "reviewer",
     children: [
-      { title: "选项4", checked: false },
-      { title: "选项5", checked: false },
-      { title: "选项6", checked: false },
+      { name: "选项7", checked: false },
+      { name: "选项8", checked: false },
+      { name: "选项9", checked: false },
+      { name: "选项10", checked: false },
     ],
   },
 ]);
@@ -242,6 +236,48 @@ const tableData = ref([
     S_RealeaseTime: "2021-09-01",
     S_DoTime: "2021-09-01",
   },
+  {
+    S_ProjectName: "标准名称4",
+    S_ProjectNo: "标准编号4",
+    S_RealeaseTime: "2021-09-01",
+    S_DoTime: "2021-09-01",
+  },
+  {
+    S_ProjectName: "标准名称5",
+    S_ProjectNo: "标准编号5",
+    S_RealeaseTime: "2021-09-01",
+    S_DoTime: "2021-09-01",
+  },
+  {
+    S_ProjectName: "标准名称6",
+    S_ProjectNo: "标准编号6",
+    S_RealeaseTime: "2021-09-01",
+    S_DoTime: "2021-09-01",
+  },
+  {
+    S_ProjectName: "标准名称7",
+    S_ProjectNo: "标准编号7",
+    S_RealeaseTime: "2021-09-01",
+    S_DoTime: "2021-09-01",
+  },
+  {
+    S_ProjectName: "标准名称8",
+    S_ProjectNo: "标准编号8",
+    S_RealeaseTime: "2021-09-01",
+    S_DoTime: "2021-09-01",
+  },
+  {
+    S_ProjectName: "标准名称9",
+    S_ProjectNo: "标准编号9",
+    S_RealeaseTime: "2021-09-01",
+    S_DoTime: "2021-09-01",
+  },
+  {
+    S_ProjectName: "标准名称10",
+    S_ProjectNo: "标准编号10",
+    S_RealeaseTime: "2021-09-01",
+    S_DoTime: "2021-09-01",
+  },
 ]);
 const pagination = ref({
   currentPage: 1,
@@ -257,6 +293,9 @@ const pagination = ref({
 // 切换
 const handleChange = (val: string[]) => {
   activeNames.value = val;
+};
+const handleRankChange = (val: string[]) => {
+  activeRankNames.value = val;
 };
 
 const handleCheck = (data: any) => {
@@ -315,7 +354,7 @@ onMounted(() => {
 :deep(.el-collapse-item__header) {
   background: #e3ecfd !important;
   color: #333 !important;
-  padding-left: 1rem !important;
+  padding-left: 1.7rem !important;
   font-weight: 500 !important;
 }
 :deep(.el-collapse-item__wrap) {
