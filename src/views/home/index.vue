@@ -2,7 +2,7 @@
   <div>
     <Headers />
     <el-row
-      class="my-px-80 my-py-60"
+      class="my-px-80 my-py-70"
       :gutter="0"
       justify="space-between"
       align="center"

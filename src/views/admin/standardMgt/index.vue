@@ -1,6 +1,17 @@
 <template>
-  <h1>标准管理</h1>
+  <h1 class="my-my-10">标准管理</h1>
   <el-row>
+    <!-- <el-col :span="12">
+      <el-date-picker
+        v-model="searchForm.dateValue"
+        type="datetimerange"
+        start-placeholder="开始时间"
+        end-placeholder="结束时间"
+        format="YYYY-MM-DD"
+        date-format="YYYY/MM/DD"
+        time-format="A hh:mm:ss"
+      />
+    </el-col> -->
     <el-col :span="24">
       <el-input
         v-model="searchForm.searchValue"
