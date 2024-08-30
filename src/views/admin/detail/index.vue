@@ -58,7 +58,7 @@
               type="date"
               placeholder="选择日期"
               :clearable="true"
-              value-format="yyyy-MM-dd"
+              value-format="YYYY-MM-DD"
             ></el-date-picker>
           </el-form-item>
         </el-form>
@@ -68,10 +68,12 @@
           title="主编单位"
           props="chiefOrganizations"
           @onSubmit="innerTableSubmit"
+          :main-table-data="submitFrom.chiefOrganizations"
         ></innerTable>
         <innerTable
           title="参编单位"
           props="participantOrganizations"
+          :main-table-data="submitFrom.participantOrganizations"
           @onSubmit="innerTableSubmit"
         ></innerTable>
       </div>
@@ -80,19 +82,21 @@
           title="主要起草人"
           props="draftsmen"
           @onSubmit="innerTableSubmit"
+          :main-table-data="submitFrom.draftsmen"
         ></innerTable>
       </div>
       <div v-show="item.name == '4'">
         <innerTable
           title="主要审查人"
           props="auditors"
+          :main-table-data="submitFrom.auditors"
           @onSubmit="innerTableSubmit"
         ></innerTable>
       </div>
       <div v-show="item.name == '5'">
         <innerTable
           :main-table-column="termTableColumn"
-          :main-table-data="termTableData"
+          :main-table-data="submitFrom.terms"
           props="terms"
           @onSubmit="innerTableSubmit"
           title="术语"
@@ -101,7 +105,7 @@
       <div v-show="item.name == '6'">
         <innerTable
           :main-table-column="articleTabelColumn"
-          :main-table-data="articleTabelData"
+          :main-table-data="submitFrom.articles"
           props="articles"
           @onSubmit="innerTableSubmit"
           title="条文"
@@ -111,7 +115,7 @@
         <innerTable
           title="引用标准"
           :main-table-column="quotedStandardsColumn"
-          :main-table-data="quotedStandardsData"
+          :main-table-data="submitFrom.quotedStandards"
           props="quotedStandards"
           @onSubmit="innerTableSubmit"
         ></innerTable>
@@ -129,6 +133,7 @@
 import { ref } from "vue";
 import innerTable from "./component/innertabel.vue";
 import { useRouter } from "vue-router";
+import { ElMessage } from "element-plus";
 import {
   createStandard,
   getStandardLabelList,
@@ -136,7 +141,106 @@ import {
 } from "@/api/publicInfo.ts";
 const router = useRouter();
 const activeName = ref<string>("1");
-const submitFrom = ref<any>({});
+const submitFrom = ref<any>({
+  chiefOrganizations: [
+    {
+      name: "主参编单位1",
+    },
+    {
+      name: "主参编单位2",
+    },
+    {
+      name: "主参编单位3",
+    },
+  ],
+  participantOrganizations: [
+    {
+      name: "参编单位1",
+    },
+    {
+      name: "参编单位2",
+    },
+    {
+      name: "参编单位3",
+    },
+  ],
+  draftsmen: [
+    {
+      name: "主要起草人1",
+    },
+    {
+      name: "主要起草人2",
+    },
+    {
+      name: "主要起草人3",
+    },
+  ],
+  auditors: [
+    {
+      name: "主要审查人1",
+    },
+    {
+      name: "主要审查人2",
+    },
+    {
+      name: "主要审查人3",
+    },
+  ],
+  terms: [
+    {
+      termNumber: "1",
+      chineseName: "中文名称1",
+      englishName: "英文名称1",
+      termArticle: "术语条文1",
+      termExplanation: "术语解释1",
+      termLabel: "术语标签1",
+    },
+    {
+      termNumber: "2",
+      chineseName: "中文名称2",
+      englishName: "英文名称2",
+      termArticle: "术语条文2",
+      termExplanation: "术语解释2",
+      termLabel: "术语标签2",
+    },
+    {
+      termNumber: "3",
+      chineseName: "中文名称3",
+      englishName: "英文名称3",
+      termArticle: "术语条文3",
+      termExplanation: "术语解释3",
+      termLabel: "术语标签3",
+    },
+  ],
+  articles: [
+    {
+      articleNumber: "1",
+      article: "条文1",
+      articleExplain: "条文说明1",
+      articleLabel: "条文标签（专业）1",
+      articleLabelManagement: "条文标签（管理）1",
+    },
+    {
+      articleNumber: "2",
+      article: "条文2",
+      articleExplain: "条文说明2",
+      articleLabel: "条文标签（专业）2",
+      articleLabelManagement: "条文标签（管理）2",
+    },
+    {
+      articleNumber: "3",
+      article: "条文3",
+      articleExplain: "条文说明3",
+      articleLabel: "条文标签（专业）3",
+      articleLabelManagement: "条文标签（管理）3",
+    },
+  ],
+  quotedStandards: [
+    { standardNo: "1", standardName: "标准名称1" },
+    { standardNo: "2", standardName: "标准名称2" },
+    { standardNo: "3", standardName: "标准名称3" },
+  ],
+});
 const tabList = ref<any[]>([
   { label: "标准信息", name: "1" },
   { label: "主参编单位", name: "2" },
@@ -146,6 +250,15 @@ const tabList = ref<any[]>([
   { label: "条文", name: "6" },
   { label: "引用标准", name: "7" },
 ]);
+// const tableProps = ref<any>([
+//   "chiefOrganizations",
+//   "participantOrganizations",
+//   "draftsmen",
+//   "auditors",
+//   "terms",
+//   "articles",
+//   "quotedStandards",
+// ]);
 const formItemList = ref<any[]>([
   {
     label: "标准名称",
@@ -511,33 +624,6 @@ const termTableColumn = ref([
     sortable: false,
   },
 ]);
-//术语data
-const termTableData = ref([
-  {
-    termNumber: "1",
-    chineseName: "中文名称1",
-    englishName: "英文名称1",
-    termArticle: "术语条文1",
-    termExplanation: "术语解释1",
-    termLabel: "术语标签1",
-  },
-  {
-    termNumber: "2",
-    chineseName: "中文名称2",
-    englishName: "英文名称2",
-    termArticle: "术语条文2",
-    termExplanation: "术语解释2",
-    termLabel: "术语标签2",
-  },
-  {
-    termNumber: "3",
-    chineseName: "中文名称3",
-    englishName: "英文名称3",
-    termArticle: "术语条文3",
-    termExplanation: "术语解释3",
-    termLabel: "术语标签3",
-  },
-]);
 //条文column
 const articleTabelColumn = ref([
   //条文编号
@@ -580,29 +666,6 @@ const articleTabelColumn = ref([
   },
 ]);
 //条文data
-const articleTabelData = ref([
-  {
-    articleNumber: "1",
-    article: "条文1",
-    articleExplain: "条文说明1",
-    articleLabel: "条文标签（专业）1",
-    articleLabelManagement: "条文标签（管理）1",
-  },
-  {
-    articleNumber: "2",
-    article: "条文2",
-    articleExplain: "条文说明2",
-    articleLabel: "条文标签（专业）2",
-    articleLabelManagement: "条文标签（管理）2",
-  },
-  {
-    articleNumber: "3",
-    article: "条文3",
-    articleExplain: "条文说明3",
-    articleLabel: "条文标签（专业）3",
-    articleLabelManagement: "条文标签（管理）3",
-  },
-]);
 //引用标准column
 const quotedStandardsColumn = ref([
   //标准编号
@@ -616,21 +679,6 @@ const quotedStandardsColumn = ref([
     width: "150",
     type: "operate",
     sortable: false,
-  },
-]);
-//引用标准data
-const quotedStandardsData = ref([
-  {
-    standardNo: "1",
-    standardName: "标准名称1",
-  },
-  {
-    standardNo: "2",
-    standardName: "标准名称2",
-  },
-  {
-    standardNo: "3",
-    standardName: "标准名称3",
   },
 ]);
 const handleClick = (tab: any) => {
@@ -663,37 +711,23 @@ const closeFrom = () => {
 };
 //新增
 const createStandardFn = () => {
-  // let data = submitFrom.value;
-  // createStandard(data).then((res) => {
-  //   console.log(res, "res");
-  // });
+  let data = submitFrom.value;
+  createStandard(data).then((res: any) => {
+    console.log(res, "res");
+    if (res.code === 200) {
+      ElMessage({
+        message: "新增成功",
+        type: "success",
+      });
+      router.go(-1);
+      return;
+    }
+    ElMessage({
+      message: res.msg,
+      type: "error",
+    });
+  });
 };
-//异步获取标签列表
-// const getStandardLabelListFn = async (type: any) => {
-//   new Promise((resolve, reject) => {
-//     getStandardLabelList(type)
-//       .then((res) => {
-//         console.log(res, "res");
-//         resolve(res);
-//       })
-//       .catch((err) => {
-//         reject(err);
-//       });
-//   });
-// };
-//异步获取标准分类树
-// const getStandardCategoryTreeFn = async (type: any) => {
-//   new Promise((resolve, reject) => {
-//     getStandardCategoryTree(type)
-//       .then((res) => {
-//         console.log(res, "res");
-//         resolve(res);
-//       })
-//       .catch((err) => {
-//         reject(err);
-//       });
-//   });
-// };
 const initData = async () => {
   formItemList.value.forEach((item) => {
     if (item.type === "select" || item.type === "multipleSelect") {
@@ -730,6 +764,14 @@ const getTreeData = (data: any) => {
     }
   });
 };
+//初始化innerTable的数据
+// const initTableData = () => {
+//   tableProps.value.forEach((item: any) => {
+//     submitFrom.value[item] = [];
+//   });
+//   console.log(submitFrom.value, "submitFrom123456");
+// };
+// initTableData();
 initData();
 </script>
 
