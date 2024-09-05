@@ -15,6 +15,12 @@
               v-model="item.data"
               :placeholder="item.placeholder"
             ></el-input>
+            <el-input-number
+              style="width: 100%"
+              v-else-if="item.type === 'inputNumber'"
+              v-model="item.data"
+              :placeholder="item.placeholder"
+            ></el-input-number>
             <el-select
               v-else-if="item.type === 'select'"
               v-model="item.data"
@@ -48,6 +54,7 @@
               :data="item.treedata"
               :props="{ label: 'label', value: 'value' }"
               :placeholder="item.placeholder"
+              :multiple="item.multiple"
               :filterable="true"
               :clearable="true"
             ></el-tree-select>
@@ -55,10 +62,11 @@
             <el-date-picker
               v-else-if="item.type === 'date'"
               v-model="item.data"
+              style="width: 100%"
               type="date"
               placeholder="选择日期"
               :clearable="true"
-              value-format="YYYY-MM-DD"
+              value-format="YYYY-MM-DD HH:mm:ss"
             ></el-date-picker>
           </el-form-item>
         </el-form>
@@ -138,108 +146,21 @@ import {
   createStandard,
   getStandardLabelList,
   getStandardCategoryTree,
+  getStandard,
+  updateStandard,
 } from "@/api/publicInfo.ts";
+import { onMounted } from "vue";
 const router = useRouter();
 const activeName = ref<string>("1");
+const curtype = ref<any>("add");
 const submitFrom = ref<any>({
-  chiefOrganizations: [
-    {
-      name: "主参编单位1",
-    },
-    {
-      name: "主参编单位2",
-    },
-    {
-      name: "主参编单位3",
-    },
-  ],
-  participantOrganizations: [
-    {
-      name: "参编单位1",
-    },
-    {
-      name: "参编单位2",
-    },
-    {
-      name: "参编单位3",
-    },
-  ],
-  draftsmen: [
-    {
-      name: "主要起草人1",
-    },
-    {
-      name: "主要起草人2",
-    },
-    {
-      name: "主要起草人3",
-    },
-  ],
-  auditors: [
-    {
-      name: "主要审查人1",
-    },
-    {
-      name: "主要审查人2",
-    },
-    {
-      name: "主要审查人3",
-    },
-  ],
-  terms: [
-    {
-      termNumber: "1",
-      chineseName: "中文名称1",
-      englishName: "英文名称1",
-      termArticle: "术语条文1",
-      termExplanation: "术语解释1",
-      termLabel: "术语标签1",
-    },
-    {
-      termNumber: "2",
-      chineseName: "中文名称2",
-      englishName: "英文名称2",
-      termArticle: "术语条文2",
-      termExplanation: "术语解释2",
-      termLabel: "术语标签2",
-    },
-    {
-      termNumber: "3",
-      chineseName: "中文名称3",
-      englishName: "英文名称3",
-      termArticle: "术语条文3",
-      termExplanation: "术语解释3",
-      termLabel: "术语标签3",
-    },
-  ],
-  articles: [
-    {
-      articleNumber: "1",
-      article: "条文1",
-      articleExplain: "条文说明1",
-      articleLabel: "条文标签（专业）1",
-      articleLabelManagement: "条文标签（管理）1",
-    },
-    {
-      articleNumber: "2",
-      article: "条文2",
-      articleExplain: "条文说明2",
-      articleLabel: "条文标签（专业）2",
-      articleLabelManagement: "条文标签（管理）2",
-    },
-    {
-      articleNumber: "3",
-      article: "条文3",
-      articleExplain: "条文说明3",
-      articleLabel: "条文标签（专业）3",
-      articleLabelManagement: "条文标签（管理）3",
-    },
-  ],
-  quotedStandards: [
-    { standardNo: "1", standardName: "标准名称1" },
-    { standardNo: "2", standardName: "标准名称2" },
-    { standardNo: "3", standardName: "标准名称3" },
-  ],
+  chiefOrganizations: [],
+  participantOrganizations: [],
+  draftsmen: [],
+  auditors: [],
+  terms: [],
+  articles: [],
+  quotedStandards: [],
 });
 const tabList = ref<any[]>([
   { label: "标准信息", name: "1" },
@@ -250,29 +171,20 @@ const tabList = ref<any[]>([
   { label: "条文", name: "6" },
   { label: "引用标准", name: "7" },
 ]);
-// const tableProps = ref<any>([
-//   "chiefOrganizations",
-//   "participantOrganizations",
-//   "draftsmen",
-//   "auditors",
-//   "terms",
-//   "articles",
-//   "quotedStandards",
-// ]);
 const formItemList = ref<any[]>([
   {
     label: "标准名称",
     prop: "name",
     type: "input",
     placeholder: "请输入标准名称",
-    data: "",
+    data: null,
   },
   {
     label: "英文名称",
     prop: "enName",
     type: "input",
     placeholder: "请输入英文名称",
-    data: "",
+    data: null,
   },
   //标准号-input
   {
@@ -280,7 +192,7 @@ const formItemList = ref<any[]>([
     prop: "no",
     type: "input",
     placeholder: "请输入标准号",
-    data: "",
+    data: null,
   },
   //被替代标准名称-input
   {
@@ -288,7 +200,7 @@ const formItemList = ref<any[]>([
     prop: "substitutedName",
     type: "input",
     placeholder: "请输入被替代标准名称",
-    data: "",
+    data: null,
   },
   //备案号-input
   {
@@ -296,7 +208,7 @@ const formItemList = ref<any[]>([
     prop: "recordNo",
     type: "input",
     placeholder: "请输入备案号",
-    data: "",
+    data: null,
   },
   //被替代标准编号-input
   {
@@ -304,7 +216,7 @@ const formItemList = ref<any[]>([
     prop: "substitutedNo",
     type: "input",
     placeholder: "请输入被替代标准编号",
-    data: "",
+    data: null,
   },
   //标准序号-input
   {
@@ -312,15 +224,15 @@ const formItemList = ref<any[]>([
     prop: "seqNo",
     type: "input",
     placeholder: "请输入标准序号",
-    data: "",
+    data: null,
   },
   //标准代次-input
   {
     label: "标准代次",
     prop: "version",
-    type: "input",
+    type: "inputNumber",
     placeholder: "请输入标准代次",
-    data: "",
+    data: null,
   },
   //立项时间-date
   {
@@ -328,7 +240,7 @@ const formItemList = ref<any[]>([
     prop: "initiateTime",
     type: "date",
     placeholder: "请选择立项时间",
-    data: "",
+    data: null,
   },
   //发布时间-date
   {
@@ -336,7 +248,7 @@ const formItemList = ref<any[]>([
     prop: "publishTime",
     type: "date",
     placeholder: "请选择发布时间",
-    data: "",
+    data: null,
   },
   //批准时间-date-少一个
   {
@@ -344,7 +256,7 @@ const formItemList = ref<any[]>([
     prop: "approvalTime",
     type: "date",
     placeholder: "请选择批准时间",
-    data: "",
+    data: null,
   },
   //实施时间-date
   {
@@ -352,7 +264,7 @@ const formItemList = ref<any[]>([
     prop: "implementTime",
     type: "date",
     placeholder: "请选择实施时间",
-    data: "",
+    data: null,
   },
   //废止时间
   {
@@ -360,7 +272,7 @@ const formItemList = ref<any[]>([
     prop: "abolishTime",
     type: "date",
     placeholder: "请选择废止时间",
-    data: "",
+    data: null,
   },
   //强制性分类-select
   {
@@ -369,11 +281,8 @@ const formItemList = ref<any[]>([
     type: "select",
     code: 4,
     placeholder: "请选择强制性分类",
-    options: [
-      { label: "强制性分类1", value: "1" },
-      { label: "强制性分类2", value: "2" },
-      { label: "强制性分类3", value: "3" },
-    ],
+    options: [],
+    data: null,
   },
   //标准代次-select
   // {
@@ -394,11 +303,8 @@ const formItemList = ref<any[]>([
     type: "select",
     code: 1,
     placeholder: "请选择标准类别",
-    options: [
-      { label: "标准类别1", value: "1" },
-      { label: "标准类别2", value: "2" },
-      { label: "标准类别3", value: "3" },
-    ],
+    options: [],
+    data: null,
   },
   //标准状态-select
   {
@@ -407,11 +313,8 @@ const formItemList = ref<any[]>([
     type: "select",
     code: 2,
     placeholder: "请选择标准状态",
-    options: [
-      { label: "标准状态1", value: "1" },
-      { label: "标准状态2", value: "2" },
-      { label: "标准状态3", value: "3" },
-    ],
+    options: [],
+    data: null,
   },
   //编制状态-select
   {
@@ -420,11 +323,8 @@ const formItemList = ref<any[]>([
     type: "select",
     code: 3,
     placeholder: "请选择编制状态",
-    options: [
-      { label: "编制状态1", value: "1" },
-      { label: "编制状态2", value: "2" },
-      { label: "编制状态3", value: "3" },
-    ],
+    options: [],
+    data: null,
   },
   //基础分类-treeSelect
   {
@@ -432,37 +332,9 @@ const formItemList = ref<any[]>([
     prop: "basicClassification",
     type: "treeSelect",
     code: 1,
-    treedata: [
-      {
-        label: "基础分类1",
-        value: "1",
-        children: [
-          { label: "基础分类1-1", value: "1-1" },
-          { label: "基础分类1-2", value: "1-2" },
-          { label: "基础分类1-3", value: "1-3" },
-        ],
-      },
-      {
-        label: "基础分类2",
-        value: "2",
-        children: [
-          { label: "基础分类2-1", value: "2-1" },
-          { label: "基础分类2-2", value: "2-2" },
-          { label: "基础分类2-3", value: "2-3" },
-        ],
-      },
-      {
-        label: "基础分类3",
-        value: "3",
-        children: [
-          { label: "基础分类3-1", value: "3-1" },
-          { label: "基础分类3-2", value: "3-2" },
-          { label: "基础分类3-3", value: "3-3" },
-        ],
-      },
-    ],
+    treedata: [],
     placeholder: "请输入基础分类",
-    data: "",
+    data: null,
   },
 
   //专题分类-treeSelect
@@ -470,38 +342,11 @@ const formItemList = ref<any[]>([
     label: "专题分类",
     prop: "specialCategoryIds",
     type: "treeSelect",
+    multiple: true,
     code: 2,
-    treedata: [
-      {
-        label: "专题分类1",
-        value: "1",
-        children: [
-          { label: "专题分类1-1", value: "1-1" },
-          { label: "专题分类1-2", value: "1-2" },
-          { label: "专题分类1-3", value: "1-3" },
-        ],
-      },
-      {
-        label: "专题分类2",
-        value: "2",
-        children: [
-          { label: "专题分类2-1", value: "2-1" },
-          { label: "专题分类2-2", value: "2-2" },
-          { label: "专题分类2-3", value: "2-3" },
-        ],
-      },
-      {
-        label: "专题分类3",
-        value: "3",
-        children: [
-          { label: "专题分类3-1", value: "3-1" },
-          { label: "专题分类3-2", value: "3-2" },
-          { label: "专题分类3-3", value: "3-3" },
-        ],
-      },
-    ],
+    treedata: [],
     placeholder: "请输入专题名称",
-    data: "",
+    data: undefined,
   },
   //工程专业分类-multipleSelect
   {
@@ -510,11 +355,7 @@ const formItemList = ref<any[]>([
     type: "multipleSelect",
     placeholder: "请选择工程专业分类",
     code: 7,
-    options: [
-      { label: "工程专业分类1", value: "1" },
-      { label: "工程专业分类2", value: "2" },
-      { label: "工程专业分类3", value: "3" },
-    ],
+    options: [],
     data: [],
   },
   //工程全生命周期分类-multipleSelect
@@ -524,11 +365,7 @@ const formItemList = ref<any[]>([
     type: "multipleSelect",
     code: 5,
     placeholder: "请选择工程全生命周期分类",
-    options: [
-      { label: "工程全生命周期分类1", value: "1" },
-      { label: "工程全生命周期分类2", value: "2" },
-      { label: "工程全生命周期分类3", value: "3" },
-    ],
+    options: [],
     data: [],
   },
   //管理条线分类-multipleSelect
@@ -538,11 +375,7 @@ const formItemList = ref<any[]>([
     type: "multipleSelect",
     code: 8,
     placeholder: "请选择管理条线分类",
-    options: [
-      { label: "管理条线分类1", value: "1" },
-      { label: "管理条线分类2", value: "2" },
-      { label: "管理条线分类3", value: "3" },
-    ],
+    options: [],
     data: [],
   },
   //建筑类型分类-multipleSelect
@@ -552,11 +385,7 @@ const formItemList = ref<any[]>([
     type: "multipleSelect",
     code: 6,
     placeholder: "请选择建筑类型分类",
-    options: [
-      { label: "建筑类型分类1", value: "1" },
-      { label: "建筑类型分类2", value: "2" },
-      { label: "建筑类型分类3", value: "3" },
-    ],
+    options: [],
     data: [],
   },
 ]);
@@ -564,7 +393,7 @@ const formItemList = ref<any[]>([
 const termTableColumn = ref([
   //术语编号
   {
-    prop: "termNumber",
+    prop: "no",
     label: "术语编号",
     isfrom: true,
     type: "input",
@@ -572,7 +401,7 @@ const termTableColumn = ref([
   },
   //中文名称
   {
-    prop: "chineseName",
+    prop: "name",
     label: "中文名称",
     isfrom: true,
     type: "input",
@@ -580,7 +409,7 @@ const termTableColumn = ref([
   },
   //英文名称
   {
-    prop: "englishName",
+    prop: "enName",
     label: "英文名称",
     isfrom: true,
     type: "input",
@@ -588,7 +417,7 @@ const termTableColumn = ref([
   },
   //术语条文
   {
-    prop: "termArticle",
+    prop: "article",
     label: "术语条文",
     isfrom: true,
     type: "input",
@@ -596,7 +425,7 @@ const termTableColumn = ref([
   },
   //术语解释
   {
-    prop: "termExplanation",
+    prop: "explanation",
     label: "术语解释",
     isfrom: true,
     type: "input",
@@ -604,16 +433,14 @@ const termTableColumn = ref([
   },
   //术语标签
   {
-    prop: "termLabel",
+    prop: "termLabelIds",
     label: "术语标签",
     isfrom: true,
-    options: [
-      { label: "术语标签1", value: "1" },
-      { label: "术语标签2", value: "2" },
-      { label: "术语标签3", value: "3" },
-    ],
+    options: [],
     type: "select",
-    data: null,
+    parentId: 9,
+    data: undefined,
+    // data: undefined,
   },
   //操作
   {
@@ -627,34 +454,36 @@ const termTableColumn = ref([
 //条文column
 const articleTabelColumn = ref([
   //条文编号
-  { prop: "articleNumber", label: "条文编号", isfrom: true, type: "input" },
+  { prop: "no", label: "条文编号", isfrom: true, type: "input", data: null },
   //条文
-  { prop: "article", label: "条文", isfrom: true, type: "input" },
+  { prop: "content", label: "条文", isfrom: true, type: "input", data: null },
   //条文说明
-  { prop: "articleExplain", label: "条文说明", isfrom: true, type: "input" },
+  {
+    prop: "explanation",
+    label: "条文说明",
+    isfrom: true,
+    type: "input",
+    data: null,
+  },
   //条文标签（专业）
   {
-    prop: "articleLabel",
+    prop: "articleSpecialLabelIds",
     label: "条文标签（专业）",
     isfrom: true,
-    options: [
-      { label: "条文标签（专业）1", value: "1" },
-      { label: "条文标签（专业）2", value: "2" },
-      { label: "条文标签（专业）3", value: "3" },
-    ],
+    options: [],
     type: "select",
+    parentId: 10,
+    data: null,
   },
   //条文标签（管理）
   {
-    prop: "articleLabelManagement",
+    prop: "articleManageLabelIds",
     label: "条文标签（管理）",
     isfrom: true,
-    options: [
-      { label: "条文标签（管理）1", value: "1" },
-      { label: "条文标签（管理）2", value: "2" },
-      { label: "条文标签（管理）3", value: "3" },
-    ],
+    options: [],
+    parentId: 11,
     type: "select",
+    data: null,
   },
   //操作
   {
@@ -669,9 +498,9 @@ const articleTabelColumn = ref([
 //引用标准column
 const quotedStandardsColumn = ref([
   //标准编号
-  { prop: "standardNo", label: "标准编号", isfrom: true, type: "input" },
+  { prop: "no", label: "标准编号", isfrom: true, type: "input", data: null },
   //标准名称
-  { prop: "standardName", label: "标准名称", isfrom: true, type: "input" },
+  { prop: "name", label: "标准名称", isfrom: true, type: "input", data: null },
   //操作
   {
     prop: "operate",
@@ -696,7 +525,13 @@ const saveFrom = () => {
     submitFrom.value[item.prop] = item.data;
   });
   console.log(submitFrom.value, "保存数据");
-  createStandardFn();
+  if (curtype.value === "edit") {
+    console.log("编辑");
+    updateStandardFn();
+  } else if (curtype.value === "add") {
+    console.log("新增");
+    createStandardFn();
+  }
 };
 //内部表格提交
 const innerTableSubmit = (data: any) => {
@@ -728,6 +563,25 @@ const createStandardFn = () => {
     });
   });
 };
+//编辑
+const updateStandardFn = () => {
+  let data = submitFrom.value;
+  updateStandard(data).then((res: any) => {
+    console.log(res, "res");
+    if (res.code === 200) {
+      ElMessage({
+        message: "编辑成功",
+        type: "success",
+      });
+      router.go(-1);
+      return;
+    }
+    ElMessage({
+      message: res.msg,
+      type: "error",
+    });
+  });
+};
 const initData = async () => {
   formItemList.value.forEach((item) => {
     if (item.type === "select" || item.type === "multipleSelect") {
@@ -746,6 +600,38 @@ const initData = async () => {
       });
     }
   });
+  //初始化innerTable的选择框的数据，术语标签，条文标签（专业），条文标签（管理）等三种
+  //术语标签
+  termTableColumn.value.forEach((item) => {
+    if (item.type === "select") {
+      getStandardLabelList({ type: item.parentId }).then((res: any) => {
+        item.options = res.data.map((item: any) => {
+          return {
+            label: item.name,
+            value: item.id,
+          };
+        });
+      });
+    }
+  });
+  //条文标签（专业），条文标签（管理）
+  articleTabelColumn.value.forEach((item) => {
+    if (item.type === "select") {
+      getStandardLabelList({ type: item.parentId }).then((res: any) => {
+        item.options = res.data.map((item: any) => {
+          return {
+            label: item.name,
+            value: item.id,
+          };
+        });
+      });
+    }
+  });
+  console.log(
+    termTableColumn.value,
+    articleTabelColumn.value,
+    "111111formItemList"
+  );
 };
 //树形结构递归方法
 const getTreeData = (data: any) => {
@@ -773,6 +659,20 @@ const getTreeData = (data: any) => {
 // };
 // initTableData();
 initData();
+onMounted(() => {
+  console.log("mounted");
+  // getStandard
+  let id = router.currentRoute.value.query.id;
+  curtype.value = router.currentRoute.value.query.type;
+  if (id) {
+    getStandard({ id }).then((res: any) => {
+      console.log(res, "res");
+      formItemList.value.forEach((item) => {
+        item.data = res.data[item.prop];
+      });
+    });
+  }
+});
 </script>
 
 <style></style>

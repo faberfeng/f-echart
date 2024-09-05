@@ -30,7 +30,11 @@
         :label="item.label"
       >
         <el-input v-if="item.type == 'input'" v-model="item.data"></el-input>
-        <el-select v-else-if="item.type == 'select'" v-model="item.data">
+        <el-select
+          v-else-if="item.type == 'select'"
+          v-model="item.data"
+          multiple
+        >
           <el-option
             v-for="(data, index) in item.options"
             :key="index"
@@ -107,11 +111,12 @@ const addData = () => {
   dialogVisible.value = true;
   console.log("新增");
   formItem.value.forEach((item) => {
-    item.data = "";
+    item.data = undefined;
   });
   formes.value = {
     name: "",
     id: null,
+    index: null,
   };
 };
 // 编辑
@@ -124,7 +129,7 @@ const editTable = (row: any) => {
 // 删除
 const deleteTabel = (row: any) => {
   mainTableData.value = mainTableData.value.filter(
-    (item) => item.id !== row.id
+    (item) => item.index !== row.index
   );
   console.log("删除", row);
 };
@@ -133,6 +138,7 @@ const dialogVisible = ref<boolean>(false);
 const formes = ref<any>({
   name: "",
   id: null,
+  index: null,
 });
 const handleClose = (done: any) => {
   done();
@@ -141,11 +147,17 @@ const onSubmit = () => {
   formItem.value.forEach((item) => {
     formes.value[item.prop] = item.data;
   });
+  formes.value.index = mainTableData.value.length + 1;
+  console.log(formes.value, "formes.value");
   if (dialogType.value === "新增") {
-    mainTableData.value.push(formes.value);
+    //删除id属性
+    // let data = Object.assign({}, formes.value);
+    // delete data.id;
+    let data = formes.value;
+    mainTableData.value.push(data);
   } else {
     mainTableData.value = mainTableData.value.map((item) => {
-      if (item.id === formes.value.id) {
+      if (item.index === formes.value.index) {
         return formes.value;
       }
       return item;

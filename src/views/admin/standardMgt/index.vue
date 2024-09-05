@@ -48,6 +48,9 @@
     :table-column="tableColumn"
     :table-data="tableData"
     :pagination="pagination"
+    :showPagination="true"
+    @edit-table="editTable"
+    @delete-tabel="deleteTabel"
   ></Table>
 </template>
 
@@ -56,6 +59,8 @@ import { ref } from "vue";
 import Table from "@/components/Table/index.vue";
 import { Search } from "@element-plus/icons-vue";
 import { useRouter } from "vue-router";
+import { getStandardListByPage, deleteStandard } from "@/api/publicInfo.ts";
+import { onMounted } from "vue";
 const router = useRouter();
 const searchForm = ref<any>({
   searchValue: "",
@@ -68,43 +73,29 @@ const handleValueReset = () => {
 };
 const handleValueSearch = () => {
   console.log(searchForm.value, "searchForm");
+  getStandardListByPageFn(searchForm.value.searchValue);
 };
 const tableColumn = ref<any>([
   { prop: "name", label: "标准名称" },
-  { prop: "num", label: "标准编号" },
-  { prop: "pbtime", label: "发布日期" },
-  { prop: "retime", label: "实施日期" },
+  { prop: "no", label: "标准编号" },
+  { prop: "publishTime", label: "发布日期" },
+  { prop: "implementTime", label: "实施日期" },
   { prop: "operate", label: "操作" },
 ]);
-const tableData = ref<any>([
-  {
-    name: "标准1",
-    num: "标准编号1",
-    pbtime: "2021-09-01",
-    retime: "2021-09-01",
-  },
-  {
-    name: "标准2",
-    num: "标准编号2",
-    pbtime: "2021-09-01",
-    retime: "2021-09-01",
-  },
-  {
-    name: "标准3",
-    num: "标准编号3",
-    pbtime: "2021-09-01",
-    retime: "2021-09-01",
-  },
-]);
+const tableData = ref<any>([]);
 const pagination = ref<any>({
   currentPage: 1,
   pageSize: 10,
   total: 3,
   handleSizeChange: (val: number) => {
     console.log(val, "handleSizeChange");
+    pagination.value.pageSize = val;
+    getStandardListByPageFn(searchForm.value.searchValue);
   },
   handleCurrentChange: (val: number) => {
     console.log(val, "handleCurrentChange");
+    pagination.value.currentPage = val;
+    getStandardListByPageFn(searchForm.value.searchValue);
   },
 });
 const addData = () => {
@@ -113,10 +104,40 @@ const addData = () => {
     path: "/admin/addStandard/detail",
     query: {
       type: "add",
-      id: 1,
+      id: "",
     },
   });
 };
+const getStandardListByPageFn = async (keywords: any) => {
+  const res = await getStandardListByPage({
+    number: pagination.value.currentPage,
+    size: pagination.value.pageSize,
+    keywords: keywords,
+  });
+  tableData.value = res.data.content;
+  pagination.value.total = res.data.page.totalElements;
+  console.log(res, "res");
+};
+//删除
+const deleteTabel = async (row: any) => {
+  const res = await deleteStandard({ id: row.id });
+  console.log(res, "res");
+  getStandardListByPageFn(searchForm.value.searchValue);
+};
+//编辑
+const editTable = (row: any) => {
+  console.log("编辑", row);
+  router.push({
+    path: "/admin/addStandard/detail",
+    query: {
+      type: "edit",
+      id: row.id,
+    },
+  });
+};
+onMounted(() => {
+  getStandardListByPageFn(null);
+});
 </script>
 
 <style lang="scss" scoped></style>

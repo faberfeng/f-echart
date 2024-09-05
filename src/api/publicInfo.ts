@@ -1,9 +1,47 @@
 import request from "@/utils/request";
-
+/**标准管理维护 */
 // 新增标准
 export function createStandard(data: any) {
   return request({
     url: "/api/standard/create",
+    method: "post",
+    data: data,
+  });
+}
+//删除标准
+export function deleteStandard(data: any) {
+  return request({
+    url: `/api/standard/${data.id}`,
+    method: "delete",
+  });
+}
+//修改标准
+export function updateStandard(data: any) {
+  return request({
+    url: "/api/standard/update",
+    method: "post",
+    data: data,
+  });
+}
+//获取标准
+export function getStandard(data: any) {
+  return request({
+    url: `/api/standard/${data.id}`,
+    method: "get",
+  });
+}
+//查询搜索标准
+export function searchStandard(data: any) {
+  return request({
+    url: "/api/standard/search",
+    method: "post",
+    data: data,
+  });
+}
+//标准管理-按page获取标准列表
+export function getStandardListByPage(data: any) {
+  return request({
+    url: `/api/standard/page`,
     method: "post",
     data: data,
   });
