@@ -670,6 +670,10 @@ onMounted(() => {
       formItemList.value.forEach((item) => {
         item.data = res.data[item.prop];
       });
+      Object.keys(submitFrom.value).forEach((key) => {
+        submitFrom.value[key] = res.data[key];
+      });
+      console.log(submitFrom.value, "submitFrom09876");
     });
   }
 });

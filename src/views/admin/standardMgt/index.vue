@@ -1,7 +1,23 @@
 <template>
   <h1 class="my-my-10">标准管理</h1>
-  <el-row>
-    <!-- <el-col :span="12">
+  <!-- <el-row>
+    <el-col :span="24">
+      <el-input
+        v-model="searchForm.searchValue"
+        placeholder="请输入标准名称或编号"
+        clearable
+        @clear="handleValueReset"
+        size="large"
+        style="width: 500px"
+      >
+        <template #append>
+          <el-button :icon="Search" @click="handleValueSearch" />
+        </template>
+      </el-input>
+    </el-col>
+  </el-row> -->
+  <el-row class="my-my-20" justify="space-between" align="center">
+    <el-col :span="8">
       <el-date-picker
         v-model="searchForm.dateValue"
         type="datetimerange"
@@ -10,9 +26,10 @@
         format="YYYY-MM-DD"
         date-format="YYYY/MM/DD"
         time-format="A hh:mm:ss"
+        size="large"
       />
-    </el-col> -->
-    <el-col :span="24">
+    </el-col>
+    <el-col :span="8">
       <el-input
         v-model="searchForm.searchValue"
         placeholder="请输入标准名称或编号"
@@ -25,20 +42,7 @@
         </template>
       </el-input>
     </el-col>
-  </el-row>
-  <el-row class="my-my-20" :gutter="20" justify="space-between" align="center">
-    <el-col :span="12">
-      <el-date-picker
-        v-model="searchForm.dateValue"
-        type="datetimerange"
-        start-placeholder="开始时间"
-        end-placeholder="结束时间"
-        format="YYYY-MM-DD"
-        date-format="YYYY/MM/DD"
-        time-format="A hh:mm:ss"
-      />
-    </el-col>
-    <el-col :span="12" class="text-right">
+    <el-col :span="8" class="text-right">
       <el-button type="primary" @click="addData">新增</el-button>
       <el-button type="primary">导入</el-button>
       <el-button type="primary">导出</el-button>
@@ -59,7 +63,8 @@ import { ref } from "vue";
 import Table from "@/components/Table/index.vue";
 import { Search } from "@element-plus/icons-vue";
 import { useRouter } from "vue-router";
-import { getStandardListByPage, deleteStandard } from "@/api/publicInfo.ts";
+// getStandardListByPage,
+import { deleteStandard, searchStandard } from "@/api/publicInfo.ts";
 import { onMounted } from "vue";
 const router = useRouter();
 const searchForm = ref<any>({
@@ -109,7 +114,7 @@ const addData = () => {
   });
 };
 const getStandardListByPageFn = async (keywords: any) => {
-  const res = await getStandardListByPage({
+  const res = await searchStandard({
     number: pagination.value.currentPage,
     size: pagination.value.pageSize,
     keywords: keywords,

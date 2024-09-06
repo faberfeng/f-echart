@@ -12,7 +12,7 @@ export function createStandard(data: any) {
 export function deleteStandard(data: any) {
   return request({
     url: `/api/standard/${data.id}`,
-    method: "delete",
+    method: "post",
   });
 }
 //修改标准
@@ -38,10 +38,26 @@ export function searchStandard(data: any) {
     data: data,
   });
 }
-//标准管理-按page获取标准列表
-export function getStandardListByPage(data: any) {
+// 查询术语标准
+export function getTermStandardList(data: any) {
   return request({
-    url: `/api/standard/page`,
+    url: "/api/standard/term/search",
+    method: "post",
+    data: data,
+  });
+}
+//查询条文标准
+export function getArticleList(data: any) {
+  return request({
+    url: "/api/standard/article/search",
+    method: "post",
+    data: data,
+  });
+}
+//日志管理查询
+export function getLogByPage(data: any) {
+  return request({
+    url: `/api/standard/log/page`,
     method: "post",
     data: data,
   });

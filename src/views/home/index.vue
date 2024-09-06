@@ -118,8 +118,13 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from "vue";
+import { ref, onMounted, watch } from "vue";
 import { Search } from "@element-plus/icons-vue";
+import {
+  searchStandard,
+  getTermStandardList,
+  getArticleList,
+} from "@/api/publicInfo.ts";
 const activeNames = ref<string[]>([
   "standardGrade",
   "basicClassification",
@@ -140,7 +145,7 @@ const propsdata = {
   label: "name",
 };
 const searchForm = ref({
-  selectTypeValue: "",
+  selectTypeValue: "1",
   searchValue: "",
 });
 const selectTypeOptions = ref([
@@ -207,84 +212,27 @@ const rankCollapseItemList = ref([
     ],
   },
 ]);
-const tableColumn = ref([
+let tableColumn = ref([
   { type: "index", label: "序号", width: "65" },
   { prop: "S_ProjectName", label: "标准名称", sortable: true },
   { prop: "S_ProjectNo", label: "标准编号", width: "200", sortable: true },
   { prop: "S_RealeaseTime", label: "发布日期", width: "200", sortable: true },
   { prop: "S_DoTime", label: "实施日期", width: "200", sortable: true },
 ]);
-const tableData = ref([
-  {
-    S_ProjectName: "标准名称1",
-    S_ProjectNo: "标准编号1",
-    S_RealeaseTime: "2021-09-01",
-    S_DoTime: "2021-09-01",
-  },
-  {
-    S_ProjectName: "标准名称2",
-    S_ProjectNo: "标准编号2",
-    S_RealeaseTime: "2021-09-01",
-    S_DoTime: "2021-09-01",
-  },
-  {
-    S_ProjectName: "标准名称3",
-    S_ProjectNo: "标准编号3",
-    S_RealeaseTime: "2021-09-01",
-    S_DoTime: "2021-09-01",
-  },
-  {
-    S_ProjectName: "标准名称4",
-    S_ProjectNo: "标准编号4",
-    S_RealeaseTime: "2021-09-01",
-    S_DoTime: "2021-09-01",
-  },
-  {
-    S_ProjectName: "标准名称5",
-    S_ProjectNo: "标准编号5",
-    S_RealeaseTime: "2021-09-01",
-    S_DoTime: "2021-09-01",
-  },
-  {
-    S_ProjectName: "标准名称6",
-    S_ProjectNo: "标准编号6",
-    S_RealeaseTime: "2021-09-01",
-    S_DoTime: "2021-09-01",
-  },
-  {
-    S_ProjectName: "标准名称7",
-    S_ProjectNo: "标准编号7",
-    S_RealeaseTime: "2021-09-01",
-    S_DoTime: "2021-09-01",
-  },
-  {
-    S_ProjectName: "标准名称8",
-    S_ProjectNo: "标准编号8",
-    S_RealeaseTime: "2021-09-01",
-    S_DoTime: "2021-09-01",
-  },
-  {
-    S_ProjectName: "标准名称9",
-    S_ProjectNo: "标准编号9",
-    S_RealeaseTime: "2021-09-01",
-    S_DoTime: "2021-09-01",
-  },
-  {
-    S_ProjectName: "标准名称10",
-    S_ProjectNo: "标准编号10",
-    S_RealeaseTime: "2021-09-01",
-    S_DoTime: "2021-09-01",
-  },
-]);
+const tableData = ref([]);
 const pagination = ref({
   currentPage: 1,
   pageSize: 10,
   total: 3,
   handleSizeChange: (val: number) => {
     console.log(val, "handleSizeChange");
+    pagination.value.pageSize = val;
+    commoninitFn(searchForm.value.selectTypeValue);
   },
   handleCurrentChange: (val: number) => {
     console.log(val, "handleCurrentChange");
+    pagination.value.currentPage = val;
+    commoninitFn(searchForm.value.selectTypeValue);
   },
 });
 // 切换
@@ -294,10 +242,98 @@ const handleChange = (val: string[]) => {
 const handleRankChange = (val: string[]) => {
   activeRankNames.value = val;
 };
-
-const handleCheck = (data: any) => {
-  console.log(data);
+//标准检索
+const getStandardListByPageFn = async (keywords: any) => {
+  tableColumn.value = [
+    { prop: "name", label: "标准名称", sortable: true },
+    { prop: "no", label: "标准编号", sortable: true },
+    { prop: "publishTime", label: "发布日期", sortable: true },
+    { prop: "implementTime", label: "实施日期", sortable: true },
+    { prop: "operate", label: "操作", width: "200", sortable: false },
+  ];
+  const res = await searchStandard({
+    number: pagination.value.currentPage,
+    size: pagination.value.pageSize,
+    keywords: keywords,
+  });
+  tableData.value = res.data.content;
+  pagination.value.total = res.data.page.totalElements;
+  console.log(res, "res");
 };
+//术语检索
+const getTermStandardListFn = async (keywords: any) => {
+  tableColumn.value = [
+    { prop: "no", label: "术语编号", sortable: true },
+    { prop: "name", label: "中文名称", sortable: true },
+    { prop: "enName", label: "英文名称", sortable: true },
+    { prop: "article", label: "术语条文", sortable: true },
+    { prop: "explanation", label: "术语解释", sortable: true },
+    { prop: "standardName", label: "所属标准", sortable: true },
+  ];
+  const res = await getTermStandardList({
+    number: pagination.value.currentPage,
+    size: pagination.value.pageSize,
+    keywords: keywords,
+  });
+  tableData.value = res.data.content;
+  tableData.value = res.data.content.map((item: any) => {
+    return {
+      ...item,
+      standardName: item.standard.name,
+    };
+  });
+  pagination.value.total = res.data.page.totalElements;
+  console.log(res, "res");
+};
+//条文检索
+const getArticleListFn = async (keywords: any) => {
+  tableColumn.value = [
+    { prop: "no", label: "条文编号", sortable: true },
+    { prop: "content", label: "条文内容", sortable: true },
+    { prop: "explanation", label: "条文说明", sortable: true },
+    { prop: "standardName", label: "所属标准", sortable: true },
+  ];
+  const res = await getArticleList({
+    number: pagination.value.currentPage,
+    size: pagination.value.pageSize,
+    keywords: keywords,
+  });
+  tableData.value = res.data.content.map((item: any) => {
+    return {
+      ...item,
+      standardName: item.standard.name,
+    };
+  });
+  pagination.value.total = res.data.page.totalElements;
+  console.log(res, "res");
+};
+watch(
+  () => searchForm.value.selectTypeValue,
+  (val: any) => {
+    // commoninitFn(val);
+    if (val == "1") {
+      getStandardListByPageFn(searchForm.value.searchValue);
+    } else if (val == "2") {
+      getArticleListFn(searchForm.value.searchValue);
+    } else if (val == "3") {
+      getTermStandardListFn(searchForm.value.searchValue);
+    }
+  },
+  { deep: true, immediate: true }
+);
+const commoninitFn = (val: any) => {
+  if (val == "1") {
+    getStandardListByPageFn(searchForm.value.searchValue);
+  } else if (val == "2") {
+    getArticleListFn(searchForm.value.searchValue);
+  } else if (val == "3") {
+    getTermStandardListFn(searchForm.value.searchValue);
+  }
+};
+
+// const handleCheck = (data: any) => {
+//   console.log(data);
+// };
 // 搜索
 const handleValueSearch = () => {
   console.log(searchForm.value);

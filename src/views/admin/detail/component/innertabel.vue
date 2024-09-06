@@ -52,7 +52,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, defineProps, withDefaults, defineEmits } from "vue";
+import { ref, defineProps, withDefaults, defineEmits, watch } from "vue";
 import Table from "@/components/Table/index.vue";
 const props = withDefaults(
   defineProps<{
@@ -102,6 +102,13 @@ const props = withDefaults(
 const emits = defineEmits(["onSubmit"]);
 const dialogType = ref<string>("新增");
 const mainTableData = ref<any[]>(props.mainTableData);
+watch(
+  () => props.mainTableData,
+  (val: any) => {
+    mainTableData.value = val;
+  },
+  { deep: true }
+);
 const formItem = ref<any[]>(
   props.mainTableColumn.filter((item) => item.isfrom)
 );
@@ -123,7 +130,9 @@ const addData = () => {
 const editTable = (row: any) => {
   console.log("编辑", row);
   dialogType.value = "编辑";
-  formes.value = row;
+  formItem.value.forEach((item) => {
+    item.data = row[item.prop];
+  });
   dialogVisible.value = true;
 };
 // 删除
