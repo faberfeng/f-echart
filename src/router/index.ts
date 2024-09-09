@@ -35,6 +35,16 @@ const routes: Array<RouteRecordRaw> = [
     },
   },
   {
+    path: "/home/addStandard/detail",
+    component: () => import("@/views/admin/detail/index.vue"),
+    meta: {
+      title: "新增标准",
+      transition: "animate__fadeIn",
+      name: "addStandard",
+      permission: "addStandard",
+    },
+  },
+  {
     path: "/admin",
     component: () => import("@/views/index.vue"),
     meta: {

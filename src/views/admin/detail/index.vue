@@ -1,5 +1,14 @@
 <template>
-  <el-tabs type="border-card" v-model="activeName" @tab-click="handleClick">
+  <Headers
+    style="position: relative !important; margin-bottom: 1.5rem"
+    v-if="isDetail"
+  />
+  <el-tabs
+    v-loading="loading"
+    type="border-card"
+    v-model="activeName"
+    @tab-click="handleClick"
+  >
     <el-tab-pane v-for="item in tabList" :label="item.label" :name="item.name">
       <!-- {{ item.label }} -->
       <div v-show="item.name == '1'">
@@ -74,6 +83,7 @@
       <div v-show="item.name == '2'">
         <innerTable
           title="主编单位"
+          :is-show="!isDetail"
           props="chiefOrganizations"
           @onSubmit="innerTableSubmit"
           :main-table-data="submitFrom.chiefOrganizations"
@@ -81,6 +91,7 @@
         <innerTable
           title="参编单位"
           props="participantOrganizations"
+          :is-show="!isDetail"
           :main-table-data="submitFrom.participantOrganizations"
           @onSubmit="innerTableSubmit"
         ></innerTable>
@@ -89,6 +100,7 @@
         <innerTable
           title="主要起草人"
           props="draftsmen"
+          :is-show="!isDetail"
           @onSubmit="innerTableSubmit"
           :main-table-data="submitFrom.draftsmen"
         ></innerTable>
@@ -97,6 +109,7 @@
         <innerTable
           title="主要审查人"
           props="auditors"
+          :is-show="!isDetail"
           :main-table-data="submitFrom.auditors"
           @onSubmit="innerTableSubmit"
         ></innerTable>
@@ -106,6 +119,7 @@
           :main-table-column="termTableColumn"
           :main-table-data="submitFrom.terms"
           props="terms"
+          :is-show="!isDetail"
           @onSubmit="innerTableSubmit"
           title="术语"
         ></innerTable>
@@ -115,6 +129,7 @@
           :main-table-column="articleTabelColumn"
           :main-table-data="submitFrom.articles"
           props="articles"
+          :is-show="!isDetail"
           @onSubmit="innerTableSubmit"
           title="条文"
         ></innerTable>
@@ -125,12 +140,15 @@
           :main-table-column="quotedStandardsColumn"
           :main-table-data="submitFrom.quotedStandards"
           props="quotedStandards"
+          :is-show="!isDetail"
           @onSubmit="innerTableSubmit"
         ></innerTable>
       </div>
       <!-- //保存和关闭按钮，居右 -->
       <div class="my-my-20 row justify-end">
-        <el-button type="primary" @click="saveFrom()">保存</el-button>
+        <el-button v-if="!isDetail" type="primary" @click="saveFrom()"
+          >保存</el-button
+        >
         <el-button @click="closeFrom">关闭</el-button>
       </div>
     </el-tab-pane>
@@ -142,6 +160,7 @@ import { ref } from "vue";
 import innerTable from "./component/innertabel.vue";
 import { useRouter } from "vue-router";
 import { ElMessage } from "element-plus";
+import Headers from "@/components/Header/index.vue";
 import {
   createStandard,
   getStandardLabelList,
@@ -153,6 +172,8 @@ import { onMounted } from "vue";
 const router = useRouter();
 const activeName = ref<string>("1");
 const curtype = ref<any>("add");
+const loading = ref<boolean>(false);
+const isDetail = ref<boolean>(false);
 const submitFrom = ref<any>({
   chiefOrganizations: [],
   participantOrganizations: [],
@@ -540,6 +561,7 @@ const innerTableSubmit = (data: any) => {
 //关闭
 const closeFrom = () => {
   //返回上一页
+  loading.value = false;
   router.go(-1);
   clearForm();
   console.log("关闭");
@@ -664,7 +686,9 @@ onMounted(() => {
   // getStandard
   let id = router.currentRoute.value.query.id;
   curtype.value = router.currentRoute.value.query.type;
+  isDetail.value = curtype.value === "detail";
   if (id) {
+    loading.value = true;
     getStandard({ id }).then((res: any) => {
       console.log(res, "res");
       formItemList.value.forEach((item) => {
@@ -673,6 +697,7 @@ onMounted(() => {
       Object.keys(submitFrom.value).forEach((key) => {
         submitFrom.value[key] = res.data[key];
       });
+      loading.value = false;
       console.log(submitFrom.value, "submitFrom09876");
     });
   }

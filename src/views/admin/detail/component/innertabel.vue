@@ -3,12 +3,12 @@
     <el-col :span="4"
       ><span class="fw-bold">{{ props.title }}</span></el-col
     >
-    <el-col :span="4" style="text-align: right">
+    <el-col v-if="props.isShow" :span="4" style="text-align: right">
       <el-button type="primary" @click="addData()">新增</el-button>
     </el-col>
   </el-row>
   <Table
-    :table-column="props.mainTableColumn"
+    :table-column="mainTableColumn"
     :table-data="mainTableData"
     :pagination="props.mainpagination"
     :showPagination="false"
@@ -52,7 +52,14 @@
 </template>
 
 <script setup lang="ts">
-import { ref, defineProps, withDefaults, defineEmits, watch } from "vue";
+import {
+  ref,
+  defineProps,
+  withDefaults,
+  defineEmits,
+  watch,
+  nextTick,
+} from "vue";
 import Table from "@/components/Table/index.vue";
 const props = withDefaults(
   defineProps<{
@@ -67,6 +74,7 @@ const props = withDefaults(
       handleSizeChange: (val: number) => void;
       handleCurrentChange: (val: number) => void;
     };
+    isShow: boolean;
   }>(),
   {
     props: "",
@@ -97,15 +105,39 @@ const props = withDefaults(
         console.log(val, "handleCurrentChange");
       },
     }),
+    isShow: true,
   }
 );
 const emits = defineEmits(["onSubmit"]);
 const dialogType = ref<string>("新增");
 const mainTableData = ref<any[]>(props.mainTableData);
+const mainTableColumn = ref<any[]>(props.mainTableColumn);
 watch(
   () => props.mainTableData,
   (val: any) => {
     mainTableData.value = val;
+  },
+  { deep: true }
+);
+watch(
+  () => props.mainTableColumn,
+  (val: any) => {
+    console.log(mainTableColumn.value, "mainTableColumn.value1234");
+    if (props.isShow) {
+      mainTableColumn.value = val;
+    } else {
+      // mainTableColumn.value = val.filter((item) => item.isfrom);
+      //去掉操作列
+      nextTick(() => {
+        mainTableColumn.value = val.filter(
+          (item: any) => item.prop !== "operate"
+        );
+      });
+      // mainTableColumn.value = val.filter(
+      //   (item: any) => item.prop !== "operate"
+      // );
+      console.log(mainTableColumn.value, "1123mainTableColumn.value");
+    }
   },
   { deep: true }
 );

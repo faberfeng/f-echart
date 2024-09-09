@@ -115,7 +115,7 @@ const addData = () => {
 };
 const getStandardListByPageFn = async (keywords: any) => {
   const res = await searchStandard({
-    number: pagination.value.currentPage,
+    number: pagination.value.currentPage - 1,
     size: pagination.value.pageSize,
     keywords: keywords,
   });

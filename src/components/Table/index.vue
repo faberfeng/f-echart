@@ -33,6 +33,11 @@
           </template>
         </el-popconfirm>
       </template>
+      <template v-else-if="item.prop == 'detail'" #default="{ row }">
+        <el-button type="text" size="small" @click.stop="detailTable(row)"
+          >详情信息</el-button
+        >
+      </template>
     </el-table-column>
   </el-table>
   <div class="my-my-10 row justify-end" v-if="props.showPagination">
@@ -49,7 +54,12 @@
 </template>
 <script setup lang="ts">
 import { defineProps, withDefaults } from "vue";
-const emits = defineEmits(["editTable", "deleteTabel", "rowClick"]);
+const emits = defineEmits([
+  "editTable",
+  "deleteTabel",
+  "rowClick",
+  "detailTable",
+]);
 const props = withDefaults(
   defineProps<{
     tableData: any[];
@@ -88,6 +98,9 @@ const editTable = (row: any) => {
 const deleteTabel = (row: any) => {
   console.log(row, "row111");
   emits("deleteTabel", row);
+};
+const detailTable = (row: any) => {
+  emits("detailTable", row);
 };
 // 表格行点击事件
 const rowClick = (row: any) => {

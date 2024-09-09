@@ -16,27 +16,17 @@
             :key="index"
             class="my-mb-5"
           >
-            <div class="border_content">
+            <div class="border_content scroll-x">
               <el-tree
+                ref="baseCategoryCount"
                 show-checkbox
                 :check-strictly="true"
                 :check-on-click-node="true"
                 :expand-on-click-node="false"
                 :data="item.children"
                 :props="propsdata"
+                @check-change="handleCheck($event, item, index)"
               ></el-tree>
-              <!-- <div
-                v-for="(data, index) in item.children"
-                :key="index"
-                class="my-pl-20"
-              >
-                <span>{{ data.title }}</span
-                ><el-checkbox
-                  class="my-ml-20"
-                  v-model="data.checked"
-                  @change="handleCheck(data)"
-                ></el-checkbox>
-              </div> -->
             </div>
           </el-collapse-item>
         </el-collapse>
@@ -52,7 +42,6 @@
             <el-input
               v-model="searchForm.searchValue"
               placeholder="请输入标准名称或编号"
-              clearable
               @clear="handleValueReset"
               size="large"
             >
@@ -83,6 +72,7 @@
           :table-data="tableData"
           :pagination="pagination"
           :show-pagination="true"
+          @detailTable="detailTable"
         ></TableData>
       </el-col>
       <el-col :span="4" class="scroll">
@@ -90,25 +80,17 @@
           <el-collapse-item
             style="background: #e3ecfd; color: #333"
             v-for="(item, index) in rankCollapseItemList"
-            :title="item.title"
+            :title="item.titlenum"
             :name="item.name"
             :key="index"
             class="my-mb-5"
           >
             <div class="border_content">
-              <el-tree :data="item.children" :props="propsdata"></el-tree>
-              <!-- <div
-                v-for="(data, index) in item.children"
-                :key="index"
-                class="my-pl-20"
-              >
-                <span>{{ data.title }}</span
-                ><el-checkbox
-                  class="my-ml-20"
-                  v-model="data.checked"
-                  @change="handleCheck(data)"
-                ></el-checkbox>
-              </div> -->
+              <el-tree
+                :data="item.children"
+                :props="propsdata"
+                :highlight-current="false"
+              ></el-tree>
             </div>
           </el-collapse-item>
         </el-collapse>
@@ -120,6 +102,7 @@
 <script setup lang="ts">
 import { ref, onMounted, watch } from "vue";
 import { Search } from "@element-plus/icons-vue";
+import { ElTree } from "element-plus";
 import {
   searchStandard,
   getTermStandardList,
@@ -127,14 +110,14 @@ import {
 } from "@/api/publicInfo.ts";
 const activeNames = ref<string[]>([
   "standardGrade",
-  "basicClassification",
-  "specialClassification",
+  "baseCategoryCount",
+  "specialCategoryCount",
 ]);
 const activeRankNames = ref<string[]>([
-  "mainUnit",
-  "secondaryUnit",
-  "draftingPersonnel",
-  "reviewer",
+  "chiefOrganizationsCount",
+  "participantOrganizationsCount",
+  "draftsmenCounts",
+  "auditorsCounts",
 ]);
 import {
   getStandardLabelList,
@@ -155,61 +138,58 @@ const selectTypeOptions = ref([
 ]);
 import TableData from "@/components/Table/index.vue";
 import Headers from "@/components/Header/index.vue";
+import router from "@/router/index";
 const collapseItemList = ref([
   {
-    title: "标准等级（200）",
+    title: "标准等级",
     value: 1,
     type: "flat",
     name: "standardGrade",
     children: [],
   },
   {
-    title: "基础分类(100)",
+    title: "基础分类",
     type: "tree",
     value: 1,
-    name: "basicClassification",
+    name: "baseCategoryCount",
     children: [],
   },
   {
-    title: "专项分类(54)",
+    title: "专项分类",
     type: "tree",
     value: 2,
-    name: "specialClassification",
+    name: "specialCategoryCount",
     children: [],
   },
 ]);
 const rankCollapseItemList = ref([
   {
     title: "主编单位排名",
-    name: "mainUnit",
-    children: [{ name: "选项1", checked: false }],
+    name: "chiefOrganizationsCount",
+    titlenum: "",
+    count: 0,
+    children: [],
   },
   {
     title: "参编单位排名",
-    name: "secondaryUnit",
-    children: [
-      { name: "选项2", checked: false },
-      { name: "选项3", checked: false },
-    ],
+    name: "participantOrganizationsCount",
+    titlenum: "",
+    count: 0,
+    children: [],
   },
   {
     title: "起草人员排名",
-    name: "draftingPersonnel",
-    children: [
-      { name: "选项4", checked: false },
-      { name: "选项5", checked: false },
-      { name: "选项6", checked: false },
-    ],
+    name: "draftsmenCounts",
+    titlenum: "",
+    count: 0,
+    children: [],
   },
   {
     title: "审查人员排名",
-    name: "reviewer",
-    children: [
-      { name: "选项7", checked: false },
-      { name: "选项8", checked: false },
-      { name: "选项9", checked: false },
-      { name: "选项10", checked: false },
-    ],
+    name: "auditorsCounts",
+    titlenum: "",
+    count: 0,
+    children: [],
   },
 ]);
 let tableColumn = ref([
@@ -220,6 +200,16 @@ let tableColumn = ref([
   { prop: "S_DoTime", label: "实施日期", width: "200", sortable: true },
 ]);
 const tableData = ref([]);
+const detailTable = (row: any) => {
+  console.log(row, "row");
+  router.push({
+    path: "/home/addStandard/detail",
+    query: {
+      type: "detail",
+      id: row.id,
+    },
+  });
+};
 const pagination = ref({
   currentPage: 1,
   pageSize: 10,
@@ -249,15 +239,24 @@ const getStandardListByPageFn = async (keywords: any) => {
     { prop: "no", label: "标准编号", sortable: true },
     { prop: "publishTime", label: "发布日期", sortable: true },
     { prop: "implementTime", label: "实施日期", sortable: true },
-    { prop: "operate", label: "操作", width: "200", sortable: false },
+    { prop: "detail", label: "操作", width: "200", sortable: false },
   ];
   const res = await searchStandard({
-    number: pagination.value.currentPage,
+    number: pagination.value.currentPage - 1,
     size: pagination.value.pageSize,
     keywords: keywords,
   });
   tableData.value = res.data.content;
   pagination.value.total = res.data.page.totalElements;
+  Object.keys(res.data).forEach((key) => {
+    getRankData(key, res.data[key]);
+  });
+  Object.keys(res.data.labelCount).forEach((key) => {
+    getLabelCount(key, res.data.labelCount[key]);
+  });
+  Object.keys(res.data.categoryCount).forEach((key) => {
+    getCategoryCount(key, res.data.categoryCount[key]);
+  });
   console.log(res, "res");
 };
 //术语检索
@@ -271,7 +270,7 @@ const getTermStandardListFn = async (keywords: any) => {
     { prop: "standardName", label: "所属标准", sortable: true },
   ];
   const res = await getTermStandardList({
-    number: pagination.value.currentPage,
+    number: pagination.value.currentPage - 1,
     size: pagination.value.pageSize,
     keywords: keywords,
   });
@@ -283,6 +282,15 @@ const getTermStandardListFn = async (keywords: any) => {
     };
   });
   pagination.value.total = res.data.page.totalElements;
+  Object.keys(res.data).forEach((key) => {
+    getRankData(key, res.data[key]);
+  });
+  Object.keys(res.data.labelCount).forEach((key) => {
+    getLabelCount(key, res.data.labelCount[key]);
+  });
+  Object.keys(res.data.categoryCount).forEach((key) => {
+    getCategoryCount(key, res.data.categoryCount[key]);
+  });
   console.log(res, "res");
 };
 //条文检索
@@ -294,7 +302,7 @@ const getArticleListFn = async (keywords: any) => {
     { prop: "standardName", label: "所属标准", sortable: true },
   ];
   const res = await getArticleList({
-    number: pagination.value.currentPage,
+    number: pagination.value.currentPage - 1,
     size: pagination.value.pageSize,
     keywords: keywords,
   });
@@ -305,8 +313,72 @@ const getArticleListFn = async (keywords: any) => {
     };
   });
   pagination.value.total = res.data.page.totalElements;
+  Object.keys(res.data).forEach((key) => {
+    getRankData(key, res.data[key]);
+  });
+  Object.keys(res.data.labelCount).forEach((key) => {
+    getLabelCount(key, res.data.labelCount[key]);
+  });
+  Object.keys(res.data.categoryCount).forEach((key) => {
+    getCategoryCount(key, res.data.categoryCount[key]);
+  });
   console.log(res, "res");
 };
+//右边排行榜数据
+const getRankData = async (key: any, data: any) => {
+  rankCollapseItemList.value.forEach((item) => {
+    if (item.name == key) {
+      item.count = 0;
+      data.forEach((num: any) => {
+        item.count += num.count;
+      });
+      item.titlenum = `${item.title} (${item.count})`;
+      item.children = data.map((item: any) => {
+        return {
+          name: `${item.name} (${item.count})`,
+        };
+      });
+    }
+  });
+};
+//左边树结构的数字-标签等级
+const getLabelCount = async (key: any, data: any) => {
+  let childrens: any = [];
+  childrens = collapseItemList.value.filter((item: any) => {
+    return item.type == "flat";
+  })[0].children;
+  childrens.forEach((item: any) => {
+    if (item.id == key) {
+      console.log(item, "item111");
+      item.count = data;
+      item.name = `${item.label} (${data})`;
+    }
+  });
+};
+//左边树结构的数字-基础和专项分类
+const getCategoryCount = async (key: any, data: any) => {
+  let childrens: any = [];
+  childrens = collapseItemList.value.filter((item: any) => {
+    return item.type == "tree";
+  })[0].children;
+  recursion(key, data, childrens);
+  console.log(childrens, "childrens");
+  // childrens.forEach((item: any) => {
+  //   recursion(key, data, item.children);
+  // });
+};
+const recursion = (key: any, data: any, children: any) => {
+  children.forEach((child: any) => {
+    if (child.id == key) {
+      child.count = data;
+      child.name = `${child.label} (${data})`;
+    }
+    if (child.children) {
+      recursion(key, data, child.children);
+    }
+  });
+};
+
 watch(
   () => searchForm.value.selectTypeValue,
   (val: any) => {
@@ -330,10 +402,17 @@ const commoninitFn = (val: any) => {
     getTermStandardListFn(searchForm.value.searchValue);
   }
 };
+// 选中的节点
+// const defaultCheckedKeys = ref([]);
+// const labelIds = ref([]); // 标准等级ID
+// const categoryIds = ref([]); // 基础和专项分类ID
 
-// const handleCheck = (data: any) => {
-//   console.log(data);
-// };
+let baseCategoryCount = ref(null);
+// const specialCategoryCount = ref<InstanceType<typeof ElTree>>();
+// 选中左边树
+const handleCheck = (data: any, item: any, index: any) => {
+  console.log(data, item, index);
+};
 // 搜索
 const handleValueSearch = () => {
   console.log(searchForm.value);
@@ -360,7 +439,12 @@ const getStandardLabelListFn = async (type: any) => {
   collapseItemList.value.forEach((item) => {
     if (item.type == "flat") {
       if (type == item.value) {
-        item.children = res.data;
+        item.children = res.data.map((item: any) => {
+          return {
+            ...item,
+            label: item.name,
+          };
+        });
       }
     }
   });
@@ -373,8 +457,18 @@ const getStandardCategoryTreeFn = async (type: any) => {
   collapseItemList.value.forEach((item) => {
     if (item.type == "tree") {
       if (type == item.value) {
+        recursionTree(res.data);
         item.children = res.data;
       }
+    }
+  });
+};
+//递归给树结构添加label属性
+const recursionTree = (data: any) => {
+  data.forEach((item: any) => {
+    item.label = item.name;
+    if (item.children) {
+      recursionTree(item.children);
     }
   });
 };
