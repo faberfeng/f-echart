@@ -86,12 +86,14 @@
           :is-show="!isDetail"
           props="chiefOrganizations"
           @onSubmit="innerTableSubmit"
+          :main-table-column="chiefOrganizationsColumn"
           :main-table-data="submitFrom.chiefOrganizations"
         ></innerTable>
         <innerTable
           title="参编单位"
           props="participantOrganizations"
           :is-show="!isDetail"
+          :main-table-column="participantOrganizationsColumn"
           :main-table-data="submitFrom.participantOrganizations"
           @onSubmit="innerTableSubmit"
         ></innerTable>
@@ -102,6 +104,7 @@
           props="draftsmen"
           :is-show="!isDetail"
           @onSubmit="innerTableSubmit"
+          :main-table-column="draftsmenColumn"
           :main-table-data="submitFrom.draftsmen"
         ></innerTable>
       </div>
@@ -110,6 +113,7 @@
           title="主要审查人"
           props="auditors"
           :is-show="!isDetail"
+          :main-table-column="auditorsColumn"
           :main-table-data="submitFrom.auditors"
           @onSubmit="innerTableSubmit"
         ></innerTable>
@@ -305,18 +309,6 @@ const formItemList = ref<any[]>([
     options: [],
     data: null,
   },
-  //标准代次-select
-  // {
-  //   label: "标准代次",
-  //   prop: "standardGeneration",
-  //   type: "select",
-  //   placeholder: "请选择标准代次",
-  //   options: [
-  //     { label: "标准代次1", value: "1" },
-  //     { label: "标准代次2", value: "2" },
-  //     { label: "标准代次3", value: "3" },
-  //   ],
-  // },
   //标准类别-select
   {
     label: "标准类别",
@@ -340,7 +332,8 @@ const formItemList = ref<any[]>([
   //编制状态-select
   {
     label: "编制状态",
-    prop: "preparationStatus",
+    // prop: "preparationStatus",
+    prop: "compileStatusId",
     type: "select",
     code: 3,
     placeholder: "请选择编制状态",
@@ -350,7 +343,8 @@ const formItemList = ref<any[]>([
   //基础分类-treeSelect
   {
     label: "基础分类",
-    prop: "basicClassification",
+    // prop: "basicClassification",
+    prop: "baseCategoryId",
     type: "treeSelect",
     code: 1,
     treedata: [],
@@ -408,6 +402,82 @@ const formItemList = ref<any[]>([
     placeholder: "请选择建筑类型分类",
     options: [],
     data: [],
+  },
+]);
+//主参编单位column
+const chiefOrganizationsColumn = ref([
+  //单位名称
+  {
+    prop: "name",
+    label: "单位名称",
+    isfrom: true,
+    type: "input",
+    data: null,
+  },
+  //操作
+  {
+    prop: "operate",
+    label: "操作",
+    width: "150",
+    type: "operate",
+    sortable: false,
+  },
+]);
+//参编单位column
+const participantOrganizationsColumn = ref([
+  //单位名称
+  {
+    prop: "name",
+    label: "单位名称",
+    isfrom: true,
+    type: "input",
+    data: null,
+  },
+  //操作
+  {
+    prop: "operate",
+    label: "操作",
+    width: "150",
+    type: "operate",
+    sortable: false,
+  },
+]);
+//主要起草人column
+const draftsmenColumn = ref([
+  //单位名称
+  {
+    prop: "name",
+    label: "姓名",
+    isfrom: true,
+    type: "input",
+    data: null,
+  },
+  //操作
+  {
+    prop: "operate",
+    label: "操作",
+    width: "150",
+    type: "operate",
+    sortable: false,
+  },
+]);
+//主要审查人column
+const auditorsColumn = ref([
+  //单位名称
+  {
+    prop: "name",
+    label: "姓名",
+    isfrom: true,
+    type: "input",
+    data: null,
+  },
+  //操作
+  {
+    prop: "operate",
+    label: "操作",
+    width: "150",
+    type: "operate",
+    sortable: false,
   },
 ]);
 //术语column
@@ -672,14 +742,6 @@ const getTreeData = (data: any) => {
     }
   });
 };
-//初始化innerTable的数据
-// const initTableData = () => {
-//   tableProps.value.forEach((item: any) => {
-//     submitFrom.value[item] = [];
-//   });
-//   console.log(submitFrom.value, "submitFrom123456");
-// };
-// initTableData();
 initData();
 onMounted(() => {
   console.log("mounted");
@@ -691,8 +753,54 @@ onMounted(() => {
     loading.value = true;
     getStandard({ id }).then((res: any) => {
       console.log(res, "res");
+      let mapSelData: any = {
+        mandatoryId: "mandatory",
+        labelCategoryId: "labelCategory",
+        labelStatusId: "labelStatus",
+        compileStatusId: "compileStatus",
+      };
+      let mapTreeSelData: any = {
+        specialCategoryIds: "specialCategory",
+        baseCategoryId: "baseCategory",
+      };
+      let mapMultipleSelData: any = {
+        projectIds: "projects",
+        projectLifeCycleIds: "projectLifeCycle",
+        projectManagementLineIds: "projectManagementLines",
+        buildingIds: "buildings",
+      };
       formItemList.value.forEach((item) => {
         item.data = res.data[item.prop];
+        //处理下拉框的数据
+        if (item.type === "select") {
+          if (mapSelData[item.prop]) {
+            item.data = res.data[mapSelData[item.prop]]?.standardLabelId;
+          }
+        }
+        //处理树形下拉框的数据
+        if (item.type === "treeSelect") {
+          if (mapTreeSelData[item.prop]) {
+            if (
+              res.data[mapTreeSelData[item.prop]] instanceof Array &&
+              res.data[mapTreeSelData[item.prop]].length > 0
+            ) {
+              item.data = res.data[mapTreeSelData[item.prop]].map(
+                (item: any) => item.standardCategoryId
+              );
+            } else {
+              item.data =
+                res.data[mapTreeSelData[item.prop]]?.standardCategoryId;
+            }
+          }
+        }
+        //处理多选下拉框的数据
+        if (item.type === "multipleSelect") {
+          if (mapMultipleSelData[item.prop]) {
+            item.data = res.data[mapMultipleSelData[item.prop]].map(
+              (item: any) => item.standardLabelId
+            );
+          }
+        }
       });
       Object.keys(submitFrom.value).forEach((key) => {
         submitFrom.value[key] = res.data[key];
