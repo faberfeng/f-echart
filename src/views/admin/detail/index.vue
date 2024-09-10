@@ -12,7 +12,12 @@
     <el-tab-pane v-for="item in tabList" :label="item.label" :name="item.name">
       <!-- {{ item.label }} -->
       <div v-show="item.name == '1'">
-        <el-form :inline="true" label-width="auto" label-position="left">
+        <el-form
+          :inline="true"
+          :disabled="isDetail"
+          label-width="auto"
+          label-position="left"
+        >
           <el-form-item
             style="width: 30%"
             v-for="(item, index) in formItemList"

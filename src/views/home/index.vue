@@ -1,12 +1,7 @@
 <template>
   <div>
     <Headers />
-    <el-row
-      class="my-px-80 my-py-70"
-      :gutter="0"
-      justify="space-between"
-      align="center"
-    >
+    <el-row class="my-px-80 my-py-70" :gutter="0" justify="space-between">
       <el-col :span="4" class="scroll">
         <el-collapse v-model="activeNames" @change="handleChange">
           <el-collapse-item
@@ -32,12 +27,7 @@
         </el-collapse>
       </el-col>
       <el-col :span="15">
-        <el-row
-          :gutter="10"
-          justify="space-between"
-          align="center"
-          class="my-mb-20"
-        >
+        <el-row :gutter="10" justify="space-between" class="my-mb-20">
           <el-col :span="24">
             <el-input
               v-model="searchForm.searchValue"

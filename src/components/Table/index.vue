@@ -8,6 +8,7 @@
     :cell-style="{ textAlign: 'center' }"
     :header-cell-style="{ textAlign: 'center' }"
     @row-click="rowClick"
+    v-loading="tableLoading"
     :highlight-current-row="props.isTree"
   >
     <el-table-column
@@ -19,7 +20,7 @@
       :sortable="item.sortable"
     >
       <template v-if="item.prop == 'operate'" #default="{ row }">
-        <el-button type="text" size="small" @click.stop="editTable(row)"
+        <el-button link type="primary" size="small" @click.stop="editTable(row)"
           >编辑</el-button
         >
         <el-popconfirm
@@ -29,12 +30,16 @@
           cancelButtonText="取消"
         >
           <template #reference>
-            <el-button type="text" size="small">删除</el-button>
+            <el-button link type="primary" size="small">删除</el-button>
           </template>
         </el-popconfirm>
       </template>
       <template v-else-if="item.prop == 'detail'" #default="{ row }">
-        <el-button type="text" size="small" @click.stop="detailTable(row)"
+        <el-button
+          link
+          type="primary"
+          size="small"
+          @click.stop="detailTable(row)"
           >详情信息</el-button
         >
       </template>
@@ -53,7 +58,8 @@
   </div>
 </template>
 <script setup lang="ts">
-import { defineProps, withDefaults } from "vue";
+import { defineProps, withDefaults, ref, watch } from "vue";
+const tableLoading = ref(true);
 const emits = defineEmits([
   "editTable",
   "deleteTabel",
@@ -107,6 +113,14 @@ const rowClick = (row: any) => {
   emits("rowClick", row);
   //改变当前行的选中状态和颜色高亮
 };
+watch(
+  () => props.tableData,
+  (val) => {
+    console.log(val, "val");
+    tableLoading.value = false;
+  },
+  { deep: true }
+);
 </script>
 
 <style></style>

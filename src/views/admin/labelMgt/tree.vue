@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-row justify="space-between" align="center" class="my-my-10">
+    <el-row justify="space-between" class="my-my-10">
       <el-col :span="4"
         ><span class="fw-bold">{{ labelName }}</span></el-col
       >

@@ -1,5 +1,5 @@
 <template>
-  <el-row justify="space-between" align="center" class="my-my-10">
+  <el-row justify="space-between" class="my-my-10">
     <el-col :span="4"
       ><span class="fw-bold">{{ props.title }}</span></el-col
     >
@@ -7,11 +7,13 @@
       <el-button type="primary" @click="addData()">新增</el-button>
     </el-col>
   </el-row>
+  <!-- :pagination="props.mainpagination" -->
   <Table
     :table-column="mainTableColumn"
     :table-data="mainTableData"
-    :pagination="props.mainpagination"
+    :is-tree="false"
     :showPagination="false"
+    :pagination="mainpagination"
     @edit-table="editTable"
     @delete-tabel="deleteTabel"
   ></Table>
@@ -52,14 +54,7 @@
 </template>
 
 <script setup lang="ts">
-import {
-  ref,
-  defineProps,
-  withDefaults,
-  defineEmits,
-  watch,
-  nextTick,
-} from "vue";
+import { ref, defineProps, withDefaults, defineEmits, watch } from "vue";
 import Table from "@/components/Table/index.vue";
 const props = withDefaults(
   defineProps<{
@@ -67,13 +62,6 @@ const props = withDefaults(
     title: string;
     mainTableColumn: any[];
     mainTableData: any[];
-    mainpagination: {
-      currentPage: number;
-      pageSize: number;
-      total: number;
-      handleSizeChange: (val: number) => void;
-      handleCurrentChange: (val: number) => void;
-    };
     isShow: boolean;
   }>(),
   {
@@ -94,24 +82,22 @@ const props = withDefaults(
       { name: "单位2", id: 2 },
       { name: "单位3", id: 3 },
     ],
-    mainpagination: () => ({
-      currentPage: 1,
-      pageSize: 10,
-      total: 0,
-      handleSizeChange: (val: number) => {
-        console.log(val, "handleSizeChange");
-      },
-      handleCurrentChange: (val: number) => {
-        console.log(val, "handleCurrentChange");
-      },
-    }),
     isShow: true,
   }
 );
+const mainpagination = ref<any>({
+  currentPage: 1,
+  pageSize: 10,
+  total: 0,
+});
 const emits = defineEmits(["onSubmit"]);
 const dialogType = ref<string>("新增");
 const mainTableData = ref<any[]>(props.mainTableData);
-const mainTableColumn = ref<any[]>(props.mainTableColumn);
+const mainTableColumn = ref<any[]>(
+  props.isShow
+    ? props.mainTableColumn
+    : props.mainTableColumn.filter((item) => item.prop !== "operate")
+);
 watch(
   () => props.mainTableData,
   (val: any) => {
@@ -120,26 +106,12 @@ watch(
   { deep: true }
 );
 watch(
-  () => props.mainTableColumn,
-  (val: any) => {
-    console.log(mainTableColumn.value, "mainTableColumn.value1234");
-    if (props.isShow) {
-      mainTableColumn.value = val;
-    } else {
-      // mainTableColumn.value = val.filter((item) => item.isfrom);
-      //去掉操作列
-      nextTick(() => {
-        mainTableColumn.value = val.filter(
-          (item: any) => item.prop !== "operate"
-        );
-      });
-      // mainTableColumn.value = val.filter(
-      //   (item: any) => item.prop !== "operate"
-      // );
-      console.log(mainTableColumn.value, "1123mainTableColumn.value");
-    }
-  },
-  { deep: true }
+  () => props.isShow,
+  (val) => {
+    mainTableColumn.value = val
+      ? props.mainTableColumn
+      : props.mainTableColumn.filter((item) => item.prop !== "operate");
+  }
 );
 const formItem = ref<any[]>(
   props.mainTableColumn.filter((item) => item.isfrom)

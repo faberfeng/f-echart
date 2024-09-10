@@ -16,7 +16,7 @@
       </el-input>
     </el-col>
   </el-row> -->
-  <el-row class="my-my-20" justify="space-between" align="center">
+  <el-row class="my-my-20" justify="space-between">
     <el-col :span="8">
       <el-date-picker
         v-model="searchForm.dateValue"
