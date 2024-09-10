@@ -159,6 +159,31 @@ const handleClose = (done: any) => {
 };
 const onSubmit = () => {
   formItem.value.forEach((item) => {
+    console.log(item, "item999999");
+    if (item.prop === "termLabelIds") {
+      formes.value["termLabels"] = item.data.map((value: any) => {
+        return {
+          standardLabelId: value,
+          name: item.options.find((data: any) => data.value === value).label,
+        };
+      });
+    }
+    if (item.prop === "articleSpecialLabelIds") {
+      formes.value["articleSpecialLabels"] = item.data.map((value: any) => {
+        return {
+          standardLabelId: value,
+          name: item.options.find((data: any) => data.value === value).label,
+        };
+      });
+    }
+    if (item.prop === "articleManageLabelIds") {
+      formes.value["articleManageLabels"] = item.data.map((value: any) => {
+        return {
+          standardLabelId: value,
+          name: item.options.find((data: any) => data.value === value).label,
+        };
+      });
+    }
     formes.value[item.prop] = item.data;
   });
   formes.value.index = mainTableData.value.length + 1;
