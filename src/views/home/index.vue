@@ -13,13 +13,14 @@
           >
             <div class="border_content scroll-x">
               <el-tree
-                ref="baseCategoryCount"
+                :ref="item.name"
                 show-checkbox
                 :check-strictly="true"
                 :check-on-click-node="true"
                 :expand-on-click-node="false"
                 :data="item.children"
                 :props="propsdata"
+                node-key="id"
                 @check-change="handleCheck($event, item, index)"
               ></el-tree>
             </div>
@@ -129,6 +130,7 @@ const selectTypeOptions = ref([
 import TableData from "@/components/Table/index.vue";
 import Headers from "@/components/Header/index.vue";
 import router from "@/router/index";
+import { ca } from "element-plus/es/locale/index.mjs";
 const collapseItemList = ref([
   {
     title: "标准等级",
@@ -222,6 +224,11 @@ const handleChange = (val: string[]) => {
 const handleRankChange = (val: string[]) => {
   activeRankNames.value = val;
 };
+const labelIds = ref([]);
+
+const categoryIds = ref([]);
+const baseCategoryIds = ref([]);
+const specialCategoryIds = ref([]);
 //标准检索
 const getStandardListByPageFn = async (keywords: any) => {
   tableColumn.value = [
@@ -235,6 +242,10 @@ const getStandardListByPageFn = async (keywords: any) => {
     number: pagination.value.currentPage - 1,
     size: pagination.value.pageSize,
     keywords: keywords,
+    labelCategoryIds: labelIds.value,
+    baseCategoryIds: baseCategoryIds.value,
+    specialCategoryIds: specialCategoryIds.value,
+    // sortOrder: "asc",
   });
   tableData.value = res.data.content;
   pagination.value.total = res.data.page.totalElements;
@@ -263,6 +274,8 @@ const getTermStandardListFn = async (keywords: any) => {
     number: pagination.value.currentPage - 1,
     size: pagination.value.pageSize,
     keywords: keywords,
+    labelIds: labelIds.value,
+    categoryIds: categoryIds.value,
   });
   tableData.value = res.data.content;
   tableData.value = res.data.content.map((item: any) => {
@@ -295,6 +308,8 @@ const getArticleListFn = async (keywords: any) => {
     number: pagination.value.currentPage - 1,
     size: pagination.value.pageSize,
     keywords: keywords,
+    labelIds: labelIds.value,
+    categoryIds: categoryIds.value,
   });
   tableData.value = res.data.content.map((item: any) => {
     return {
@@ -392,16 +407,21 @@ const commoninitFn = (val: any) => {
     getTermStandardListFn(searchForm.value.searchValue);
   }
 };
-// 选中的节点
-// const defaultCheckedKeys = ref([]);
-// const labelIds = ref([]); // 标准等级ID
-// const categoryIds = ref([]); // 基础和专项分类ID
-
-let baseCategoryCount = ref(null);
-// const specialCategoryCount = ref<InstanceType<typeof ElTree>>();
+const standardGrade = ref<InstanceType<typeof ElTree>>();
+const baseCategoryCount = ref<InstanceType<typeof ElTree>>();
+const specialCategoryCount = ref<InstanceType<typeof ElTree>>();
 // 选中左边树
 const handleCheck = (data: any, item: any, index: any) => {
   console.log(data, item, index);
+  const labelId = standardGrade.value[0].getCheckedKeys();
+  labelIds.value = labelId;
+  const categoryIds1 = baseCategoryCount.value[0].getCheckedKeys();
+  baseCategoryIds.value = categoryIds1;
+  const categoryIds2 = specialCategoryCount.value[0].getCheckedKeys();
+  specialCategoryIds.value = categoryIds2;
+  const categoryId = categoryIds1.concat(categoryIds2);
+  categoryIds.value = categoryId;
+  commoninitFn(searchForm.value.selectTypeValue);
 };
 // 搜索
 const handleValueSearch = () => {

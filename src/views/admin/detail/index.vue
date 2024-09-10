@@ -4,6 +4,7 @@
     v-if="isDetail"
   />
   <el-tabs
+    :class="isDetail ? 'my-mx-20' : ''"
     v-loading="loading"
     type="border-card"
     v-model="activeName"
@@ -534,7 +535,7 @@ const termTableColumn = ref([
     isfrom: true,
     options: [],
     type: "select",
-    parentId: 9,
+    parentId: 9, //获取术语标签的父级id
     data: undefined,
     // data: undefined,
   },
@@ -568,7 +569,7 @@ const articleTabelColumn = ref([
     isfrom: true,
     options: [],
     type: "select",
-    parentId: 10,
+    parentId: 10, //获取条文标签的父级id
     data: null,
   },
   //条文标签（管理）
@@ -809,6 +810,38 @@ onMounted(() => {
       });
       Object.keys(submitFrom.value).forEach((key) => {
         submitFrom.value[key] = res.data[key];
+        if (key == "terms") {
+          submitFrom.value[key] = res.data[key].map((item: any) => {
+            return {
+              no: item.no,
+              name: item.name,
+              enName: item.enName,
+              article: item.article,
+              explanation: item.explanation,
+              termLabelIds: item.termLabels.map(
+                (item: any) => item.standardLabelId
+              ),
+              termLabels: item.termLabels,
+            };
+          });
+        }
+        if (key == "articles") {
+          submitFrom.value[key] = res.data[key].map((item: any) => {
+            return {
+              no: item.no,
+              content: item.content,
+              explanation: item.explanation,
+              articleSpecialLabelIds: item.articleSpecialLabels.map(
+                (item: any) => item.standardLabelId
+              ),
+              articleSpecialLabels: item.articleSpecialLabels,
+              articleManageLabelIds: item.articleManageLabels.map(
+                (item: any) => item.standardLabelId
+              ),
+              articleManageLabels: item.articleManageLabels,
+            };
+          });
+        }
       });
       loading.value = false;
       console.log(submitFrom.value, "submitFrom09876");

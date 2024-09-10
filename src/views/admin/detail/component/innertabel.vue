@@ -16,7 +16,8 @@
     :pagination="mainpagination"
     @edit-table="editTable"
     @delete-tabel="deleteTabel"
-  ></Table>
+  >
+  </Table>
   <!-- 表单对话框 -->
   <el-dialog
     :title="dialogType"

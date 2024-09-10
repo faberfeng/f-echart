@@ -16,8 +16,8 @@
       </el-input>
     </el-col>
   </el-row> -->
-  <el-row class="my-my-20" justify="space-between">
-    <el-col :span="8">
+  <el-row class="my-my-20" :gutter="20" justify="space-between">
+    <el-col :span="6">
       <el-date-picker
         v-model="searchForm.dateValue"
         type="datetimerange"
@@ -28,8 +28,20 @@
         time-format="A hh:mm:ss"
         size="large"
       />
+      <!-- <el-input
+        class="my-ml-10"
+        v-model="searchForm.searchValue"
+        placeholder="请输入标准名称或编号"
+        clearable
+        @clear="handleValueReset"
+        size="large"
+      >
+        <template #append>
+          <el-button :icon="Search" @click="handleValueSearch" />
+        </template>
+      </el-input> -->
     </el-col>
-    <el-col :span="8">
+    <el-col :offset="2" :span="6">
       <el-input
         v-model="searchForm.searchValue"
         placeholder="请输入标准名称或编号"

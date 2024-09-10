@@ -43,6 +43,36 @@
           >详情信息</el-button
         >
       </template>
+      <template v-else-if="item.prop == 'termLabelIds'" #default="{ row }">
+        <span v-for="data in row.termLabels">
+          <el-tag size="small" style="margin-right: 5px">{{
+            data.name
+          }}</el-tag>
+        </span>
+      </template>
+      <template
+        v-else-if="item.prop == 'articleSpecialLabelIds'"
+        #default="{ row }"
+      >
+        <span v-for="data in row.articleSpecialLabels">
+          <el-tag size="small" style="margin-right: 5px">{{
+            data.name
+          }}</el-tag>
+        </span>
+      </template>
+      <template
+        v-else-if="item.prop == 'articleManageLabelIds'"
+        #default="{ row }"
+      >
+        <span v-for="data in row.articleManageLabels">
+          <el-tag size="small" style="margin-right: 5px">{{
+            data.name
+          }}</el-tag>
+        </span>
+      </template>
+      <!-- item.prop == 'articleSpecialLabelIds' ||
+          item.prop == 'articleManageLabelIds' ||
+          item.prop == 'termLabelIds' -->
     </el-table-column>
   </el-table>
   <div class="my-my-10 row justify-end" v-if="props.showPagination">
@@ -58,8 +88,8 @@
   </div>
 </template>
 <script setup lang="ts">
-import { defineProps, withDefaults, ref, watch } from "vue";
-const tableLoading = ref(true);
+import { defineProps, withDefaults, ref } from "vue";
+const tableLoading = ref(false);
 const emits = defineEmits([
   "editTable",
   "deleteTabel",
@@ -113,14 +143,14 @@ const rowClick = (row: any) => {
   emits("rowClick", row);
   //改变当前行的选中状态和颜色高亮
 };
-watch(
-  () => props.tableData,
-  (val) => {
-    console.log(val, "val");
-    tableLoading.value = false;
-  },
-  { deep: true }
-);
+// watch(
+//   () => props.tableData,
+//   (val) => {
+//     console.log(val, "val");
+//     tableLoading.value = false;
+//   },
+//   { deep: true }
+// );
 </script>
 
 <style></style>
