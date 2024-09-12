@@ -450,12 +450,13 @@ const baseCategoryCount = ref<InstanceType<typeof ElTree>>();
 const specialCategoryCount = ref<InstanceType<typeof ElTree>>();
 // 选中左边树
 const handleCheck = (data: any, item: any, index: any) => {
-  console.log(data, item, index);
-  const labelId = standardGrade.value[0].getCheckedKeys();
+  console.log(data, item, index, standardGrade.value);
+  const labelId = standardGrade.value[0]?.getCheckedKeys(false);
+  console.log(labelId, "labelId999");
   labelIds.value = labelId;
-  const categoryIds1 = baseCategoryCount.value[0].getCheckedKeys();
+  const categoryIds1 = baseCategoryCount.value[0]?.getCheckedKeys();
   baseCategoryIds.value = categoryIds1;
-  const categoryIds2 = specialCategoryCount.value[0].getCheckedKeys();
+  const categoryIds2 = specialCategoryCount.value[0]?.getCheckedKeys();
   specialCategoryIds.value = categoryIds2;
   const categoryId = categoryIds1.concat(categoryIds2);
   categoryIds.value = categoryId;
