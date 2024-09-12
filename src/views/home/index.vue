@@ -40,7 +40,6 @@
                 <el-select
                   v-model="searchForm.selectTypeValue"
                   placeholder="请选择"
-                  clearable
                   style="width: 130px"
                   size="large"
                 >
@@ -91,14 +90,19 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, watch } from "vue";
+import { ref, onMounted, watch, nextTick } from "vue";
 import { Search } from "@element-plus/icons-vue";
 import { ElTree } from "element-plus";
 import {
   searchStandard,
   getTermStandardList,
   getArticleList,
+  getStandardLabelList,
+  getStandardCategoryTree,
 } from "@/api/publicInfo.ts";
+import TableData from "@/components/Table/index.vue";
+import Headers from "@/components/Header/index.vue";
+import router from "@/router/index";
 const activeNames = ref<string[]>([
   "standardGrade",
   "baseCategoryCount",
@@ -110,10 +114,6 @@ const activeRankNames = ref<string[]>([
   "draftsmenCounts",
   "auditorsCounts",
 ]);
-import {
-  getStandardLabelList,
-  getStandardCategoryTree,
-} from "@/api/publicInfo.ts";
 const propsdata = {
   children: "children",
   label: "name",
@@ -127,15 +127,14 @@ const selectTypeOptions = ref([
   { label: "条文检索", value: "2" },
   { label: "术语检索", value: "3" },
 ]);
-import TableData from "@/components/Table/index.vue";
-import Headers from "@/components/Header/index.vue";
-import router from "@/router/index";
-import { ca } from "element-plus/es/locale/index.mjs";
+
 const collapseItemList = ref([
   {
     title: "标准等级",
     value: 1,
     type: "flat",
+    titlenum: "",
+    count: 0,
     name: "standardGrade",
     children: [],
   },
@@ -143,6 +142,8 @@ const collapseItemList = ref([
     title: "基础分类",
     type: "tree",
     value: 1,
+    titlenum: "",
+    count: 0,
     name: "baseCategoryCount",
     children: [],
   },
@@ -150,6 +151,8 @@ const collapseItemList = ref([
     title: "专项分类",
     type: "tree",
     value: 2,
+    titlenum: "",
+    count: 0,
     name: "specialCategoryCount",
     children: [],
   },
@@ -252,12 +255,8 @@ const getStandardListByPageFn = async (keywords: any) => {
   Object.keys(res.data).forEach((key) => {
     getRankData(key, res.data[key]);
   });
-  Object.keys(res.data.labelCount).forEach((key) => {
-    getLabelCount(key, res.data.labelCount[key]);
-  });
-  Object.keys(res.data.categoryCount).forEach((key) => {
-    getCategoryCount(key, res.data.categoryCount[key]);
-  });
+  getLabelCount(res.data.labelCount);
+  getCategoryCount(res.data.categoryCount);
   console.log(res, "res");
 };
 //术语检索
@@ -288,12 +287,8 @@ const getTermStandardListFn = async (keywords: any) => {
   Object.keys(res.data).forEach((key) => {
     getRankData(key, res.data[key]);
   });
-  Object.keys(res.data.labelCount).forEach((key) => {
-    getLabelCount(key, res.data.labelCount[key]);
-  });
-  Object.keys(res.data.categoryCount).forEach((key) => {
-    getCategoryCount(key, res.data.categoryCount[key]);
-  });
+  getLabelCount(res.data.labelCount);
+  getCategoryCount(res.data.categoryCount);
   console.log(res, "res");
 };
 //条文检索
@@ -321,12 +316,8 @@ const getArticleListFn = async (keywords: any) => {
   Object.keys(res.data).forEach((key) => {
     getRankData(key, res.data[key]);
   });
-  Object.keys(res.data.labelCount).forEach((key) => {
-    getLabelCount(key, res.data.labelCount[key]);
-  });
-  Object.keys(res.data.categoryCount).forEach((key) => {
-    getCategoryCount(key, res.data.categoryCount[key]);
-  });
+  getLabelCount(res.data.labelCount);
+  getCategoryCount(res.data.categoryCount);
   console.log(res, "res");
 };
 //右边排行榜数据
@@ -347,39 +338,86 @@ const getRankData = async (key: any, data: any) => {
   });
 };
 //左边树结构的数字-标签等级
-const getLabelCount = async (key: any, data: any) => {
+// const getLabelCount = async (key: any, data: any) => {
+//   let childrens: any = [];
+//   childrens = collapseItemList.value.filter((item: any) => {
+//     return item.type == "flat";
+//   })[0].children;
+//   childrens.forEach((item: any) => {
+//     // item.name = item.count ? `${item.label} (${item.count})` : item.label;
+//     item.count = null;
+//     console.log(item, "item11");
+//     if (item.id == key) {
+//       console.log(item, "item111");
+//       item.count = data;
+//       item.name = `${item.label} (${item.count})`;
+//       // return;
+//     }
+//   });
+// };
+const getLabelCount = (data: any) => {
+  console.log(data, "data111111");
   let childrens: any = [];
   childrens = collapseItemList.value.filter((item: any) => {
     return item.type == "flat";
   })[0].children;
   childrens.forEach((item: any) => {
-    if (item.id == key) {
-      console.log(item, "item111");
-      item.count = data;
-      item.name = `${item.label} (${data})`;
-    }
+    item.name = item.label;
+    Object.keys(data).forEach((key) => {
+      if (item.id == key) {
+        item.count = data[key];
+        item.name = `${item.label} (${item.count})`;
+      }
+    });
   });
 };
 //左边树结构的数字-基础和专项分类
-const getCategoryCount = async (key: any, data: any) => {
-  let childrens: any = [];
-  childrens = collapseItemList.value.filter((item: any) => {
-    return item.type == "tree";
-  })[0].children;
-  recursion(key, data, childrens);
-  console.log(childrens, "childrens");
-  // childrens.forEach((item: any) => {
-  //   recursion(key, data, item.children);
-  // });
+// const getCategoryCount = async (key: any, data: any) => {
+//   let childrens: any = [];
+//   childrens = collapseItemList.value.filter((item: any) => {
+//     return item.type == "tree";
+//   })[0].children;
+//   recursion(key, data, childrens);
+//   console.log(childrens, "childrens");
+// };
+// const recursion = (key: any, data: any, children: any) => {
+//   children.forEach((child: any) => {
+//     if (child.id == key) {
+//       child.count = data;
+//       child.name = `${child.label} (${data})`;
+//     }
+//     if (child.children) {
+//       recursion(key, data, child.children);
+//     }
+//   });
+// };
+const getCategoryCount = async (data: any) => {
+  nextTick(() => {
+    let childrens: any = [];
+    childrens = collapseItemList.value.filter((item: any) => {
+      return item.type == "tree";
+    })[0].children;
+    console.log(childrens, data, "data99999");
+    recursionTreeCount(data, childrens);
+  });
+  // let childrens: any = [];
+  // childrens = collapseItemList.value.filter((item: any) => {
+  //   return item.type == "tree";
+  // })[0].children;
+  // console.log(childrens, data, "data99999");
+  // recursionTreeCount(data, childrens);
 };
-const recursion = (key: any, data: any, children: any) => {
+const recursionTreeCount = (data: any, children: any) => {
   children.forEach((child: any) => {
-    if (child.id == key) {
-      child.count = data;
-      child.name = `${child.label} (${data})`;
-    }
+    child.name = child.label;
+    Object.keys(data).forEach((key) => {
+      if (child.id == key) {
+        child.count = data[key];
+        child.name = `${child.label} (${child.count})`;
+      }
+    });
     if (child.children) {
-      recursion(key, data, child.children);
+      recursionTreeCount(data, child.children);
     }
   });
 };
@@ -387,16 +425,16 @@ const recursion = (key: any, data: any, children: any) => {
 watch(
   () => searchForm.value.selectTypeValue,
   (val: any) => {
-    // commoninitFn(val);
-    if (val == "1") {
-      getStandardListByPageFn(searchForm.value.searchValue);
-    } else if (val == "2") {
-      getArticleListFn(searchForm.value.searchValue);
-    } else if (val == "3") {
-      getTermStandardListFn(searchForm.value.searchValue);
-    }
+    commoninitFn(val);
+    // if (val == "1") {
+    //   getStandardListByPageFn(searchForm.value.searchValue);
+    // } else if (val == "2") {
+    //   getArticleListFn(searchForm.value.searchValue);
+    // } else if (val == "3") {
+    //   getTermStandardListFn(searchForm.value.searchValue);
+    // }
   },
-  { deep: true, immediate: true }
+  { deep: true }
 );
 const commoninitFn = (val: any) => {
   if (val == "1") {
@@ -436,8 +474,10 @@ const initData = () => {
   collapseItemList.value.forEach((item) => {
     if (item.type == "flat") {
       getStandardLabelListFn(item.value);
+      commoninitFn(searchForm.value.selectTypeValue);
     } else {
       getStandardCategoryTreeFn(item.value);
+      commoninitFn(searchForm.value.selectTypeValue);
     }
   });
 };
