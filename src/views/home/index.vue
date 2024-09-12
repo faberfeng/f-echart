@@ -90,7 +90,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, watch, nextTick } from "vue";
+import { ref, onMounted, watch } from "vue";
 import { Search } from "@element-plus/icons-vue";
 import { ElTree } from "element-plus";
 import {
@@ -392,14 +392,14 @@ const getLabelCount = (data: any) => {
 //   });
 // };
 const getCategoryCount = async (data: any) => {
-  nextTick(() => {
-    let childrens: any = [];
-    childrens = collapseItemList.value.filter((item: any) => {
-      return item.type == "tree";
-    })[0].children;
-    console.log(childrens, data, "data99999");
-    recursionTreeCount(data, childrens);
-  });
+  // nextTick(() => {
+  let childrens: any = [];
+  childrens = collapseItemList.value.filter((item: any) => {
+    return item.type == "tree";
+  })[0].children;
+  console.log(childrens, data, "data99999");
+  recursionTreeCount(data, childrens);
+
   // let childrens: any = [];
   // childrens = collapseItemList.value.filter((item: any) => {
   //   return item.type == "tree";
