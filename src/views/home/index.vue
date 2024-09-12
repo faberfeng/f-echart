@@ -13,7 +13,32 @@
           >
             <div class="border_content scroll-x">
               <el-tree
-                :ref="item.name"
+                v-if="item.name == 'standardGrade'"
+                ref="standardGrade"
+                show-checkbox
+                :check-strictly="true"
+                :check-on-click-node="true"
+                :expand-on-click-node="false"
+                :data="item.children"
+                :props="propsdata"
+                node-key="id"
+                @check-change="handleCheck($event, item, index)"
+              ></el-tree>
+              <el-tree
+                v-else-if="item.name == 'baseCategoryCount'"
+                ref="baseCategoryCount"
+                show-checkbox
+                :check-strictly="true"
+                :check-on-click-node="true"
+                :expand-on-click-node="false"
+                :data="item.children"
+                :props="propsdata"
+                node-key="id"
+                @check-change="handleCheck($event, item, index)"
+              ></el-tree>
+              <el-tree
+                v-else-if="item.name == 'specialCategoryCount'"
+                ref="specialCategoryCount"
                 show-checkbox
                 :check-strictly="true"
                 :check-on-click-node="true"
@@ -453,7 +478,15 @@ const specialCategoryCount = ref<InstanceType<typeof ElTree>>();
 // const specialCategoryCount = ref(null);
 // 选中左边树
 const handleCheck = (data: any, item: any, index: any) => {
-  console.log(data, item, index, standardGrade.value);
+  console.log(
+    data,
+    item,
+    index,
+    standardGrade.value,
+    baseCategoryCount.value,
+    specialCategoryCount.value,
+    "data"
+  );
   const labelId = standardGrade.value[0]?.getCheckedKeys();
   console.log(labelId, "labelId999");
   labelIds.value = labelId;
