@@ -425,16 +425,16 @@ const recursionTreeCount = (data: any, children: any) => {
 watch(
   () => searchForm.value.selectTypeValue,
   (val: any) => {
-    commoninitFn(val);
-    // if (val == "1") {
-    //   getStandardListByPageFn(searchForm.value.searchValue);
-    // } else if (val == "2") {
-    //   getArticleListFn(searchForm.value.searchValue);
-    // } else if (val == "3") {
-    //   getTermStandardListFn(searchForm.value.searchValue);
-    // }
+    // commoninitFn(val);
+    if (val == "1") {
+      getStandardListByPageFn(searchForm.value.searchValue);
+    } else if (val == "2") {
+      getArticleListFn(searchForm.value.searchValue);
+    } else if (val == "3") {
+      getTermStandardListFn(searchForm.value.searchValue);
+    }
   },
-  { deep: true }
+  { deep: true, immediate: true }
 );
 const commoninitFn = (val: any) => {
   if (val == "1") {
@@ -445,13 +445,16 @@ const commoninitFn = (val: any) => {
     getTermStandardListFn(searchForm.value.searchValue);
   }
 };
-const standardGrade = ref<InstanceType<typeof ElTree>>();
-const baseCategoryCount = ref<InstanceType<typeof ElTree>>();
-const specialCategoryCount = ref<InstanceType<typeof ElTree>>();
+// const standardGrade = ref<InstanceType<typeof ElTree>>();
+// const baseCategoryCount = ref<InstanceType<typeof ElTree>>();
+// const specialCategoryCount = ref<InstanceType<typeof ElTree>>();
+const standardGrade = ref(null);
+const baseCategoryCount = ref(null);
+const specialCategoryCount = ref(null);
 // 选中左边树
 const handleCheck = (data: any, item: any, index: any) => {
   console.log(data, item, index, standardGrade.value);
-  const labelId = standardGrade.value[0]?.getCheckedKeys(false);
+  const labelId = standardGrade.value[0]?.getCheckedKeys();
   console.log(labelId, "labelId999");
   labelIds.value = labelId;
   const categoryIds1 = baseCategoryCount.value[0]?.getCheckedKeys();
@@ -475,10 +478,10 @@ const initData = () => {
   collapseItemList.value.forEach((item) => {
     if (item.type == "flat") {
       getStandardLabelListFn(item.value);
-      commoninitFn(searchForm.value.selectTypeValue);
+      // commoninitFn(searchForm.value.selectTypeValue);
     } else {
       getStandardCategoryTreeFn(item.value);
-      commoninitFn(searchForm.value.selectTypeValue);
+      // commoninitFn(searchForm.value.selectTypeValue);
     }
   });
 };
