@@ -811,36 +811,40 @@ onMounted(() => {
       Object.keys(submitFrom.value).forEach((key) => {
         submitFrom.value[key] = res.data[key];
         if (key == "terms") {
-          submitFrom.value[key] = res.data[key].map((item: any) => {
-            return {
-              no: item.no,
-              name: item.name,
-              enName: item.enName,
-              article: item.article,
-              explanation: item.explanation,
-              termLabelIds: item.termLabels.map(
-                (item: any) => item.standardLabelId
-              ),
-              termLabels: item.termLabels,
-            };
-          });
+          if (res.data[key]) {
+            submitFrom.value[key] = res.data[key].map((item: any) => {
+              return {
+                no: item.no,
+                name: item.name,
+                enName: item.enName,
+                article: item.article,
+                explanation: item.explanation,
+                termLabelIds: item.termLabels.map(
+                  (item: any) => item.standardLabelId
+                ),
+                termLabels: item.termLabels,
+              };
+            });
+          }
         }
         if (key == "articles") {
-          submitFrom.value[key] = res.data[key].map((item: any) => {
-            return {
-              no: item.no,
-              content: item.content,
-              explanation: item.explanation,
-              articleSpecialLabelIds: item.articleSpecialLabels.map(
-                (item: any) => item.standardLabelId
-              ),
-              articleSpecialLabels: item.articleSpecialLabels,
-              articleManageLabelIds: item.articleManageLabels.map(
-                (item: any) => item.standardLabelId
-              ),
-              articleManageLabels: item.articleManageLabels,
-            };
-          });
+          if (res.data[key]) {
+            submitFrom.value[key] = res.data[key].map((item: any) => {
+              return {
+                no: item.no,
+                content: item.content,
+                explanation: item.explanation,
+                articleSpecialLabelIds: item.articleSpecialLabels.map(
+                  (item: any) => item.standardLabelId
+                ),
+                articleSpecialLabels: item.articleSpecialLabels,
+                articleManageLabelIds: item.articleManageLabels.map(
+                  (item: any) => item.standardLabelId
+                ),
+                articleManageLabels: item.articleManageLabels,
+              };
+            });
+          }
         }
       });
       loading.value = false;
