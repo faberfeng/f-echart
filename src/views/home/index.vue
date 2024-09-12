@@ -445,12 +445,12 @@ const commoninitFn = (val: any) => {
     getTermStandardListFn(searchForm.value.searchValue);
   }
 };
-// const standardGrade = ref<InstanceType<typeof ElTree>>();
-// const baseCategoryCount = ref<InstanceType<typeof ElTree>>();
-// const specialCategoryCount = ref<InstanceType<typeof ElTree>>();
-const standardGrade = ref(null);
-const baseCategoryCount = ref(null);
-const specialCategoryCount = ref(null);
+const standardGrade = ref<InstanceType<typeof ElTree>>();
+const baseCategoryCount = ref<InstanceType<typeof ElTree>>();
+const specialCategoryCount = ref<InstanceType<typeof ElTree>>();
+// const standardGrade = ref(null);
+// const baseCategoryCount = ref(null);
+// const specialCategoryCount = ref(null);
 // 选中左边树
 const handleCheck = (data: any, item: any, index: any) => {
   console.log(data, item, index, standardGrade.value);
