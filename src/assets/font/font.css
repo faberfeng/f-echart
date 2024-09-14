@@ -1,0 +1,19 @@
+@font-face {  
+    font-family:'pangmeng'; 
+    src: url('pangmeng.ttf');  
+    font-weight: normal;  
+    font-style: normal;  
+}
+@font-face {  
+    font-family:'fanzheng'; 
+    src: url('fanzheng.ttf');  
+    font-weight: normal;  
+    font-style: normal;  
+}
+
+@font-face {  
+    font-family:'FZLTZHKGBK'; 
+    src: url('FZLTZHKGBK.ttf');  
+    font-weight: normal;  
+    font-style: normal;  
+}
