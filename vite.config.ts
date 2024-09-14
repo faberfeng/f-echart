@@ -1,6 +1,7 @@
 import { defineConfig } from "vite";
 import requireTransform from "vite-plugin-require-transform";
 import vue from "@vitejs/plugin-vue";
+import path from "node:path";
 const mode = process.env.NODE_ENV;
 
 //头部导入
@@ -41,5 +42,25 @@ export default defineConfig({
       "@": fileURLToPath(new URL("./src", import.meta.url)),
     },
     extensions: [".js", ".ts", ".jsx", ".tsx", ".json", ".vue"],
+  },
+  build: {
+    outDir: "Fechart",
+    target: "es2015",
+    minify: "esbuild",
+    cssTarget: "chrome80",
+    chunkSizeWarningLimit: 2000,
+    lib: {
+      entry: path.resolve(__dirname, "./src/packages/index.js"),
+      name: "Fechart",
+      fileName: "Fechart",
+    },
+    rollupOptions: {
+      external: ["vue"],
+      output: {
+        globals: {
+          vue: "vue",
+        },
+      },
+    },
   },
 });
