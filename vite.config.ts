@@ -11,8 +11,8 @@ export default defineConfig({
     //用来配置跨域
     // host: "0.0.0.0",
     proxy: {
-      "/JGBStandardWeb": {
-        target: "https://ciac.zjw.sh.gov.cn", //目标服务器地址
+      "/api": {
+        target: "", //目标服务器地址
         changeOrigin: true,
         // rewrite: (path) => path.replace(/^\/JGBStandardWeb/, ""),
       },
