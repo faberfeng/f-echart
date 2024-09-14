@@ -1,4 +1,5 @@
 import { defineConfig } from "vite";
+import requireTransform from "vite-plugin-require-transform";
 import vue from "@vitejs/plugin-vue";
 const mode = process.env.NODE_ENV;
 
@@ -18,7 +19,12 @@ export default defineConfig({
     },
     // hmr: true,
   },
-  plugins: [vue()],
+  plugins: [
+    vue(),
+    requireTransform({
+      fileRegex: /\.(vue|js|ts|jsx|tsx)$/,
+    }),
+  ],
   //测试和正式环境的打包publicPath不一样,所以需要配置
   base: mode === "production" ? "./" : "/", //打包路径
   // 添加以下配置
@@ -34,5 +40,6 @@ export default defineConfig({
     alias: {
       "@": fileURLToPath(new URL("./src", import.meta.url)),
     },
+    extensions: [".js", ".ts", ".jsx", ".tsx", ".json", ".vue"],
   },
 });

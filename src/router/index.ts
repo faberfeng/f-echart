@@ -16,13 +16,11 @@ declare module "vue-router" {
 const routes: Array<RouteRecordRaw> = [
   {
     path: "/",
-    redirect: "/nav",
-    // redirect: "/home",
-    // redirect: "/admin/standardMgt",
+    redirect: "/home",
   },
   {
-    path: "/nav",
-    component: () => import("@/views/nav/index.vue"),
+    path: "/home",
+    component: () => import("@/views/home.vue"),
   },
 ];
 

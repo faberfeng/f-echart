@@ -9,7 +9,7 @@ import zhCN from "ant-design-vue/es/locale/zh_CN";
 import dayjs from "dayjs";
 import "dayjs/locale/zh-cn";
 dayjs.locale("zh-cn");
-
+import "./charts/init";
 export default {
   data() {
     return {
@@ -20,18 +20,33 @@ export default {
 </script>
 
 <style lang="scss">
-html {
-  font-size: 16px;
-  font-family: Arial, Verdana, Tahoma, 微软雅黑, 黑体;
-  color: #2c3e50;
+#app {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  min-height: 100%;
+  background: #000010;
 }
-.content {
-  width: 1136px;
-  margin: 110px auto 80px;
-  border: 1px solid #e9eaec;
-  border-color: #e9eaec;
-  border-radius: 4px;
-  padding: 16px;
-  box-sizing: border-box;
+
+.ff-fz {
+  font-family: "fanzheng";
+}
+
+.ff-pm {
+  font-family: "pangmeng";
+}
+
+.ff-fg {
+  font-family: "FZLTZHKGBK";
+}
+
+.chart-item {
+  width: 400px;
+  height: 225px;
+}
+
+.panel-bg {
+  background: url("~@/assets/imgs/chart/panel_bg.png") center no-repeat;
+  background-size: 100% 100%;
 }
 </style>

@@ -24,7 +24,7 @@ export const defaultChart = {
   animationEasing: "elasticOut",
   animationEasingUpdate: "elasticOut",
   animationDurationUpdate: 6000,
-  animationDelayUpdate: function(idx) {
+  animationDelayUpdate: function (idx) {
     return idx * 50;
   },
 };
@@ -117,10 +117,7 @@ export const hexToRgba = (hex, opacity) => {
  * @param {String} color 颜色值
  */
 export const thinColor = (color) => {
-  let arr = hexToRgba(color, 1)
-    .split("(")[1]
-    .split(",")
-    .slice(0, 3);
+  let arr = hexToRgba(color, 1).split("(")[1].split(",").slice(0, 3);
   const numArr = [1.2, 1.8, 2];
   arr = arr.map((item, index) => {
     return Math.floor(item * numArr[index]);
@@ -180,4 +177,7 @@ export const radialColor = (color1, color2, location) => {
     ],
     global: false,
   };
+};
+export const lineDefTooltip = {
+  trigger: "axis",
 };
