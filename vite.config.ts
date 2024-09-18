@@ -50,7 +50,7 @@ export default defineConfig({
     cssTarget: "chrome80",
     chunkSizeWarningLimit: 2000,
     lib: {
-      entry: path.resolve(__dirname, "./src/packages/index.js"),
+      entry: path.resolve(__dirname, "./src/components/index.js"),
       name: "Fechart",
       fileName: "Fechart",
     },
