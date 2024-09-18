@@ -25,6 +25,7 @@ import Second from "./second";
 import Seventh from "./seventh";
 import Eighth from "./eighth";
 export default {
+  name: "Energy",
   components: { First, Second, Seventh, Eighth },
   setup() {
     let firstObj = {

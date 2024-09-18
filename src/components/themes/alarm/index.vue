@@ -26,6 +26,7 @@ import Fourth from "./fourth";
 import Fifth from "./fifth";
 import Ninth from "./ninth";
 export default {
+  name: "Alarm",
   components: {
     Fourth,
     Fifth,

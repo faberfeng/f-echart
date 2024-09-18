@@ -27,6 +27,7 @@ import {
   gaugeChart12,
 } from "@/charts/gaugeChart";
 export default {
+  name: "GaugeChart",
   setup() {
     let charts = reactive({
       gaugeChart1Id: gaugeChart1,

@@ -24,6 +24,7 @@ import {
   columnChart10,
 } from "@/charts/columnChart";
 export default {
+  name: "ColumnChart",
   setup() {
     let charts = reactive({
       columnChart1Id: columnChart1,

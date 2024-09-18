@@ -39,6 +39,7 @@ import Fourth from "./fourth";
 import Fifth from "./fifth";
 import Sixth from "./sixth";
 export default {
+  name: "Fire",
   components: { Second, Third, Fourth, Fifth, Sixth },
   setup() {
     let secondObj = {

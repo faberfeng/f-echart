@@ -34,6 +34,7 @@ import {
   paleChart20,
 } from "@/charts/paleChart";
 export default {
+  name: "PaleChart",
   setup() {
     let charts = reactive({
       paleChart1Id: paleChart1,

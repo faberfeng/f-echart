@@ -20,6 +20,7 @@ import {
   curveChart6,
 } from "@/charts/curveChart";
 export default {
+  name: "CurveChart",
   setup() {
     let charts = reactive({
       curveChart1Id: curveChart1,

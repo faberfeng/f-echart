@@ -19,6 +19,7 @@ import {
   barChart5,
 } from "@/charts/barChart";
 export default {
+  name: "BarChart",
   setup() {
     let charts = reactive({
       barChart1Id: barChart1,

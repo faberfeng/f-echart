@@ -20,6 +20,7 @@ import {
   lineChart6,
 } from "@/charts/lineChart";
 export default {
+  name: "LineChart",
   setup() {
     let charts = reactive({
       lineChart1Id: lineChart1,

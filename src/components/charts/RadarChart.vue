@@ -13,6 +13,7 @@ import { init } from "echarts";
 import { nextTick, onMounted, reactive } from "vue";
 import { radarChart1, radarChart2 } from "@/charts/radarChart";
 export default {
+  name: "RadarChart",
   setup() {
     let charts = reactive({
       radarChart1Id: radarChart1,

@@ -17,6 +17,7 @@
 import First from "./first.vue";
 import Second from "./second.vue";
 export default {
+  name: "Device",
   components: { First, Second },
   setup() {
     let firstObj = {

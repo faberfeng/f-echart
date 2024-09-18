@@ -13,6 +13,7 @@
 <script>
 import Ninth from "./ninth";
 export default {
+  name: "Personnel",
   components: { Ninth },
   setup() {
     let ninthObj = {
