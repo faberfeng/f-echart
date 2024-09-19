@@ -1,7 +1,7 @@
 {
   "name": "faberechart",
-  "version": "1.0.2",
-  "private":false,
+  "version": "1.0.4",
+  "private": false,
   "description": "基于echart二次封装组件，对柱状图、折线图、饼状图等进行统一数据化处理",
   "main": "Fechart.js",
   "scripts": {
