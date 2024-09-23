@@ -15,7 +15,6 @@ import {
   areaChart7,
   areaChart8,
 } from "@/charts/areaChart";
-import { i } from "node_modules/vite/dist/node/types.d-aGj9QkWt";
 const props = defineProps({
   id: {
     type: String,
