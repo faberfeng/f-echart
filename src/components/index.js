@@ -28,11 +28,10 @@ const components = [
   Device,
 ];
 // 定义install方法，接收Vue作为参数。如果使用use注册插件，则所有的组件都将被注册
-const Fechart = {
+export const Fechart = {
   install(Vue) {
     components.forEach((component) => {
       Vue.component(component.name, component);
     });
   },
 };
-export default Fechart;

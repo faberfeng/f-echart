@@ -28,7 +28,7 @@ http://8.130.29.31/fechart/#/
 在vue的main.ts进行全局引用
 
 ```javascript
-import Fechart from "faberechart";
+import {Fechart} from "faberechart";
 const app = createApp(App);
 app.use(Fechart);
 ```

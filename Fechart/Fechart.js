@@ -64670,5 +64670,5 @@ const c2t = /* @__PURE__ */ $e(l2t, [["render", u2t]]), f2t = [K_t, sxt, gxt, Sx
   }
 };
 export {
-  d2t as default
+  d2t as Fechart
 };
