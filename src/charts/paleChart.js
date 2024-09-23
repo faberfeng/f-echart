@@ -9,7 +9,6 @@ import {
   linearColor,
   legendObj,
 } from "./common";
-
 // 第一个环状图
 const paleChart1Data = {
   color: ["#D5B3FF", "#FF6C38", "#F7D60B", "#11E2FF"],
@@ -1042,7 +1041,7 @@ export const paleChart10 = ({
     rings.push({
       type: "custom",
       coordinateSystem: "none",
-      renderItem: function(params, api) {
+      renderItem: function (params, api) {
         return {
           type: "arc",
           shape: {
@@ -2233,7 +2232,7 @@ export const paleChart19 = ({
     rings.push({
       type: "custom",
       coordinateSystem: "none",
-      renderItem: function(params, api) {
+      renderItem: function (params, api) {
         return {
           type: "arc",
           shape: {
@@ -2450,6 +2449,72 @@ export const paleChart20 = ({
       textStyle: {
         fontSize: defSize - 2,
         color: cfff6,
+      },
+    },
+    color: color,
+    series: series,
+  };
+};
+
+/**
+ * 第二十一个环状图-基础南丁格尔图
+ */
+const paleChart21Data = {
+  color: ["#4DEBE4", "#3186ED", "#F9BB4C", "#D7DAE4", "#514EE7"],
+  xData: ["空调", "照明", "电梯", "新风", "其他"],
+  sData: [
+    {
+      name: "",
+      data: [18, 18, 12, 10, 7],
+    },
+  ],
+};
+export const paleChart21 = ({
+  color = paleChart21Data.color,
+  xData = paleChart21Data.xData,
+  sData = paleChart21Data.sData,
+  showLegend = true,
+  isPercent = true,
+}) => {
+  const series = [
+    {
+      type: "pie",
+      radius: ["30%", "80%"],
+      center: ["50%", "50%"],
+      roseType: "area",
+      itemStyle: {
+        borderRadius: 4,
+      },
+      emphasis: {
+        scaleSize: 4,
+      },
+      label: {
+        color: cfff8,
+        formatter: isPercent ? "{d}%" : "{c}",
+      },
+      labelLine: {
+        length: 20,
+        length2: 5,
+      },
+      data: sData[0].data.map((item, index) => {
+        return {
+          name: xData[index],
+          value: item,
+        };
+      }),
+    },
+  ];
+  return {
+    ...defaultChart,
+    legend: {
+      show: showLegend,
+      bottom: 0,
+      icon: "circle",
+      itemWidth: 5,
+      itemHeight: 5,
+      textStyle: {
+        fontSize: xData.length > 4 ? defSize - 4 : defSize - 2,
+        color: cfff8,
       },
     },
     color: color,

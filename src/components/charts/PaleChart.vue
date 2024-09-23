@@ -32,6 +32,7 @@ import {
   paleChart18,
   paleChart19,
   paleChart20,
+  paleChart21,
 } from "@/charts/paleChart";
 export default {
   name: "PaleChart",
@@ -57,6 +58,7 @@ export default {
       paleChart18Id: paleChart18,
       paleChart19Id: paleChart19,
       paleChart20Id: paleChart20,
+      paleChart21Id: paleChart21,
     });
 
     function initChart() {

@@ -28,7 +28,7 @@ http://8.130.29.31/fechart/#/
 在vue的main.ts进行全局引用
 
 ```javascript
-import { Fechart } from "faberechart";
+import Fechart from "faberechart";
 const app = createApp(App);
 app.use(Fechart);
 ```
@@ -38,32 +38,62 @@ app.use(Fechart);
 ```vue
 <template>
     <div class="chart">
-      <LineChart />
+      <LineChart style="width:400px;height:400px" :id="id" :data="data" :isMock="isMock"  />
     </div>
+
 </template>
+
 <script setup>
+  let id ="paleChart1";  //id表示不同类型风格的图，唯一值，通过
+  let isMock=false; //默认为true,是否读取默认模拟数据，则不会读取data的数据
+  let data={
+    color: ["#2549FF", "#D58B2C", "#AF7FFF"], //图的颜色组
+    xData: ["人工智能", "生命健康", "数字信息", "其他"], //x坐标的数据
+    sData: [
+      {
+        name: "迁入",
+        data: [100, 900, 700, 50],
+      },
+      {
+        name: "回迁",
+        data: [400, 350, 300, 950],
+      },
+      {
+        name: "迁出",
+        data: [300, 200, 750, 550],
+      },
+    ],//多条数据的对应y坐标的数据
+  };
 </script>
 
 <style></style>
+
 ```
+
+| 参数值 | 说明 | 例子 |
+| --- | --- | --- |
+| id | 表示图的不同类型和风格 | id="curveChart3" |
+| data | 表示传参给图表的数据包括颜色组，x坐标数据，y坐标数据（可多条数据）【所有图表都统一为一种格式，方便用户直接理解和使用】 | ```vue data={     color: ["#2549FF", "#D58B2C", "#AF7FFF"], //图的颜色组     xData: ["人工智能", "生命健康", "数字信息", "其他"], //x坐标的数据     sData: [       {         name: "迁入",         data: [100, 900, 700, 50],       },       {         name: "回迁",         data: [400, 350, 300, 950],       },       {         name: "迁出",         data: [300, 200, 750, 550],       },     ] ```  |
+| isMock | 表示是否用模拟数据，默认为true。如果为false,则会读取data的数据 | |
+
 
 以下是组件预览
 
-| 组件名称 | 组件 | 备注 |
+| 组件名称 | 组件 | （id值）可选-类型风格 |
 | --- | --- | --- |
-| <font style="color:rgb(6, 6, 7);">曲线图或折线图</font> | CurveChart |  |
-| <font style="color:rgb(6, 6, 7);">面积图或区域图</font> | AreaChart |  |
-| <font style="color:rgb(6, 6, 7);">条形图</font> | BarChart |  |
-| <font style="color:rgb(6, 6, 7);">柱状图</font> | ColumnChart |  |
-| <font style="color:rgb(6, 6, 7);">饼图</font> | PaleChart |  |
-| <font style="color:rgb(6, 6, 7);">雷达图或蜘蛛网图</font> | RadarChart |  |
-| <font style="color:rgb(6, 6, 7);">仪表盘图或计量表图</font> | GaugeChart |  |
-| 折线图组件 | LineChart |  |
-| <font style="color:rgb(6, 6, 7);">能源</font> | Energy |  |
-| <font style="color:rgb(6, 6, 7);">火警、火灾</font> | Fire |  |
-| <font style="color:rgb(6, 6, 7);">报警、警报</font> | Alarm |  |
-| <font style="color:rgb(6, 6, 7);">设备</font> | Device |  |
-| <font style="color:rgb(6, 6, 7);">人员、人力资源</font> | Personnel | |
+| <font style="color:rgb(6, 6, 7);">曲线图或折线图</font> | CurveChart | ```vue curveChart1, curveChart2, curveChart3, curveChart4, curveChart5, curveChart6, ```  |
+| <font style="color:rgb(6, 6, 7);">面积图或区域图</font> | AreaChart | ```vue areaChart1, areaChart2, areaChart3, areaChart4, areaChart5, areaChart6, areaChart7, areaChart8, ```  |
+| <font style="color:rgb(6, 6, 7);">条形图</font> | BarChart | ```vue barChart1, barChart2, barChart3, barChart4, barChart5, ```  |
+| <font style="color:rgb(6, 6, 7);">柱状图</font> | ColumnChart | ```vue columnChart1,   columnChart2,   columnChart3,   columnChart4,   columnChart5,   columnChart6,   columnChart7,   columnChart8,   columnChart9,   columnChart10, ```  |
+| <font style="color:rgb(6, 6, 7);">饼图</font> | PaleChart | ```vue paleChart1,   paleChart2,   paleChart3,   paleChart4,   paleChart5,   paleChart6,   paleChart7,   paleChart8,   paleChart9,   paleChart10,   paleChart11,   paleChart12,   paleChart13,   paleChart14,   paleChart15,   paleChart16,   paleChart17,   paleChart18,   paleChart19,   paleChart20,   paleChart21, ```  |
+| <font style="color:rgb(6, 6, 7);">雷达图或蜘蛛网图</font> | RadarChart | ```vue radarChart1, radarChart2 ```  |
+| <font style="color:rgb(6, 6, 7);">仪表盘图或计量表图</font> | GaugeChart | ```vue gaugeChart1,   gaugeChart2,   gaugeChart3,   gaugeChart4,   gaugeChart5,   gaugeChart6,   gaugeChart7,   gaugeChart8,   gaugeChart9,   gaugeChart10,   gaugeChart11,   gaugeChart12, ```  |
+| 折线图组件 | LineChart | ```vue lineChart1,   lineChart2,   lineChart3,   lineChart4,   lineChart5,   lineChart6, ```  |
+| <font style="color:rgb(6, 6, 7);">能源</font> | Energy | 暂时提供整个组件引用 |
+| <font style="color:rgb(6, 6, 7);">火警、火灾</font> | Fire | 暂时提供整个组件引用 |
+| <font style="color:rgb(6, 6, 7);">报警、警报</font> | Alarm | 暂时提供整个组件引用 |
+| <font style="color:rgb(6, 6, 7);">设备</font> | Device | 暂时提供整个组件引用 |
+| <font style="color:rgb(6, 6, 7);">人员、人力资源</font> | Personnel | 暂时提供整个组件引用 |
 
 
 ### 组件说明

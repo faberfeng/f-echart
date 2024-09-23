@@ -54,6 +54,7 @@ import AreaChart from "@/components/charts/AreaChart.vue";
 import BarChart from "@/components/charts/BarChart.vue";
 import ColumnChart from "@/components/charts/ColumnChart.vue";
 import PaleChart from "@/components/charts/PaleChart.vue";
+// import PaleChart from "@/components/packages/charts/PaleChart.vue";
 import RadarChart from "@/components/charts/RadarChart.vue";
 import GaugeChart from "@/components/charts/GaugeChart.vue";
 
@@ -86,7 +87,7 @@ export default {
     Html2canvas,
   },
   setup() {
-    let currBtn = ref(0);
+    let currBtn = ref(5);
     let chartBtns = reactive([
       "折线图",
       "曲线图",
