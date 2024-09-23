@@ -136,3 +136,5 @@ app.use(Fechart);
 
 随着我们技术的不断进步和创新，我们承诺将带来更加强大、灵活且易于使用的前端图表解决方案。敬请期待我们的下一次迭代更新，它将为您带来前所未有的开发体验和数据可视化能力。
 
+### 源码github库地址：
+https://github.com/faberfeng/f-echart/tree/main_vite
